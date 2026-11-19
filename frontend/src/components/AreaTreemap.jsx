@@ -1,12 +1,14 @@
 import { ResponsiveContainer, Tooltip, Treemap } from 'recharts';
 import { formatMeur, formatPct } from '../format.js';
+import { MEASURES } from '../measures.js';
+import { shareStep } from '../scale.js';
 
-// Escala de un solo tono (azul): más oscuro = más dinero.
-// Se asigna por posición en el ranking, de mayor a menor importe.
-const BLUES = ['#104281', '#184f95', '#1c5cab', '#256abf', '#2a78d6', '#3987e5', '#5598e7', '#6da7ec', '#86b6ef', '#9ec5f4'];
-const WHITE_TEXT_UNTIL = 4; // en los tonos más claros el texto va en negro para que se lea
-
-const SEVERITY_COLOR = { critical: '#d03b3b', warning: '#fab219', info: '#ffffff' };
+// Color del círculo con el número de avisos (texto oscuro en el ámbar para que se lea).
+const BADGE = {
+  critical: { fill: 'var(--critical)', ink: '#ffffff' },
+  warning: { fill: 'var(--warning-mark)', ink: '#191b18' },
+  info: { fill: 'var(--info)', ink: '#ffffff' },
+};
 
 function goToArea(id) {
   window.location.hash = `#/ambito/${id}`;
@@ -14,48 +16,41 @@ function goToArea(id) {
 
 // Recharts llama a esta función para dibujar cada rectángulo del mapa.
 function Cell(props) {
-  const { x, y, width, height, depth, name, id, rank, share_of_total_pct, amount_meur, alert_count, max_severity } = props;
+  const { x, y, width, height, depth, name, id, share_of_total_pct, alert_count, max_severity, label } = props;
   if (depth !== 1) return null; // depth 0 es la raíz; solo pintamos los ámbitos
-  const fill = BLUES[Math.min(rank, BLUES.length - 1)];
-  const ink = rank <= WHITE_TEXT_UNTIL ? '#ffffff' : '#0b0b0b';
+  const { fill, ink } = shareStep(share_of_total_pct);
   const showName = width > 80 && height > 40;
-  const showAmount = width > 80 && height > 64;
-  const hasBadge = alert_count > 0 && width > 40 && height > 30;
-  const textRoom = width - 20 - (hasBadge ? 26 : 0); // espacio libre para el nombre
-  const maxChars = Math.floor(textRoom / 7.5);
+  const showValue = height > 64 && label.length * 11 + 24 < width; // solo si la cifra cabe entera
+  const hasBadge = alert_count > 0 && width > 44 && height > 32;
+  const textRoom = width - 24 - (hasBadge ? 28 : 0);
+  const maxChars = Math.floor(textRoom / 7.6);
+  const badge = BADGE[max_severity] ?? BADGE.info;
 
   return (
     <g
       className="treemap-cell"
       tabIndex={0}
       role="link"
-      aria-label={`${name}: ${formatMeur(amount_meur)}, ${formatPct(share_of_total_pct)} del total${alert_count ? `, ${alert_count} avisos` : ''}`}
+      aria-label={`${name}: ${label}, ${formatPct(share_of_total_pct)} del total${alert_count ? `, ${alert_count} avisos` : ''}`}
       onClick={() => goToArea(id)}
       onKeyDown={(e) => e.key === 'Enter' && goToArea(id)}
     >
-      {/* el borde de 2px del color de fondo separa los rectángulos */}
-      <rect x={x} y={y} width={width} height={height} rx={6} fill={fill} stroke="var(--surface)" strokeWidth={2} />
+      {/* el borde blanco de 2 px separa los rectángulos */}
+      <rect x={x} y={y} width={width} height={height} rx={8} fill={fill} stroke="var(--paper)" strokeWidth={2} />
       {showName && (
-        <text x={x + 10} y={y + 22} fill={ink} fontSize={14} fontWeight={600}>
-          {name.length > maxChars ? `${name.slice(0, maxChars - 1)}…` : name}
+        <text x={x + 12} y={y + 24} fill={ink} fontSize={14} fontWeight={500}>
+          {name.length > maxChars ? `${name.slice(0, Math.max(1, maxChars - 1))}…` : name}
         </text>
       )}
-      {showAmount && (
-        <text x={x + 10} y={y + 42} fill={ink} fontSize={13} opacity={0.9}>
-          {formatPct(share_of_total_pct)}
+      {showValue && (
+        <text x={x + 12} y={y + 50} fill={ink} fontSize={20} fontFamily="var(--serif)">
+          {label}
         </text>
       )}
       {hasBadge && (
         <g aria-hidden="true">
-          <circle cx={x + width - 16} cy={y + 16} r={10} fill={SEVERITY_COLOR[max_severity] ?? '#ffffff'} stroke={fill} strokeWidth={2} />
-          <text
-            x={x + width - 16}
-            y={y + 20}
-            textAnchor="middle"
-            fontSize={11}
-            fontWeight={800}
-            fill={max_severity === 'critical' ? '#ffffff' : '#0b0b0b'}
-          >
+          <circle cx={x + width - 18} cy={y + 18} r={10} fill={badge.fill} stroke="var(--paper)" strokeWidth={2} />
+          <text x={x + width - 18} y={y + 22} textAnchor="middle" fontSize={11} fontWeight={600} fill={badge.ink}>
             {alert_count}
           </text>
         </g>
@@ -70,16 +65,19 @@ function TreemapTooltip({ active, payload }) {
   return (
     <div className="tooltip">
       <strong>{a.name}</strong>
-      {formatMeur(a.amount_meur)} · {formatPct(a.share_of_total_pct)} del total
+      <div>{formatMeur(a.amount_meur)}</div>
+      <div>{formatPct(a.share_of_total_pct)} del gasto total, {formatPct(a.pct_gdp)} del PIB</div>
       {a.alert_count > 0 && <div>{a.alert_count === 1 ? '1 aviso' : `${a.alert_count} avisos`}</div>}
     </div>
   );
 }
 
-export default function AreaTreemap({ areas }) {
+// Mapa del gasto: el área de cada bloque es su importe y el tono, su cuota del total.
+export default function AreaTreemap({ areas, measure = 'amount' }) {
+  const m = MEASURES[measure];
   const data = [...areas]
     .sort((a, b) => b.amount_meur - a.amount_meur)
-    .map((a, rank) => ({ ...a, rank }));
+    .map((a) => ({ ...a, label: m.format(m.get(a)) }));
 
   return (
     <div className="treemap-wrap">

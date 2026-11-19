@@ -38,3 +38,13 @@ export function formatNumber(value, unit) {
   if (unit === '%') return formatPct(value);
   return `${dec1.format(value)}${unit ? ` ${unit}` : ''}`;
 }
+
+// Diferencia en puntos porcentuales: 0.34 -> "+0,3 p. p."
+export function formatPoints(value) {
+  if (value === null || value === undefined) return 'Sin dato';
+  const sign = value > 0 ? '+' : value < 0 ? '−' : '';
+  return `${sign}${dec1.format(Math.abs(value))} p. p.`;
+}
+
+// Para ejes de gráficos: 680225 -> "680 mil"
+export const compact = new Intl.NumberFormat('es-ES', { notation: 'compact', maximumFractionDigits: 1 });
