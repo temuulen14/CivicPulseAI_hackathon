@@ -9,7 +9,7 @@ export default function CiteButton({ text, source, legal }) {
   async function copy() {
     const parts = [text, `Fuente: ${source.name} (${source.url}).`];
     if (legal) parts.push(`${legal.law_title} (${legal.boe_url}).`);
-    parts.push(`Visto en CuentasClaras: ${window.location.href}`);
+    parts.push(`Visto en Cristalino: ${window.location.href}`);
     try {
       await navigator.clipboard.writeText(parts.join(' '));
       setStatus('copied');
