@@ -6,6 +6,7 @@ import { formatKeur, formatPct } from '../format.js';
 import { sentenceCase } from '../labels.js';
 import Status from '../components/Status.jsx';
 import YearPicker from '../components/YearPicker.jsx';
+import CiteButton from '../components/CiteButton.jsx';
 
 function Breadcrumb({ program }) {
   return (
@@ -137,6 +138,10 @@ export default function BudgetProgram({ id, year, years, onYearChange }) {
           <span className="stat-value">{pr.sections.length}</span>
         </div>
       </section>
+      <CiteButton
+        text={`El programa ${pr.program_id} «${pr.name}» tiene ${formatKeur(pr.total_keur)} en ${pr.document === 'Prorroga' ? `el presupuesto prorrogado vigente en ${pr.year}` : `los Presupuestos Generales del Estado de ${pr.year}`}.`}
+        source={source}
+      />
 
       {pr.sections.map((s) => (
         <section key={s.section_id} className="section" aria-label={sentenceCase(s.section_name)}>

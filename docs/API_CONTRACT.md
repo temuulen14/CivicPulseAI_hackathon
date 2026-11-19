@@ -1,4 +1,4 @@
-# Contrato de API (v1.2)
+# Contrato de API (v1.3)
 
 Base: `http://localhost:8000/api`. Documentación interactiva en `http://localhost:8000/docs`.
 Un `year` sin datos devuelve `404`. Todo JSON, campos en `snake_case`.
@@ -10,6 +10,9 @@ en `/areas/{id}`; y las cuatro rutas de `/budget` (Presupuestos Generales del Es
 
 **v1.2 (19-11): solo añade.** Nuevo en `/compare`: `world_rows` y `world_source_id`
 (grandes economías fuera de la UE, con datos de la OCDE).
+
+**v1.3 (19-11): solo añade.** Dos rutas nuevas de los PGE: `/budget/search` (buscador de
+programas y partidas) y `/budget/eu-recovery` (reparto de los fondos europeos).
 
 Convenciones:
 
@@ -333,6 +336,74 @@ Un programa hasta la última partida de la Ley. `404` si ese programa no existe 
   **Para sumar, solo las de `level` 1**: las demás ya están contenidas en ellas.
 - `undetailed_keur`: la parte de un organismo que la Ley no reparte por capítulos.
 - Un programa puede no tener `lines` (la Ley solo da su total).
+
+### GET /budget/search?q=becas&year=2023
+
+Buscador: programas del año cuyo nombre, código, organismo gestor o alguna partida contienen
+**todas** las palabras de `q` (sin distinguir mayúsculas ni tildes). `q` de 2 a 80
+caracteres; si no, `422`.
+
+```json
+{
+  "query": "becas", "year": 2023, "document": "Ley",
+  "program_count": 51,
+  "source_id": "sepg_pge_estado_gastos",
+  "results": [
+    {
+      "program_id": "323M", "name": "Becas y ayudas a estudiantes",
+      "policy_id": "32", "policy_name": "Educación",
+      "section_names": ["MINISTERIO DE EDUCACIÓN Y FORMACIÓN PROFESIONAL", "MINISTERIO DE UNIVERSIDADES"],
+      "total_keur": 2599719.24, "eu_recovery_keur": 0.0,
+      "name_match": true,
+      "matched_bodies": [],
+      "line_match_count": 9,
+      "lines": [
+        {"section_name": "MINISTERIO DE EDUCACIÓN Y FORMACIÓN PROFESIONAL", "economic_code": "482",
+         "description": "Becas y ayudas al estudio de carácter general", "amount_keur": 2474326.19}
+      ]
+    }
+  ]
+}
+```
+
+- `program_count` son todos los programas encontrados; `results` trae como mucho 30.
+- Orden: primero los encontrados por su nombre, código u organismo (de mayor a menor
+  importe del programa); después los encontrados solo por una partida (de mayor a menor
+  importe de su mayor partida coincidente).
+- `name_match`: el nombre o el código del programa coincide. `matched_bodies`: organismos
+  gestores cuyo nombre coincide («AGENCIA ESTATAL DE METEOROLOGÍA»).
+- `lines`: las 5 partidas coincidentes de mayor importe; `line_match_count` dice cuántas hay
+  en total. **No se suman**: una partida puede estar dentro de otra (ver `level` arriba).
+- Sin resultados: `results` vacío y `source_id` `null`.
+
+### GET /budget/eu-recovery?year=2023
+
+A dónde van los fondos europeos de recuperación del año, por política y por programa.
+
+```json
+{
+  "year": 2023, "document": "Ley",
+  "eu_recovery_keur": 26538869.31,
+  "total_without_social_security_keur": 379810403.74,
+  "share_of_state_budget_pct": 7.0,
+  "source_id": "sepg_pge_estado_gastos",
+  "policies": [
+    {"id": "46", "name": "Investigación, desarrollo, innovación y digitalización", "area_id": "GF04",
+     "total_keur": 17766985.03, "eu_recovery_keur": 8228477.88, "share_of_eu_recovery_pct": 31.0}
+  ],
+  "programs": [
+    {"program_id": "46LB", "name": "C12.I02 Programa de impulso de la Competitividad y Sostenibilidad Industrial. I+D+i+Digitalización",
+     "policy_id": "46", "policy_name": "Investigación, desarrollo, innovación y digitalización",
+     "section_names": ["MINISTERIO DE INDUSTRIA, COMERCIO Y TURISMO"],
+     "total_keur": 2898670.0, "eu_recovery_keur": 2898670.0}
+  ]
+}
+```
+
+- Solo políticas y programas con fondos europeos, de mayor a menor `eu_recovery_keur`.
+  Las dos listas suman `eu_recovery_keur` del año.
+- `share_of_state_budget_pct`: sobre el total sin Seguridad Social.
+- Antes de 2021 las listas vienen vacías y el importe es `0`; en 2020 (sin documento), `null`.
 
 ## Errores
 

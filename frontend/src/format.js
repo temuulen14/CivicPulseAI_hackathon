@@ -55,9 +55,13 @@ export const compact = new Intl.NumberFormat('es-ES', { notation: 'compact', max
 
 // Los Presupuestos del Estado vienen en miles de euros (_keur), como el documento de Hacienda.
 // Se enseñan en millones, igual que el resto de la app: 1599547.1 -> "1.600 M€"
+// Por debajo del millón se dice en miles o en euros: una partida de 316.000 € no es "0 M€".
 export function formatKeur(value) {
   if (value === null || value === undefined) return 'Sin dato';
-  return formatMeur(value / 1000);
+  const size = Math.abs(value);
+  if (size >= 1000 || size === 0) return formatMeur(value / 1000);
+  if (size >= 1) return `${int.format(value)} mil\u00a0€`;
+  return `${int.format(value * 1000)}\u00a0€`;
 }
 
 export function formatKeurWords(value) {
