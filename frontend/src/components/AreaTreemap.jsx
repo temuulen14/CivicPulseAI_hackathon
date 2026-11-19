@@ -5,9 +5,9 @@ import { shareStep } from '../scale.js';
 
 // Color del círculo con el número de avisos (texto oscuro en el ámbar para que se lea).
 const BADGE = {
-  critical: { fill: 'var(--critical)', ink: '#ffffff' },
+  critical: { fill: 'var(--critical)', ink: 'var(--on-accent)' },
   warning: { fill: 'var(--warning-mark)', ink: '#191b18' },
-  info: { fill: 'var(--info)', ink: '#ffffff' },
+  info: { fill: 'var(--info)', ink: 'var(--on-accent)' },
 };
 
 function goToArea(id) {
