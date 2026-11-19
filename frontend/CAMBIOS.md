@@ -817,3 +817,20 @@ sí); los fondos europeos son dinero presupuestado, no necesariamente gastado.
 - En Chrome sin ventana contra el backend real, a 1280 px y 390 px: búsquedas con y sin
   resultados, fondos europeos de 2025, y el texto copiado en las cinco páginas. Sin errores
   de consola, sin scroll horizontal y sin «NaN»/«null».
+
+## 19. El mapa dentro de «Comparar» y el buscador como lupa (19-11-2026, Pedro)
+
+A petición de Pedro, para aligerar la cabecera (de ocho enlaces a seis).
+
+- **Mapa.** Ya no tiene enlace propio: es una vista de «Comparar con otros países». Un
+  control segmentado sobre el título (`Segmented`, el mismo de la portada) cambia entre
+  «País a país» (`#/comparar`) y «Mapa» (`#/comparar/mapa`). La vista va en la URL, así que
+  se puede enlazar y funciona el botón «atrás». `#/mapa` sigue abriendo el mapa para no
+  romper enlaces antiguos. Las dos páginas (`Compare.jsx`, `WorldLeaders.jsx`) no cambian:
+  solo `App.jsx` decide cuál pinta.
+- **Buscar.** Sale del menú y pasa a ser una lupa (SVG en línea, con `aria-label`) a la
+  derecha de la cabecera; en móvil queda arriba a la derecha, junto al nombre. En el pie
+  sigue como enlace de texto.
+
+Comprobado: `npx eslint src` y `npm run build` sin errores; en Chrome sin ventana contra el
+backend real, `#/comparar`, `#/comparar/mapa`, `#/mapa` y `#/buscar` a 1280 px y 390 px.

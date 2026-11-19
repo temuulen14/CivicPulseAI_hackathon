@@ -77,6 +77,12 @@ main.container > * { min-width: 0; }
 .site-nav a[aria-current='page'] { color: var(--ink); background: var(--mist-2); }
 .header-inner { flex-wrap: wrap; }
 .site-nav { flex: 1; justify-content: center; }
+/* Lupa del buscador, a la derecha del menú */
+.header-search { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 999px; color: var(--graphite); transition: background 0.15s, color 0.15s; }
+.header-search:hover { color: var(--ink); background: var(--mist); }
+.header-search[aria-current='page'] { color: var(--ink); background: var(--mist-2); }
+/* Selector de vista de «Comparar»: va sobre el título y la rejilla de main no debe estirarlo */
+main.container > .segmented { justify-self: start; margin-bottom: -40px; }
 /* Interruptor euros / % del PIB: va junto a cada gráfico o tabla que cambia con la medida */
 .measure-switch { display: inline-flex; align-items: center; gap: 8px; }
 .measure-switch-label { font-size: 0.8rem; color: var(--muted); white-space: nowrap; }
@@ -374,6 +380,9 @@ a.div-row:hover, button.div-row:hover { background: var(--mist); }
   .site-nav { max-width: 100%; flex-wrap: wrap; margin-left: -10px; justify-content: flex-start; }
   .footer-inner { grid-template-columns: 1fr; padding-top: 32px; }
   .site-nav a { padding: 0 10px; min-height: 36px; }
+  .header-inner { position: relative; }
+  main.container > .segmented { margin-bottom: -28px; }
+  .header-search { position: absolute; top: 6px; right: 12px; } /* arriba a la derecha, junto al nombre */
   .years { gap: 2px; }
   .year { flex: 1 1 0; min-width: 0; padding: 6px 0; font-size: 0.72rem; }
   .hero-contours { width: 100%; top: -20px; right: 0; }
