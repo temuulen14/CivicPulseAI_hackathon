@@ -108,7 +108,7 @@ const INDICATORS = {
 const CROSSES = [
   {
     key: 'rail', area_id: 'GF04', subarea_id: 'GF0405', spend: 55.0, use: 9.3, threshold: 2.0,
-    title: 'El tren recibe mucha más inversión que viajeros',
+    title: 'Ferrocarril: inversión frente a viajeros',
     message: (s, u) => `El ferrocarril se lleva el ${fmt(s)} % de la inversión en transporte y mueve el ${fmt(u)} % de los viajeros.`,
     labels: ['Inversión en tren', 'Viajeros en tren'],
     note: 'Las infraestructuras ferroviarias cuestan mucho al principio y se usan durante décadas. En años de construcción de alta velocidad es normal que la cuota de gasto supere a la de uso.',
@@ -116,7 +116,7 @@ const CROSSES = [
   },
   {
     key: 'bus', area_id: 'GF04', subarea_id: 'GF0405', spend: 3.2, use: 6.7, threshold: 1.5,
-    title: 'El autobús mueve más viajeros de los que recibe en inversión',
+    title: 'Autobús: inversión frente a viajeros',
     message: (s, u) => `El autobús recibe el ${fmt(s)} % del presupuesto de transporte y mueve el ${fmt(u)} % de los viajeros.`,
     labels: ['Inversión en autobús', 'Viajeros en autobús'],
     note: 'Buena parte del autobús lo pagan ayuntamientos y empresas concesionarias con tarifas, y no aparece como inversión pública en transporte.',
@@ -124,7 +124,7 @@ const CROSSES = [
   },
   {
     key: 'road', area_id: 'GF04', subarea_id: 'GF0405', spend: 38.0, use: 84.0, threshold: 1.5,
-    title: 'La carretera recibe menos inversión de lo que se usa',
+    title: 'Carretera: inversión frente a viajeros en coche',
     message: (s, u) => `Las carreteras reciben el ${fmt(s)} % de la inversión en transporte y por ellas se mueve el ${fmt(u)} % de los viajeros en coche.`,
     labels: ['Inversión en carretera', 'Viajeros en coche'],
     note: 'Gran parte del coste del coche lo pagan los conductores (vehículo, combustible, peajes). Una cuota de inversión pública menor que la de uso puede ser deliberada para favorecer el transporte colectivo.',
@@ -132,7 +132,7 @@ const CROSSES = [
   },
   {
     key: 'university', area_id: 'GF09', subarea_id: 'GF0904', spend: 18.0, use: 21.0, threshold: 1.15,
-    title: 'La universidad recibe algo menos de lo que pesa su alumnado',
+    title: 'Universidad: gasto frente a alumnado',
     message: (s, u) => `La universidad recibe el ${fmt(s)} % del gasto en educación y concentra el ${fmt(u)} % del alumnado.`,
     labels: ['Gasto en universidad', 'Alumnado universitario'],
     note: 'Las matrículas cubren parte del coste universitario, así que no todo el gasto aparece como gasto público.',
@@ -140,7 +140,7 @@ const CROSSES = [
   },
   {
     key: 'public_health', area_id: 'GF07', subarea_id: 'GF0704', spend: 3.0, use: 8.0, threshold: 2.0,
-    title: 'La salud pública recibe poco frente a las consultas que atiende',
+    title: 'Salud pública: gasto frente a consultas',
     message: (s, u) => `La salud pública recibe el ${fmt(s)} % del gasto sanitario y atiende el ${fmt(u)} % de las consultas.`,
     labels: ['Gasto en salud pública', 'Consultas de salud pública'],
     note: 'La prevención (vacunas, cribados) es barata por persona atendida; una cuota de gasto baja no implica por sí sola que falten recursos.',
@@ -284,11 +284,11 @@ function internationalAlert(area, year) {
     area_id: area.id,
     subarea_id: null,
     year,
-    title: `${area.name}: España ${more ? 'por encima' : 'por debajo'} de la mediana europea`,
+    title: `España gasta ${more ? 'más' : 'menos'} que la mediana europea en ${area.name}`,
     message: `España dedica a ${area.name.toLowerCase()} el ${fmt(es)} % de su PIB, un ${Math.round(distance * 100)} % ${more ? 'más' : 'menos'} que la mediana de la UE (${fmt(median)} %).`,
     evidence: [
       { label: 'España', value: es, unit: '% del PIB', source_id: 'eurostat_gov_10a_exp' },
-      { label: 'Mediana UE', value: median, unit: '% del PIB', source_id: 'eurostat_gov_10a_exp' },
+      { label: 'Mediana europea', value: median, unit: '% del PIB', source_id: 'eurostat_gov_10a_exp' },
     ],
     analyst_note: area.id === 'GF01'
       ? 'Esta función incluye los intereses de la deuda pública, que dependen de la deuda acumulada más que de las decisiones de cada año.'

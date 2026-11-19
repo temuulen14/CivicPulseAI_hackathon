@@ -54,11 +54,10 @@ export default function App() {
     <>
       <header className="site-header">
         <div className="container header-inner">
-          <a href="#/" className="brand">
-            <span className="brand-mark" aria-hidden="true">€</span>
+          <a href="#/" className="wordmark">
             CuentasClaras
           </a>
-          <nav aria-label="Principal">
+          <nav className="site-nav" aria-label="Principal">
             {NAV.map((item) => (
               <a key={item.page} href={item.href} aria-current={activePage === item.page ? 'page' : undefined}>
                 {item.label}
@@ -81,9 +80,12 @@ export default function App() {
       </main>
 
       <footer className="site-footer">
-        <div className="container">
-          Gasto del conjunto de las administraciones públicas según Eurostat (COFOG). Cada cifra enlaza a su
-          fuente oficial en <a href="#/fuentes">Fuentes</a>. Equipo Leather and Lies · Hackatón 2Campus1Code.
+        <div className="container footer-inner">
+          <p>
+            Gasto del conjunto de las administraciones públicas según Eurostat (COFOG). Cada cifra enlaza a su
+            fuente oficial en <a href="#/fuentes">Fuentes</a>.
+          </p>
+          <p>Hecho por el equipo Leather and Lies para el Hackatón 2Campus1Code.</p>
         </div>
       </footer>
     </>

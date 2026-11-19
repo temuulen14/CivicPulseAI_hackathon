@@ -1,44 +1,46 @@
 import { useState } from 'react';
-import { Bar, BarChart, Cell, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
-import { getAreas, getCompare } from '../api.js';
+import { CartesianGrid, Line, LineChart, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import { getCompare } from '../api.js';
 import { useApi } from '../useApi.js';
+import { getAreasCached, useEachYear } from '../useAllYears.js';
 import { useSourcesById } from '../sources.js';
 import { formatPct } from '../format.js';
 import Status from '../components/Status.jsx';
-import YearSelect from '../components/YearSelect.jsx';
-import BarValueLabel from '../components/BarValueLabel.jsx';
+import YearPicker from '../components/YearPicker.jsx';
 
-function CompareTooltip({ active, payload }) {
-  if (!active || !payload?.length) return null;
-  const r = payload[0].payload;
-  return (
-    <div className="tooltip">
-      <strong>{r.name}</strong>
-      {formatPct(r.value)} del PIB · puesto {r.rank}
-      {r.provisional && ' (provisional)'}
-    </div>
-  );
-}
+const AXIS = { stroke: 'var(--line-strong)', tick: { fill: 'var(--muted)', fontSize: 12 }, tickLine: false };
 
 // Frase que resume la posición de España, para que no haga falta leer el gráfico.
 function summary(data) {
   const es = data.rows.find((r) => r.country === 'ES');
   if (!es || es.value === null || data.eu_median === null) return null;
   const diff = es.value - data.eu_median;
-  const where = Math.abs(diff) < 0.05 ? 'igual que la mediana' : `${formatPct(Math.abs(diff))} del PIB ${diff > 0 ? 'por encima' : 'por debajo'} de la mediana`;
-  return `España dedica a ${data.area_name.toLowerCase()} el ${formatPct(es.value)} de su PIB: puesto ${es.rank} de ${data.rows.length}, ${where} de la UE (${formatPct(data.eu_median)}).`;
+  const where =
+    Math.abs(diff) < 0.05
+      ? 'igual que la mediana'
+      : `${formatPct(Math.abs(diff)).replace(' %', ' puntos')} ${diff > 0 ? 'por encima' : 'por debajo'} de la mediana`;
+  const ranked = data.rows.filter((r) => r.value !== null).length;
+  return `España dedica a ${data.area_name.toLowerCase()} el ${formatPct(es.value)} de su PIB: puesto ${es.rank} de ${ranked}, ${where} de la UE (${formatPct(data.eu_median)}).`;
 }
 
 export default function Compare({ year, years, onYearChange }) {
   const [areaId, setAreaId] = useState('GF07');
-  const areas = useApi(() => getAreas(year), [year]);
+  const areas = useApi(() => getAreasCached(year), [year]);
   const compare = useApi(() => getCompare({ area: areaId, year }), [areaId, year]);
+  // El mismo ámbito en todos los años, para la evolución de España frente a la mediana.
+  const history = useEachYear((y) => getCompare({ area: areaId, year: y }), years, [areaId]);
   const sources = useSourcesById();
 
-  const options = [...(areas.data?.areas ?? [])].sort((a, b) => a.name.localeCompare(b.name, 'es'));
+  const options = [...(areas.data?.areas ?? [])].sort((a, b) => b.amount_meur - a.amount_meur);
   const data = compare.data;
   const rows = data ? data.rows.filter((r) => r.value !== null).sort((a, b) => b.value - a.value) : [];
+  const max = Math.max(0, ...rows.map((r) => r.value));
   const source = data && sources[data.source_id];
+
+  const spainOf = (resp) => resp?.rows.find((r) => r.country === 'ES')?.value ?? null;
+  const byYear = history.data ?? {};
+  const trend = years.map((y) => ({ year: y, spain: spainOf(byYear[y]), median: byYear[y]?.eu_median ?? null }));
+  const hasMedianTrend = trend.filter((t) => t.median !== null).length >= 2;
 
   return (
     <>
@@ -48,19 +50,24 @@ export default function Compare({ year, years, onYearChange }) {
           Cuánto dedica cada país a un mismo ámbito, en porcentaje de su PIB. Usar el % del PIB permite comparar
           países de tamaños muy distintos.
         </p>
-        <div className="filters">
-          <label className="field">
-            <span>Ámbito</span>
-            <select value={areaId} onChange={(e) => setAreaId(e.target.value)}>
-              {options.map((a) => (
-                <option key={a.id} value={a.id}>
-                  {a.name}
-                </option>
-              ))}
-            </select>
-          </label>
-          <YearSelect year={year} years={years} onYearChange={onYearChange} />
+        <div className="filter-group">
+          <h2 className="filter-title">Ámbito</h2>
+          <div className="chips">
+            {options.map((a) => (
+              <button key={a.id} type="button" className="chip" aria-pressed={areaId === a.id} onClick={() => setAreaId(a.id)}>
+                {a.name}
+              </button>
+            ))}
+          </div>
         </div>
+        <YearPicker
+          year={data?.year ?? year}
+          years={years}
+          onYearChange={onYearChange}
+          values={Object.fromEntries(trend.map((t) => [t.year, t.spain]))}
+          format={(v) => `${formatPct(v)} del PIB en España`}
+          caption="Cada barra es lo que dedica España a este ámbito ese año, en % del PIB."
+        />
       </section>
 
       {!data ? (
@@ -68,69 +75,113 @@ export default function Compare({ year, years, onYearChange }) {
       ) : rows.length === 0 ? (
         <p className="state">No hay datos de otros países para esta selección.</p>
       ) : (
-        <section className="card section" aria-labelledby="cmp-title">
-          <div className="section-head">
-            <h2 id="cmp-title">
-              {data.area_name} · {data.year}
+        <>
+          <section className="section" aria-labelledby="cmp-title">
+            <div className="section-head">
+              <h2 id="cmp-title">
+                {data.area_name} en {data.year}
+              </h2>
+              <div className="legend" aria-hidden="true">
+                <span><span className="swatch" style={{ background: 'var(--forest)' }} /> España</span>
+                <span><span className="swatch" style={{ background: 'var(--neutral-bar)' }} /> Otros países</span>
+                {data.eu_median !== null && <span><span className="legend-line" /> Mediana UE</span>}
+              </div>
+            </div>
+            {summary(data) && <p className="lead">{summary(data)}</p>}
+            {data.eu_median === null && (
+              <p className="muted">
+                Todavía no hay datos de suficientes países (al menos tres) para calcular la mediana europea.
+              </p>
+            )}
+            <ol className="country-bars">
+              {rows.map((r) => (
+                <li key={r.country} className={`country-bar${r.country === 'ES' ? ' is-spain' : ''}`}>
+                  <span className="country-rank">{r.rank}</span>
+                  <span className="country-name">{r.name}</span>
+                  <span className="country-track" aria-hidden="true">
+                    <span style={{ width: `${max > 0 ? (r.value / max) * 100 : 0}%` }} />
+                    {data.eu_median !== null && (
+                      <span className="median-mark" style={{ left: `${(data.eu_median / max) * 100}%` }} />
+                    )}
+                  </span>
+                  <span className="country-value">
+                    {formatPct(r.value)}
+                    {r.provisional && <span className="visually-hidden"> (provisional)</span>}
+                  </span>
+                </li>
+              ))}
+            </ol>
+            {source && (
+              <p className="muted">
+                Fuente:{' '}
+                <a href={source.url} target="_blank" rel="noreferrer">
+                  {source.name}
+                </a>
+                .{rows.some((r) => r.provisional) && ' Algunos datos son provisionales.'}
+              </p>
+            )}
+          </section>
+
+          <section className="panel section" aria-labelledby="trend-title">
+            <h2 id="trend-title">
+              España frente a la mediana europea, {years[0]}–{years[years.length - 1]}
             </h2>
-            <p className="muted">
-              <span className="legend-swatch legend-es" aria-hidden="true" /> España
-              {data.eu_median !== null && (
-                <>
-                  <span className="legend-swatch legend-line" aria-hidden="true" /> Mediana UE
-                </>
-              )}
-            </p>
-          </div>
-          {summary(data) && <p className="alert-message">{summary(data)}</p>}
-          {data.eu_median === null && (
-            <p className="muted">
-              Todavía no hay datos de suficientes países (al menos tres) para calcular la mediana europea.
-            </p>
-          )}
-          <div style={{ height: Math.max(120, rows.length * 34 + 40) }}>
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={rows} layout="vertical" margin={{ top: 24, right: 56, bottom: 0, left: 0 }}>
-                <XAxis type="number" hide domain={[0, 'dataMax']} />
-                <YAxis
-                  type="category"
-                  dataKey="name"
-                  width={110}
-                  axisLine={false}
-                  tickLine={false}
-                  tick={{ fill: 'var(--text-2)', fontSize: 13 }}
-                />
-                <Tooltip cursor={{ fill: 'var(--surface-2)' }} content={<CompareTooltip />} />
-                <Bar
-                  dataKey="value"
-                  barSize={18}
-                  radius={[0, 4, 4, 0]}
-                  isAnimationActive={false}
-                  label={<BarValueLabel />}
-                >
-                  {rows.map((r) => (
-                    <Cell key={r.country} fill={r.country === 'ES' ? 'var(--accent)' : 'var(--neutral-bar)'} />
-                  ))}
-                </Bar>
-                {data.eu_median !== null && (
-                  <ReferenceLine
-                    x={data.eu_median}
-                    stroke="var(--text)"
-                    strokeWidth={1.5}
-                    strokeDasharray="4 3"
-                    label={{ value: `Mediana UE ${formatPct(data.eu_median)}`, position: 'top', fill: 'var(--text)', fontSize: 12 }}
-                  />
-                )}
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
-          {source && (
-            <p className="muted">
-              Fuente: <a href={source.url} target="_blank" rel="noreferrer">{source.name} ↗</a>
-              {rows.some((r) => r.provisional) && ' · Algunos datos son provisionales.'}
-            </p>
-          )}
-        </section>
+            <p className="muted">{data.area_name}, en % del PIB. Pulsa un año para verlo arriba.</p>
+            {!history.data ? (
+              <Status state={history} />
+            ) : (
+              <>
+                <div className="legend" aria-hidden="true">
+                  <span><span className="legend-line solid" /> España</span>
+                  {hasMedianTrend && <span><span className="legend-line" /> Mediana UE</span>}
+                </div>
+                <div className="chart-box">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <LineChart
+                      data={trend}
+                      margin={{ top: 10, right: 16, bottom: 0, left: 0 }}
+                      onClick={(e) => e?.activeLabel && onYearChange(Number(e.activeLabel))}
+                    >
+                      <CartesianGrid vertical={false} stroke="var(--line)" />
+                      <XAxis dataKey="year" {...AXIS} />
+                      <YAxis {...AXIS} axisLine={false} width={52} domain={['auto', 'auto']} tickFormatter={formatPct} />
+                      <Tooltip
+                        content={({ active, payload, label }) =>
+                          active && payload?.length ? (
+                            <div className="tooltip">
+                              <strong>{label}</strong>
+                              <div>España: {formatPct(payload[0].payload.spain)}</div>
+                              {payload[0].payload.median !== null && (
+                                <div>Mediana UE: {formatPct(payload[0].payload.median)}</div>
+                              )}
+                            </div>
+                          ) : null
+                        }
+                      />
+                      <ReferenceLine x={data.year} stroke="var(--line-strong)" strokeDasharray="3 3" />
+                      <Line
+                        dataKey="median"
+                        stroke="var(--graphite)"
+                        strokeWidth={2}
+                        strokeDasharray="5 4"
+                        dot={false}
+                        isAnimationActive={false}
+                      />
+                      <Line
+                        dataKey="spain"
+                        stroke="var(--forest)"
+                        strokeWidth={2}
+                        dot={{ r: 3.5, fill: 'var(--forest)', stroke: 'var(--paper)', strokeWidth: 2 }}
+                        activeDot={{ r: 6 }}
+                        isAnimationActive={false}
+                      />
+                    </LineChart>
+                  </ResponsiveContainer>
+                </div>
+              </>
+            )}
+          </section>
+        </>
       )}
     </>
   );

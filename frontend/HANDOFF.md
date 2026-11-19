@@ -31,17 +31,11 @@ _Actualizado: 2026-11-19. Código congelado el viernes 20-11-2026 a las 12:00._
 
 ## 2. Estado actual
 
-Pasos 1–6 del brief **terminados, en commits y subidos** a `origin/Dersu` (ver
-`frontend/CAMBIOS.md`). La app funciona con los mocks y con el backend real.
+Pasos 1–7 **terminados, en commits y subidos** a `origin/Dersu`. El rediseño (paso 7) está
+completo y explicado en `frontend/CAMBIOS.md`, sección 7. Se probó con mocks y con el backend
+real, usando el dataset de `main` (27 países de la UE, cruces de educación y ley de cada año).
 
-**Paso 7 (rediseño), a medias.** Hecho:
-- `src/mocks.js` reescrito: años **2015–2024** (último 2024), 15 países, más subámbitos e
-  indicadores y **8 avisos por año**. Los avisos se generan con las mismas reglas que el
-  backend: 5 de gasto frente a uso (tren, **autobús**, carretera, universidad, salud
-  pública) y 3 de comparación con la UE (vivienda, servicios generales, defensa).
-- `index.html` carga las fuentes Newsreader y Geist de Google Fonts.
-- `src/index.next.css`: **borrador** del CSS nuevo. Todavía no se importa: las páginas
-  siguen usando `src/index.css`, el diseño antiguo.
+Las skills `frontend-design`, `ui-ux-pro-max` y `dataviz` se cargaron de forma nativa en la sesión del 19-11.
 
 ## 3. Qué pidió el usuario para el rediseño (literal, resumido)
 
@@ -95,58 +89,13 @@ Geist (sans) para la interfaz y las tablas (con `tabular-nums`).
 cada segmento enlazado a su ámbito. Detrás, unas curvas de nivel muy tenues en SVG como
 toque sostenible.
 
-## 5. Qué falta (en este orden)
+## 5. Qué falta
 
-1. **Cabecera y pie** (`App.jsx`): quitar `.brand-mark` (€); nombre `.wordmark` en serif;
-   nav `.site-nav`. Cambiar `src/main.jsx` para importar el CSS nuevo (renombrar
-   `index.next.css` → `index.css`) y adaptar las clases de cada página.
-2. **Componentes nuevos:**
-   - `YearPicker.jsx`: fila de años 2015–2024 con una barrita del total de cada año
-     (clases `.years/.year/.year-bar`). Sustituye a `YearSelect`.
-   - `useAllYears.js`: pide `getAreas(y)` para cada año de `meta.years` con `Promise.all`.
-     Alimenta el YearPicker, las sparklines y la vista Evolución.
-   - `Spectrum.jsx`: barra segmentada de la portada, con leyenda.
-   - `Segmented.jsx`: control segmentado para vistas y medidas (`aria-pressed`).
-   - `Sparkline.jsx`: SVG mínimo para las tablas.
-   - `Severity.jsx` con iconos SVG en vez de "!!/!/i".
-   - `AreaTreemap.jsx` con la escala verde de 5 pasos según `share_of_total_pct`
-     (≥25, ≥10, ≥5, ≥2 y el resto).
-3. **Portada:**
-   - Hero (cifra total, etiqueta "provisional", espectro) y YearPicker.
-   - Bloque "Explora el gasto" con vistas: **Mapa** (treemap), **Ranking** (tabla con
-     barra de cuota, sparkline 2015–2024 y variación), **Evolución** (gráfico del total +
-     pequeños múltiplos por ámbito, clicables) y **Cambios** (barras divergentes de la
-     variación por ámbito, con opción "frente al año anterior" o "desde 2015").
-   - Selector de medida: importe / % del PIB.
-   - Los 3 avisos destacados.
-4. **Avisos (rediseño completo):**
-   - Título y una frase resumen calculada ("8 avisos en 2024: 1 importante, 5 merecen una
-     mirada, 2 para tu información"). Sin el texto largo que hay que quitar.
-   - **Filtros visuales en vez de desplegables:**
-     - barra de severidad clicable (cada segmento con su número);
-     - chips de tipo;
-     - chips de ámbito con su recuento;
-     - botón "Quitar filtros".
-     Se piden todos los avisos del año una vez y se filtran en el cliente.
-   - **Desgloses visuales:**
-     - **Gasto frente a uso:** gráfico de mancuernas, un punto verde para la cuota de gasto y
-       uno azul para la de uso, por aviso;
-     - **España frente a la mediana UE:** barras divergentes con la distancia relativa,
-       sacada de `evidence`;
-     - recuento por ámbito.
-     Al pulsar un elemento se filtra.
-   - **Lista desplegable:** cada fila muestra icono de severidad, título, ámbito y cifras
-     clave, y al desplegarla aparece la tarjeta completa. Orden por severidad o por ámbito.
-5. **Ámbito:** YearPicker, estilos nuevos y gráfico de evolución con selector de importe o
-   % del PIB.
-6. **Comparar:** añadir "España frente a la mediana UE a lo largo de los años", con líneas
-   a partir de `getCompare` para cada año.
-7. **Fuentes:** solo estilos.
-8. Quitar los "→" de los enlaces internos (tópico según frontend-design) y los " · " de los
-   textos propios.
-9. Capturas a 1280 px y 390 px de todas las páginas, con mocks y con el backend real.
-10. Anotar el paso 7 en `CAMBIOS.md`, añadir filas en `docs/ARCHITECTURE.md` y hacer commit
-    y push a `origin/Dersu`.
+Nada del plan del rediseño. Ideas opcionales si sobra tiempo antes del código congelado:
+- Que el usuario haga el merge de `Dersu` a `main` (el frontend aún no está en `main`).
+- Dividir el bundle (aviso de Vite de más de 500 kB, sobre todo por Recharts). No bloquea.
+- El MCP de Playwright busca Google Chrome, que no está instalado. Las capturas se hacen con
+  `playwright-core` y el Chromium de la caché (sección 6).
 
 ## 6. Cómo arrancar y verificar
 
@@ -154,8 +103,8 @@ toque sostenible.
 # Frontend con datos de ejemplo
 cd frontend && npm install && npm run dev                 # http://localhost:5173
 
-# Backend real (Pedro) con el dataset real de Mario (está en la rama Mario, aún no en main)
-git show origin/Mario:data/dataset.json > /tmp/mario_dataset.json   # o la ruta que prefieras
+# Backend real (Pedro) con el dataset real de Mario (ya está en main)
+git show origin/main:data/dataset.json > /tmp/mario_dataset.json   # o la ruta que prefieras
 cd backend && python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
 DATASET_PATH=/tmp/mario_dataset.json .venv/bin/uvicorn main:app --port 8000
 

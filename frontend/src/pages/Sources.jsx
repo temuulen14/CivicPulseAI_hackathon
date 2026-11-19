@@ -21,9 +21,8 @@ export default function Sources() {
       ) : state.data.sources.length === 0 ? (
         <p className="state">No hay fuentes registradas.</p>
       ) : (
-        <section className="card">
-          <div className="table-wrap">
-            <table>
+        <section className="table-wrap">
+          <table>
               <thead>
                 <tr>
                   <th>Fuente</th>
@@ -37,25 +36,24 @@ export default function Sources() {
                   <tr key={s.id}>
                     <td>
                       <a href={s.url} target="_blank" rel="noreferrer">
-                        {s.name} ↗
+                        {s.name}
                       </a>
                     </td>
                     <td>{s.publisher}</td>
                     <td>{s.license}</td>
-                    <td style={{ whiteSpace: 'nowrap' }}>
+                    <td className="nowrap">
                       {s.retrieved_at ? s.retrieved_at.split('-').reverse().join('/') : '—'}
                     </td>
                   </tr>
                 ))}
               </tbody>
-            </table>
-          </div>
+          </table>
         </section>
       )}
 
-      <section className="card section">
+      <section className="panel-soft section">
         <h2>Cómo leer las cifras</h2>
-        <ul className="lead" style={{ margin: 0, paddingLeft: '1.2em' }}>
+        <ul className="reading-list">
           <li>
             Es el <strong>gasto ejecutado</strong> del conjunto de las administraciones públicas (Estado, comunidades
             autónomas, ayuntamientos y Seguridad Social), no el presupuesto inicial aprobado en la ley.
