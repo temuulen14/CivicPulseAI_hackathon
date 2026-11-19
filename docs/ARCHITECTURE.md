@@ -135,7 +135,12 @@ de su parte: qué se decidió y por qué, en una fila.
 | PGE: la parte de un organismo que la Ley no reparte por capítulos va en `undetailed_keur` | La Ley no siempre detalla los organismos autónomos; mejor decirlo que inventarlo |
 | PGE: importes en miles de euros (`amount_keur`), como los publica Hacienda | Se pueden cotejar uno a uno con el documento oficial |
 | PGE: equivalencia política de gasto → ámbito COFOG en `pge_policies.json` | Para enlazar el presupuesto con la página de cada ámbito. Es aproximada y nuestra, no oficial |
-| PGE solo de 2023 | Es la última ley aprobada: 2024, 2025 y 2026 son prórrogas de la de 2023 |
+| PGE de 2015 a 2025: leyes aprobadas y documentos de prórroga (2019, 2024, 2025) | La década completa para ver la evolución; en las prórrogas se usa el documento de créditos prorrogados que publica Hacienda, que no es idéntico a la ley anterior |
+| 2020 sin datos de PGE | Hacienda no publica documento de 2020 (siguió la prórroga de 2019); copiar 2019 sería inventar |
+| Para comparar años, serie del Estado sin la Seguridad Social (sección 60) | Los documentos de prórroga no incluyen la Seguridad Social; es la única serie homogénea en los diez años |
+| 2015 y 2016: la tabla HTML se guarda como CSV en `raw/` | Esos años no tienen CSV; el HTML pesa 25 MB por año (casi todo estilos) y la tabla tiene las mismas columnas |
+| Fondos europeos medidos por los servicios "Mecanismo de Recuperación y Resiliencia" (`eu_recovery_keur`) | El nombre del programa no los identifica siempre (2021 y 2022 usan formatos distintos); el servicio sí |
+| `dataset.json` sin sangría | Con diez años de PGE pasaba de 20 MB; compacto pesa 15 MB |
 | Ley de cada año en `legal.json`; el título se lee de la API del BOE | Los identificadores se confirmaron uno a uno; si un id no es una ley de presupuestos, `build.py` se para |
 | Años prorrogados (2019, 2020, 2024) apuntan a la ley vigente, con nota | No hubo ley nueva; es lo que el ciudadano necesita saber |
 | Cruces de educación: cuota de gasto por etapa frente a cuota de alumnado (2023) | Misma fuente (Eurostat), mismas etapas (ISCED) y relación directa gasto-uso |

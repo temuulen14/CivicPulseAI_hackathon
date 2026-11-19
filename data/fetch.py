@@ -9,6 +9,7 @@ import re
 from pathlib import Path
 
 import requests
+import urllib3
 
 RAW_DIR = Path(__file__).parent / "raw"
 EUROSTAT_API = "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data"
@@ -80,14 +81,31 @@ def fetch_enrolment() -> None:
     )
 
 
-PGE_SITE = "https://www.sepg.pap.hacienda.gob.es/Presup/PGE{year}Ley/MaestroDocumentos/PGE-ROM/"
+PGE_SITE = "https://www.sepg.pap.hacienda.gob.es/Presup/PGE{year}{kind}/MaestroDocumentos/PGE-ROM/"
 # La web de Hacienda rechaza peticiones sin cabecera de navegador.
 BROWSER_HEADERS = {"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) Firefox/130.0"}
+
+# Qué documento de los PGE hay cada año (Ley, Prorroga o ninguno) está en legal.json.
+LEGAL = json.loads((DATA_DIR / "legal.json").read_text(encoding="utf-8"))
+PGE_DOCUMENTS = {
+    int(year): law["pge_document"]
+    for year, law in LEGAL.items()
+    if not year.startswith("_") and law["pge_document"]
+}
+
+
+# El servidor de Hacienda corta alguna conexión cuando se le piden cientos de ficheros:
+# se reintenta hasta 5 veces con espera creciente.
+session = requests.Session()
+session.headers.update(BROWSER_HEADERS)
+session.mount("https://", requests.adapters.HTTPAdapter(
+    max_retries=urllib3.util.Retry(total=5, backoff_factor=1, status_forcelist=[500, 502, 503, 504])
+))
 
 
 def get_page_links(url: str) -> list[tuple[str, str]]:
     """Devuelve los enlaces (href, texto) de una página de la web de los PGE."""
-    response = requests.get(url, headers=BROWSER_HEADERS, timeout=60)
+    response = session.get(url, timeout=60)
     response.raise_for_status()
     page = response.content.decode("cp1252")
     links = []
@@ -98,38 +116,60 @@ def get_page_links(url: str) -> list[tuple[str, str]]:
 
 
 def find_link(links: list[tuple[str, str]], text: str) -> str:
-    return next(href for href, link_text in links if link_text == text)
+    return next(href for href, link_text in links if link_text.startswith(text))
+
+
+def html_table_to_csv(page: bytes) -> bytes:
+    """Convierte la tabla HTML de un programa en el mismo CSV que publica Hacienda.
+
+    2015 y 2016 solo están en HTML (25 MB por año, casi todo estilos). La tabla tiene
+    las mismas columnas que el CSV de otros años, así que se guarda en ese formato.
+    """
+    rows = []
+    for row in re.findall(r"<tr[^>]*>(.*?)</tr>", page.decode("cp1252"), re.S):
+        cells = re.findall(r"<td[^>]*>(.*?)</td>", row, re.S)
+        # Un ";" dentro de un texto movería las columnas del CSV: se cambia por ",".
+        texts = (html.unescape(re.sub(r"<[^>]+>", "", c)).strip().replace(";", ",") for c in cells)
+        rows.append(";".join(texts))
+    return "\n".join(rows).encode("cp1252")
+
+
+def download_program(site: str, name: str, out_dir: Path) -> None:
+    """Guarda el CSV oficial de un programa; si no existe, lo extrae del HTML."""
+    response = session.get(f"{site}doc/CSV/{name}.CSV", timeout=60)
+    if response.status_code == 200:
+        (out_dir / f"{name}.CSV").write_bytes(response.content)
+        return
+    response = session.get(f"{site}doc/HTM/{name}.HTM", timeout=60)
+    response.raise_for_status()
+    (out_dir / f"{name}.CSV").write_bytes(html_table_to_csv(response.content))
 
 
 def fetch_pge(year: int) -> None:
-    """Descarga el estado de gastos de cada programa de los PGE de un año (CSV oficiales).
+    """Descarga el estado de gastos de cada programa de los PGE de un año (Ley o prórroga).
 
     Ruta en la web: Serie Roja > Gastos. Presupuesto por programas > cada sección
-    (ministerio) > Presupuesto por programas > Estado de gastos > un CSV por programa.
+    (ministerio) > Presupuesto por programas > Estado de gastos > un fichero por programa.
     """
-    site = PGE_SITE.format(year=year)
+    kind = PGE_DOCUMENTS[year]
+    site = PGE_SITE.format(year=year, kind=kind)
+    prefix = f"N_{str(year)[2:]}{'P' if kind == 'Prorroga' else ''}_E_R_31"
     out_dir = RAW_DIR / f"pge_{year}"
     out_dir.mkdir(exist_ok=True)
-    short = str(year)[2:]
 
     sections = [
-        href for href, text in get_page_links(site + f"N_{short}_E_R_31.htm")
+        href for href, text in get_page_links(site + f"{prefix}.htm")
         if text.startswith("Sección")
     ]
     count = 0
     for section in sections:
         programs_page = find_link(get_page_links(site + section), "Presupuesto por programas")
         spending_page = find_link(get_page_links(site + programs_page), "Estado de gastos")
-        program = None
         for href, text in get_page_links(site + spending_page):
-            if text.startswith("Programa "):
-                program = text
-            elif text == "CSV" and program and "Resumen" not in program:
-                response = requests.get(site + href, headers=BROWSER_HEADERS, timeout=60)
-                response.raise_for_status()
-                (out_dir / Path(href).name).write_bytes(response.content)
+            if text.startswith("Programa ") and "Resumen" not in text and href.upper().endswith(".PDF"):
+                download_program(site, Path(href).stem, out_dir)
                 count += 1
-    print(f"PGE {year} -> raw/pge_{year}/ ({count} programas)")
+    print(f"PGE {year} ({kind}) -> raw/pge_{year}/ ({len(sections)} secciones, {count} programas)")
 
 
 BOE_API = "https://www.boe.es/datosabiertos/api/legislacion-consolidada/id/{boe_id}/metadatos"
@@ -137,7 +177,7 @@ BOE_API = "https://www.boe.es/datosabiertos/api/legislacion-consolidada/id/{boe_
 
 def fetch_boe() -> None:
     """Metadatos (título, fecha) de cada ley de presupuestos de legal.json."""
-    laws = json.loads((DATA_DIR / "legal.json").read_text(encoding="utf-8"))
+    laws = LEGAL
     out_dir = RAW_DIR / "boe"
     out_dir.mkdir(exist_ok=True)
     boe_ids = sorted({law["boe_id"] for year, law in laws.items() if not year.startswith("_")})
@@ -155,7 +195,8 @@ def main() -> None:
     fetch_spending_by_type()
     fetch_enrolment()
     fetch_boe()
-    fetch_pge(2023)
+    for year in PGE_DOCUMENTS:
+        fetch_pge(year)
 
 
 if __name__ == "__main__":

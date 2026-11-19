@@ -174,7 +174,6 @@ def build_spending_by_type() -> list[dict]:
 
 
 PGE_SOURCE = "sepg_pge_estado_gastos"
-PGE_YEARS = [2023]
 
 
 def parse_amount(text: str) -> float | None:
@@ -202,13 +201,16 @@ def parse_pge_csv(path: Path, year: int) -> dict:
     chapter = None
     for row in path.read_bytes().decode("cp1252").splitlines():
         cells = [c.strip() for c in row.split(";")]
+        first = next((c for c in cells if c), "")
+        if first.startswith("Sección:"):
+            program["section_id"], program["section_name"] = first.removeprefix("Sección:").strip().split(" ", 1)
+            continue
+        if first.startswith("Programa:"):
+            program["program_id"], program["name"] = first.removeprefix("Programa:").strip().split(" ", 1)
+            continue
         if len(cells) < 3:
             continue
-        if cells[1].startswith("Sección:"):
-            program["section_id"], program["section_name"] = cells[1].removeprefix("Sección:").strip().split(" ", 1)
-        elif cells[1].startswith("Programa:"):
-            program["program_id"], program["name"] = cells[1].removeprefix("Programa:").strip().split(" ", 1)
-        elif cells[0][:1].isdigit() and not cells[1]:
+        if cells[0][:1].isdigit() and not cells[1]:
             organic = {"organic_id": cells[0], "name": cells[2], "total_keur": parse_amount(cell(cells, 4))}
             program["organics"].append(organic)
         elif cells[1].isdigit():
@@ -259,9 +261,15 @@ def build_budget_programs() -> list[dict]:
     """Programas de gasto de los PGE con su desglose económico línea a línea."""
     policies = load_json(DATA_DIR / "pge_policies.json")
     programs = []
-    for year in PGE_YEARS:
-        for path in sorted((RAW_DIR / f"pge_{year}").glob("*.CSV")):
-            program = parse_pge_csv(path, year)
+    for year, law in load_json(DATA_DIR / "legal.json").items():
+        if year.startswith("_") or law["pge_document"] is None:
+            continue
+        paths = sorted((RAW_DIR / f"pge_{year}").glob("*.CSV"))
+        if not paths:
+            raise ValueError(f"PGE {year}: no hay ficheros en raw/pge_{year}/ (ejecuta fetch.py)")
+        for path in paths:
+            program = parse_pge_csv(path, int(year))
+            program["document"] = law["pge_document"]
             if program["program_id"] == "000X":  # transferencias internas: contarlas duplicaría
                 continue
             add_undetailed(program)
@@ -269,9 +277,39 @@ def build_budget_programs() -> list[dict]:
             program["policy_id"] = program["program_id"][:2]
             if program["policy_id"] not in policies:
                 raise ValueError(f"{path.name}: política {program['policy_id']} sin nombre")
+            # Fondos europeos de recuperación (desde 2021): los gestiona en cada ministerio
+            # un servicio llamado "MECANISMO DE RECUPERACIÓN Y RESILIENCIA" (orgánica xx.50).
+            program["eu_recovery_keur"] = round(sum(
+                o["total_keur"] for o in program["organics"]
+                if "MECANISMO DE RECUPERACIÓN" in o["name"].upper()
+            ), 2)
             program["source_id"] = PGE_SOURCE
             programs.append(program)
     return sorted(programs, key=lambda p: (p["year"], p["program_id"], p["section_id"]))
+
+
+def build_budget_years(programs: list[dict]) -> list[dict]:
+    """Qué documento hay cada año y si incluye la Seguridad Social (sección 60).
+
+    Las prórrogas que publica Hacienda solo prorrogan las secciones del Estado; para
+    comparar años hay que usar la serie sin la sección 60.
+    """
+    years = []
+    for year, law in load_json(DATA_DIR / "legal.json").items():
+        if year.startswith("_"):
+            continue
+        rows = [p for p in programs if p["year"] == int(year)]
+        years.append({
+            "year": int(year),
+            "document": law["pge_document"],
+            "includes_social_security": any(p["section_id"] == "60" for p in rows),
+            "total_keur": round(sum(p["total_keur"] for p in rows), 2) if rows else None,
+            "total_without_social_security_keur": round(
+                sum(p["total_keur"] for p in rows if p["section_id"] != "60"), 2) if rows else None,
+            "eu_recovery_keur": round(sum(p["eu_recovery_keur"] for p in rows), 2) if rows else None,
+            "note": law["note"],
+        })
+    return years
 
 
 def build_budget_policies() -> list[dict]:
@@ -395,6 +433,7 @@ def main() -> None:
     validate_spending(spending, areas)
     validate_spending_by_type(spending_by_type, spending)
     indicators, crosses = build_crosses(spending)
+    budget_programs = build_budget_programs()
     dataset = {
         "generated_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "countries": [
@@ -406,15 +445,17 @@ def main() -> None:
         "spending_types": build_spending_types(),
         "spending_by_type": spending_by_type,
         "budget_policies": build_budget_policies(),
-        "budget_programs": build_budget_programs(),
+        "budget_years": build_budget_years(budget_programs),
+        "budget_programs": budget_programs,
         "indicators": indicators,
         "crosses": crosses,
         "legal": build_legal(),
         "sources": build_sources(),
     }
     out = DATA_DIR / "dataset.json"
-    out.write_text(json.dumps(dataset, ensure_ascii=False, indent=1), encoding="utf-8")
-    print(f"dataset.json: {len(dataset['areas'])} ámbitos, {len(dataset['spending'])} filas de gasto")
+    out.write_text(json.dumps(dataset, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+    print(f"dataset.json: {len(dataset['areas'])} ámbitos, {len(dataset['spending'])} filas de gasto, "
+          f"{len(budget_programs)} programas de los PGE en {len({p['year'] for p in budget_programs})} años")
 
 
 if __name__ == "__main__":
