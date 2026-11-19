@@ -3,6 +3,7 @@
 Uso: python data/build.py   (antes: python data/fetch.py)
 """
 
+import csv
 import itertools
 import json
 from datetime import date, datetime, timedelta, timezone
@@ -403,6 +404,56 @@ def build_crosses(spending: list[dict]) -> tuple[list[dict], list[dict]]:
     return indicators, crosses
 
 
+OECD_SOURCE = "oecd_cofog_table11"
+
+
+def read_oecd_csv(filename: str) -> list[dict]:
+    with open(RAW_DIR / filename, encoding="utf-8-sig", newline="") as f:
+        return list(csv.DictReader(f))
+
+
+def build_world_spending(spending: list[dict]) -> tuple[list[dict], list[dict]]:
+    """Gasto por ámbito en % del PIB de las grandes economías fuera de la UE (OCDE).
+
+    La OCDE da gasto y PIB en moneda nacional: % del PIB = gasto / PIB. Va aparte de
+    `spending` para no mezclarse con la mediana europea. Se valida que la OCDE da para
+    España lo mismo que Eurostat y que los ámbitos de cada país suman su total.
+    """
+    world = {k: v for k, v in load_json(DATA_DIR / "world_countries.json").items() if not k.startswith("_")}
+    gdp = {(r["REF_AREA"], int(r["TIME_PERIOD"])): float(r["OBS_VALUE"])
+           for r in read_oecd_csv("oecd_gdp.csv")}
+    amounts = {}
+    for r in read_oecd_csv("oecd_cofog.csv"):
+        area = "TOTAL" if r["EXPENDITURE"] == "_T" else r["EXPENDITURE"]
+        if area == "TOTAL" or len(area) == 4:  # total y 10 ámbitos de nivel 1
+            amounts[(area, r["REF_AREA"], int(r["TIME_PERIOD"]))] = float(r["OBS_VALUE"])
+
+    eurostat = {(s["area_id"], s["year"]): s for s in spending if s["country"] == "ES"}
+    for (area, country, year), value in amounts.items():
+        if country == "ESP" and (area, year) in eurostat:
+            if not sums_match(value, eurostat[(area, year)]["amount_meur"]):
+                raise ValueError(f"OCDE vs Eurostat: España {area} {year}: {value} frente a "
+                                 f"{eurostat[(area, year)]['amount_meur']}")
+    level1 = [f"GF{n:02d}" for n in range(1, 11)]
+    checked = check_parts_add_up(amounts, {"TOTAL": level1}, "OCDE ámbitos vs total")
+
+    rows = []
+    for (area, country, year), value in sorted(amounts.items()):
+        if country not in world or (country, year) not in gdp:
+            continue
+        rows.append({
+            "area_id": area, "country": country, "year": year,
+            "pct_gdp": round(100 * value / gdp[(country, year)], 1),
+            "amount_national_mio": value, "currency": world[country]["currency"],
+            "source_id": OECD_SOURCE,
+        })
+    countries = [{"code": code, "name": info["name"], "currency": info["currency"]}
+                 for code, info in world.items()]
+    print(f"validación OCDE: España coincide con Eurostat; {checked} totales cuadran; "
+          f"{len(rows)} filas de {len(countries)} países")
+    return countries, rows
+
+
 def build_legal() -> list[dict]:
     """Ley de presupuestos de cada año, con el título que devuelve la API del BOE."""
     laws = load_json(DATA_DIR / "legal.json")
@@ -452,6 +503,14 @@ def build_sources() -> list[dict]:
             "retrieved_at": today,
         },
         {
+            "id": OECD_SOURCE,
+            "name": "OCDE · Gasto de las administraciones públicas por función (COFOG) y PIB",
+            "publisher": "OCDE",
+            "url": "https://data-explorer.oecd.org/vis?df[ds]=dsDisseminateFinalDMZ&df[id]=DSD_NASEC10%40DF_TABLE11&df[ag]=OECD.SDD.NAD",
+            "license": "Reutilización libre con cita (CC BY 4.0)",
+            "retrieved_at": today,
+        },
+        {
             "id": "moncloa_gobiernos",
             "name": "La Moncloa · Presidentes del Gobierno y discursos de investidura (partido y coalición)",
             "publisher": "Presidencia del Gobierno",
@@ -478,6 +537,7 @@ def main() -> None:
     validate_spending_by_type(spending_by_type, spending)
     indicators, crosses = build_crosses(spending)
     budget_programs = build_budget_programs()
+    world_countries, world_spending = build_world_spending(spending)
     governments = build_governments()
     dataset = {
         "generated_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
@@ -487,6 +547,8 @@ def main() -> None:
         ],
         "areas": areas,
         "spending": spending,
+        "world_countries": world_countries,
+        "world_spending": world_spending,
         "spending_types": build_spending_types(),
         "spending_by_type": spending_by_type,
         "budget_policies": build_budget_policies(),

@@ -7,7 +7,7 @@ python data/build.py   # valida y escribe dataset.json; se para si algo no cuadr
 python -m pytest data/ # tests del pipeline (sin red)
 ```
 
-`dataset.json` sigue la forma de `docs/API_CONTRACT.md` y añade seis claves nuevas (`spending_types`, `spending_by_type`, `governments`, `budget_policies`, `budget_years`, `budget_programs`).
+`dataset.json` sigue la forma de `docs/API_CONTRACT.md` y añade claves propias: `spending_types`, `spending_by_type`, `world_countries`, `world_spending`, `governments`, `budget_policies`, `budget_years` y `budget_programs`.
 **Todavía no están en el contrato** (hay que acordarlas con Pedro); el backend actual
 las ignora, así que no rompen nada.
 
@@ -27,6 +27,38 @@ las ignora, así que no rompen nada.
 
 Los diez tipos suman el `amount_meur` del ámbito en `spending` (validado). Existe para
 los 10 ámbitos, los subámbitos y `TOTAL`, de 2015 a 2024.
+
+## Comparación con grandes economías fuera de la UE (OCDE)
+
+```json
+"world_countries": [{"code": "USA", "name": "Estados Unidos", "currency": "USD"}],
+"world_spending": [
+  {"area_id": "GF07", "country": "USA", "year": 2023, "pct_gdp": 10.0,
+   "amount_national_mio": 2793736.1, "currency": "USD", "source_id": "oecd_cofog_table11"}
+]
+```
+
+- Estados Unidos, Japón, Reino Unido, Corea del Sur y Australia; `TOTAL` y los 10 ámbitos;
+  2015-2024 (Corea hasta 2023). Mismos códigos COFOG que `spending`.
+- **Va aparte de `spending` a propósito**: la mediana europea y los avisos se calculan
+  con los países de `countries`; meter aquí a EE. UU. los cambiaría.
+- Comparad en **% del PIB** (`pct_gdp`): los importes están en moneda nacional.
+- Validado: la OCDE da para España exactamente lo mismo que Eurostat, y los ámbitos de
+  cada país suman su total.
+- **Sin datos**: China, India y Brasil (no son de la OCDE y no publican COFOG) ni Canadá.
+  Decidlo en la página para que no parezca un olvido.
+
+| 2023, % del PIB | España | UE-27 | EE. UU. | Japón | R. Unido | Corea | Australia |
+|-----------------|------:|------:|-------:|------:|--------:|------:|----------:|
+| Total | 45,4 | 48,8 | 39,2 | 38,9 | 46,3 | 35,6 | 40,0 |
+| Defensa | 0,9 | 1,3 | 3,0 | 1,0 | 2,2 | 2,5 | 2,3 |
+| Sanidad | 6,6 | 7,2 | 10,0 | 7,8 | 8,5 | 5,3 | 7,6 |
+| Educación | 4,2 | 4,7 | 5,6 | 3,1 | 4,9 | 5,0 | 5,7 |
+| Protección social | 18,5 | 19,1 | 7,9 | 15,5 | 15,2 | 9,3 | 10,6 |
+
+**Ojo:** es gasto **público**. Donde las pensiones o los seguros médicos son sobre todo
+privados (EE. UU., Corea), el gasto público en protección social sale bajo aunque el
+país gaste mucho en total. No es "más o menos generoso", es "más o menos público".
 
 ## Presupuestos Generales del Estado 2015-2025, partida a partida
 
