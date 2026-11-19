@@ -7,6 +7,7 @@ import { MEASURES } from '../measures.js';
 import { useGovernments } from '../governments.js';
 import { PENSIONERS, PENSIONERS_SOURCE, PENSION_AREAS, POPULATION_65, POPULATION_SOURCE } from '../pensionsDemand.js';
 import Status from '../components/Status.jsx';
+import MeasureSwitch from '../components/MeasureSwitch.jsx';
 import YearPicker from '../components/YearPicker.jsx';
 import { GovernmentBand } from '../components/BudgetBars.jsx';
 
@@ -24,7 +25,7 @@ const SERIES = [
 // Dinero destinado a pensiones frente a su demanda.
 // Dinero: gasto de las administraciones en "Vejez" y "Supervivientes" (Eurostat, COFOG).
 // Demanda: pensionistas de jubilación y supervivencia, y personas de 65 años o más (Eurostat).
-export default function Pensions({ year, years, onYearChange, measure }) {
+export default function Pensions({ year, years, onYearChange, measure, onMeasureChange }) {
   const latest = years[years.length - 1];
   const areas = useApi(() => Promise.all(PENSION_AREAS.map((id) => getArea(id, latest))), [latest]);
   const governments = useGovernments();
@@ -135,9 +136,10 @@ export default function Pensions({ year, years, onYearChange, measure }) {
 
       <section className="panel section" aria-labelledby="pen-growth">
         <div className="section-title">
-          <h2 id="pen-growth">
-            Cómo ha crecido cada cosa desde {first.year}
-          </h2>
+          <div className="section-head">
+            <h2 id="pen-growth">Cómo ha crecido cada cosa desde {first.year}</h2>
+            <MeasureSwitch value={measure} onChange={onMeasureChange} />
+          </div>
           <p className="lead">
             Entre {first.year} y {shownYear}, el gasto en pensiones {measure === 'amount' ? 'creció' : 'pasó'}{' '}
             {measure === 'amount'
