@@ -136,6 +136,13 @@ de su parte: qué se decidió y por qué, en una fila.
 | PGE: importes en miles de euros (`amount_keur`), como los publica Hacienda | Se pueden cotejar uno a uno con el documento oficial |
 | PGE: equivalencia política de gasto → ámbito COFOG en `pge_policies.json` | Para enlazar el presupuesto con la página de cada ámbito. Es aproximada y nuestra, no oficial |
 | PGE solo de 2023 | Es la última ley aprobada: 2024, 2025 y 2026 son prórrogas de la de 2023 |
+| Ley de cada año en `legal.json`; el título se lee de la API del BOE | Los identificadores se confirmaron uno a uno; si un id no es una ley de presupuestos, `build.py` se para |
+| Años prorrogados (2019, 2020, 2024) apuntan a la ley vigente, con nota | No hubo ley nueva; es lo que el ciudadano necesita saber |
+| Cruces de educación: cuota de gasto por etapa frente a cuota de alumnado (2023) | Misma fuente (Eurostat), mismas etapas (ISCED) y relación directa gasto-uso |
+| Alumnado solo de centros públicos y concertados | Es el que paga el gasto público; los privados no concertados no |
+| Cuotas de gasto sobre las etapas atribuibles (GF0901-GF0904) | Los gastos no atribuibles a una etapa (comedor, transporte escolar…) no tienen alumnado con que compararse |
+| Umbral 1,5 en educación | Es normal que una etapa cueste algo más por alumno; a partir del 50 % más merece una mirada. Hoy ninguna lo supera (0,93 / 1,19 / 0,80) |
+| Transporte descartado como cruce | El gasto del Estado por modo no incluye la inversión de ADIF ni el autobús urbano que pagan comunidades y ayuntamientos: el aviso no se sostendría |
 
 ### Frontend (Dersu)
 
