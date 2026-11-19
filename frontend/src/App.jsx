@@ -12,6 +12,7 @@ import BudgetProgram from './pages/BudgetProgram.jsx';
 import Pensions from './pages/Pensions.jsx';
 import Calculator from './pages/Calculator.jsx';
 import ThemeToggle from './components/ThemeToggle.jsx';
+import Brand from './components/Brand.jsx';
 import Search from './pages/Search.jsx';
 import EuFunds from './pages/EuFunds.jsx';
 
@@ -99,9 +100,7 @@ export default function App() {
     <>
       <header className="site-header">
         <div className="container header-inner">
-          <a href="#/" className="wordmark">
-            CuentasClaras
-          </a>
+          <Brand />
           <nav className="site-nav" aria-label="Principal">
             {HEADER_NAV.map((item) => (
               <a key={item.page} href={item.href} aria-current={activePage === item.page ? 'page' : undefined}>
@@ -134,9 +133,7 @@ export default function App() {
       <footer className="site-footer">
         <div className="container footer-inner">
           <div className="footer-brand">
-            <a href="#/" className="wordmark">
-              CuentasClaras
-            </a>
+            <Brand />
             <p>
               Gasto del conjunto de las administraciones públicas según Eurostat (COFOG) y Presupuestos Generales del
               Estado. Datos oficiales y abiertos.

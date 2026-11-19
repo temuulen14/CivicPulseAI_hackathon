@@ -11,7 +11,7 @@ export default function Sources() {
       <section className="section">
         <h1>Fuentes de datos</h1>
         <p className="lead">
-          Todas las cifras de CuentasClaras salen de fuentes oficiales y abiertas. Aquí puedes consultarlas
+          Todas las cifras de Cristalino salen de fuentes oficiales y abiertas. Aquí puedes consultarlas
           directamente.
         </p>
       </section>

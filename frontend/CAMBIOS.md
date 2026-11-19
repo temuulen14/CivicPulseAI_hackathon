@@ -930,3 +930,43 @@ Sustituye el interruptor «País a país / Mapa» del punto 19: en vez de dos p�
 - **Comprobado:** `npx eslint src scripts` y `npm run build` sin errores. Las 10 páginas en claro y
   en oscuro, a 1280 y 390 px: sin scroll horizontal, sin errores de consola y sin «NaN». El botón
   cambia el tema, se recuerda al recargar y vuelve al claro.
+
+## 23. Nuevo nombre, «Cristalino · claro como el agua», y agua sobre los anillos
+
+### 23.1 El nombre
+
+- **Qué:** la app pasa a llamarse **Cristalino**, con el sobrenombre *«claro como el agua»*. La
+  marca está en un solo sitio, `components/Brand.jsx` (constantes `APP_NAME` y `APP_TAGLINE`), y se
+  usa en la cabecera y en el pie. Se cambió también el título de la pestaña, el texto de
+  «Fuentes de datos», la frase que copia el botón de citar y el icono de la pestaña (ahora una gota).
+- **Cómo se ve:** una gota de agua transparente (solo contorno azul agua y un brillo), el nombre en
+  serif y el sobrenombre en cursiva gris. En pantallas de menos de 1280 px el sobrenombre se oculta
+  en la cabecera para que quepa el menú (en el pie se sigue viendo).
+- **Por qué:** lo decidió el equipo. «Cuentas claras» es una expresión muy común; «Cristalino»
+  dice lo mismo (transparencia) con una imagen propia: el agua.
+- La clave de `localStorage` del tema sigue siendo `cuentasclaras-theme` para no perder la elección
+  de quien ya la tenía guardada.
+
+### 23.2 Agua sobre los anillos del gasto
+
+- **Qué:** se mantienen los anillos del tronco (`TreeRings.jsx`) y se les pone encima una capa de
+  agua, para representar la transparencia:
+  1. **Una gota** cae en el centro cuando los anillos terminan de dibujarse y **abre tres ondas**
+     que se expanden y se desvanecen.
+  2. **Al pulsar un anillo** salen ondas desde el punto exacto donde se pulsó (además de elegir ese año).
+  3. **Un reflejo de luz** cruza el tronco cada diez segundos, como luz a través de un cristal.
+- **Cómo funciona:**
+  - Todo va recortado al borde del tronco con un `<clipPath>` que usa el contorno del anillo exterior.
+  - Cada onda es un círculo de radio 1 que crece con `transform: scale(150)` (con
+    `vector-effect: non-scaling-stroke` para que la línea no engorde). Las ondas de los clics viven en
+    un estado de React y se borran a los 2,2 s con un `setTimeout`.
+  - El punto del clic se pasa de píxeles de pantalla a coordenadas del dibujo con
+    `svg.getScreenCTM().inverse()`.
+  - El reflejo es un rectángulo inclinado con un degradado (transparente, azul, transparente) que se
+    desplaza con una animación CSS.
+  - Colores nuevos: `--water` y `--sheen`, con su versión para el modo oscuro (el reflejo es más
+    apagado en oscuro para no deslumbrar).
+- **Accesibilidad:** la capa de agua es `aria-hidden` y no recibe clics (`pointer-events: none`). Con
+  `prefers-reduced-motion` no hay animación y todo queda invisible (opacidad 0 por defecto).
+- **Comprobado:** `npx eslint src` y `npm run build` sin errores. Capturas en claro, en oscuro y a 390 px:
+  la gota, las ondas al cargar, las ondas al pulsar y el reflejo; sin scroll horizontal ni errores de consola.
