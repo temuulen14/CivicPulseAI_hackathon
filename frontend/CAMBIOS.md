@@ -610,6 +610,16 @@ Hecho por Pedro en la rama `Dersu` (acordado), después de mezclar `main` (backe
   (nivel 1 y subámbito). Sin errores de consola, sin peticiones fallidas, sin scroll
   horizontal y sin «NaN»/«null» en pantalla.
 
+### 10.4 El ancho de la página sigue a la pantalla (Pedro)
+
+- **Qué:** `.container` pasa de un ancho fijo de 1180 px a `clamp(1180px, 88vw, 1680px)`.
+- **Cómo se lee:** la página ocupa el 88 % de la ventana, con un mínimo de 1180 px (en un
+  portátil se ve igual que antes) y un máximo de 1680 px.
+- **Por qué el máximo:** en un monitor ultrapanorámico las barras serían tan largas que el
+  nombre del país quedaría muy lejos de su cifra. Los párrafos no se alargan: ya tenían su
+  propio límite en caracteres (`max-width: 62ch`).
+- Comprobado a 390, 1280, 1366, 1920 y 2560 px: sin scroll horizontal.
+
 ## 11. Titular de la portada: «A dónde» en vez de «Adónde»
 
 - **Qué:** el titular de la portada pasa de «¿Adónde va el dinero público?» a «¿A dónde va el
