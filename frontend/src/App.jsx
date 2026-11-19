@@ -10,9 +10,10 @@ import Budget from './pages/Budget.jsx';
 import BudgetPolicy from './pages/BudgetPolicy.jsx';
 import BudgetProgram from './pages/BudgetProgram.jsx';
 import Pensions from './pages/Pensions.jsx';
-import WorldLeaders from './pages/WorldLeaders.jsx';
 import Calculator from './pages/Calculator.jsx';
 import ThemeToggle from './components/ThemeToggle.jsx';
+import Search from './pages/Search.jsx';
+import EuFunds from './pages/EuFunds.jsx';
 
 // Navegación sin librería: la página actual va en la URL tras la almohadilla
 // (#/ambito/GF07, #/presupuestos/programa/453B). El navegador avisa con el evento
@@ -26,19 +27,25 @@ function readRoute() {
 const NAV = [
   { href: '#/', page: '', label: 'Inicio' },
   { href: '#/presupuestos', page: 'presupuestos', label: 'Presupuestos' },
+  { href: '#/fondos-europeos', page: 'fondos-europeos', label: 'Fondos europeos' },
   { href: '#/pensiones', page: 'pensiones', label: 'Pensiones' },
   { href: '#/calculadora', page: 'calculadora', label: 'Calculadora' },
   { href: '#/comparar', page: 'comparar', label: 'Comparar con otros países' },
-  { href: '#/mapa', page: 'mapa', label: 'Mapa' },
   { href: '#/avisos', page: 'avisos', label: 'Avisos' },
 ];
 
 // Cabecera: todas menos Pensiones, que tiene su propio bloque destacado en la portada
-// (y un enlace desde Protección social), para no recargar el menú.
+// (y un enlace desde Protección social), para no recargar el menú. El buscador va aparte,
+// como lupa a la derecha.
 const HEADER_NAV = NAV.filter((item) => item.page !== 'pensiones');
 
+
 // Menú del pie: todas las páginas, con Fuentes bien visible (ya no está en la cabecera).
-const FOOTER_NAV = [...NAV, { href: '#/fuentes', page: 'fuentes', label: 'Fuentes de datos' }];
+const FOOTER_NAV = [
+  ...NAV,
+  { href: '#/buscar', page: 'buscar', label: 'Buscar' },
+  { href: '#/fuentes', page: 'fuentes', label: 'Fuentes de datos' },
+];
 
 export default function App() {
   const [route, setRoute] = useState(readRoute);
@@ -76,15 +83,17 @@ export default function App() {
   else if (route.page === 'presupuestos' && route.id === 'politica') page = <BudgetPolicy id={route.sub} {...budgetProps} />;
   else if (route.page === 'presupuestos' && route.id === 'programa') page = <BudgetProgram id={route.sub} {...budgetProps} />;
   else if (route.page === 'presupuestos') page = <Budget {...budgetProps} />;
+  else if (route.page === 'buscar') page = <Search query={route.id} {...budgetProps} />;
+  else if (route.page === 'fondos-europeos') page = <EuFunds {...budgetProps} />;
   else if (route.page === 'pensiones') page = <Pensions {...pageProps} />;
   else if (route.page === 'calculadora') page = <Calculator year={selectedYear} />;
-  else if (route.page === 'comparar') page = <Compare {...pageProps} />;
-  else if (route.page === 'mapa') page = <WorldLeaders {...pageProps} />;
+  // #/mapa y #/comparar/mapa eran el mapa aparte; ahora vive dentro de Comparar y los enlaces antiguos siguen funcionando.
+  else if (route.page === 'comparar' || route.page === 'mapa') page = <Compare {...pageProps} />;
   else if (route.page === 'avisos') page = <Alerts {...pageProps} focus={route.id} />;
   else if (route.page === 'fuentes') page = <Sources />;
   else page = <p className="state">Esta página no existe. <a href="#/">Volver al inicio</a></p>;
 
-  const activePage = route.page === 'ambito' ? '' : route.page;
+  const activePage = route.page === 'ambito' ? '' : route.page === 'mapa' ? 'comparar' : route.page;
 
   return (
     <>
@@ -100,7 +109,21 @@ export default function App() {
               </a>
             ))}
           </nav>
-          <ThemeToggle />
+          <div className="header-tools">
+            <a
+              href="#/buscar"
+              className="header-search"
+              aria-label="Buscar en los Presupuestos"
+              title="Buscar"
+              aria-current={activePage === 'buscar' ? 'page' : undefined}
+            >
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+                <circle cx="11" cy="11" r="7" />
+                <path d="m20 20-3.8-3.8" />
+              </svg>
+            </a>
+            <ThemeToggle />
+          </div>
         </div>
       </header>
 

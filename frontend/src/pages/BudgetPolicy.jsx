@@ -8,6 +8,7 @@ import Status from '../components/Status.jsx';
 import BudgetBars from '../components/BudgetBars.jsx';
 import BudgetNotice from '../components/BudgetNotice.jsx';
 import PolicyBar from '../components/PolicyBar.jsx';
+import CiteButton from '../components/CiteButton.jsx';
 
 function Breadcrumb({ name }) {
   return (
@@ -85,6 +86,12 @@ export default function BudgetPolicy({ id, year, onYearChange }) {
           <span className="stat-value">{p.programs.length}</span>
         </div>
       </section>
+      {p.total_keur != null && (
+        <CiteButton
+          text={`La política de gasto «${p.name}» tiene ${formatKeur(p.total_keur)} en ${yearRow?.document === 'Prorroga' ? `el presupuesto prorrogado vigente en ${p.year}` : `los Presupuestos Generales del Estado de ${p.year}`}.`}
+          source={source}
+        />
+      )}
 
       <section className="panel section" aria-labelledby="evo-title">
         <div className="section-title">
