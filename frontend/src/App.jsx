@@ -12,6 +12,8 @@ import BudgetProgram from './pages/BudgetProgram.jsx';
 import Pensions from './pages/Pensions.jsx';
 import WorldLeaders from './pages/WorldLeaders.jsx';
 import Calculator from './pages/Calculator.jsx';
+import Search from './pages/Search.jsx';
+import EuFunds from './pages/EuFunds.jsx';
 
 // Navegación sin librería: la página actual va en la URL tras la almohadilla
 // (#/ambito/GF07, #/presupuestos/programa/453B). El navegador avisa con el evento
@@ -25,6 +27,8 @@ function readRoute() {
 const NAV = [
   { href: '#/', page: '', label: 'Inicio' },
   { href: '#/presupuestos', page: 'presupuestos', label: 'Presupuestos' },
+  { href: '#/buscar', page: 'buscar', label: 'Buscar' },
+  { href: '#/fondos-europeos', page: 'fondos-europeos', label: 'Fondos europeos' },
   { href: '#/pensiones', page: 'pensiones', label: 'Pensiones' },
   { href: '#/calculadora', page: 'calculadora', label: 'Calculadora' },
   { href: '#/comparar', page: 'comparar', label: 'Comparar con otros países' },
@@ -33,8 +37,9 @@ const NAV = [
 ];
 
 // Cabecera: todas menos Pensiones, que tiene su propio bloque destacado en la portada
-// (y un enlace desde Protección social), para no recargar el menú.
-const HEADER_NAV = NAV.filter((item) => item.page !== 'pensiones');
+// (y un enlace desde Protección social), y Fondos europeos, que se abre desde Presupuestos,
+// para no recargar el menú.
+const HEADER_NAV = NAV.filter((item) => item.page !== 'pensiones' && item.page !== 'fondos-europeos');
 
 // Menú del pie: todas las páginas, con Fuentes bien visible (ya no está en la cabecera).
 const FOOTER_NAV = [...NAV, { href: '#/fuentes', page: 'fuentes', label: 'Fuentes de datos' }];
@@ -75,6 +80,8 @@ export default function App() {
   else if (route.page === 'presupuestos' && route.id === 'politica') page = <BudgetPolicy id={route.sub} {...budgetProps} />;
   else if (route.page === 'presupuestos' && route.id === 'programa') page = <BudgetProgram id={route.sub} {...budgetProps} />;
   else if (route.page === 'presupuestos') page = <Budget {...budgetProps} />;
+  else if (route.page === 'buscar') page = <Search query={route.id} {...budgetProps} />;
+  else if (route.page === 'fondos-europeos') page = <EuFunds {...budgetProps} />;
   else if (route.page === 'pensiones') page = <Pensions {...pageProps} />;
   else if (route.page === 'calculadora') page = <Calculator year={selectedYear} />;
   else if (route.page === 'comparar') page = <Compare {...pageProps} />;

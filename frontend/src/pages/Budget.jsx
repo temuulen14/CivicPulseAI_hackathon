@@ -12,6 +12,8 @@ import BudgetBars, { GovernmentBand } from '../components/BudgetBars.jsx';
 import { governmentLabel } from '../governments.js';
 import BudgetNotice from '../components/BudgetNotice.jsx';
 import PolicyBar from '../components/PolicyBar.jsx';
+import SearchBox from '../components/SearchBox.jsx';
+import CiteButton from '../components/CiteButton.jsx';
 
 // PIB aproximado de un año, en millones de euros, a partir del gasto de Eurostat de ese año:
 // suma de importes / suma de % del PIB. Los % vienen redondeados a un decimal, así que es una
@@ -40,6 +42,7 @@ export default function Budget({ year, years, onYearChange, measure, onMeasureCh
         Lo que la Ley de Presupuestos asigna cada año al Estado central, partida a partida: de la gran política de
         gasto hasta el último concepto.
       </p>
+      <SearchBox />
       <BudgetNotice />
     </section>
   );
@@ -102,7 +105,13 @@ export default function Budget({ year, years, onYearChange, measure, onMeasureCh
               {b.includes_social_security
                 ? `Incluye la Seguridad Social. Sin ella: ${formatKeur(b.total_without_social_security_keur)}.`
                 : 'La prórroga no incluye la Seguridad Social.'}
-              {b.eu_recovery_keur > 0 && ` De fondos europeos de recuperación: ${formatKeur(b.eu_recovery_keur)}.`}
+              {b.eu_recovery_keur > 0 && (
+                <>
+                  {' '}
+                  De fondos europeos de recuperación: {formatKeur(b.eu_recovery_keur)}.{' '}
+                  <a href="#/fondos-europeos">Ver a dónde van</a>
+                </>
+              )}
             </p>
             {b.note && (b.document !== 'Prorroga' || b.carried_from) && <p className="muted">{b.note}</p>}
             {b.carried_from && (
@@ -119,6 +128,13 @@ export default function Budget({ year, years, onYearChange, measure, onMeasureCh
               {b.legal.law_title}
             </a>
           </p>
+        )}
+        {b.total_keur != null && (
+          <CiteButton
+            text={`${b.document === 'Prorroga' ? `El presupuesto prorrogado vigente en ${b.year} asigna` : `Los Presupuestos Generales del Estado de ${b.year} asignan`} ${formatKeurWords(b.total_keur)} ${b.includes_social_security ? 'al Estado central y la Seguridad Social' : 'al Estado central, sin Seguridad Social'}.`}
+            source={source}
+            legal={b.legal}
+          />
         )}
       </section>
 
