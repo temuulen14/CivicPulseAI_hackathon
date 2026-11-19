@@ -32,7 +32,7 @@ export function totalOf(areasResponse, measure) {
   return areasResponse.areas.reduce((sum, a) => sum + (a.pct_gdp ?? 0), 0);
 }
 
-// Etiquetas cortas para el interruptor de la cabecera.
+// Etiquetas cortas para el interruptor euros / % del PIB (MeasureSwitch).
 export const MEASURE_SWITCH = [
   { value: 'amount', label: 'Euros' },
   { value: 'gdp', label: '% del PIB' },

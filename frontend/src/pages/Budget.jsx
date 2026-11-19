@@ -6,6 +6,7 @@ import { getAreasCached } from '../useAllYears.js';
 import { useSourcesById } from '../sources.js';
 import { formatKeur, formatKeurWords, formatPct } from '../format.js';
 import Status from '../components/Status.jsx';
+import MeasureSwitch from '../components/MeasureSwitch.jsx';
 import Segmented from '../components/Segmented.jsx';
 import BudgetBars, { GovernmentBand } from '../components/BudgetBars.jsx';
 import { governmentLabel } from '../governments.js';
@@ -21,7 +22,7 @@ function gdpOf(areasResponse) {
   return pct > 0 ? (areasResponse.total_meur / pct) * 100 : null;
 }
 
-export default function Budget({ year, years, onYearChange, measure, dataYears }) {
+export default function Budget({ year, years, onYearChange, measure, onMeasureChange, dataYears }) {
   const [group, setGroup] = useState('policy'); // 'policy' | 'area'
   const [withSS, setWithSS] = useState(true);
   const all = useApi(getBudgetYears, []);
@@ -77,6 +78,7 @@ export default function Budget({ year, years, onYearChange, measure, dataYears }
       {header}
 
       <section className="hero-total budget-total" aria-live="polite">
+        {b.total_keur != null && <MeasureSwitch value={measure} onChange={onMeasureChange} />}
         {b.total_keur == null ? (
           <>
             <p className="hero-kicker">En {b.year} no hubo documento de presupuestos</p>
@@ -151,6 +153,26 @@ export default function Budget({ year, years, onYearChange, measure, dataYears }
             .join(' y ')}
           .
         </p>
+      </section>
+
+      {/* Imagen fija de 2023 (último año con Ley y Seguridad Social), generada con
+          scripts/sankey-espana.mjs a partir de /budget?year=2023. */}
+      <section className="panel section flow-figure" aria-labelledby="flow-title">
+        <div className="section-title">
+          <h2 id="flow-title">El presupuesto de 2023, de un vistazo</h2>
+          <p className="muted">
+            Último presupuesto aprobado por ley. Cada franja es proporcional a su importe.
+          </p>
+        </div>
+        <a href={`${import.meta.env.BASE_URL}presupuesto-2023-flujo.svg`} target="_blank" rel="noreferrer">
+          <img
+            src={`${import.meta.env.BASE_URL}presupuesto-2023-flujo.svg`}
+            alt="Diagrama de flujo del presupuesto de 2023: 583,5 mil millones de euros (379,8 del Estado y 203,7 de la Seguridad Social). Protección y promoción social se lleva 260,2 (190,7 en pensiones); actuaciones de carácter general, 223,9 (128,8 en deuda pública); actuaciones económicas, 57,4; servicios públicos básicos, 27,8; sanidad, educación y cultura, 14,2."
+            width="1600"
+            height="1413"
+            loading="lazy"
+          />
+        </a>
       </section>
 
       <section className="section" aria-labelledby="pol-title">
