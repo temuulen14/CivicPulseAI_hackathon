@@ -120,7 +120,22 @@ de su parte: qué se decidió y por qué, en una fila.
 
 ### Datos (Mario)
 
-_Por rellenar._
+| Decisión | Por qué |
+|----------|---------|
+| El JSON-stat de Eurostat se aplana a mano (`flatten_jsonstat`, 20 líneas) | Sin librerías; el índice de cada valor es un número en base mixta con los tamaños de cada dimensión |
+| Último año: 2024 (provisional); 2023 ya es definitivo | Es lo que publica hoy Eurostat; el contrato de ejemplo decía 2023 |
+| 27 países + `EU27_2020`, desde 2015 | Comparación completa; el agregado va aparte porque no es un país |
+| Desglose por tipo económico (personal, compras, conciertos, inversión…) solo para España | Para 28 países serían 240 000 filas que la app no enseña |
+| Diez tipos económicos que no se solapan (`spending_types.json`) | Comprobado: suman el total en los 80 ámbitos y todos los años |
+| Validación con tolerancia del 0,5 % o 2 M€ | Eurostat redondea cada partida por separado; en partidas pequeñas el redondeo pesa más que el 0,5 % |
+| Si falta un subámbito de un país, esa suma no se comprueba | Eurostat deja huecos; comprobar con huecos daría falsos errores |
+| Se admiten negativos en subámbitos, nunca en totales ni ámbitos | En contabilidad nacional un subámbito es negativo si se vende más de lo que se compra (terrenos en Finlandia, material militar en Eslovaquia 2023). España no tiene ninguno |
+| PGE: se descargan los CSV oficiales de cada programa (Serie Roja, 472 ficheros) recorriendo la web de Hacienda | No hay API ni descarga única (el ZIP pesa 855 MB); la web exige cabecera de navegador |
+| PGE: se excluye el programa 000X | Son transferencias internas entre el Estado y sus organismos; contarlas duplicaría |
+| PGE: la parte de un organismo que la Ley no reparte por capítulos va en `undetailed_keur` | La Ley no siempre detalla los organismos autónomos; mejor decirlo que inventarlo |
+| PGE: importes en miles de euros (`amount_keur`), como los publica Hacienda | Se pueden cotejar uno a uno con el documento oficial |
+| PGE: equivalencia política de gasto → ámbito COFOG en `pge_policies.json` | Para enlazar el presupuesto con la página de cada ámbito. Es aproximada y nuestra, no oficial |
+| PGE solo de 2023 | Es la última ley aprobada: 2024, 2025 y 2026 son prórrogas de la de 2023 |
 
 ### Frontend (Dersu)
 
