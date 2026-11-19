@@ -1,9 +1,10 @@
 # data/ · pipeline de datos (Mario)
 
 ```bash
-pip install requests
+pip install -r data/requirements.txt
 python data/fetch.py   # descarga a raw/ (unos 15 minutos: Eurostat, BOE y 3 400 ficheros de los PGE)
 python data/build.py   # valida y escribe dataset.json; se para si algo no cuadra
+python -m pytest data/ # tests del pipeline (sin red)
 ```
 
 `dataset.json` sigue la forma de `docs/API_CONTRACT.md` y añade seis claves nuevas (`spending_types`, `spending_by_type`, `governments`, `budget_policies`, `budget_years`, `budget_programs`).
