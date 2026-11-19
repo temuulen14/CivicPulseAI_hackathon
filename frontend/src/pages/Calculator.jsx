@@ -7,12 +7,16 @@ import { shareStep } from '../scale.js';
 import Segmented from '../components/Segmented.jsx';
 import Status from '../components/Status.jsx';
 import TaxSankey from '../components/TaxSankey.jsx';
+import TaxUnits from '../components/TaxUnits.jsx';
+import TaxDays from '../components/TaxDays.jsx';
 
 const euro = new Intl.NumberFormat('es-ES', { maximumFractionDigits: 0, useGrouping: 'always' });
 const eur = (v) => `${euro.format(v)}\u00a0€`;
 
 const VIEWS = [
   { value: 'flow', label: 'Flujo del dinero' },
+  { value: 'units', label: 'Cada 100 €' },
+  { value: 'days', label: 'Días de trabajo' },
   { value: 'bars', label: 'Barras' },
   { value: 'table', label: 'Tabla' },
 ];
@@ -156,6 +160,10 @@ export default function Calculator({ year }) {
           <p className="state">Escribe un sueldo para ver el reparto.</p>
         ) : view === 'flow' ? (
           <TaxSankey result={result} areas={byArea} />
+        ) : view === 'units' ? (
+          <TaxUnits areas={byArea} total={result.total} />
+        ) : view === 'days' ? (
+          <TaxDays result={result} areas={byArea} />
         ) : view === 'bars' ? (
           <ul className="hbars calc-bars">
             {byArea.map((a) => (
