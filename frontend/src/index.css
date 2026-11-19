@@ -60,7 +60,9 @@ button { font: inherit; color: inherit; cursor: pointer; }
 }
 
 /* ---------- Estructura ---------- */
-.container { width: 100%; max-width: 1180px; margin: 0 auto; padding: 0 20px; }
+/* El ancho sigue a la pantalla: el 88 % de la ventana, nunca menos de 1180 px (portátil)
+   ni más de 1680 px (en un monitor ultrapanorámico las barras quedarían demasiado largas). */
+.container { width: 100%; max-width: clamp(1180px, 88vw, 1680px); margin: 0 auto; padding: 0 20px; }
 main.container { padding-top: 48px; padding-bottom: 96px; display: grid; gap: 64px; }
 /* los hijos de una rejilla no encogen por debajo de su contenido sin esto (scroll lateral en móvil) */
 main.container > * { min-width: 0; }
