@@ -571,7 +571,46 @@ Quién lo elaboró y quién lo ejecutó siguen siendo los de 2020.
   % del PIB), Avisos (previsión en 2024 y en 2019), Pensiones, Presupuestos en 2020, un servicio
   (Transporte) y Fuentes. Sin errores en consola y sin scroll horizontal.
 
-## 10. Titular de la portada: «A dónde» en vez de «Adónde»
+## 10. Contrato v1.2: países de fuera de la UE en Comparar, y pulido (19-11-2026, Pedro)
+
+Hecho por Pedro en la rama `Dersu` (acordado), después de mezclar `main` (backend v1.2).
+
+### 10.1 «Fuera de la UE» en Comparar
+
+- **Qué:** debajo de la lista de los 27 países sale un bloque «Fuera de la UE» con Estados
+  Unidos, Reino Unido, Australia, Japón y Corea del Sur (los que tengan dato ese año).
+- **Cómo:** `/compare` trae desde la v1.2 `world_rows` y `world_source_id`. Se pintan con las
+  mismas barras (`country-bar`) y la **misma escala** que la lista europea (el máximo se
+  calcula con las dos listas), para que una barra de EE. UU. se pueda comparar a ojo con una
+  de Francia. La línea de la mediana UE también las cruza.
+- **Por qué aparte y no mezclados:** no tienen puesto (`rank`) ni cuentan para la mediana ni
+  para los avisos, que son europeos. En vez de número de puesto llevan un guion.
+- La fuente es otra (OCDE, no Eurostat): se enlaza y se avisa de que las cifras son orientativas.
+- Si `world_rows` viene vacío (subámbitos, o los mocks), el bloque no aparece.
+
+### 10.2 Porcentajes siempre con un decimal
+
+- **Qué:** `formatPct`, `formatChange` y `formatPoints` escriben siempre un decimal: «9,0 %»
+  y no «9 %».
+- **Por qué:** en las columnas (Comparar, portada) se mezclaban «9 %» y «9,5 %»: quedaban
+  desalineados y parecía que unos datos eran menos precisos que otros.
+
+### 10.3 Arreglos encontrados al probar con el backend real
+
+| Problema | Solución |
+|---|---|
+| Presupuestos pedía `/areas?year=2025` y el backend respondía 404 (2025 tiene presupuesto pero aún no gasto de Eurostat). No rompía nada, pero dejaba un error en la consola | `App.jsx` pasa `dataYears` (los años con gasto real) y `Budget.jsx` solo hace la petición si el año está en esa lista |
+| La pestaña pedía `favicon.ico` y daba 404 | Icono SVG escrito dentro de `index.html` (cuadrado verde con tres barras), sin archivo aparte |
+
+### Comprobado
+
+- `npx eslint src` y `npm run build` sin errores.
+- En navegador contra el backend v1.2 y el dataset real, a 1280 px y 390 px: portada,
+  Presupuestos (año, política y programa), Pensiones, Comparar, Avisos, Fuentes y ámbitos
+  (nivel 1 y subámbito). Sin errores de consola, sin peticiones fallidas, sin scroll
+  horizontal y sin «NaN»/«null» en pantalla.
+
+## 11. Titular de la portada: «A dónde» en vez de «Adónde»
 
 - **Qué:** el titular de la portada pasa de «¿Adónde va el dinero público?» a «¿A dónde va el
   dinero público?». También cambia la meta `description` de `index.html`.
@@ -579,7 +618,7 @@ Quién lo elaboró y quién lo ejecutó siguen siendo los de 2020.
   cuestión de estilo.
 - **Cómo:** se cambió el texto en `src/pages/Home.jsx` (el `h1#hero-title`) y en `index.html`.
 
-## 11. El interruptor «Euros / % del PIB» sale de la cabecera
+## 12. El interruptor «Euros / % del PIB» sale de la cabecera
 
 - **Qué:** la cabecera ya no tiene el interruptor. Ahora hay uno junto a cada gráfico o tabla
   cuyas cifras cambian con la medida:
@@ -602,7 +641,7 @@ Quién lo elaboró y quién lo ejecutó siguen siendo los de 2020.
   horizontal. El único error de consola es el 404 de Presupuestos, que ya salía antes: aún no hay
   datos de Eurostat de 2025.
 
-## 12. Infografía de flujo del presupuesto de 2023 (Presupuestos)
+## 13. Infografía de flujo del presupuesto de 2023 (Presupuestos)
 
 - **Qué:** nueva imagen `public/presupuesto-2023-flujo.svg`, un diagrama de flujo (Sankey) al
   estilo de `googleexample.png`, pero con los PGE de 2023: Estado (379,8 mil M€) y Seguridad
@@ -623,7 +662,7 @@ Quién lo elaboró y quién lo ejecutó siguen siendo los de 2020.
   `npm run build` sin errores. Capturas a 1280 y 390 px sin scroll horizontal. El único error de
   consola es el 404 de `/areas?year=2025`, que ya salía antes.
 
-## 12. Pensiones sale de la cabecera, pero gana un bloque destacado en la portada
+## 14. Pensiones sale de la cabecera, pero gana un bloque destacado en la portada
 
 - **Qué:**
   - La cabecera ya no enlaza a Pensiones. El pie sí, con todas las demás páginas.
@@ -642,7 +681,7 @@ Quién lo elaboró y quién lo ejecutó siguen siendo los de 2020.
   portada y de Protección social: la cabecera no tiene Pensiones, el pie sí, no hay scroll
   horizontal y la consola no tiene errores.
 
-## 13. Calculadora de impuestos y «Comparar con otros países» en la cabecera
+## 15. Calculadora de impuestos y «Comparar con otros países» en la cabecera
 
 - **Qué:** nueva página **Calculadora** (`#/calculadora`, en la cabecera y el pie). Pregunta
   sueldo bruto mensual, pagas (12 o 14), tipo de contrato, edad, hijos (y cuántos menores de 3),
@@ -675,7 +714,7 @@ Quién lo elaboró y quién lo ejecutó siguen siendo los de 2020.
   1280 y 390 px, con y sin la cotización de la empresa: sin scroll horizontal de la página y sin
   errores de consola.
 
-## 14. El gasto público frente a la inflación
+## 16. El gasto público frente a la inflación
 
 - **Qué:** nuevo bloque «El gasto público frente a la inflación» en la portada (después de
   «Explora el gasto») y otro, «Frente a la inflación», en cada ámbito (después de «Evolución» y

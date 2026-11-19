@@ -21,7 +21,7 @@ Tres piezas, una frontera entre cada una, y un solo sentido de circulación de l
 |-------|-----------|---------|
 | Datos | Python + `requests` | El lenguaje habitual para tratar datos; sin más librerías porque son pocas filas |
 | Backend | Python + FastAPI | El framework de API más usado en Python; documenta la API solo (`/docs`) |
-| Frontend | React + Vite + TypeScript + Tailwind + Recharts | La combinación más extendida para una web con gráficos |
+| Frontend | React + Vite + Recharts (JavaScript y CSS normales) | La combinación más extendida para una web con gráficos |
 | Almacén | Un archivo JSON versionado en git | No hace falta base de datos para unos miles de filas |
 
 Nada más: sin base de datos, sin ORM, sin gestor de estado, sin librería de peticiones
@@ -130,6 +130,7 @@ de su parte: qué se decidió y por qué, en una fila.
 | El nivel de cada partida (`level` 1-4) lo calcula el backend por la longitud del código económico | Capítulo, artículo, concepto, subconcepto: el frontend solo tiene que sangrar |
 | Los Gobiernos se devuelven aparte y los años los citan por `id` | No se repite la ficha de cada Gobierno en cada año; y el backend no suma nada por Gobierno ni por partido (neutralidad) |
 | El desglose por tipo de gasto va dentro de `/api/areas/{id}` | Es parte de la ficha del ámbito: una sola petición por página |
+| Los países de fuera de la UE van en `world_rows`, aparte de `rows`, sin posición | La mediana, la posición y los avisos son europeos; mezclarlos cambiaría los tres. El frontend que no los use no nota nada |
 
 ### Datos (Mario)
 
@@ -167,7 +168,12 @@ de su parte: qué se decidió y por qué, en una fila.
 | Alumnado solo de centros públicos y concertados | Es el que paga el gasto público; los privados no concertados no |
 | Cuotas de gasto sobre las etapas atribuibles (GF0901-GF0904) | Los gastos no atribuibles a una etapa (comedor, transporte escolar…) no tienen alumnado con que compararse |
 | Umbral 1,5 en educación | Es normal que una etapa cueste algo más por alumno; a partir del 50 % más merece una mirada. Hoy ninguna lo supera (0,93 / 1,19 / 0,80) |
-| Transporte descartado como cruce | El gasto del Estado por modo no incluye la inversión de ADIF ni el autobús urbano que pagan comunidades y ayuntamientos: el aviso no se sostendría |
+| Transporte descartado como cruce | El gasto del Estado por modo no incluye la inversión de ADIF ni el autobús urbano que pagan comunidades y ayuntamientos: el aviso no se sostendría. El INE sí da viajeros por modo, pero falta el gasto con que compararlos |
+| `cruces.json` en grupos, cada uno con su base de gasto, su base de uso y su fuente | Educación y pensiones se reparten con clasificaciones distintas; una cuota solo tiene sentido dentro de su grupo |
+| Cruces de protección social: gasto en vejez y supervivencia frente a pensionistas de cada tipo (Eurostat, 2023) | Misma fuente que el gasto y misma partición; el gasto medio por pensión que sale (21 200 € y 11 800 € al año) cuadra con la Seguridad Social |
+| Umbral 2 en viudedad y orfandad (1,5 en jubilación) | La ley fija la viudedad en torno al 52 % de la base del fallecido y la orfandad en el 20 %: que reciban menos gasto que su parte de pensiones es el diseño, no un desajuste. Hoy: 1,15 y 0,63, sin aviso |
+| Incapacidad fuera de los cruces | Su gasto (GF1001) incluye las bajas por enfermedad, que no son pensiones: el aviso saldría falso |
+| Sanidad sin cruce de uso | El gasto solo se divide en ambulatorio y hospitalario, y sus usos (consultas, ingresos) no se pueden sumar en una cuota común. Sanidad queda en la comparación con Europa y el desglose por tipo de gasto |
 
 ### Frontend (Dersu)
 
@@ -203,6 +209,8 @@ Explicación detallada, paso a paso, en `frontend/CAMBIOS.md`.
 | Página de Pensiones con la demanda (pensionistas y mayores de 65) desde Eurostat, guardada en `frontend/src/pensionsDemand.js` | Se añadió a última hora; cada cifra lleva su consulta exacta y su URL. Lo correcto a medio plazo es que entre en el pipeline de `data/` y lo sirva el backend |
 | Franja de Gobiernos también bajo los selectores de año de la portada, los ámbitos y Pensiones | Distinguir por Gobierno en todos los gráficos por años, no solo en los PGE |
 | Fuentes sale de la cabecera y pasa al menú del pie, destacada y con botón | Petición del usuario: la cabecera queda para las secciones de uso diario |
+| Países de fuera de la UE en Comparar: lista aparte, sin puesto, con la misma escala que la europea | La mediana, el puesto y los avisos son europeos y no deben cambiar; con una sola escala las barras de las dos listas se comparan a ojo. La fuente (OCDE) es distinta y se dice |
+| Porcentajes siempre con un decimal («9,0 %») | En una columna quedan alineados y no parece que unos datos sean más precisos que otros |
 | El interruptor «Euros / % del PIB» sale de la cabecera y va junto a cada gráfico o tabla que cambia con la medida (`MeasureSwitch.jsx`); el estado sigue en `App.jsx` | Petición del usuario: el control está donde se ve su efecto. Al compartir el estado, la elección se mantiene en todos los gráficos y páginas |
 | Pensiones sale de la cabecera; entra por un bloque destacado en la portada, justo bajo la cifra principal, por un enlace en Protección social y por el pie | Petición del usuario: cabecera más ligera, sin que Pensiones pierda visibilidad |
 | Infografía de flujo de los PGE 2023 como SVG estático generado por `frontend/scripts/sankey-espana.mjs` desde `/budget?year=2023` | Petición del usuario. Sin librería de Sankey: el script dibuja nodos y cintas con SVG plano. Se fija 2023 por ser el último año con Ley y con Seguridad Social |

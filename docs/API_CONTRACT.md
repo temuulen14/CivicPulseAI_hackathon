@@ -1,4 +1,4 @@
-# Contrato de API (v1.1)
+# Contrato de API (v1.2)
 
 Base: `http://localhost:8000/api`. Documentación interactiva en `http://localhost:8000/docs`.
 Un `year` sin datos devuelve `404`. Todo JSON, campos en `snake_case`.
@@ -7,6 +7,9 @@ Cambios: solo los hace Pedro y se avisan al equipo antes del merge.
 **v1.1 (19-11): solo añade, no rompe nada de v1.** Nuevo: `budget_years` y
 `latest_budget_year` en `/meta`; `yoy_change_pct`, `spending_by_type` y `budget_policies`
 en `/areas/{id}`; y las cuatro rutas de `/budget` (Presupuestos Generales del Estado).
+
+**v1.2 (19-11): solo añade.** Nuevo en `/compare`: `world_rows` y `world_source_id`
+(grandes economías fuera de la UE, con datos de la OCDE).
 
 Convenciones:
 
@@ -160,6 +163,11 @@ Solo aparecen países: los agregados (`EU27_2020`…) no entran en filas, median
 `eu_median` es `null` si hay menos de tres países con dato. `rank` es la posición entre
 todos los países, aunque se filtre con `countries`.
 
+`world_rows` son las grandes economías de fuera de la UE (`USA`, `JPN`, `GBR`, `KOR`, `AUS`,
+códigos de tres letras de la OCDE), de mayor a menor. Van **aparte**: no tienen `rank` y no
+entran en `eu_median` ni en los avisos. Solo hay dato para ámbitos de nivel 1; si no hay,
+`world_rows` es `[]` y `world_source_id` es `null`. El filtro `countries` también se les aplica.
+
 ```json
 {
   "area_id": "GF07",
@@ -171,7 +179,12 @@ todos los países, aunque se filtre con `countries`.
     {"country": "ES", "name": "España", "value": 6.6, "rank": 14, "provisional": true},
     {"country": "FR", "name": "Francia", "value": 8.8, "rank": 3, "provisional": true}
   ],
-  "source_id": "eurostat_gov_10a_exp"
+  "source_id": "eurostat_gov_10a_exp",
+  "world_rows": [
+    {"country": "USA", "name": "Estados Unidos", "value": 10.0},
+    {"country": "JPN", "name": "Japón", "value": 7.8}
+  ],
+  "world_source_id": "oecd_cofog_table11"
 }
 ```
 
@@ -362,7 +375,7 @@ calcula cuotas, variaciones, rankings y avisos.
 }
 ```
 
-- Además lleva `spending_types`, `spending_by_type`, `governments`, `budget_policies`,
+- Además lleva `world_countries`, `world_spending`, `spending_types`, `spending_by_type`, `governments`, `budget_policies`,
   `budget_years` y `budget_programs`; su forma está en `data/README.md`. Son opcionales
   para el backend: si faltan, esas partes de la API salen vacías.
 - `spending` incluye el total con `area_id: "TOTAL"`.

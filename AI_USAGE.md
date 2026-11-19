@@ -10,6 +10,7 @@ Herramienta: Claude Code (modelo Claude Opus 5.5), en la terminal, sobre la carp
 - Cruces gasto-uso: cálculo de cuotas; el criterio (qué se compara, umbral, notas y qué cruces se descartan) se discutió y decidió en la sesión.
 - Presupuestos 2015-2025: recorrido de la web de Hacienda para leyes y prórrogas, conversión de la tabla HTML de 2015-2016, y detección de los huecos (Seguridad Social en las prórrogas, 2020 sin documento) al revisar la serie.
 - Gobiernos: búsqueda y verificación de los nombramientos en la API del BOE y del partido en La Moncloa; la decisión de no sumar importes por partido se tomó en la sesión.
+- Cruces de protección social: búsqueda de fuentes de uso (INE, Eurostat), comprobación de las cifras y propuesta de umbral; la decisión de incluir pensiones y dejar fuera sanidad y transporte se tomó en la sesión.
 - Tests (`data/test_build.py`) y documentación: `data/README.md`, `docs/DATA_SOURCES.md` y las decisiones de datos en `docs/ARCHITECTURE.md`.
 
 ## Pedro (backend, contrato y entrega)
@@ -20,4 +21,7 @@ Herramienta: Claude Code, en la terminal, sobre `backend/` y `docs/`.
 - Backend: escritura de la API (FastAPI), las dos reglas de aviso y sus tests; revisado y ejecutado en cada paso.
 - Integración de los datos de Mario: lectura del dataset real, nuevas rutas de los PGE (`/api/budget…`), desglose por tipo de gasto y ampliación del contrato a la v1.1.
 - Tests: casos límite de las reglas, un test por endpoint y comprobaciones de sumas contra el dataset real.
+- Comparación con países de fuera de la UE en `/api/compare` (contrato v1.2), con sus tests escritos antes que el código.
+- `README.md` de entrega y capturas de pantalla, tomadas con la aplicación en marcha.
+- Frontend (sobre el trabajo de Dersu): bloque «Fuera de la UE» en Comparar y repaso de todas las páginas en navegador, a ancho de escritorio y de móvil, contra el backend real.
 - Material de estudio para la defensa (presentación y resumen de decisiones); no forma parte del código.

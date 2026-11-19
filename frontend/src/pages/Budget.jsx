@@ -22,13 +22,15 @@ function gdpOf(areasResponse) {
   return pct > 0 ? (areasResponse.total_meur / pct) * 100 : null;
 }
 
-export default function Budget({ year, years, onYearChange, measure, onMeasureChange }) {
+export default function Budget({ year, years, onYearChange, measure, onMeasureChange, dataYears }) {
   const [group, setGroup] = useState('policy'); // 'policy' | 'area'
   const [withSS, setWithSS] = useState(true);
   const all = useApi(getBudgetYears, []);
   const budget = useApi(() => getBudgetInForce(year), [year]);
   const areas = useApi(() => getAreasCached(null), []);
-  const yearAreas = useApi(() => getAreasCached(year).catch(() => null), [year]);
+  // El PIB del año sale del gasto real; solo se pide si ese año tiene datos (si no, sería un 404).
+  const hasData = dataYears.includes(year);
+  const yearAreas = useApi(() => (hasData ? getAreasCached(year) : Promise.resolve(null)), [year, hasData]);
   const sources = useSourcesById();
 
   const header = (

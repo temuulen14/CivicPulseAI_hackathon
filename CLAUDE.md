@@ -37,7 +37,7 @@ Lo más habitual y lo mínimo, para poder explicar cada pieza al jurado:
 
 - **Datos**: Python 3.12 + `requests`. Salida: `data/dataset.json`.
 - **Backend**: FastAPI + Pydantic. Sin base de datos: carga `dataset.json` al arrancar.
-- **Frontend**: Vite + React + TypeScript + Tailwind + Recharts, con `fetch` nativo.
+- **Frontend**: Vite + React + Recharts, en JavaScript y CSS normales, con `fetch` nativo.
 
 **No añadas dependencias ni capas** (base de datos, ORM, gestor de estado, librería de
 peticiones, Docker…) sin acordarlo con el equipo. Si algo se resuelve con veinte líneas
