@@ -10,3 +10,11 @@ export const ALERT_TYPES = {
   usage_mismatch: 'Gasto frente a uso',
   international_outlier: 'Comparación con la UE',
 };
+
+// Los nombres de ministerios y capítulos vienen en mayúsculas en el documento de Hacienda:
+// "MINISTERIO DE SANIDAD" -> "Ministerio de sanidad". Se lee mejor y no grita.
+export function sentenceCase(text) {
+  if (!text) return text;
+  const lower = text.toLocaleLowerCase('es-ES');
+  return lower.charAt(0).toLocaleUpperCase('es-ES') + lower.slice(1);
+}

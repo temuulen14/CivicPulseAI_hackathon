@@ -381,3 +381,79 @@ Solo estilos.
   y sin scroll horizontal.
 - Con datos reales de 2024 hay 2 avisos (los dos de comparación con la UE). Los cruces de
   educación de Mario no superan su umbral, así que no generan aviso: es lo esperado.
+
+---
+
+## 8. Backend v1.1 de Pedro: Presupuestos Generales del Estado
+
+Pedro publicó el contrato v1.1 (`docs/API_CONTRACT.md`). Solo añade campos y rutas, así que
+nada de lo anterior se rompe. El frontend aprovecha todo lo nuevo:
+
+### Ámbito
+
+| Qué | Cómo |
+|---|---|
+| Variación anual | Se usa `yoy_change_pct` de la API. En % del PIB (puntos) se sigue calculando desde `history` |
+| **"En qué se va el dinero"** | `spending_by_type`: personal, compras, inversión, subvenciones… con barra, porcentaje, importe y una frase que explica cada tipo. Los tipos a cero no se enseñan |
+| **"En los Presupuestos del Estado"** | `budget_policies`: las políticas de los PGE que corresponden al ámbito, con enlace a cada una. El texto avisa de que es otra cifra y no se compara con la de arriba. Al pulsar, la sección de Presupuestos se abre en el mismo año |
+
+### Sección nueva: Presupuestos (`#/presupuestos`)
+
+Nueva entrada en el menú ("Comparar países" pasa a "Comparar" para que quepa). Tres pantallas,
+igual que las rutas de la API:
+
+1. **El año** (`Budget.jsx`, `/budget/years` y `/budget`):
+   - La cifra de la Ley de ese año en grande. Si es una prórroga o no hay documento (2020), la
+     frase lo dice, con la nota del backend.
+   - **Evolución 2015–2025** (`BudgetBars.jsx`): columnas con la serie sin Seguridad Social (la
+     única comparable entre años). Verde = ley aprobada, verde claro = prórroga, azul = fondos
+     europeos de recuperación, hueco = sin documento. Cada columna es un botón que elige el año.
+   - **Franja de Gobiernos** alineada con las columnas, con tonos neutros y sin colores de partido,
+     más una frase: quién elaboró el presupuesto vigente y quién lo ejecutó (con días). No se
+     suma nada por Gobierno.
+   - **Políticas del año**: barras con el tramo de fondos europeos en azul. Se pueden agrupar
+     **por política** o **por ámbito** (equivalencia aproximada) y ver **con o sin Seguridad
+     Social** cuando la ley la incluye.
+2. **La política** (`BudgetPolicy.jsx`, `/budget/policies/{id}`): cifras clave, su evolución (las
+   mismas columnas, clicables), enlace al ámbito de Eurostat y sus programas.
+3. **El programa** (`BudgetProgram.jsx`, `/budget/programs/{id}`): por ministerio y organismo; los
+   capítulos (nivel 1) son filas desplegables y dentro aparecen artículos, conceptos y
+   subconceptos sangrados por nivel. Solo se suman los capítulos, como dice el contrato.
+   Un programa que no existe ese año muestra el error del backend y el selector para cambiar.
+
+Un aviso fijo (`BudgetNotice.jsx`) explica en cada pantalla que **no es la misma cifra que la
+portada**: lo presupuestado para el Estado central frente a lo gastado por todas las
+administraciones.
+
+### Otros cambios
+
+- `api.js`: cuatro funciones nuevas (`getBudgetYears`, `getBudget`, `getBudgetPolicy`,
+  `getBudgetProgram`).
+- `mocksBudget.js`: datos de ejemplo con la forma de v1.1 y la estructura real (prórrogas en 2019,
+  2024 y 2025; 2020 sin documento; fondos europeos desde 2021; los Gobiernos de cada año).
+  `mocks.js` añade `budget_years`, `yoy_change_pct`, `spending_by_type` y `budget_policies`.
+- `format.js`: `formatKeur` y `formatKeurWords` (los PGE vienen en miles de euros; se enseñan en
+  millones como el resto). El € va con espacio de no separación para que nunca quede solo.
+- `labels.js`: `sentenceCase` (ministerios y capítulos vienen en mayúsculas en el documento).
+- `governments.js`: textos de los Gobiernos ("Sánchez (PSOE y Sumar)").
+- `App.jsx`: rutas de tres partes (`#/presupuestos/programa/453B`) y un año propio para los PGE
+  (2015–2025), separado del de Eurostat (2015–2024).
+- `YearPicker`: sin valores, enseña solo los años (lo usa la página de programa).
+- Portada: bloque "Partida a partida" que lleva a la sección nueva.
+
+### Arreglos encontrados al revisar las capturas
+
+| Problema | Solución |
+|---|---|
+| En móvil las columnas de los PGE no se veían | Al ocultar la cifra de encima se descolocaba la rejilla; ahora la rejilla móvil tiene sus propias filas |
+| En móvil el menú cortaba "Fuentes" | El menú pasa a dos líneas si no cabe |
+| En móvil la cabecera perdía el margen lateral (ya pasaba antes) | El relleno vertical ya no pisa el lateral del contenedor |
+| "mil millones de €" dejaba el € solo en otra línea | Espacio de no separación antes del € |
+| "En qué se va el dinero" se descolocaba en escritorio | Heredaba una regla de columna de otra lista; se anula para esta |
+
+### Comprobado
+
+- `npx eslint src` y `npm run build` sin errores.
+- Capturas a 1280 px y 390 px de todas las páginas (también las tres nuevas, con un capítulo
+  desplegado), con mocks y con el backend de Pedro en `main` y el dataset real. Sin errores en
+  consola y sin scroll horizontal.

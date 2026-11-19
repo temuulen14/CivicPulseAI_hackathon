@@ -20,6 +20,7 @@
   --sky: #3b72c9;
   --sky-soft: #edf2fb;
   --neutral-bar: #c9cdc5;
+  --seq-1: #74b598;
   --info: #3b72c9;
   --info-soft: #edf2fb;
   --warning: #8a5a00;
@@ -307,8 +308,9 @@ a.div-row:hover, button.div-row:hover { background: var(--mist); }
 /* ---------- Móvil ---------- */
 @media (max-width: 720px) {
   main.container { padding-top: 28px; gap: 48px; }
-  .header-inner { flex-direction: column; align-items: flex-start; gap: 4px; padding: 10px 0 6px; }
-  .site-nav { max-width: 100%; }
+  .header-inner { flex-direction: column; align-items: flex-start; gap: 4px; padding-top: 10px; padding-bottom: 6px; } /* sin tocar el margen lateral del .container */
+  .site-nav { max-width: 100%; flex-wrap: wrap; margin-left: -10px; }
+  .site-nav a { padding: 0 10px; min-height: 36px; }
   .years { gap: 2px; }
   .year { flex: 1 1 0; min-width: 0; padding: 6px 0; font-size: 0.72rem; }
   .hero-contours { width: 100%; top: -20px; right: 0; }
@@ -330,4 +332,91 @@ a.div-row:hover, button.div-row:hover { background: var(--mist); }
   .alert-row-head .chevron { grid-column: 3; grid-row: 1; }
   .alert-row-body { padding-left: 4px; }
   .country-bar { grid-template-columns: 22px 92px 1fr 52px; gap: 8px; }
+}
+
+/* ---------- Presupuestos del Estado ---------- */
+.budget-notice { background: var(--mist); border-radius: 10px; padding: 14px 16px; color: var(--graphite); max-width: 82ch; font-size: 0.95rem; }
+.budget-notice strong { color: var(--ink); font-weight: 600; }
+.budget-total { gap: 10px; }
+.budget-figure { font-family: var(--serif); font-size: clamp(2.6rem, 7vw, 4.6rem); font-weight: 400; letter-spacing: -0.03em; line-height: 1; }
+
+/* Barras por año que hacen de selector */
+.bbars-wrap { display: grid; gap: 12px; }
+.bbars { display: grid; grid-template-columns: repeat(auto-fit, minmax(0, 1fr)); gap: 4px; }
+.bbar { display: grid; grid-template-rows: auto 160px auto auto; gap: 4px; justify-items: center; border: 0; background: transparent; padding: 8px 2px; border-radius: 10px; min-width: 0; transition: background 0.15s; }
+.bbar:hover { background: var(--mist); }
+.bbar[aria-pressed='true'] { background: var(--forest-soft); }
+.bbar-value { font-size: 0.75rem; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.bbar-plot { width: 100%; max-width: 44px; display: flex; align-items: flex-end; height: 100%; }
+.bbar-stack { width: 100%; display: flex; flex-direction: column-reverse; border-radius: 4px 4px 0 0; overflow: hidden; }
+.bbar-rest { flex: 1; background: var(--forest); }
+.is-extension .bbar-rest { background: var(--seq-1); }
+.bbar-eu { background: var(--sky); flex: none; border-top: 2px solid var(--paper); }
+.bbar-empty { width: 100%; height: 100%; border: 1px dashed var(--line-strong); border-radius: 4px; }
+.bbar-year { font-size: 0.85rem; font-variant-numeric: tabular-nums; color: var(--graphite); }
+.bbar[aria-pressed='true'] .bbar-year { color: var(--ink); font-weight: 600; }
+.bbar-doc { font-size: 0.72rem; color: var(--muted); white-space: nowrap; }
+
+/* Franja de Gobiernos, alineada con las barras */
+.gov-band { display: grid; gap: 6px; }
+.gov-band-title { font-size: 0.8rem; color: var(--muted); }
+.gov-band-track { position: relative; height: 34px; }
+.gov-seg { position: absolute; top: 0; bottom: 0; display: flex; align-items: center; padding: 0 8px; background: var(--mist-2); border-left: 2px solid var(--paper); font-size: 0.8rem; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.gov-seg.alt { background: var(--line); }
+.gov-seg:first-child { border-radius: 6px 0 0 6px; }
+.gov-seg:last-child { border-radius: 0 6px 6px 0; }
+.gov-detail { color: var(--graphite); font-size: 0.95rem; max-width: 80ch; }
+
+/* Barras de políticas y programas (enlaces) */
+.pbars { display: grid; gap: 2px; }
+.pbar { display: grid; grid-template-columns: minmax(180px, 2fr) 3fr minmax(96px, auto); gap: 14px; align-items: center; padding: 8px 6px; border-radius: 8px; color: inherit; text-decoration: none; min-height: 44px; }
+.pbar:hover { background: var(--mist); }
+.pbar:hover .pbar-name { text-decoration: underline; text-underline-offset: 3px; }
+.pbar-name { font-size: 0.95rem; }
+.pbar-name .muted { font-size: 0.82rem; }
+.pbar-track { height: 12px; background: var(--mist-2); border-radius: 6px; overflow: hidden; }
+.pbar-fill { display: flex; justify-content: flex-end; height: 100%; background: var(--forest); border-radius: 6px; min-width: 2px; overflow: hidden; }
+.pbar-eu { display: block; height: 100%; background: var(--sky); border-left: 2px solid var(--paper); }
+.pbar-value { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; font-size: 0.92rem; }
+.pgroups { display: grid; gap: 24px; }
+.pgroup { display: grid; gap: 6px; }
+.pgroup-head { display: flex; justify-content: space-between; gap: 16px; padding: 0 6px 6px; border-bottom: 1px solid var(--line); font-family: var(--serif); font-size: 1.25rem; font-weight: 500; }
+.pgroup-head a { color: var(--ink); }
+.pgroup-head .num { font-family: var(--sans); font-size: 0.95rem; color: var(--graphite); }
+
+/* Ámbito: tipo de gasto */
+.type-bars { display: grid; gap: 4px; }
+.type-bar { display: grid; grid-template-columns: minmax(200px, 2fr) 3fr minmax(96px, auto); gap: 14px; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--line); }
+.type-bar .hbar-track { grid-column: auto; } /* .hbar-track la manda a la columna 1 en el reparto por subámbitos */
+.type-name { display: grid; gap: 2px; font-size: 0.95rem; }
+.type-name .muted { font-size: 0.82rem; }
+.type-value { display: grid; text-align: right; font-variant-numeric: tabular-nums; font-weight: 500; }
+.type-value .muted { font-weight: 400; font-size: 0.8rem; }
+
+/* Programa: capítulos desplegables y partidas */
+.chapters { display: grid; border-top: 1px solid var(--line); }
+.chapter { border-bottom: 1px solid var(--line); }
+.chapter-head { width: 100%; display: grid; grid-template-columns: 16px minmax(180px, 2fr) 3fr minmax(130px, auto); gap: 12px; align-items: center; padding: 10px 4px; border: 0; background: none; text-align: left; min-height: 44px; }
+button.chapter-head:hover { background: var(--mist); }
+.chapter.open .chevron { transform: rotate(90deg); }
+.chapter-name { display: flex; gap: 10px; align-items: baseline; font-size: 0.95rem; }
+.chapter-code { font-variant-numeric: tabular-nums; color: var(--muted); font-size: 0.82rem; min-width: 2.5em; }
+.lines { display: grid; padding: 0 4px 12px 32px; }
+.line { display: grid; grid-template-columns: auto 1fr auto; gap: 10px; align-items: baseline; padding: 6px 0; border-top: 1px dashed var(--line); font-size: 0.9rem; }
+.line.level-3 { padding-left: 18px; }
+.line.level-4 { padding-left: 36px; color: var(--graphite); }
+.line-value { font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+@media (max-width: 720px) {
+  .bbars { gap: 1px; }
+  .bbar { grid-template-rows: 120px auto; padding: 6px 0; } /* sin la cifra ni el documento, que se ocultan */
+  .bbar-value { display: none; }
+  .bbar-year { font-size: 0.68rem; }
+  .bbar-doc { display: none; }
+  .gov-band { display: none; } /* en móvil no caben los nombres: lo cuenta la frase de debajo */
+  .pbar, .type-bar { grid-template-columns: 1fr auto; gap: 6px 12px; }
+  .pbar-track, .type-bar .hbar-track { grid-column: 1 / -1; grid-row: 2; }
+  .chapter-head { grid-template-columns: 16px 1fr auto; }
+  .chapter-head .pbar-track { display: none; }
+  .lines { padding-left: 8px; }
 }

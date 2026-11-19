@@ -181,29 +181,16 @@ Explicación detallada, paso a paso, en `frontend/CAMBIOS.md`.
 | Severidad siempre con icono + texto ("Merece una mirada"), nunca solo color | Accesible y sin tono alarmista: los avisos señalan, no acusan |
 | Tarjeta de aviso: las dos cifras de `evidence` en barras medidas contra la mayor | La diferencia (55 % frente a 9 %) se ve sin leer números |
 | Comparación en % del PIB, ordenada, España en verde y mediana UE como línea discontinua, más la evolución de España frente a la mediana 2015–2024 | Compara países de tamaños distintos; ordenar lo convierte en un ranking; la línea temporal dice si la distancia es de un año o de siempre |
-| Variación anual del ámbito calculada desde `history` | `GET /areas/{id}` no trae `yoy_change_pct`; es una resta, no un aviso |
+| Variación anual del ámbito: la da la API desde el contrato v1.1 (`yoy_change_pct`); en % del PIB se calcula desde `history` | En puntos del PIB es una resta, no un aviso |
 | La portada ofrece cuatro vistas de los mismos datos (Mapa, Ranking, Evolución, Cambios) y dos medidas (importe, % del PIB) con controles segmentados | El usuario pidió más maneras de desglosar los datos; la vista Ranking es además la tabla accesible con la cifra exacta |
 | Rediseño visual: fondo blanco, Newsreader (serif) para titulares y cifras, Geist para la interfaz, verde bosque y azul cielo como colores de dato, sin logo | Petición del usuario (web blanca y elegante, sin el €); se evitan los tópicos de página generada que señala la skill `frontend-design` (crema, acento arcilla, etiquetas en mayúsculas, flechas en enlaces) |
 | Selector de años en fila con una barrita por año (`YearPicker`) en vez de un desplegable | Enseña la tendencia antes de pulsar; las barras parten de cero para no exagerar |
 | `/areas` de los diez años se pide en paralelo una vez y se guarda en memoria (`useAllYears.js`) | Alimenta el selector de años, las sparklines y las vistas de evolución sin cambiar el contrato |
 | Avisos: se piden todos los del año y se filtran en el navegador con botones (barra de severidad, chips de tipo y ámbito) | Filtrar no es calcular avisos; así cada botón enseña su recuento y no hay que esperar al servidor |
 | Avisos: mancuernas (cuota de gasto frente a cuota de uso) y barras divergentes (distancia a la mediana UE), sacadas de `evidence` | Dos desgloses visuales que no necesitan campos nuevos en la API |
-| Formato `Intl.NumberFormat('es-ES')` con `useGrouping: 'always'` | Por defecto el español no pone punto en números de cuatro cifras (8450 → 8.450) |
-
-## Limitaciones (para contarlas antes de que pregunten)
-
-- Las cifras son **gasto ejecutado** de todas las administraciones según Eurostat, no
-  el crédito inicial que aparece en la ley. La ley del BOE se enlaza como marco legal.
-- El último año va con uno o dos años de retraso y puede ser provisional; la app lo
-  marca con una etiqueta.
-
-## Orden de construcción
-
-1. **Ahora, en paralelo** — Mario: `fetch.py` + `build.py` con gasto real. Pedro: backend
-   con un `dataset.json` de ejemplo. Dersu: frontend con datos de ejemplo del contrato.
-2. **Primera integración** — en cuanto exista un `dataset.json` real: el backend lo
-   carga y el frontend apunta al backend. Todo visible de punta a punta, aunque feo.
-3. **Comparación de países y avisos automáticos.**
-4. **Cruces de uso** de Mario, de uno en uno; cada uno aparece solo en la app.
-5. **Viernes por la mañana**: pulido, README, `AI_USAGE.md` y ensayo de la demo. Ninguna
-   función nueva.
+| Presupuestos del Estado en una sección propia (`#/presupuestos`), con un aviso fijo de que no es la misma cifra que la portada | Son otra fuente (lo presupuestado para el Estado central, no lo gastado por todas las administraciones): mezclarlos o compararlos con Eurostat sería un error (contrato v1.1) |
+| Navegación de los PGE en tres niveles: año → política → programa, y dentro del programa los capítulos se despliegan para ver las partidas | Sigue la forma de la API; cada pantalla pide solo lo que enseña y el detalle aparece al pulsar |
+| La evolución de los PGE usa siempre la serie sin Seguridad Social, y las columnas son botones que eligen el año | Las prórrogas no traen la Seguridad Social: es la única serie comparable. El gráfico hace también de selector |
+| Franja de Gobiernos con tonos neutros alternos, sin colores de partido, y una frase con quién elaboró y quién ejecutó el presupuesto del año | Contexto para leer el gráfico, no una valoración; no se suma nada por Gobierno ni por partido |
+| Importes de los PGE (miles de euros) mostrados en millones con `formatKeur` | Misma unidad visible en toda la app; el campo `_keur` se respeta en el código |
+| El año de los PGE (2015–2025) se guarda aparte del de Eurostat (2015–2024) | Tienen años distintos; compartirlo dejaría páginas sin datos |

@@ -9,6 +9,7 @@ import Status from '../components/Status.jsx';
 import YearPicker from '../components/YearPicker.jsx';
 import Segmented from '../components/Segmented.jsx';
 import AlertCard from '../components/AlertCard.jsx';
+import PolicyBar from '../components/PolicyBar.jsx';
 
 const AXIS = { stroke: 'var(--line-strong)', tick: { fill: 'var(--muted)', fontSize: 12 }, tickLine: false };
 
@@ -22,7 +23,7 @@ function Breadcrumb({ name }) {
   );
 }
 
-export default function Area({ id, year, years, onYearChange }) {
+export default function Area({ id, year, years, onYearChange, onBudgetYearChange }) {
   const [measure, setMeasure] = useState('amount');
   const area = useApi(() => getArea(id, year), [id, year]);
   const sources = useSourcesById();
@@ -40,8 +41,9 @@ export default function Area({ id, year, years, onYearChange }) {
   const m = MEASURES[measure];
   const current = a.history.find((h) => h.year === a.year);
   const previous = a.history.find((h) => h.year === a.year - 1);
-  // GET /areas/{id} no trae yoy_change_pct: se calcula desde `history` (ver CAMBIOS.md).
-  const change = m.change(m.get(current), m.get(previous));
+  // Desde el contrato v1.1 la API trae yoy_change_pct; en % del PIB (puntos) se calcula desde `history`.
+  const change =
+    measure === 'amount' && a.yoy_change_pct != null ? a.yoy_change_pct : m.change(m.get(current), m.get(previous));
   const spendSource = sources[a.source_id];
   const maxSub = Math.max(0, ...a.subareas.map((s) => s.share_of_area_pct ?? 0));
 
@@ -186,6 +188,34 @@ export default function Area({ id, year, years, onYearChange }) {
         </section>
       </div>
 
+      {a.spending_by_type?.some((t) => t.amount_meur > 0) && (
+        <section className="section" aria-labelledby="type-title">
+          <div className="section-title">
+            <h2 id="type-title">En qué se va el dinero</h2>
+            <p className="muted">Por tipo de gasto en {a.year}: sueldos, compras, inversión, ayudas…</p>
+          </div>
+          <ul className="type-bars">
+            {a.spending_by_type
+              .filter((t) => t.amount_meur > 0)
+              .map((t) => (
+                <li key={t.type_id} className="type-bar">
+                  <span className="type-name">
+                    {t.name}
+                    <span className="muted">{t.description}</span>
+                  </span>
+                  <span className="hbar-track" aria-hidden="true">
+                    <span style={{ width: `${(t.share_of_area_pct / Math.max(...a.spending_by_type.map((x) => x.share_of_area_pct))) * 100}%` }} />
+                  </span>
+                  <span className="type-value">
+                    {formatPct(t.share_of_area_pct)}
+                    <span className="muted">{formatMeur(t.amount_meur)}</span>
+                  </span>
+                </li>
+              ))}
+          </ul>
+        </section>
+      )}
+
       {a.indicators.length > 0 && (
         <section className="section" aria-labelledby="ind-title">
           <h2 id="ind-title">Cómo se usa</h2>
@@ -205,6 +235,32 @@ export default function Area({ id, year, years, onYearChange }) {
               </div>
             ))}
           </div>
+        </section>
+      )}
+
+      {a.budget_policies?.length > 0 && (
+        <section className="section" aria-labelledby="pge-title">
+          <div className="section-title">
+            <h2 id="pge-title">En los Presupuestos del Estado</h2>
+            <p className="muted">
+              Políticas de gasto de la Ley de Presupuestos de {a.year} que corresponden a este ámbito (correspondencia
+              aproximada). Es otra cifra: solo el Estado central y lo presupuestado, así que no se compara con la de
+              arriba. Pulsa una para verla partida a partida.
+            </p>
+          </div>
+          <ul className="pbars">
+            {a.budget_policies.map((p) => (
+              <PolicyBar
+                key={p.id}
+                href={`#/presupuestos/politica/${p.id}`}
+                onClick={() => onBudgetYearChange?.(a.year)}
+                name={p.name}
+                value={p.total_keur}
+                eu={p.eu_recovery_keur}
+                max={Math.max(0, ...a.budget_policies.map((x) => x.total_keur ?? 0))}
+              />
+            ))}
+          </ul>
         </section>
       )}
 
