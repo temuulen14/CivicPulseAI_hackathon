@@ -1,0 +1,12 @@
+{
+  "D1": {"name": "Personal", "description": "Sueldos, salarios y cotizaciones sociales de los empleados públicos."},
+  "P2": {"name": "Compras de bienes y servicios", "description": "Material, suministros, mantenimiento, alquileres y servicios contratados para el funcionamiento propio."},
+  "D632": {"name": "Servicios comprados para el ciudadano", "description": "Bienes y servicios que la administración paga a proveedores privados y recibe directamente el ciudadano: conciertos sanitarios y educativos, medicamentos con receta."},
+  "D62": {"name": "Prestaciones en dinero", "description": "Pagos en efectivo a los hogares: pensiones, subsidios de desempleo, ayudas familiares."},
+  "D3": {"name": "Subvenciones", "description": "Pagos a empresas para reducir precios o costes de producción."},
+  "D4": {"name": "Intereses y rentas de la propiedad", "description": "Sobre todo intereses de la deuda pública."},
+  "D7": {"name": "Otras transferencias corrientes", "description": "Transferencias a otras administraciones, a instituciones sin fines de lucro y a la Unión Europea."},
+  "D9": {"name": "Transferencias de capital", "description": "Ayudas a la inversión de terceros y otras transferencias de capital."},
+  "OP5ANP": {"name": "Inversión", "description": "Construcción de edificios e infraestructuras, compra de equipos y terrenos."},
+  "D29_D5_D8": {"name": "Impuestos pagados y otros", "description": "Impuestos que paga la propia administración y ajustes contables de pensiones."}
+}

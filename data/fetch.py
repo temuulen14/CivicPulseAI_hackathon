@@ -40,9 +40,29 @@ def fetch_spending() -> None:
     )
 
 
+def fetch_spending_by_type() -> None:
+    """El mismo gasto, repartido por tipo económico (personal, compras, inversión...).
+
+    Los códigos de spending_types.json no se solapan y suman el total (TE).
+    """
+    types = json.loads((Path(__file__).parent / "spending_types.json").read_text(encoding="utf-8"))
+    fetch_eurostat(
+        "gov_10a_exp",
+        {
+            "geo": COUNTRIES,
+            "unit": "MIO_EUR",
+            "sector": "S13",
+            "na_item": list(types),
+            "sinceTimePeriod": FIRST_YEAR,
+        },
+        "gov_10a_exp_by_type.json",
+    )
+
+
 def main() -> None:
     RAW_DIR.mkdir(exist_ok=True)
     fetch_spending()
+    fetch_spending_by_type()
 
 
 if __name__ == "__main__":
