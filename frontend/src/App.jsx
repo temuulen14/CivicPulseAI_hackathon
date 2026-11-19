@@ -64,6 +64,7 @@ export default function App() {
     year: budgetYear ?? meta.data?.latest_budget_year ?? null,
     years: meta.data?.budget_years ?? [],
     onYearChange: setBudgetYear,
+    dataYears: years, // años con gasto real (Eurostat): 2025 tiene presupuesto pero aún no gasto
   };
 
   let page;

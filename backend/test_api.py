@@ -137,6 +137,27 @@ def test_compare_country_filter_keeps_overall_rank():
     assert body["eu_median"] == 7.1
 
 
+def test_compare_adds_non_eu_countries_apart():
+    body = client.get("/api/compare?area=GF07").json()
+    # Highest first, with no rank: they are outside the EU ranking and median.
+    assert body["world_rows"] == [
+        {"country": "USA", "name": "Estados Unidos", "value": 10.0},
+        {"country": "JPN", "name": "Japón", "value": 7.8},
+    ]
+    assert body["world_source_id"] == "oecd_cofog_table11"
+    assert body["eu_median"] == 7.1 and len(body["rows"]) == 5  # unchanged
+
+
+def test_compare_without_non_eu_data():
+    body = client.get("/api/compare?area=GF0405").json()  # OECD data is level 1 only
+    assert body["world_rows"] == [] and body["world_source_id"] is None
+
+
+def test_compare_country_filter_also_applies_to_non_eu():
+    body = client.get("/api/compare?area=GF07&countries=es,usa").json()
+    assert [r["country"] for r in body["world_rows"]] == ["USA"]
+
+
 def test_compare_with_too_few_countries_has_no_median():
     body = client.get("/api/compare?area=GF07&year=2022").json()
     assert body["eu_median"] is None

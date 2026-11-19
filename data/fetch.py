@@ -81,6 +81,22 @@ def fetch_enrolment() -> None:
     )
 
 
+def fetch_pensions() -> None:
+    """Pensionistas por tipo de pensión en España, para los cruces de protección social."""
+    fetch_eurostat(
+        "spr_pns_ben",
+        {
+            "geo": HOME_COUNTRY,
+            "sex": "T",
+            "spdepm": "TOTAL",
+            "spscheme": "TOTAL",
+            "spdepb": ["OLD_TOT", "SRV", "DIS_TOT"],
+            "sinceTimePeriod": FIRST_YEAR,
+        },
+        "spr_pns_ben.json",
+    )
+
+
 PGE_SITE = "https://www.sepg.pap.hacienda.gob.es/Presup/PGE{year}{kind}/MaestroDocumentos/PGE-ROM/"
 # La web de Hacienda rechaza peticiones sin cabecera de navegador.
 BROWSER_HEADERS = {"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) Firefox/130.0"}
@@ -219,6 +235,7 @@ def main() -> None:
     fetch_spending()
     fetch_spending_by_type()
     fetch_enrolment()
+    fetch_pensions()
     fetch_oecd()
     fetch_boe()
     for year in PGE_DOCUMENTS:

@@ -51,6 +51,14 @@ class Dataset:
             if area_id == "TOTAL" and country == HOME_COUNTRY
         )
 
+        # Large economies outside the EU (OECD figures). Kept apart from
+        # `spending` so they never enter the EU median, the rank or the alerts.
+        self.world_names = {c["code"]: c["name"] for c in raw.get("world_countries", [])}
+        self.world_rows = {}  # (area_id, year) -> rows, one per country
+        for row in raw.get("world_spending", []):
+            if row["pct_gdp"] is not None:
+                self.world_rows.setdefault((row["area_id"], row["year"]), []).append(row)
+
         # What the money is spent on (staff, purchases, investment...). Spain only.
         self.spending_types = raw.get("spending_types", [])
         self.type_rows = {}  # (area_id, year) -> rows, one per spending type
@@ -80,6 +88,9 @@ class Dataset:
 
     def spending_by_type(self, area_id, year):
         return self.type_rows.get((area_id, year), [])
+
+    def world_spending(self, area_id, year):
+        return self.world_rows.get((area_id, year), [])
 
     def spending(self, area_id, year, country=HOME_COUNTRY):
         return self.spending_rows.get((area_id, country, year))

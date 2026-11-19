@@ -231,9 +231,17 @@ def compare(
         for position, row in enumerate(rows, start=1)
     ]
 
+    # Countries outside the EU: shown next to the ranking, never inside it.
+    world = sorted(data.world_spending(area, year), key=lambda r: r["pct_gdp"], reverse=True)
+    world_rows = [
+        {"country": row["country"], "name": data.world_names[row["country"]], "value": row["pct_gdp"]}
+        for row in world
+    ]
+
     if countries:
         wanted = {code.strip().upper() for code in countries.split(",")}
         ranked = [r for r in ranked if r["country"] in wanted]
+        world_rows = [r for r in world_rows if r["country"] in wanted]
 
     return {
         "area_id": area,
@@ -242,6 +250,8 @@ def compare(
         "eu_median": eu_median(data, area, year),
         "rows": ranked,
         "source_id": rows[0]["source_id"] if rows else None,
+        "world_rows": world_rows,
+        "world_source_id": world[0]["source_id"] if world else None,
     }
 
 
