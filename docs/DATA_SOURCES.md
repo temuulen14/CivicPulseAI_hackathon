@@ -8,6 +8,7 @@ descarga y guarda la respuesta en `data/raw/`; cada cifra de `dataset.json` llev
 |-------------|--------|-----------|
 | `eurostat_gov_10a_exp` | Eurostat · gasto de las administraciones públicas por función (COFOG) | Gasto por ámbito, 27 países + UE, 2015-2024; desglose por tipo económico (España) |
 | `eurostat_educ_uoe_enra01` | Eurostat · alumnado matriculado por nivel y tipo de centro | Cruces de educación |
+| `eurostat_spr_pns_ben` | Eurostat · pensionistas por tipo de pensión (ESSPROS) | Cruces de protección social (jubilación, viudedad y orfandad) |
 | `sepg_pge_estado_gastos` | Hacienda (SEPG) · Presupuestos Generales del Estado, estado de gastos por programas | Presupuesto partida a partida, 2015-2025 |
 | `oecd_cofog_table11` | OCDE · gasto público por función (COFOG) y PIB | Comparación con EE. UU., Japón, Reino Unido, Corea y Australia |
 | `boe_legislacion_consolidada` | BOE · API de datos abiertos | Ley de presupuestos de cada año; nombramientos de cada Gobierno |
@@ -40,6 +41,16 @@ https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/gov_10a_exp
 ```
 
 Centros públicos (`PUB`) y concertados (`PRV_DEP`), que son los que paga el gasto público.
+
+## 2 bis. Eurostat · pensionistas por tipo de pensión (`spr_pns_ben`)
+
+```
+…/data/spr_pns_ben?format=JSON&geo=ES&sex=T&spdepm=TOTAL&spscheme=TOTAL&spdepb=OLD_TOT&spdepb=SRV&spdepb=DIS_TOT&sinceTimePeriod=2015
+```
+
+Personas que cobran cada tipo de pensión. Quien cobra dos (jubilación y viudedad) cuenta en
+las dos, igual que su gasto. España 2023: 7 218 147 de jubilación, 2 859 489 de
+supervivencia (viudedad y orfandad), 1 145 560 de incapacidad (esta última no se usa).
 
 ## 3. OCDE · gasto por función (Table 11) y PIB (Table 1)
 
@@ -101,6 +112,11 @@ y, para las coaliciones, de los discursos de investidura publicados por La Moncl
 (`https://www.lamoncloa.gob.es/presidente/presidentes/Paginas/index.aspx`).
 
 ## Consultadas y no usadas
+
+- **INE · Estadística de Transporte de Viajeros**: viajeros por modo (metro, autobús,
+  tren), con API JSON. No hay gasto por modo con que compararlos (ver `cruces.json`).
+- **Eurostat · altas hospitalarias (`hlth_co_disch2`)**: solo llegan a 2021, y los ingresos
+  no se pueden sumar con las consultas para hacer una cuota de uso de sanidad.
 
 - **Ministerio de Sanidad · Estadística de Gasto Sanitario Público** y **Hacienda ·
   Indicadores de gasto farmacéutico**: detalle de sanidad por comunidad (medicamentos de

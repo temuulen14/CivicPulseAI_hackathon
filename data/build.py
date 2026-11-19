@@ -355,52 +355,75 @@ def build_budget_policies() -> list[dict]:
 
 
 ENROLMENT_SOURCE = "eurostat_educ_uoe_enra01"
+PENSIONS_SOURCE = "eurostat_spr_pns_ben"
 
 
 def share_pct(part: float, base: float) -> float:
     return round(100 * part / base, 1)
 
 
-def build_crosses(spending: list[dict]) -> tuple[list[dict], list[dict]]:
-    """Aplica cruces.json: cuota de gasto de una etapa frente a su cuota de alumnado."""
-    config = load_json(DATA_DIR / "cruces.json")
-    year = config["year"]
-    spend = {s["area_id"]: s["amount_meur"] for s in spending
-             if s["country"] == "ES" and s["year"] == year}
+def load_enrolment(year: int) -> dict[str, float]:
+    """Alumnado de centros públicos y concertados por etapa ISCED."""
     students: dict[str, float] = {}
     for row in flatten_jsonstat(load_json(RAW_DIR / "educ_uoe_enra01.json")):
         if int(row["time"]) == year:
             students[row["isced11"]] = students.get(row["isced11"], 0) + row["value"]
+    return students
 
-    spend_base = sum(spend[a] for a in config["spend_base"])
-    usage_base = sum(students[level] for level in config["usage_base"])
+
+def load_pensions(year: int) -> dict[str, float]:
+    """Pensionistas por tipo de pensión (jubilación, supervivencia, incapacidad)."""
+    return {row["spdepb"]: row["value"]
+            for row in flatten_jsonstat(load_json(RAW_DIR / "spr_pns_ben.json"))
+            if int(row["time"]) == year}
+
+
+# Qué fichero da el uso de cada grupo de cruces, y su fuente.
+USAGE_LOADERS = {
+    "enrolment": (load_enrolment, ENROLMENT_SOURCE),
+    "pensions": (load_pensions, PENSIONS_SOURCE),
+}
+
+
+def build_crosses(spending: list[dict]) -> tuple[list[dict], list[dict]]:
+    """Aplica cruces.json: en cada grupo, cuota de gasto de una partida frente a su cuota de uso."""
+    config = load_json(DATA_DIR / "cruces.json")
+    year = config["year"]
+    spend = {s["area_id"]: s["amount_meur"] for s in spending
+             if s["country"] == "ES" and s["year"] == year}
     indicators, crosses = [], []
-    for cross in config["crosses"]:
-        spend_amount = sum(spend[a] for a in cross["spend_areas"])
-        usage_count = sum(students[level] for level in cross["usage"]["levels"])
-        spend_share = share_pct(spend_amount, spend_base)
-        usage_share = share_pct(usage_count, usage_base)
-        indicators.append({
-            "id": cross["usage"]["id"], "area_id": cross["area_id"], "name": cross["usage"]["name"],
-            "unit": "% del alumnado", "country": "ES", "year": year, "value": usage_share,
-            "source_id": ENROLMENT_SOURCE,
-        })
-        crosses.append({
-            "id": cross["id"], "area_id": cross["area_id"], "title": cross["title"],
-            "spend_share_pct": spend_share, "usage_indicator_id": cross["usage"]["id"],
-            "threshold_ratio": cross["threshold_ratio"], "analyst_note": cross["analyst_note"],
-            "evidence": [
-                {"label": f"Cuota del gasto en educación ({year})", "value": spend_share,
-                 "unit": "%", "source_id": SPENDING_SOURCE},
-                {"label": f"Cuota del alumnado ({year})", "value": usage_share,
-                 "unit": "%", "source_id": ENROLMENT_SOURCE},
-                {"label": "Gasto de la etapa", "value": spend_amount,
-                 "unit": "M€", "source_id": SPENDING_SOURCE},
-                {"label": "Alumnado de la etapa", "value": round(usage_count),
-                 "unit": "alumnos", "source_id": ENROLMENT_SOURCE},
-            ],
-        })
-        print(f"cruce {cross['id']}: gasto {spend_share} % / uso {usage_share} % = {spend_share / usage_share:.2f}")
+    for group in config["groups"]:
+        load_usage, usage_source = USAGE_LOADERS[group["usage_source"]]
+        usage = load_usage(year)
+        spend_base = sum(spend[a] for a in group["spend_base"])
+        usage_base = sum(usage[code] for code in group["usage_base"])
+        for cross in group["crosses"]:
+            spend_amount = sum(spend[a] for a in cross["spend_areas"])
+            usage_count = sum(usage[code] for code in cross["usage"]["levels"])
+            spend_share = share_pct(spend_amount, spend_base)
+            usage_share = share_pct(usage_count, usage_base)
+            indicators.append({
+                "id": cross["usage"]["id"], "area_id": cross["area_id"], "name": cross["usage"]["name"],
+                "unit": group["usage_unit"], "country": "ES", "year": year, "value": usage_share,
+                "source_id": usage_source,
+            })
+            crosses.append({
+                "id": cross["id"], "area_id": cross["area_id"], "title": cross["title"],
+                "spend_share_pct": spend_share, "usage_indicator_id": cross["usage"]["id"],
+                "threshold_ratio": cross["threshold_ratio"], "analyst_note": cross["analyst_note"],
+                "evidence": [
+                    {"label": f"{group['spend_label']} ({year})", "value": spend_share,
+                     "unit": "%", "source_id": SPENDING_SOURCE},
+                    {"label": f"{group['usage_label']} ({year})", "value": usage_share,
+                     "unit": "%", "source_id": usage_source},
+                    {"label": group["spend_count_label"], "value": spend_amount,
+                     "unit": "M€", "source_id": SPENDING_SOURCE},
+                    {"label": group["count_label"], "value": round(usage_count),
+                     "unit": group["count_unit"], "source_id": usage_source},
+                ],
+            })
+            print(f"cruce {cross['id']}: gasto {spend_share} % / uso {usage_share} % "
+                  f"= {spend_share / usage_share:.2f} (umbral {cross['threshold_ratio']})")
     return indicators, crosses
 
 
@@ -491,6 +514,14 @@ def build_sources() -> list[dict]:
             "name": "Eurostat · Alumnado matriculado por nivel educativo y tipo de centro",
             "publisher": "Eurostat",
             "url": "https://ec.europa.eu/eurostat/databrowser/view/educ_uoe_enra01/default/table",
+            "license": "Reutilización libre con cita",
+            "retrieved_at": today,
+        },
+        {
+            "id": PENSIONS_SOURCE,
+            "name": "Eurostat · Pensionistas por tipo de pensión (ESSPROS)",
+            "publisher": "Eurostat",
+            "url": "https://ec.europa.eu/eurostat/databrowser/view/spr_pns_ben/default/table",
             "license": "Reutilización libre con cita",
             "retrieved_at": today,
         },

@@ -168,7 +168,12 @@ de su parte: qué se decidió y por qué, en una fila.
 | Alumnado solo de centros públicos y concertados | Es el que paga el gasto público; los privados no concertados no |
 | Cuotas de gasto sobre las etapas atribuibles (GF0901-GF0904) | Los gastos no atribuibles a una etapa (comedor, transporte escolar…) no tienen alumnado con que compararse |
 | Umbral 1,5 en educación | Es normal que una etapa cueste algo más por alumno; a partir del 50 % más merece una mirada. Hoy ninguna lo supera (0,93 / 1,19 / 0,80) |
-| Transporte descartado como cruce | El gasto del Estado por modo no incluye la inversión de ADIF ni el autobús urbano que pagan comunidades y ayuntamientos: el aviso no se sostendría |
+| Transporte descartado como cruce | El gasto del Estado por modo no incluye la inversión de ADIF ni el autobús urbano que pagan comunidades y ayuntamientos: el aviso no se sostendría. El INE sí da viajeros por modo, pero falta el gasto con que compararlos |
+| `cruces.json` en grupos, cada uno con su base de gasto, su base de uso y su fuente | Educación y pensiones se reparten con clasificaciones distintas; una cuota solo tiene sentido dentro de su grupo |
+| Cruces de protección social: gasto en vejez y supervivencia frente a pensionistas de cada tipo (Eurostat, 2023) | Misma fuente que el gasto y misma partición; el gasto medio por pensión que sale (21 200 € y 11 800 € al año) cuadra con la Seguridad Social |
+| Umbral 2 en viudedad y orfandad (1,5 en jubilación) | La ley fija la viudedad en torno al 52 % de la base del fallecido y la orfandad en el 20 %: que reciban menos gasto que su parte de pensiones es el diseño, no un desajuste. Hoy: 1,15 y 0,63, sin aviso |
+| Incapacidad fuera de los cruces | Su gasto (GF1001) incluye las bajas por enfermedad, que no son pensiones: el aviso saldría falso |
+| Sanidad sin cruce de uso | El gasto solo se divide en ambulatorio y hospitalario, y sus usos (consultas, ingresos) no se pueden sumar en una cuota común. Sanidad queda en la comparación con Europa y el desglose por tipo de gasto |
 
 ### Frontend (Dersu)
 
