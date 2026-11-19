@@ -264,3 +264,20 @@ Capturas de `/avisos` y `/fuentes` a 1280 px y 390 px, sin errores ni scroll hor
 
 Todas tienen estado de carga, de error y de "sin datos". Revisadas a 1280 px y 390 px
 (móvil), en modo claro y oscuro: sin errores en consola y sin scroll horizontal.
+
+---
+
+## 7. Rediseño (en curso)
+
+Plan completo y estado en [`HANDOFF.md`](HANDOFF.md). Hecho hasta ahora:
+
+- **Más años en los datos de ejemplo (2015–2024)** y 15 países, igual que el backend real.
+- **Más avisos de ejemplo (8 por año)**, generados con las mismas dos reglas del backend
+  (`docs/ARCHITECTURE.md`) para que se parezcan a los reales. Entre ellos, el que pidió el
+  equipo: **viajeros en autobús frente a la parte del presupuesto de transporte que recibe**.
+- **Tipografías:** Newsreader (serif editorial) para titulares y cifras y Geist (sans) para
+  la interfaz, cargadas desde Google Fonts en `index.html`. Si no hay conexión, se usan
+  Georgia y la fuente del sistema.
+- **Borrador del CSS nuevo** en `src/index.next.css` (aún sin usar): fondo blanco, líneas
+  finas en vez de sombras, verde bosque y azul cielo como colores de dato, validados con
+  la skill `dataviz`.
