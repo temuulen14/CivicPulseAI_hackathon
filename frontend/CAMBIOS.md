@@ -122,3 +122,49 @@ lo mínimo que sigue cubriendo **todas** las funciones del brief:
 
 `npm run build` y `eslint` sin errores. Capturas a 1280 px y a 390 px (móvil): sin errores
 en consola y sin scroll horizontal.
+
+---
+
+## 3. Página de ámbito
+
+**Objetivo:** la pantalla que más se enseñará en la demo. Explica un ámbito y, sobre todo,
+sus avisos.
+
+### Archivos
+
+| Archivo | Para qué sirve |
+|---|---|
+| `src/pages/Area.jsx` | Página `#/ambito/<id>`: cabecera, avisos, gráficos, indicadores y marco legal. |
+| `src/components/AlertCard.jsx` | Tarjeta de aviso. Se reutiliza en la página `/avisos`. |
+| `src/sources.js` | `useSourcesById()`: pide `/sources` y permite buscar cada fuente por su `source_id`. |
+
+### Cómo funciona y por qué
+
+- **Cabecera en cuatro cifras:** importe, % del gasto total, % del PIB y variación anual.
+  La variación se calcula a partir de `history` (año elegido frente al anterior), porque el
+  contrato no la incluye en esta ruta. Es una resta, no un aviso: no rompe la regla de
+  "no calcular avisos en el cliente".
+- **"En qué fijarse" va antes que los gráficos**, porque es lo que aporta valor más allá
+  de mostrar datos.
+- **Tarjeta de aviso (`AlertCard`).** Severidad (icono + texto), tipo de aviso, título,
+  frase y las dos cifras de `evidence` **enfrentadas en barras**. Cada barra se mide
+  contra la mayor de las dos, así la diferencia (55 % frente a 9,3 %) se ve sin leer
+  números. La primera cifra va en azul y la segunda en gris: el color distingue "lo que
+  se gasta" de "con qué se compara" sin parecer una alarma. Debajo, la nota del analista
+  (si la hay) y los enlaces a cada fuente.
+- **Evolución del gasto:** gráfico de líneas (un solo dato a lo largo del tiempo), con eje
+  Y desde cero para no exagerar los cambios. El tooltip avisa si el año es provisional.
+- **En qué se reparte:** barras horizontales, porque los nombres de los subámbitos son
+  largos y así se leen enteros. Valor escrito al final de cada barra.
+- **Cómo se usa:** los indicadores de uso del ámbito, cada uno con su año, unidad y fuente.
+- **Marco legal:** la ley de presupuestos en el BOE. Si `legal` es `null`, se dice
+  claramente. Recordamos que las cifras son gasto ejecutado y no el crédito de la ley
+  (es una limitación documentada en `docs/ARCHITECTURE.md`).
+- **Estados vacíos:** sin avisos, sin desglose, sin historial o sin ley, cada bloque lo dice
+  en vez de quedarse en blanco. Un ámbito inexistente (`#/ambito/GF99`) muestra el error
+  del backend ("Área no encontrada").
+
+### Comprobado
+
+Capturas a 1280 px (claro) y 390 px (oscuro) del ámbito GF04, y del ámbito inexistente
+GF99: sin errores en consola y sin scroll horizontal.
