@@ -1,35 +1,81 @@
 {
-  "_note": "Criterio de Mario: qué gasto se compara con qué uso, con qué umbral y por qué. build.py calcula las cuotas; el backend solo divide y compara con threshold_ratio. Cuotas de gasto sobre la suma de las etapas atribuibles (GF0901-GF0904), sin los gastos no atribuibles a ningún nivel. Cuotas de alumnado sobre centros públicos y concertados, que son los que paga el gasto público. Cruces descartados: transporte (el gasto del Estado por modo no incluye la inversión de ADIF ni el transporte urbano que pagan comunidades y ayuntamientos; el aviso no se sostendría).",
+  "_note": "Criterio de Mario: qué gasto se compara con qué uso, con qué umbral y por qué. build.py calcula las cuotas de cada grupo; el backend solo divide y compara con threshold_ratio. En cada grupo, la cuota de gasto va sobre la suma de spend_base y la de uso sobre la suma de usage_base, que se reparten con la misma clasificación. Cruces descartados: transporte (el gasto por modo no existe en Eurostat ni en la OCDE, y el del Estado no incluye la inversión de ADIF ni el transporte urbano que pagan comunidades y ayuntamientos; el INE sí publica viajeros por modo, pero sin gasto con que compararlos el aviso no se sostendría); sanidad (el gasto solo se divide en ambulatorio y hospitalario, y el uso de cada uno se mide en unidades distintas, consultas frente a ingresos, que no forman una cuota común); incapacidad (su gasto incluye las bajas por enfermedad, que no son pensiones).",
   "year": 2023,
-  "spend_base": ["GF0901", "GF0902", "GF0903", "GF0904"],
-  "usage_base": ["ED0", "ED1", "ED2", "ED3", "ED4", "ED5", "ED6", "ED7", "ED8"],
-  "crosses": [
+  "groups": [
     {
-      "id": "edu_primary_spend_vs_students",
-      "area_id": "GF0901",
-      "title": "Infantil y primaria: gasto frente a alumnado",
-      "spend_areas": ["GF0901"],
-      "usage": {"id": "students_share_primary", "name": "Alumnado en infantil y primaria", "levels": ["ED0", "ED1"]},
-      "threshold_ratio": 1.5,
-      "analyst_note": "Infantil y primaria concentran casi la mitad del alumnado y reciben una parte del gasto parecida. Es lo esperable: grupos de alumnos más grandes y profesorado generalista."
+      "id": "education",
+      "usage_source": "enrolment",
+      "spend_label": "Cuota del gasto en educación",
+      "usage_label": "Cuota del alumnado",
+      "usage_unit": "% del alumnado",
+      "count_label": "Alumnado de la etapa",
+      "count_unit": "alumnos",
+      "spend_count_label": "Gasto de la etapa",
+      "_note": "Cuotas de gasto sobre la suma de las etapas atribuibles (GF0901-GF0904), sin los gastos no atribuibles a ningún nivel. Cuotas de alumnado sobre centros públicos y concertados, que son los que paga el gasto público.",
+      "spend_base": ["GF0901", "GF0902", "GF0903", "GF0904"],
+      "usage_base": ["ED0", "ED1", "ED2", "ED3", "ED4", "ED5", "ED6", "ED7", "ED8"],
+      "crosses": [
+        {
+          "id": "edu_primary_spend_vs_students",
+          "area_id": "GF0901",
+          "title": "Infantil y primaria: gasto frente a alumnado",
+          "spend_areas": ["GF0901"],
+          "usage": {"id": "students_share_primary", "name": "Alumnado en infantil y primaria", "levels": ["ED0", "ED1"]},
+          "threshold_ratio": 1.5,
+          "analyst_note": "Infantil y primaria concentran casi la mitad del alumnado y reciben una parte del gasto parecida. Es lo esperable: grupos de alumnos más grandes y profesorado generalista."
+        },
+        {
+          "id": "edu_secondary_spend_vs_students",
+          "area_id": "GF0902",
+          "title": "Secundaria: gasto frente a alumnado",
+          "spend_areas": ["GF0902", "GF0903"],
+          "usage": {"id": "students_share_secondary", "name": "Alumnado en secundaria (ESO, bachillerato y FP de grado medio)", "levels": ["ED2", "ED3", "ED4"]},
+          "threshold_ratio": 1.5,
+          "analyst_note": "La secundaria cuesta algo más por alumno que la primaria: profesorado especialista, más materias y talleres de FP. Una cuota de gasto un 20 % mayor que la de alumnado entra en lo razonable."
+        },
+        {
+          "id": "edu_tertiary_spend_vs_students",
+          "area_id": "GF0904",
+          "title": "Universidad y FP superior: gasto frente a alumnado",
+          "spend_areas": ["GF0904"],
+          "usage": {"id": "students_share_tertiary", "name": "Alumnado en universidad y FP de grado superior", "levels": ["ED5", "ED6", "ED7", "ED8"]},
+          "threshold_ratio": 1.5,
+          "analyst_note": "En casi toda Europa un universitario cuesta más que un escolar, y aquí la cuota de gasto es menor que la de alumnado. Dos matices: las matrículas universitarias cubren parte del coste, y la FP de grado superior (incluida en el alumnado) puede contabilizarse como gasto de secundaria."
+        }
+      ]
     },
     {
-      "id": "edu_secondary_spend_vs_students",
-      "area_id": "GF0902",
-      "title": "Secundaria: gasto frente a alumnado",
-      "spend_areas": ["GF0902", "GF0903"],
-      "usage": {"id": "students_share_secondary", "name": "Alumnado en secundaria (ESO, bachillerato y FP de grado medio)", "levels": ["ED2", "ED3", "ED4"]},
-      "threshold_ratio": 1.5,
-      "analyst_note": "La secundaria cuesta algo más por alumno que la primaria: profesorado especialista, más materias y talleres de FP. Una cuota de gasto un 20 % mayor que la de alumnado entra en lo razonable."
-    },
-    {
-      "id": "edu_tertiary_spend_vs_students",
-      "area_id": "GF0904",
-      "title": "Universidad y FP superior: gasto frente a alumnado",
-      "spend_areas": ["GF0904"],
-      "usage": {"id": "students_share_tertiary", "name": "Alumnado en universidad y FP de grado superior", "levels": ["ED5", "ED6", "ED7", "ED8"]},
-      "threshold_ratio": 1.5,
-      "analyst_note": "En casi toda Europa un universitario cuesta más que un escolar, y aquí la cuota de gasto es menor que la de alumnado. Dos matices: las matrículas universitarias cubren parte del coste, y la FP de grado superior (incluida en el alumnado) puede contabilizarse como gasto de secundaria."
+      "id": "pensions",
+      "usage_source": "pensions",
+      "spend_label": "Cuota del gasto en vejez y supervivencia",
+      "usage_label": "Cuota de las pensiones",
+      "usage_unit": "% de las pensiones",
+      "count_label": "Pensiones",
+      "count_unit": "pensiones",
+      "spend_count_label": "Gasto",
+      "_note": "Gasto de vejez (GF1002) y supervivencia (GF1003), de todas las administraciones. Uso: pensionistas de cada tipo (Eurostat, ESSPROS); quien cobra jubilación y viudedad cuenta en los dos, igual que su gasto. Comprobado: el gasto medio por pensión (unos 21 200 € al año en jubilación y 11 800 € en viudedad y orfandad, 2023) cuadra con las pensiones medias de la Seguridad Social.",
+      "spend_base": ["GF1002", "GF1003"],
+      "usage_base": ["OLD_TOT", "SRV"],
+      "crosses": [
+        {
+          "id": "pens_old_age_spend_vs_pensions",
+          "area_id": "GF1002",
+          "title": "Vejez: gasto frente a pensiones de jubilación",
+          "spend_areas": ["GF1002"],
+          "usage": {"id": "pensions_share_old_age", "name": "Pensiones de jubilación", "levels": ["OLD_TOT"]},
+          "threshold_ratio": 1.5,
+          "analyst_note": "La jubilación se lleva una parte del gasto algo mayor que su parte de las pensiones. Es lo esperable: una pensión de jubilación es más alta que una de viudedad, y el gasto de vejez incluye además residencias y ayuda a domicilio para mayores."
+        },
+        {
+          "id": "pens_survivors_spend_vs_pensions",
+          "area_id": "GF1003",
+          "title": "Viudedad y orfandad: gasto frente a pensiones",
+          "spend_areas": ["GF1003"],
+          "usage": {"id": "pensions_share_survivors", "name": "Pensiones de viudedad y orfandad", "levels": ["SRV"]},
+          "threshold_ratio": 2.0,
+          "analyst_note": "Viudedad y orfandad son más de una de cada cuatro pensiones y reciben menos de una quinta parte del gasto. Lo marca la ley: la pensión de viudedad es en general el 52 % de la base de cálculo del fallecido (hasta el 70 % en algunos casos) y la de orfandad, el 20 %. Por eso el umbral es 2 y no 1,5: una diferencia así es el diseño de la pensión, no un desajuste."
+        }
+      ]
     }
   ]
 }

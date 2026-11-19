@@ -10,6 +10,7 @@ Herramienta: Claude Code (modelo Claude Opus 5.5), en la terminal, sobre la carp
 - Cruces gasto-uso: cálculo de cuotas; el criterio (qué se compara, umbral, notas y qué cruces se descartan) se discutió y decidió en la sesión.
 - Presupuestos 2015-2025: recorrido de la web de Hacienda para leyes y prórrogas, conversión de la tabla HTML de 2015-2016, y detección de los huecos (Seguridad Social en las prórrogas, 2020 sin documento) al revisar la serie.
 - Gobiernos: búsqueda y verificación de los nombramientos en la API del BOE y del partido en La Moncloa; la decisión de no sumar importes por partido se tomó en la sesión.
+- Cruces de protección social: búsqueda de fuentes de uso (INE, Eurostat), comprobación de las cifras y propuesta de umbral; la decisión de incluir pensiones y dejar fuera sanidad y transporte se tomó en la sesión.
 - Tests (`data/test_build.py`) y documentación: `data/README.md`, `docs/DATA_SOURCES.md` y las decisiones de datos en `docs/ARCHITECTURE.md`.
 
 ## Pedro (backend, contrato y entrega)
