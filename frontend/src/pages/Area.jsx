@@ -1,13 +1,13 @@
-import { useState } from 'react';
 import { CartesianGrid, Line, LineChart, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import { getArea } from '../api.js';
 import { useApi } from '../useApi.js';
 import { useSourcesById } from '../sources.js';
 import { compact, formatMeur, formatNumber, formatPct } from '../format.js';
-import { MEASURES, MEASURE_OPTIONS } from '../measures.js';
+import { MEASURES } from '../measures.js';
+import { useGovernments } from '../governments.js';
+import { GovernmentBand } from '../components/BudgetBars.jsx';
 import Status from '../components/Status.jsx';
 import YearPicker from '../components/YearPicker.jsx';
-import Segmented from '../components/Segmented.jsx';
 import AlertCard from '../components/AlertCard.jsx';
 import PolicyBar from '../components/PolicyBar.jsx';
 
@@ -23,8 +23,8 @@ function Breadcrumb({ name }) {
   );
 }
 
-export default function Area({ id, year, years, onYearChange, onBudgetYearChange }) {
-  const [measure, setMeasure] = useState('amount');
+export default function Area({ id, year, years, onYearChange, onBudgetYearChange, measure }) {
+  const governments = useGovernments();
   const area = useApi(() => getArea(id, year), [id, year]);
   const sources = useSourcesById();
 
@@ -59,10 +59,11 @@ export default function Area({ id, year, years, onYearChange, onBudgetYearChange
           year={a.year}
           years={years}
           onYearChange={onYearChange}
-          values={Object.fromEntries(a.history.map((h) => [h.year, h.amount_meur]))}
-          format={formatMeur}
-          caption={`Cada barra es el gasto en ${a.name.toLowerCase()} de ese año.`}
+          values={Object.fromEntries(a.history.map((h) => [h.year, m.get(h)]))}
+          format={m.format}
+          caption={`Cada barra es el gasto en ${a.name.toLowerCase()} de ese año${measure === 'gdp' ? ', en % del PIB' : ''}.`}
         />
+        {governments.length > 0 && <GovernmentBand years={years} governments={governments} />}
 
         <div className="stats">
           <div className="stat">
@@ -109,10 +110,7 @@ export default function Area({ id, year, years, onYearChange, onBudgetYearChange
 
       <div className="two-col">
         <section className="panel section" aria-labelledby="history-title">
-          <div className="section-head">
-            <h2 id="history-title">Evolución</h2>
-            <Segmented label="Medida" options={MEASURE_OPTIONS} value={measure} onChange={setMeasure} />
-          </div>
+          <h2 id="history-title">Evolución</h2>
           <p className="muted">
             {m.label === 'Importe' ? 'Millones de euros' : 'Porcentaje del PIB'} por año. Pulsa un año para verlo.
           </p>

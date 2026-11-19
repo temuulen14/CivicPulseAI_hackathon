@@ -4,7 +4,10 @@ import { getAlerts } from '../api.js';
 import { useApi } from '../useApi.js';
 import { getAreasCached, useAllAreas } from '../useAllYears.js';
 import { compact, formatMeur, formatMeurWords, formatPct } from '../format.js';
-import { MEASURES, MEASURE_OPTIONS, totalOf } from '../measures.js';
+import { MEASURES, totalOf } from '../measures.js';
+import { useGovernments } from '../governments.js';
+import { GovernmentBand } from '../components/BudgetBars.jsx';
+import RiskWatch from '../components/RiskWatch.jsx';
 import { shareStep } from '../scale.js';
 import Status from '../components/Status.jsx';
 import YearPicker from '../components/YearPicker.jsx';
@@ -28,9 +31,9 @@ const VIEWS = [
 
 const AXIS = { stroke: 'var(--line-strong)', tick: { fill: 'var(--muted)', fontSize: 12 }, tickLine: false };
 
-export default function Home({ year, years, onYearChange }) {
+export default function Home({ year, years, onYearChange, measure }) {
   const [view, setView] = useState('map');
-  const [measure, setMeasure] = useState('amount');
+  const governments = useGovernments();
   const [base, setBase] = useState('prev'); // vista Cambios: frente al año anterior o desde el primero
   const areas = useApi(() => getAreasCached(year), [year]);
   const all = useAllAreas(years);
@@ -48,6 +51,8 @@ export default function Home({ year, years, onYearChange }) {
   const ranking = [...list].sort((a, b) => b.amount_meur - a.amount_meur);
   const topAlerts = alerts.data?.alerts.slice(0, 3) ?? []; // el backend ya los ordena por severidad
   const areaName = Object.fromEntries(list.map((a) => [a.id, a.name]));
+  const isLatest = shownYear === years[years.length - 1];
+  const totalGdp = totalOf(areas.data, 'gdp');
 
   return (
     <>
@@ -56,9 +61,11 @@ export default function Home({ year, years, onYearChange }) {
         <h1 id="hero-title">¿Adónde va el dinero público?</h1>
         <div className="hero-total">
           <p className="hero-kicker">En {shownYear}, las administraciones públicas de España gastaron</p>
-          <p className="hero-figure">{formatMeurWords(total_meur)}</p>
+          <p className="hero-figure">
+            {measure === 'amount' ? formatMeurWords(total_meur) : `el ${formatPct(totalGdp)} del PIB`}
+          </p>
           <p className="hero-sub">
-            {formatMeur(total_meur)}
+            {measure === 'amount' ? `${formatMeur(total_meur)}, el ${formatPct(totalGdp)} del PIB` : formatMeurWords(total_meur)}
             {provisional && <span className="tag-provisional">Dato provisional</span>}
           </p>
         </div>
@@ -67,10 +74,11 @@ export default function Home({ year, years, onYearChange }) {
           year={shownYear}
           years={years}
           onYearChange={onYearChange}
-          values={Object.fromEntries(years.map((y) => [y, byYear[y]?.total_meur ?? null]))}
-          format={formatMeur}
-          caption="Cada barra es el gasto total de ese año. Pulsa un año para ver sus cifras."
+          values={totals}
+          format={m.format}
+          caption={`Cada barra es el gasto total de ese año${measure === 'gdp' ? ', en % del PIB' : ''}. Pulsa un año para ver sus cifras.`}
         />
+        {governments.length > 0 && <GovernmentBand years={years} governments={governments} />}
       </section>
 
       <section className="section" aria-labelledby="explore-title">
@@ -81,7 +89,6 @@ export default function Home({ year, years, onYearChange }) {
           </div>
           <div className="controls">
             <Segmented label="Vista" options={VIEWS} value={view} onChange={setView} />
-            <Segmented label="Medida" options={MEASURE_OPTIONS} value={measure} onChange={setMeasure} />
           </div>
         </div>
 
@@ -288,9 +295,25 @@ export default function Home({ year, years, onYearChange }) {
 
       <section className="section" aria-labelledby="alerts-title">
         <div className="section-head">
-          <h2 id="alerts-title">En qué fijarse en {shownYear}</h2>
+          <div className="section-title">
+            <h2 id="alerts-title">{isLatest ? 'En qué fijarse ahora' : `En qué fijarse en ${shownYear}`}</h2>
+            {isLatest && (
+              <p className="muted">
+                {shownYear} es el último año con datos, el más cercano a hoy: además de sus avisos, qué servicios
+                públicos pueden dar problemas en los próximos años.
+              </p>
+            )}
+          </div>
           <a href="#/avisos">Ver todos los avisos</a>
         </div>
+        {isLatest && (
+          <div className="now-block">
+            <h3>Qué puede dar problemas</h3>
+            <RiskWatch years={years} compact />
+            <a href="#/avisos/prevision">Ver la previsión completa y probarla con años pasados</a>
+          </div>
+        )}
+        {isLatest && <h3>Avisos de {shownYear}</h3>}
         {!alerts.data ? (
           <Status state={alerts} />
         ) : topAlerts.length === 0 ? (

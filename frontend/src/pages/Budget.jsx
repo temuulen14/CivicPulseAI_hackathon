@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { getBudget, getBudgetYears } from '../api.js';
+import { getBudgetYears } from '../api.js';
+import { fillCarried, getBudgetInForce } from '../budgetInForce.js';
 import { useApi } from '../useApi.js';
 import { getAreasCached } from '../useAllYears.js';
 import { useSourcesById } from '../sources.js';
@@ -11,12 +12,22 @@ import { governmentLabel } from '../governments.js';
 import BudgetNotice from '../components/BudgetNotice.jsx';
 import PolicyBar from '../components/PolicyBar.jsx';
 
-export default function Budget({ year, years, onYearChange }) {
+// PIB aproximado de un año, en millones de euros, a partir del gasto de Eurostat de ese año:
+// suma de importes / suma de % del PIB. Los % vienen redondeados a un decimal, así que es una
+// aproximación (error de en torno al 1 %); por eso se enseña con «≈».
+function gdpOf(areasResponse) {
+  const list = areasResponse?.areas ?? [];
+  const pct = list.reduce((s, a) => s + (a.pct_gdp ?? 0), 0);
+  return pct > 0 ? (areasResponse.total_meur / pct) * 100 : null;
+}
+
+export default function Budget({ year, years, onYearChange, measure }) {
   const [group, setGroup] = useState('policy'); // 'policy' | 'area'
   const [withSS, setWithSS] = useState(true);
   const all = useApi(getBudgetYears, []);
-  const budget = useApi(() => getBudget(year), [year]);
+  const budget = useApi(() => getBudgetInForce(year), [year]);
   const areas = useApi(() => getAreasCached(null), []);
+  const yearAreas = useApi(() => getAreasCached(year).catch(() => null), [year]);
   const sources = useSourcesById();
 
   const header = (
@@ -48,6 +59,9 @@ export default function Budget({ year, years, onYearChange }) {
   const max = Math.max(0, ...policies.map(valueOf));
   const source = sources[b.source_id];
   const drafted = governments[b.drafted_by];
+  // En % del PIB solo si hay gasto de Eurostat ese año (2025 aún no lo tiene).
+  const gdp = measure === 'gdp' && yearAreas.data?.year === b.year ? gdpOf(yearAreas.data) : null;
+  const asGdp = (keur) => (gdp && keur != null ? `≈ ${formatPct(keur / 1000 / gdp * 100)} del PIB` : null);
 
   // Agrupar por ámbito de Eurostat (equivalencia aproximada que da el backend).
   const groups = {};
@@ -69,18 +83,30 @@ export default function Budget({ year, years, onYearChange }) {
         ) : (
           <>
             <p className="hero-kicker">
-              {b.document === 'Prorroga'
-                ? `En ${b.year} no hubo ley nueva: siguió vigente, prorrogado, el presupuesto anterior, con`
-                : `La Ley de Presupuestos de ${b.year} asignó`}
+              {b.carried_from
+                ? `En ${b.year} no hubo ley ni documento nuevo: siguió vigente la misma prórroga que en ${b.carried_from}, con`
+                : b.document === 'Prorroga'
+                  ? `En ${b.year} no hubo ley nueva: siguió vigente, prorrogado, el presupuesto anterior, con`
+                  : `La Ley de Presupuestos de ${b.year} asignó`}
             </p>
-            <p className="budget-figure">{formatKeurWords(b.total_keur)}</p>
+            <p className="budget-figure">{asGdp(b.total_keur) ?? formatKeurWords(b.total_keur)}</p>
+            {gdp && <p className="hero-sub">{formatKeurWords(b.total_keur)}</p>}
+            {measure === 'gdp' && !gdp && (
+              <p className="muted">Aún no hay PIB de {b.year} en los datos de Eurostat: se muestra en euros.</p>
+            )}
             <p className="hero-sub">
               {b.includes_social_security
                 ? `Incluye la Seguridad Social. Sin ella: ${formatKeur(b.total_without_social_security_keur)}.`
                 : 'La prórroga no incluye la Seguridad Social.'}
               {b.eu_recovery_keur > 0 && ` De fondos europeos de recuperación: ${formatKeur(b.eu_recovery_keur)}.`}
             </p>
-            {b.note && b.document !== 'Prorroga' && <p className="muted">{b.note}</p>}
+            {b.note && (b.document !== 'Prorroga' || b.carried_from) && <p className="muted">{b.note}</p>}
+            {b.carried_from && (
+              <p className="carried-note">
+                Las cifras y el reparto de abajo son los del documento de prórroga de {b.carried_from}, el único que
+                publicó Hacienda para ese presupuesto prorrogado.
+              </p>
+            )}
           </>
         )}
         {b.legal && (
@@ -100,11 +126,12 @@ export default function Budget({ year, years, onYearChange }) {
           <p className="muted">Pulsa un año para ver su presupuesto.</p>
         </div>
         <BudgetBars
-          rows={all.data.years.map((r) => ({
+          rows={fillCarried(all.data.years).map((r) => ({
             year: r.year,
             document: r.document,
             value: r.total_without_social_security_keur,
             eu: r.eu_recovery_keur,
+            carried: r.carried_from,
           }))}
           year={b.year}
           onYearChange={onYearChange}
@@ -173,7 +200,10 @@ export default function Budget({ year, years, onYearChange }) {
                     key={p.id}
                     href={`#/presupuestos/politica/${p.id}`}
                     name={p.name}
-                    note={formatPct(ss ? p.share_of_total_pct : ((valueOf(p) ?? 0) / b.total_without_social_security_keur) * 100)}
+                    note={
+                      asGdp(valueOf(p)) ??
+                      formatPct(ss ? p.share_of_total_pct : ((valueOf(p) ?? 0) / b.total_without_social_security_keur) * 100)
+                    }
                     value={valueOf(p)}
                     eu={p.eu_recovery_keur}
                     max={max}

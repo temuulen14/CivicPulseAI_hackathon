@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { getBudgetProgram } from '../api.js';
+import { getBudgetProgramInForce } from '../budgetInForce.js';
 import { useApi } from '../useApi.js';
 import { useSourcesById } from '../sources.js';
 import { formatKeur, formatPct } from '../format.js';
@@ -89,7 +89,7 @@ function Chapter({ chapter, max, total }) {
 // Un programa de los PGE hasta la última partida de la Ley: por ministerio y organismo,
 // y dentro, por capítulos desplegables.
 export default function BudgetProgram({ id, year, years, onYearChange }) {
-  const program = useApi(() => getBudgetProgram(id, year), [id, year]);
+  const program = useApi(() => getBudgetProgramInForce(id, year), [id, year]);
   const sources = useSourcesById();
 
   const picker = (
@@ -117,7 +117,7 @@ export default function BudgetProgram({ id, year, years, onYearChange }) {
           <h1>{pr.name}</h1>
           <p className="lead">
             Programa {pr.program_id} de la política <a href={`#/presupuestos/politica/${pr.policy_id}`}>{pr.policy_name}</a>,
-            en {pr.document === 'Prorroga' ? `la prórroga de ${pr.year}` : `la Ley de Presupuestos de ${pr.year}`}.
+            en {pr.carried_from ? `la prórroga vigente en ${pr.year} (el mismo documento que en ${pr.carried_from})` : pr.document === 'Prorroga' ? `la prórroga de ${pr.year}` : `la Ley de Presupuestos de ${pr.year}`}.
           </p>
         </div>
         {picker}
