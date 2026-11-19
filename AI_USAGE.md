@@ -24,4 +24,5 @@ Herramienta: Claude Code, en la terminal, sobre `backend/` y `docs/`.
 - Comparación con países de fuera de la UE en `/api/compare` (contrato v1.2), con sus tests escritos antes que el código.
 - `README.md` de entrega y capturas de pantalla, tomadas con la aplicación en marcha.
 - Frontend (sobre el trabajo de Dersu): bloque «Fuera de la UE» en Comparar y repaso de todas las páginas en navegador, a ancho de escritorio y de móvil, contra el backend real.
+- Frontend: página «Mapa» (qué país dedica más a cada ámbito), con el mapa generado desde Natural Earth y comprobada en navegador.
 - Material de estudio para la defensa (presentación y resumen de decisiones); no forma parte del código.
