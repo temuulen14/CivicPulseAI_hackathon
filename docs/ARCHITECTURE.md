@@ -204,3 +204,5 @@ Explicación detallada, paso a paso, en `frontend/CAMBIOS.md`.
 | Página de Pensiones con la demanda (pensionistas y mayores de 65) desde Eurostat, guardada en `frontend/src/pensionsDemand.js` | Se añadió a última hora; cada cifra lleva su consulta exacta y su URL. Lo correcto a medio plazo es que entre en el pipeline de `data/` y lo sirva el backend |
 | Franja de Gobiernos también bajo los selectores de año de la portada, los ámbitos y Pensiones | Distinguir por Gobierno en todos los gráficos por años, no solo en los PGE |
 | Fuentes sale de la cabecera y pasa al menú del pie, destacada y con botón | Petición del usuario: la cabecera queda para las secciones de uso diario |
+| Países de fuera de la UE en Comparar: lista aparte, sin puesto, con la misma escala que la europea | La mediana, el puesto y los avisos son europeos y no deben cambiar; con una sola escala las barras de las dos listas se comparan a ojo. La fuente (OCDE) es distinta y se dice |
+| Porcentajes siempre con un decimal («9,0 %») | En una columna quedan alineados y no parece que unos datos sean más precisos que otros |
