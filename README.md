@@ -66,6 +66,7 @@ fuentes oficiales ─► data/ (Python) ─► dataset.json ─► backend/ (Fas
 | [Gasto por función (COFOG) y PIB, Table 11](https://data-explorer.oecd.org/vis?df[ds]=dsDisseminateFinalDMZ&df[id]=DSD_NASEC10%40DF_TABLE11&df[ag]=OECD.SDD.NAD) | OCDE | Comparación con países de fuera de la UE |
 | [API de datos abiertos del BOE](https://www.boe.es/datosabiertos/) | Agencia Estatal BOE | Ley de presupuestos de cada año y nombramientos de cada Gobierno |
 | [Presidentes del Gobierno](https://www.lamoncloa.gob.es/presidente/presidentes/Paginas/index.aspx) | La Moncloa | Partido y coalición de cada Gobierno |
+| [Natural Earth, países 1:50m](https://www.naturalearthdata.com/downloads/50m-cultural-vectors/) | Natural Earth (dominio público) | Contornos de los países del mapa (no aporta cifras) |
 
 Las llamadas exactas a cada fuente están en [`docs/DATA_SOURCES.md`](docs/DATA_SOURCES.md).
 

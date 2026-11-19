@@ -10,6 +10,7 @@ import Budget from './pages/Budget.jsx';
 import BudgetPolicy from './pages/BudgetPolicy.jsx';
 import BudgetProgram from './pages/BudgetProgram.jsx';
 import Pensions from './pages/Pensions.jsx';
+import WorldLeaders from './pages/WorldLeaders.jsx';
 import Segmented from './components/Segmented.jsx';
 import { MEASURE_SWITCH } from './measures.js';
 
@@ -27,6 +28,7 @@ const NAV = [
   { href: '#/presupuestos', page: 'presupuestos', label: 'Presupuestos' },
   { href: '#/pensiones', page: 'pensiones', label: 'Pensiones' },
   { href: '#/comparar', page: 'comparar', label: 'Comparar' },
+  { href: '#/mapa', page: 'mapa', label: 'Mapa' },
   { href: '#/avisos', page: 'avisos', label: 'Avisos' },
 ];
 
@@ -73,6 +75,7 @@ export default function App() {
   else if (route.page === 'presupuestos') page = <Budget {...budgetProps} />;
   else if (route.page === 'pensiones') page = <Pensions {...pageProps} />;
   else if (route.page === 'comparar') page = <Compare {...pageProps} />;
+  else if (route.page === 'mapa') page = <WorldLeaders {...pageProps} />;
   else if (route.page === 'avisos') page = <Alerts {...pageProps} focus={route.id} />;
   else if (route.page === 'fuentes') page = <Sources />;
   else page = <p className="state">Esta página no existe. <a href="#/">Volver al inicio</a></p>;

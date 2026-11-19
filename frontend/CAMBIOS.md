@@ -619,3 +619,44 @@ Hecho por Pedro en la rama `Dersu` (acordado), después de mezclar `main` (backe
   nombre del país quedaría muy lejos de su cifra. Los párrafos no se alargan: ya tenían su
   propio límite en caracteres (`max-width: 62ch`).
 - Comprobado a 390, 1280, 1366, 1920 y 2560 px: sin scroll horizontal.
+
+## 11. Mapa: quién gasta más en cada ámbito (19-11-2026, Pedro)
+
+Página nueva, `#/mapa` (`pages/WorldLeaders.jsx`), a petición de Pedro.
+
+### 11.1 Qué enseña
+
+- Un mapa del mundo y otro de Europa ampliada. En color, solo los países con datos (27 de la
+  UE + EE. UU., Japón, Reino Unido, Corea y Australia); el resto queda en gris claro.
+- **Una bandera por ámbito**, clavada en el país que más le dedica en % de su PIB. Si un país
+  lidera varios ámbitos, los banderines se apilan en el mismo mástil.
+- Debajo, una tarjeta por ámbito: país líder, su cifra y la de España con su puesto en la UE.
+  Es la misma información del mapa en texto (para móvil, teclado y lectores de pantalla).
+- Al pulsar una tarjeta o una bandera, el mapa se colorea con lo que dedica cada país a ese
+  ámbito (más oscuro = más % del PIB). Otra pulsación vuelve a todas las banderas.
+
+### 11.2 Cómo está hecho
+
+| Pieza | Qué hace | Por qué así |
+|---|---|---|
+| `scripts/buildWorldMap.mjs` → `src/worldMap.js` | Convierte los contornos de Natural Earth (1:50m, dominio público) en trazos SVG ya proyectados (proyección de Miller) y guarda el centro de cada país con datos | El navegador solo pinta `<path>`: no hace falta librería de mapas (ni d3 ni leaflet). El archivo generado se guarda en el repo; el script solo se repite si cambian los países |
+| Detalle fino solo en Europa | Fuera de Europa se quita un punto de cada varios | El archivo baja de 366 KB a 180 KB (unos 65 KB comprimido) y Europa, que se ve ampliada, sigue nítida |
+| `components/WorldMap.jsx` | Un único componente para los dos mapas: solo cambia el `viewBox` | Menos código que explicar; Europa es el mismo dibujo, recortado |
+| Mapa de Europa aparte | En el mapa del mundo no se ponen banderas dentro del recuadro de Europa | Casi todos los líderes son europeos (9 de 10 en 2024) y en el mapa del mundo las banderas se taparían |
+| `components/AreaIcon.jsx` | Diez iconos de línea escritos a mano, según el campo `icon` de `/areas` | Evita añadir una librería de iconos para diez dibujos |
+| Datos | Una llamada a `/compare` por ámbito (10), guardadas en memoria con `cached` | No hizo falta tocar el backend ni el contrato; el líder es el máximo de `rows` + `world_rows` |
+| Color | Banderas en tinta oscura con icono; mapa en una sola gama de verde (`color-mix` entre `--map-low` y `--forest-deep`) | Diez colores distintos no se distinguen: el ámbito lo dice el icono, y el verde queda libre para la cantidad |
+
+### 11.3 Límites que se dicen en la propia página
+
+- La UE viene de Eurostat y los otros cinco países de la OCDE: son fuentes distintas y la
+  comparación entre ellas es orientativa (se dice junto a las fuentes).
+- Si dos países empatan, la bandera va al primero de la lista.
+
+### Comprobado
+
+- `npx eslint src scripts` y `npm run build` sin errores.
+- En navegador (Chrome sin ventana) contra el backend real, a 1280 px y 390 px: 10 ámbitos
+  con líder, 11 banderines entre los dos mapas, selección de ámbito, sin errores de consola,
+  sin scroll horizontal y sin «NaN»/«null».
+

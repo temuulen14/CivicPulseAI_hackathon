@@ -21,6 +21,7 @@
   --sky-soft: #edf2fb;
   --neutral-bar: #c9cdc5;
   --seq-1: #74b598;
+  --map-low: #bfdccc;
   --info: #3b72c9;
   --info-soft: #edf2fb;
   --warning: #8a5a00;
@@ -328,6 +329,29 @@ a.div-row:hover, button.div-row:hover { background: var(--mist); }
 .alert-row-body { padding: 0 4px 24px 36px; animation: reveal 0.25s var(--ease); }
 @keyframes reveal { from { opacity: 0; transform: translateY(-4px); } }
 
+/* ---------- Mapa: quién gasta más en cada ámbito ---------- */
+.map-grid { display: grid; gap: 16px; align-items: center; grid-template-columns: minmax(0, 1.75fr) minmax(0, 1fr); }
+.map-figure { margin: 0; display: grid; gap: 6px; padding: 12px; border: 1px solid var(--line); border-radius: var(--radius); }
+.world-map { display: block; width: 100%; height: auto; }
+.map-country { stroke: var(--paper); stroke-width: 0.6px; vector-effect: non-scaling-stroke; transition: fill 0.2s; }
+.map-country.is-empty { fill: var(--mist-2); }
+.map-zoom-box { fill: none; stroke: var(--graphite); stroke-width: 1px; stroke-dasharray: 4 3; vector-effect: non-scaling-stroke; }
+.map-flag line { stroke: var(--ink); stroke-width: 1.5px; vector-effect: non-scaling-stroke; }
+.map-flag circle { fill: var(--ink); }
+.map-flag g { cursor: pointer; color: var(--paper); }
+.map-flag rect { fill: var(--ink); stroke: var(--paper); stroke-width: 1px; vector-effect: non-scaling-stroke; }
+.map-flag g:hover rect { fill: var(--forest-deep); }
+.map-scale-bar { width: 120px; height: 10px; border-radius: 3px; background: linear-gradient(to right, var(--map-low), var(--forest-deep)); }
+.map-empty-swatch { background: var(--mist-2); border: 1px solid var(--line-strong); }
+.leader-cards { display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+.leader-card { width: 100%; height: 100%; display: grid; gap: 2px; align-content: start; justify-items: start; text-align: left; padding: 14px; background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); transition: border-color 0.15s, background 0.15s; }
+.leader-card:hover { border-color: var(--graphite); }
+.leader-card[aria-pressed='true'] { border-color: var(--forest); background: var(--forest-soft); }
+.leader-flag { display: inline-flex; padding: 5px 8px; border-radius: 5px; background: var(--ink); color: var(--paper); margin-bottom: 6px; }
+.leader-area { font-size: 0.85rem; color: var(--graphite); }
+.leader-country { font-family: var(--serif); font-size: 1.35rem; line-height: 1.15; }
+.leader-value { font-variant-numeric: tabular-nums; font-weight: 600; }
+
 /* ---------- Móvil ---------- */
 @media (max-width: 720px) {
   main.container { padding-top: 28px; gap: 48px; }
@@ -343,6 +367,7 @@ a.div-row:hover, button.div-row:hover { background: var(--mist); }
   .treemap-wrap { height: 380px; }
   .chart-box { height: 240px; }
   .panel, .filters-panel { padding: 18px; }
+  .map-grid { grid-template-columns: 1fr; }
   .filter-row { grid-template-columns: 1fr; }
   .sev-bar { flex-direction: column; }
   .sev-seg { flex: none !important; min-height: 52px; grid-template-columns: 40px 1fr; align-items: center; padding: 8px 14px; }
