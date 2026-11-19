@@ -1,0 +1,65 @@
+{
+  "_note": "Gobiernos de España 2011-hoy. Fechas = publicación en el BOE del nombramiento (y del cese en 2018), confirmadas con la API de sumarios del BOE. El BOE no indica partidos: el del presidente sale de su biografía oficial en La Moncloa; la coalición, del nombramiento de vicepresidentes de otro partido y del discurso de investidura publicado por La Moncloa. Sirve de contexto en los gráficos; no se suman importes por partido.",
+  "governments": [
+    {
+      "id": "rajoy_2011",
+      "president": "Mariano Rajoy Brey",
+      "parties": ["PP"],
+      "start": "2011-12-21",
+      "end": "2016-10-31",
+      "appointment_boe_id": "BOE-A-2011-19861",
+      "coalition_boe_id": null,
+      "party_source_url": "https://www.lamoncloa.gob.es/presidente/presidentes/Paginas/MarianoRajoy_BIO.aspx",
+      "coalition_source_url": null,
+      "note": "En funciones desde las elecciones del 20 de diciembre de 2015 hasta la investidura de octubre de 2016."
+    },
+    {
+      "id": "rajoy_2016",
+      "president": "Mariano Rajoy Brey",
+      "parties": ["PP"],
+      "start": "2016-10-31",
+      "end": "2018-06-02",
+      "appointment_boe_id": "BOE-A-2016-9962",
+      "coalition_boe_id": null,
+      "party_source_url": "https://www.lamoncloa.gob.es/presidente/presidentes/Paginas/MarianoRajoy_BIO.aspx",
+      "coalition_source_url": null,
+      "note": "Cesa por la moción de censura de junio de 2018 (cese: BOE-A-2018-7402)."
+    },
+    {
+      "id": "sanchez_2018",
+      "president": "Pedro Sánchez Pérez-Castejón",
+      "parties": ["PSOE"],
+      "start": "2018-06-02",
+      "end": "2020-01-08",
+      "appointment_boe_id": "BOE-A-2018-7400",
+      "coalition_boe_id": null,
+      "party_source_url": "https://www.lamoncloa.gob.es/presidente/biografia/Paginas/index.aspx",
+      "coalition_source_url": null,
+      "note": "Llega por moción de censura. En funciones desde las elecciones del 28 de abril de 2019 hasta la investidura de enero de 2020."
+    },
+    {
+      "id": "sanchez_2020",
+      "president": "Pedro Sánchez Pérez-Castejón",
+      "parties": ["PSOE", "Unidas Podemos"],
+      "start": "2020-01-08",
+      "end": "2023-11-17",
+      "appointment_boe_id": "BOE-A-2020-231",
+      "coalition_boe_id": "BOE-A-2020-413",
+      "party_source_url": "https://www.lamoncloa.gob.es/presidente/biografia/Paginas/index.aspx",
+      "coalition_source_url": "https://www.lamoncloa.gob.es/presidente/presidentes/investiduras/Paginas/04012020_InvestSanchez.aspx",
+      "note": "Gobierno de coalición. En funciones desde las elecciones del 23 de julio de 2023 hasta la investidura de noviembre de 2023."
+    },
+    {
+      "id": "sanchez_2023",
+      "president": "Pedro Sánchez Pérez-Castejón",
+      "parties": ["PSOE", "Sumar"],
+      "start": "2023-11-17",
+      "end": null,
+      "appointment_boe_id": "BOE-A-2023-23302",
+      "coalition_boe_id": "BOE-A-2023-23540",
+      "party_source_url": "https://www.lamoncloa.gob.es/presidente/biografia/Paginas/index.aspx",
+      "coalition_source_url": "https://www.lamoncloa.gob.es/presidente/presidentes/investiduras/Paginas/15112023_InvestSanchez.aspx",
+      "note": "Gobierno de coalición."
+    }
+  ]
+}

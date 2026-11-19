@@ -5,7 +5,7 @@ Uso: python data/build.py   (antes: python data/fetch.py)
 
 import itertools
 import json
-from datetime import date, datetime, timezone
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
 DATA_DIR = Path(__file__).parent
@@ -288,16 +288,50 @@ def build_budget_programs() -> list[dict]:
     return sorted(programs, key=lambda p: (p["year"], p["program_id"], p["section_id"]))
 
 
-def build_budget_years(programs: list[dict]) -> list[dict]:
-    """Qué documento hay cada año y si incluye la Seguridad Social (sección 60).
+def build_governments() -> list[dict]:
+    """Gobiernos con sus fechas, partidos y fuentes. Valida que se suceden sin huecos."""
+    governments = load_json(DATA_DIR / "governments.json")["governments"]
+    for previous, current in zip(governments, governments[1:]):
+        if previous["end"] != current["start"]:
+            raise ValueError(f"gobiernos: {previous['id']} acaba {previous['end']}, "
+                             f"{current['id']} empieza {current['start']}")
+    for g in governments:
+        g["appointment_boe_url"] = f"https://www.boe.es/diario_boe/txt.php?id={g['appointment_boe_id']}"
+    return governments
+
+
+def days_in_office(governments: list[dict], year: int) -> list[dict]:
+    """Qué Gobiernos ejecutaron el presupuesto de un año, y cuántos días cada uno.
+
+    Se cuenta hasta hoy en el año en curso. El día del relevo cuenta para el que entra.
+    """
+    first = date(year, 1, 1)
+    last = min(date(year, 12, 31), date.today())
+    result = []
+    for g in governments:
+        start = max(date.fromisoformat(g["start"]), first)
+        end_excl = date.fromisoformat(g["end"]) if g["end"] else date.max
+        end = min(end_excl - timedelta(days=1), last)
+        if start <= end:
+            result.append({"government_id": g["id"], "days": (end - start).days + 1})
+    if sum(r["days"] for r in result) != (last - first).days + 1:
+        raise ValueError(f"gobiernos: los días de {year} no cubren el año")
+    return result
+
+
+def build_budget_years(programs: list[dict], governments: list[dict]) -> list[dict]:
+    """Por año: documento, si incluye la Seguridad Social, y qué Gobierno lo elaboró y ejecutó.
 
     Las prórrogas que publica Hacienda solo prorrogan las secciones del Estado; para
     comparar años hay que usar la serie sin la sección 60.
     """
+    government_ids = {g["id"] for g in governments}
     years = []
     for year, law in load_json(DATA_DIR / "legal.json").items():
         if year.startswith("_"):
             continue
+        if law["drafted_by"] not in government_ids:
+            raise ValueError(f"legal.json {year}: Gobierno desconocido {law['drafted_by']}")
         rows = [p for p in programs if p["year"] == int(year)]
         years.append({
             "year": int(year),
@@ -307,6 +341,8 @@ def build_budget_years(programs: list[dict]) -> list[dict]:
             "total_without_social_security_keur": round(
                 sum(p["total_keur"] for p in rows if p["section_id"] != "60"), 2) if rows else None,
             "eu_recovery_keur": round(sum(p["eu_recovery_keur"] for p in rows), 2) if rows else None,
+            "drafted_by": law["drafted_by"],
+            "executed_by": days_in_office(governments, int(year)),
             "note": law["note"],
         })
     return years
@@ -416,6 +452,14 @@ def build_sources() -> list[dict]:
             "retrieved_at": today,
         },
         {
+            "id": "moncloa_gobiernos",
+            "name": "La Moncloa · Presidentes del Gobierno y discursos de investidura (partido y coalición)",
+            "publisher": "Presidencia del Gobierno",
+            "url": "https://www.lamoncloa.gob.es/presidente/presidentes/Paginas/index.aspx",
+            "license": "Reutilización libre con cita",
+            "retrieved_at": today,
+        },
+        {
             "id": PGE_SOURCE,
             "name": "Presupuestos Generales del Estado · Estado de gastos por programas (Serie Roja)",
             "publisher": "Ministerio de Hacienda · Secretaría de Estado de Presupuestos y Gastos",
@@ -434,6 +478,7 @@ def main() -> None:
     validate_spending_by_type(spending_by_type, spending)
     indicators, crosses = build_crosses(spending)
     budget_programs = build_budget_programs()
+    governments = build_governments()
     dataset = {
         "generated_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "countries": [
@@ -445,7 +490,8 @@ def main() -> None:
         "spending_types": build_spending_types(),
         "spending_by_type": spending_by_type,
         "budget_policies": build_budget_policies(),
-        "budget_years": build_budget_years(budget_programs),
+        "governments": governments,
+        "budget_years": build_budget_years(budget_programs, governments),
         "budget_programs": budget_programs,
         "indicators": indicators,
         "crosses": crosses,
