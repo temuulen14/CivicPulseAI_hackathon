@@ -37,9 +37,8 @@ const NAV = [
 ];
 
 // Cabecera: todas menos Pensiones, que tiene su propio bloque destacado en la portada
-// (y un enlace desde Protección social), y Fondos europeos, que se abre desde Presupuestos,
-// para no recargar el menú.
-const HEADER_NAV = NAV.filter((item) => item.page !== 'pensiones' && item.page !== 'fondos-europeos');
+// (y un enlace desde Protección social), para no recargar el menú.
+const HEADER_NAV = NAV.filter((item) => item.page !== 'pensiones');
 
 // Menú del pie: todas las páginas, con Fuentes bien visible (ya no está en la cabecera).
 const FOOTER_NAV = [...NAV, { href: '#/fuentes', page: 'fuentes', label: 'Fuentes de datos' }];
