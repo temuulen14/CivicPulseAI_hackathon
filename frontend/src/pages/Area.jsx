@@ -12,6 +12,7 @@ import YearPicker from '../components/YearPicker.jsx';
 import AlertCard from '../components/AlertCard.jsx';
 import PolicyBar from '../components/PolicyBar.jsx';
 import InflationChart from '../components/InflationChart.jsx';
+import CiteButton from '../components/CiteButton.jsx';
 
 const AXIS = { stroke: 'var(--line-strong)', tick: { fill: 'var(--muted)', fontSize: 12 }, tickLine: false };
 
@@ -100,6 +101,12 @@ export default function Area({ id, year, years, onYearChange, onBudgetYearChange
               {spendSource.name}
             </a>
           </p>
+        )}
+        {a.amount_meur != null && (
+          <CiteButton
+            text={`En ${a.year} las administraciones públicas españolas gastaron ${formatMeur(a.amount_meur)} en ${a.name.toLowerCase()}, el ${formatPct(a.pct_gdp)} del PIB${current?.provisional ? ' (dato provisional)' : ''}.`}
+            source={spendSource}
+          />
         )}
       </section>
 

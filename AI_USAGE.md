@@ -25,4 +25,5 @@ Herramienta: Claude Code, en la terminal, sobre `backend/` y `docs/`.
 - `README.md` de entrega y capturas de pantalla, tomadas con la aplicación en marcha.
 - Frontend (sobre el trabajo de Dersu): bloque «Fuera de la UE» en Comparar y repaso de todas las páginas en navegador, a ancho de escritorio y de móvil, contra el backend real.
 - Frontend: página «Mapa» (qué país dedica más a cada ámbito), con el mapa generado desde Natural Earth y comprobada en navegador.
+- Buscador de partidas, página de fondos europeos y botón «Copiar el dato con su fuente»: propuesta de funciones a partir del dataset, dos rutas nuevas (contrato v1.3) con sus tests, páginas del frontend y comprobación en navegador.
 - Material de estudio para la defensa (presentación y resumen de decisiones); no forma parte del código.

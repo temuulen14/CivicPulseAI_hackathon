@@ -543,3 +543,20 @@ th[scope='row'] { font-size: 0.95rem; color: var(--ink); white-space: normal; }
 .sankey-label { font-family: var(--sans); font-size: 15px; paint-order: stroke; stroke: #ffffff; stroke-width: 4px; stroke-linejoin: round; }
 .sankey-value { fill: var(--ink); font-weight: 400; font-variant-numeric: tabular-nums; }
 .sankey-note { fill: var(--muted); font-size: 12.5px; }
+
+/* ---------- Buscador, fondos europeos y botón de copiar el dato ---------- */
+.search-box { display: flex; flex-wrap: wrap; gap: 10px; max-width: 720px; }
+.search-box .field-input { flex: 1 1 260px; }
+.search-box .field-input input { font-variant-numeric: normal; }
+.search-box .button-link { border: 0; }
+.chip-link { display: inline-flex; align-items: center; min-height: 40px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--line-strong); color: var(--ink); text-decoration: none; font-size: 0.95rem; transition: background 0.15s; }
+.chip-link:hover { background: var(--mist); }
+.results { display: grid; gap: 12px; }
+.result { display: grid; gap: 6px; padding: 18px 20px; border: 1px solid var(--line); border-radius: var(--radius); }
+.result-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px 24px; flex-wrap: wrap; }
+.result-head .num { font-variant-numeric: tabular-nums; font-weight: 600; white-space: nowrap; }
+.result-lines { margin-top: 6px; }
+.cite { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 12px; }
+.cite-button { min-height: 40px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--line-strong); background: var(--paper); font-size: 0.9rem; transition: background 0.15s, border-color 0.15s; }
+.cite-button:hover { background: var(--mist); border-color: var(--graphite); }
+.eu-bars .pbar-fill { background: var(--sky); }

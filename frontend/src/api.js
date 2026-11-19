@@ -85,3 +85,13 @@ export function getBudgetPolicy(id, year) {
 export function getBudgetProgram(programId, year) {
   return usingMocks ? fromMocks(() => budgetMocks.program(programId, year)) : get(`/budget/programs/${programId}`, { year });
 }
+
+// Buscador: programas y partidas del año que contienen todas las palabras de `q`.
+export function searchBudget(q, year) {
+  return usingMocks ? fromMocks(() => budgetMocks.search(q, year)) : get('/budget/search', { q, year });
+}
+
+// Fondos europeos de recuperación del año, por política y por programa.
+export function getBudgetEuRecovery(year) {
+  return usingMocks ? fromMocks(() => budgetMocks.euRecovery(year)) : get('/budget/eu-recovery', { year });
+}
