@@ -82,6 +82,29 @@ def build_spending() -> list[dict]:
     return sorted(by_key.values(), key=lambda e: (e["country"], e["area_id"], e["year"]))
 
 
+def build_spending_types() -> list[dict]:
+    types = load_json(DATA_DIR / "spending_types.json")
+    return [{"id": code, **info} for code, info in types.items()]
+
+
+def build_spending_by_type() -> list[dict]:
+    """Una fila por (ámbito, país, año, tipo económico) con importe en M€."""
+    rows = flatten_jsonstat(load_json(RAW_DIR / "gov_10a_exp_by_type.json"))
+    result = [
+        {
+            "area_id": row["cofog99"],
+            "country": row["geo"],
+            "year": int(row["time"]),
+            "type_id": row["na_item"],
+            "amount_meur": row["value"],
+            "provisional": row["status"] == "p",
+            "source_id": SPENDING_SOURCE,
+        }
+        for row in rows
+    ]
+    return sorted(result, key=lambda e: (e["country"], e["area_id"], e["year"], e["type_id"]))
+
+
 def build_sources() -> list[dict]:
     today = date.today().isoformat()
     return [
@@ -102,6 +125,8 @@ def main() -> None:
         "countries": [{"code": "ES", "name": "España"}],
         "areas": build_areas(),
         "spending": build_spending(),
+        "spending_types": build_spending_types(),
+        "spending_by_type": build_spending_by_type(),
         "indicators": [],
         "crosses": [],
         "legal": [],
