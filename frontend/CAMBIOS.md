@@ -457,3 +457,116 @@ administraciones.
 - Capturas a 1280 px y 390 px de todas las páginas (también las tres nuevas, con un capítulo
   desplegado), con mocks y con el backend de Pedro en `main` y el dataset real. Sin errores en
   consola y sin scroll horizontal.
+
+
+---
+
+## 9. Euros o % del PIB, previsión de riesgos, pensiones y 2020 (19-11-2026)
+
+Lo que pidió el usuario, punto por punto, y cómo se hizo.
+
+### 9.1 Interruptor «Euros / % del PIB»
+
+- **Qué:** un control en la cabecera («Ver en: Euros | % del PIB») que cambia todas las cifras.
+- **Cómo:** el estado `measure` vive en `App.jsx` (como el año) y baja a las páginas. Se quitaron
+  los dos controles «Medida» que había dentro de la portada y del ámbito, para no tener dos
+  botones que hacen lo mismo. Solo aparece en las páginas donde tiene sentido (Comparar ya va
+  siempre en % del PIB).
+- La cifra grande de la portada pasa a «el 45,6 % del PIB», y el selector de años, el treemap,
+  el ranking y la evolución usan la medida elegida.
+- **Presupuestos:** los PGE no traen PIB. Se deduce del gasto de Eurostat del mismo año
+  (suma de importes / suma de % del PIB) y se enseña con «≈». En 2025 no hay dato de Eurostat:
+  se dice y se queda en euros.
+
+### 9.2 Distinción por Gobierno
+
+Ya existía en Presupuestos. Ahora la franja de Gobiernos (`GovernmentBand`) aparece también bajo
+el selector de años de la portada, de cada ámbito y de Pensiones. Los Gobiernos se piden una vez
+(`useGovernments` en `governments.js`, con `/budget/years`). En tramos estrechos solo sale el
+apellido para que no se corte a media palabra.
+
+### 9.3 Sin franja de «datos de ejemplo»
+
+- Se quitó la franja. Para no enseñar cifras de ejemplo como si fueran reales, `api.js` llama
+  ahora **por defecto al backend real** (`http://localhost:8000/api`). Los mocks solo se usan con
+  `VITE_API_URL=mocks` (ver `.env.example` y `README.md`).
+
+### 9.4 Previsión: qué servicios públicos pueden dar problemas
+
+- **Archivos:** `forecast.js` (la regla) y `components/RiskWatch.jsx` (la vista).
+- **Idea:** los problemas de un servicio (averías, accidentes, esperas) llegan tras años de
+  señales: avisos que se repiten, inversión que cae, quedarse por detrás de Europa. Se suman
+  esas señales con una regla de puntos sencilla y explicada en la propia página:
+
+| Señal | Puntos |
+|---|---|
+| Tiene avisos en el año (2 si alguno no es informativo) | 1–2 |
+| Avisos en 3 o más de los últimos años | 1 |
+| Gasta un 15 % o más por debajo de la mediana UE (en % del PIB, solo si la mediana es ≥ 0,3 %) | 1 |
+| … y la distancia ha crecido | 1 |
+| La inversión (tipo de gasto `OP5ANP`) cae un 15 % o más en % del PIB (2 puntos si cae un 30 %) | 1–2 |
+| El ámbito pierde 0,2 puntos o más del PIB (y al menos un 5 %) | 1 |
+
+  2 o más puntos = «Vigilar»; 4 o más = «Riesgo alto». Ventana de 5 años.
+- Solo cuentan los avisos que apuntan a **falta** de recursos: gastar más que Europa (medio
+  ambiente) no es un riesgo.
+- Se analizan los diez ámbitos y 13 servicios concretos (transporte, hospitales, atención
+  primaria, colegios, institutos, universidad, policía, bomberos, juzgados, prisiones, agua,
+  aguas residuales y residuos).
+- **«¿Y si esta web hubiera existido antes?»:** se elige un año y la previsión se calcula solo con
+  los datos hasta ese año; cada tarjeta dice qué pasó después. Con los datos reales, en 2019 ya
+  salía **Transporte** («Vigilar»: un 42 % por debajo de la mediana UE e inversión del 0,82 % al
+  0,55 % del PIB entre 2015 y 2019), que es justo el ejemplo del usuario con el ferrocarril.
+- Está en Avisos (completa, con tabla de señales) y en la portada.
+- **Por qué en el frontend:** lo pidió el usuario a última hora. No es un aviso del backend: usa
+  las respuestas de `/areas`, `/areas/{id}`, `/alerts` y `/compare`, guardadas en memoria
+  (`cached` en `useAllYears.js`) para no pedir dos veces lo mismo.
+
+### 9.5 «En qué fijarse» en el último año
+
+Solo cuando se mira el año más reciente (2024), la sección de la portada pasa a «En qué fijarse
+ahora»: explica que es el año más cercano a hoy, enseña las tres primeras tarjetas de la
+previsión y enlaza a la completa (`#/avisos/prevision`, que baja directamente a ella). El resto
+de años sigue igual.
+
+### 9.6 Pensiones: dinero frente a demanda
+
+- **Página nueva** `#/pensiones` (`pages/Pensions.jsx`), en el menú principal.
+- **Dinero:** gasto de todas las administraciones en «Vejez» (GF1002) y «Supervivientes» (GF1003),
+  de `/areas/{id}`.
+- **Demanda:** pensionistas de jubilación y supervivencia (Eurostat `spr_pns_ben`, `OLD_SRV`, que
+  no cuenta dos veces a quien cobra ambas) y población de 65 años o más (Eurostat
+  `demo_pjanbroad`). Descargadas de la API de Eurostat el 19-11-2026 y guardadas, con la
+  consulta exacta, en `pensionsDemand.js`. Habría que pasarlas al pipeline de Mario.
+- **Qué enseña:** gasto, pensionistas, gasto por pensionista (y en 14 pagas), mayores de 65 y
+  pensionistas por cada 100; un gráfico índice (2015 = 100) con las tres curvas; una frase que lo
+  resume («el gasto creció un 61,5 %; los pensionistas, un 11,3 %…»). En euros se avisa de que
+  parte de la subida es inflación; en % del PIB no hace falta.
+
+### 9.7 Fuentes en el pie
+
+«Fuentes» sale de la cabecera. El pie es nuevo: marca y descripción, menú con todas las secciones
+(«Fuentes de datos» destacada en verde) y un bloque «De dónde sale cada cifra» con botón.
+
+### 9.8 2020 ya no sale vacío en Presupuestos
+
+En 2020 no hubo ley ni documento: siguió vigente la prórroga del presupuesto de 2018, la misma
+que en 2019. `budgetInForce.js` envuelve las llamadas de los PGE: si un año no tiene documento,
+usa el del año anterior y lo marca con `carried_from`. La página lo dice («siguió vigente la
+misma prórroga que en 2019… las cifras son las del documento de 2019»), la columna de 2020 sale
+rayada con la etiqueta «Prórroga (=2019)», y lo mismo en las páginas de política y programa.
+Quién lo elaboró y quién lo ejecutó siguen siendo los de 2020.
+
+### 9.9 Interfaz
+
+- Cabecera con el interruptor de medida en negro; menú centrado.
+- Tarjetas de riesgo con medidor de 4 tramos, filo de color por nivel y lista de motivos.
+- Barras del selector de años algo más altas (se lee mejor la tendencia).
+- Pie nuevo en gris bruma con tres columnas (una en móvil).
+
+### Comprobado
+
+- `npx eslint src` y `npm run build` sin errores.
+- Capturas a 1280 y 390 px con el backend de Pedro y el dataset real de `main`: portada (euros y
+  % del PIB), Avisos (previsión en 2024 y en 2019), Pensiones, Presupuestos en 2020, un servicio
+  (Transporte) y Fuentes. Sin errores en consola y sin scroll horizontal.

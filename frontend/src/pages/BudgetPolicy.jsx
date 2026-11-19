@@ -1,4 +1,4 @@
-import { getBudgetPolicy } from '../api.js';
+import { getBudgetPolicyInForce } from '../budgetInForce.js';
 import { useApi } from '../useApi.js';
 import { getAreasCached } from '../useAllYears.js';
 import { useSourcesById } from '../sources.js';
@@ -23,7 +23,7 @@ function Breadcrumb({ name }) {
 
 // Una política de gasto de los PGE: su evolución en todos los años y sus programas del año elegido.
 export default function BudgetPolicy({ id, year, onYearChange }) {
-  const policy = useApi(() => getBudgetPolicy(id, year), [id, year]);
+  const policy = useApi(() => getBudgetPolicyInForce(id, year), [id, year]);
   const areas = useApi(() => getAreasCached(null), []);
   const sources = useSourcesById();
 
@@ -67,6 +67,7 @@ export default function BudgetPolicy({ id, year, onYearChange }) {
           <span className="stat-label">Presupuesto en {p.year}</span>
           <span className="stat-value">{formatKeur(p.total_keur)}</span>
           {yearRow?.document === 'Prorroga' && <span className="tag-provisional">Prórroga</span>}
+          {p.carried_from && <span className="stat-note">Mismo documento que en {p.carried_from}</span>}
         </div>
         <div className="stat">
           <span className="stat-label">Sin Seguridad Social</span>
@@ -91,7 +92,7 @@ export default function BudgetPolicy({ id, year, onYearChange }) {
           <p className="muted">Pulsa un año para ver sus programas.</p>
         </div>
         <BudgetBars
-          rows={p.history.map((h) => ({ year: h.year, document: h.document, value: h.total_without_social_security_keur, eu: h.eu_recovery_keur }))}
+          rows={p.history.map((h) => ({ year: h.year, document: h.document, value: h.total_without_social_security_keur, eu: h.eu_recovery_keur, carried: h.carried_from }))}
           year={p.year}
           onYearChange={onYearChange}
         />

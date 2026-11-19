@@ -72,9 +72,29 @@ main.container > * { min-width: 0; }
 .site-nav a { display: inline-flex; align-items: center; min-height: 40px; padding: 0 14px; border-radius: 999px; color: var(--graphite); text-decoration: none; font-size: 0.95rem; white-space: nowrap; transition: background 0.15s, color 0.15s; }
 .site-nav a:hover { color: var(--ink); background: var(--mist); }
 .site-nav a[aria-current='page'] { color: var(--ink); background: var(--mist-2); }
-.mock-banner { border-bottom: 1px solid var(--line); background: var(--warning-soft); color: var(--ink); font-size: 0.875rem; padding: 8px 0; }
-.site-footer { border-top: 1px solid var(--line); padding: 32px 0 48px; color: var(--muted); font-size: 0.875rem; }
-.footer-inner { display: grid; gap: 6px; max-width: 1180px; }
+.header-inner { flex-wrap: wrap; }
+.site-nav { flex: 1; justify-content: center; }
+/* Interruptor euros / % del PIB de la cabecera: vale para toda la web */
+.measure-switch { display: inline-flex; align-items: center; gap: 8px; }
+.measure-switch-label { font-size: 0.8rem; color: var(--muted); white-space: nowrap; }
+.measure-switch .segmented { background: var(--paper); }
+.measure-switch .segmented button { min-height: 34px; padding: 0 12px; font-size: 0.85rem; }
+.measure-switch .segmented button[aria-pressed='true'] { background: var(--ink); color: var(--paper); box-shadow: none; }
+
+/* Pie: marca, menú con todas las secciones y Fuentes bien visible */
+.site-footer { border-top: 1px solid var(--line); background: var(--mist); color: var(--graphite); font-size: 0.92rem; }
+.footer-inner { display: grid; gap: 32px 48px; grid-template-columns: 1.3fr 1fr 1.2fr; padding-top: 48px; padding-bottom: 32px; }
+.footer-brand { display: grid; gap: 10px; align-content: start; max-width: 40ch; }
+.footer-title { font-family: var(--sans); font-size: 0.85rem; font-weight: 600; color: var(--ink); margin-bottom: 10px; }
+.footer-nav ul { display: grid; gap: 2px; }
+.footer-nav a { display: inline-flex; align-items: center; min-height: 34px; color: var(--graphite); text-decoration: none; }
+.footer-nav a:hover { color: var(--ink); text-decoration: underline; }
+.footer-nav a[aria-current='page'] { color: var(--ink); font-weight: 600; }
+.footer-nav a.footer-sources { color: var(--forest-deep); font-weight: 600; }
+.footer-cta { display: grid; gap: 10px; align-content: start; }
+.button-link { justify-self: start; display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border-radius: 999px; background: var(--ink); color: var(--paper); text-decoration: none; font-weight: 500; transition: background 0.15s; }
+.button-link:hover { background: var(--forest-deep); }
+.footer-base { border-top: 1px solid var(--line-strong); padding-top: 16px; padding-bottom: 32px; color: var(--muted); font-size: 0.85rem; }
 
 /* ---------- Piezas comunes ---------- */
 .section { display: grid; gap: 20px; align-content: start; }
@@ -126,7 +146,7 @@ main.container > * { min-width: 0; }
 .years { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: thin; padding-bottom: 2px; }
 .year { flex: 1 0 48px; display: grid; gap: 6px; justify-items: center; border: 0; background: transparent; padding: 8px 4px 6px; border-radius: 10px; color: var(--graphite); font-size: 0.85rem; font-variant-numeric: tabular-nums; min-height: 44px; transition: background 0.15s; }
 .year:hover { background: var(--mist); }
-.year-bar { width: 100%; max-width: 26px; height: 40px; display: flex; align-items: flex-end; }
+.year-bar { width: 100%; max-width: 28px; height: 52px; display: flex; align-items: flex-end; }
 .year-bar span { display: block; width: 100%; border-radius: 4px 4px 0 0; background: var(--line-strong); transition: height 0.3s var(--ease); }
 .year[aria-pressed='true'] { color: var(--ink); font-weight: 600; background: var(--forest-soft); }
 .year[aria-pressed='true'] .year-bar span { background: var(--forest); }
@@ -309,7 +329,9 @@ a.div-row:hover, button.div-row:hover { background: var(--mist); }
 @media (max-width: 720px) {
   main.container { padding-top: 28px; gap: 48px; }
   .header-inner { flex-direction: column; align-items: flex-start; gap: 4px; padding-top: 10px; padding-bottom: 6px; } /* sin tocar el margen lateral del .container */
-  .site-nav { max-width: 100%; flex-wrap: wrap; margin-left: -10px; }
+  .site-nav { max-width: 100%; flex-wrap: wrap; margin-left: -10px; justify-content: flex-start; }
+  .measure-switch { padding-bottom: 4px; }
+  .footer-inner { grid-template-columns: 1fr; padding-top: 32px; }
   .site-nav a { padding: 0 10px; min-height: 36px; }
   .years { gap: 2px; }
   .year { flex: 1 1 0; min-width: 0; padding: 6px 0; font-size: 0.72rem; }
@@ -420,3 +442,41 @@ button.chapter-head:hover { background: var(--mist); }
   .chapter-head .pbar-track { display: none; }
   .lines { padding-left: 8px; }
 }
+
+/* Presupuesto de 2020: la misma prórroga que 2019, rayada */
+.is-carried .bbar-rest { background: repeating-linear-gradient(135deg, var(--seq-1) 0 6px, #a9d3bf 6px 10px); }
+.carried-note { background: var(--forest-soft); border-radius: 10px; padding: 12px 16px; color: var(--forest-deep); max-width: 80ch; font-size: 0.95rem; }
+
+/* ---------- Previsión de riesgos ---------- */
+.risk { display: grid; gap: 20px; }
+.risk-time { display: grid; gap: 12px; padding: 20px; border: 1px solid var(--line); border-radius: var(--radius); background: linear-gradient(180deg, var(--forest-soft), var(--paper) 70%); }
+.risk-time h3 { font-family: var(--serif); font-size: 1.3rem; font-weight: 500; }
+.risk-cards { display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr)); counter-reset: risk; }
+.risk-card { position: relative; display: grid; gap: 12px; align-content: start; padding: 20px 20px 18px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper); transition: border-color 0.15s, transform 0.2s var(--ease); }
+.risk-card:hover { border-color: var(--line-strong); transform: translateY(-2px); }
+.risk-card::before { content: ''; position: absolute; left: 0; top: 18px; bottom: 18px; width: 3px; border-radius: 0 3px 3px 0; background: var(--warning-mark); }
+.risk-card.risk-high::before { background: var(--critical); }
+.risk-card-head { display: flex; justify-content: space-between; align-items: start; gap: 12px; flex-wrap: wrap; }
+.risk-name { font-family: var(--serif); font-size: 1.35rem; line-height: 1.2; color: var(--ink); text-decoration: none; }
+.risk-name:hover { text-decoration: underline; }
+.risk-level { display: inline-flex; align-items: center; gap: 8px; font-size: 0.82rem; font-weight: 600; color: var(--warning); white-space: nowrap; padding: 4px 10px; border-radius: 999px; background: var(--warning-soft); }
+.risk-high .risk-level { color: var(--critical); background: var(--critical-soft); }
+.risk-low .risk-level, .risk-none .risk-level { color: var(--graphite); background: var(--mist); }
+.risk-meter { display: inline-flex; gap: 2px; vertical-align: middle; }
+.risk-meter span { width: 6px; height: 12px; border-radius: 2px; background: var(--line-strong); }
+.risk-meter.lvl-1 .on { background: var(--graphite); }
+.risk-meter.lvl-2 .on, .risk-meter.lvl-3 .on { background: var(--warning-mark); }
+.risk-meter.lvl-4 .on { background: var(--critical); }
+.risk-reasons { display: grid; gap: 8px; font-size: 0.92rem; color: var(--graphite); }
+.risk-reasons li { position: relative; padding-left: 16px; }
+.risk-reasons li::before { content: ''; position: absolute; left: 2px; top: 0.6em; width: 6px; height: 6px; border-radius: 50%; background: var(--line-strong); }
+.risk-after { font-size: 0.88rem; color: var(--ink); padding-top: 10px; border-top: 1px dashed var(--line-strong); }
+.risk-method { font-size: 0.88rem; color: var(--graphite); background: var(--mist); border-radius: 10px; padding: 14px 16px; max-width: 90ch; }
+.risk-method strong { color: var(--ink); }
+.risk-table-wrap summary { cursor: pointer; min-height: 44px; display: flex; align-items: center; color: var(--forest-deep); font-weight: 500; }
+.risk-table th.center, .risk-table td.center { text-align: center; }
+.risk-table .is-service td:first-child { padding-left: 28px; }
+.risk-dot { color: var(--warning); letter-spacing: 2px; }
+.forecast { scroll-margin-top: 90px; padding-top: 8px; border-top: 1px solid var(--line); }
+.now-block { display: grid; gap: 14px; padding: 24px; border-radius: var(--radius); background: var(--mist); }
+.now-block h3 { font-family: var(--serif); font-size: 1.3rem; font-weight: 500; }

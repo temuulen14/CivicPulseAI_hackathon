@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { getAlerts } from '../api.js';
 import { useApi } from '../useApi.js';
 import { useAllAreas } from '../useAllYears.js';
@@ -11,6 +11,7 @@ import Segmented from '../components/Segmented.jsx';
 import AlertCard from '../components/AlertCard.jsx';
 import DivergingBars from '../components/DivergingBars.jsx';
 import { SeverityIcon } from '../components/Severity.jsx';
+import RiskWatch from '../components/RiskWatch.jsx';
 
 const SEVERITY_KEYS = ['critical', 'warning', 'info'];
 const plural = (n, one, many) => `${n} ${n === 1 ? one : many}`;
@@ -45,7 +46,23 @@ function distanceToMedian(alert) {
 // Nombre corto para los gráficos: "Secundaria: gasto frente a alumnado" -> "Secundaria".
 const shortTitle = (alert) => alert.title.split(':')[0];
 
-export default function Alerts({ year, years, onYearChange }) {
+// Sección de previsión, la misma en los dos estados de la página (cargando o con avisos).
+function Forecast({ years }) {
+  return (
+    <section id="prevision" className="section forecast" aria-labelledby="forecast-title">
+      <div className="section-title">
+        <h2 id="forecast-title">Qué puede dar problemas más adelante</h2>
+        <p className="lead">
+          Los avisos de hoy son las averías de mañana. Si esta web hubiera existido hace unos años, la falta de
+          inversión en transporte, por ejemplo, ya se habría visto venir.
+        </p>
+      </div>
+      <RiskWatch years={years} />
+    </section>
+  );
+}
+
+export default function Alerts({ year, years, onYearChange, focus }) {
   const [severity, setSeverity] = useState(null);
   const [type, setType] = useState(null);
   const [areaId, setAreaId] = useState(null);
@@ -55,6 +72,13 @@ export default function Alerts({ year, years, onYearChange }) {
   const alerts = useApi(() => getAlerts({ year }), [year]);
   const all = useAllAreas(years);
   const sources = useSourcesById();
+
+  // #/avisos/prevision (enlace de la portada): baja directamente a la previsión.
+  useEffect(() => {
+    if (focus !== 'prevision') return;
+    const t = setTimeout(() => document.getElementById('prevision')?.scrollIntoView({ block: 'start' }), 400);
+    return () => clearTimeout(t);
+  }, [focus]);
 
   const byYear = all.data ?? {};
   const shownYear = alerts.data?.year ?? year;
@@ -87,6 +111,7 @@ export default function Alerts({ year, years, onYearChange }) {
           {yearPicker}
         </section>
         <Status state={alerts} />
+        {years.length > 0 && <Forecast years={years} />}
       </>
     );
   }
@@ -317,6 +342,7 @@ export default function Alerts({ year, years, onYearChange }) {
           )}
         </section>
       )}
+      {years.length > 0 && <Forecast years={years} />}
     </>
   );
 }
