@@ -105,6 +105,112 @@ def build_spending_by_type() -> list[dict]:
     return sorted(result, key=lambda e: (e["country"], e["area_id"], e["year"], e["type_id"]))
 
 
+PGE_SOURCE = "sepg_pge_estado_gastos"
+PGE_YEARS = [2023]
+
+
+def parse_amount(text: str) -> float | None:
+    """'1.071.624,66' -> 1071624.66 (formato español)."""
+    text = text.strip()
+    return float(text.replace(".", "").replace(",", ".")) if text else None
+
+
+def cell(cells: list[str], i: int) -> str:
+    return cells[i] if i < len(cells) else ""
+
+
+def parse_pge_csv(path: Path, year: int) -> dict:
+    """Lee el CSV oficial del estado de gastos de un programa de los PGE.
+
+    Importes en miles de euros. Estructura del CSV:
+      - cabecera con 'Sección: 17 ...' y 'Programa: 453B ...'
+      - una fila por organismo ('17.38;;DIRECCIÓN GENERAL DE CARRETERAS')
+      - filas económicas: capítulo (1 cifra), artículo (2), concepto (3), subconcepto (5)
+      - filas 'TOTAL <nombre>' que cierran capítulo, organismo y programa
+    Los subconceptos llevan el importe en la columna 3; el resto, en la 4.
+    """
+    program = {"year": year, "organics": [], "lines": []}
+    organic = None
+    chapter = None
+    for row in path.read_bytes().decode("cp1252").splitlines():
+        cells = [c.strip() for c in row.split(";")]
+        if len(cells) < 3:
+            continue
+        if cells[1].startswith("Sección:"):
+            program["section_id"], program["section_name"] = cells[1].removeprefix("Sección:").strip().split(" ", 1)
+        elif cells[1].startswith("Programa:"):
+            program["program_id"], program["name"] = cells[1].removeprefix("Programa:").strip().split(" ", 1)
+        elif cells[0][:1].isdigit() and not cells[1]:
+            organic = {"organic_id": cells[0], "name": cells[2], "total_keur": parse_amount(cell(cells, 4))}
+            program["organics"].append(organic)
+        elif cells[1].isdigit():
+            amount = parse_amount(cell(cells, 3)) if cell(cells, 3) else parse_amount(cell(cells, 4))
+            line = {"organic_id": organic["organic_id"], "economic_code": cells[1],
+                    "description": cells[2], "amount_keur": amount}
+            program["lines"].append(line)
+            chapter = line if len(cells[1]) == 1 else chapter
+        elif cells[2].startswith("TOTAL"):
+            label = cells[2].removeprefix("TOTAL").strip()
+            amount = parse_amount(cell(cells, 4))
+            if chapter and label == chapter["description"]:
+                chapter["amount_keur"] = amount
+                chapter = None
+            elif organic and label == organic["name"] and organic["total_keur"] is None:
+                organic["total_keur"] = amount
+            elif label == program.get("name"):
+                program["total_keur"] = amount
+    return program
+
+
+def add_undetailed(program: dict) -> None:
+    """Para cada organismo, la parte del total que el documento no reparte por capítulos.
+
+    Pasa con los organismos autónomos: la Ley da su total pero no siempre su desglose.
+    """
+    for organic in program["organics"]:
+        chapters = sum(
+            line["amount_keur"] or 0 for line in program["lines"]
+            if line["organic_id"] == organic["organic_id"] and len(line["economic_code"]) == 1
+        )
+        organic["undetailed_keur"] = round(organic["total_keur"] - chapters, 2)
+
+
+def validate_pge(program: dict, name: str) -> None:
+    if program.get("total_keur") is None:
+        raise ValueError(f"{name}: programa sin total")
+    if any(o["total_keur"] is None for o in program["organics"]):
+        raise ValueError(f"{name}: organismo sin total")
+    organics = sum(o["total_keur"] for o in program["organics"])
+    if abs(organics - program["total_keur"]) > 0.05:
+        raise ValueError(f"{name}: organismos suman {organics}, programa {program['total_keur']}")
+    if any(o["undetailed_keur"] < -0.05 for o in program["organics"]):
+        raise ValueError(f"{name}: los capítulos suman más que el organismo")
+
+
+def build_budget_programs() -> list[dict]:
+    """Programas de gasto de los PGE con su desglose económico línea a línea."""
+    policies = load_json(DATA_DIR / "pge_policies.json")
+    programs = []
+    for year in PGE_YEARS:
+        for path in sorted((RAW_DIR / f"pge_{year}").glob("*.CSV")):
+            program = parse_pge_csv(path, year)
+            if program["program_id"] == "000X":  # transferencias internas: contarlas duplicaría
+                continue
+            add_undetailed(program)
+            validate_pge(program, path.name)
+            program["policy_id"] = program["program_id"][:2]
+            if program["policy_id"] not in policies:
+                raise ValueError(f"{path.name}: política {program['policy_id']} sin nombre")
+            program["source_id"] = PGE_SOURCE
+            programs.append(program)
+    return sorted(programs, key=lambda p: (p["year"], p["program_id"], p["section_id"]))
+
+
+def build_budget_policies() -> list[dict]:
+    policies = load_json(DATA_DIR / "pge_policies.json")
+    return [{"id": code, **info} for code, info in policies.items() if not code.startswith("_")]
+
+
 def build_sources() -> list[dict]:
     today = date.today().isoformat()
     return [
@@ -113,6 +219,14 @@ def build_sources() -> list[dict]:
             "name": "Eurostat · Gasto de las administraciones públicas por función (COFOG)",
             "publisher": "Eurostat",
             "url": "https://ec.europa.eu/eurostat/databrowser/view/gov_10a_exp/default/table",
+            "license": "Reutilización libre con cita",
+            "retrieved_at": today,
+        },
+        {
+            "id": PGE_SOURCE,
+            "name": "Presupuestos Generales del Estado · Estado de gastos por programas (Serie Roja)",
+            "publisher": "Ministerio de Hacienda · Secretaría de Estado de Presupuestos y Gastos",
+            "url": "https://www.sepg.pap.hacienda.gob.es/Presup/PGE2023Ley/MaestroDocumentos/PGE-ROM/N_23_E_R_31.htm",
             "license": "Reutilización libre con cita",
             "retrieved_at": today,
         },
@@ -127,6 +241,8 @@ def main() -> None:
         "spending": build_spending(),
         "spending_types": build_spending_types(),
         "spending_by_type": build_spending_by_type(),
+        "budget_policies": build_budget_policies(),
+        "budget_programs": build_budget_programs(),
         "indicators": [],
         "crosses": [],
         "legal": [],

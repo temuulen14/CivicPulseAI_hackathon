@@ -3,7 +3,9 @@
 Uso: python data/fetch.py
 """
 
+import html
 import json
+import re
 from pathlib import Path
 
 import requests
@@ -59,10 +61,63 @@ def fetch_spending_by_type() -> None:
     )
 
 
+PGE_SITE = "https://www.sepg.pap.hacienda.gob.es/Presup/PGE{year}Ley/MaestroDocumentos/PGE-ROM/"
+# La web de Hacienda rechaza peticiones sin cabecera de navegador.
+BROWSER_HEADERS = {"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) Firefox/130.0"}
+
+
+def get_page_links(url: str) -> list[tuple[str, str]]:
+    """Devuelve los enlaces (href, texto) de una página de la web de los PGE."""
+    response = requests.get(url, headers=BROWSER_HEADERS, timeout=60)
+    response.raise_for_status()
+    page = response.content.decode("cp1252")
+    links = []
+    for href, text in re.findall(r'<a[^>]+href="([^"#]+)"[^>]*>(.*?)</a>', page, re.S):
+        text = html.unescape(re.sub(r"<[^>]+>|\s+", " ", text)).strip()
+        links.append((href, text))
+    return links
+
+
+def find_link(links: list[tuple[str, str]], text: str) -> str:
+    return next(href for href, link_text in links if link_text == text)
+
+
+def fetch_pge(year: int) -> None:
+    """Descarga el estado de gastos de cada programa de los PGE de un año (CSV oficiales).
+
+    Ruta en la web: Serie Roja > Gastos. Presupuesto por programas > cada sección
+    (ministerio) > Presupuesto por programas > Estado de gastos > un CSV por programa.
+    """
+    site = PGE_SITE.format(year=year)
+    out_dir = RAW_DIR / f"pge_{year}"
+    out_dir.mkdir(exist_ok=True)
+    short = str(year)[2:]
+
+    sections = [
+        href for href, text in get_page_links(site + f"N_{short}_E_R_31.htm")
+        if text.startswith("Sección")
+    ]
+    count = 0
+    for section in sections:
+        programs_page = find_link(get_page_links(site + section), "Presupuesto por programas")
+        spending_page = find_link(get_page_links(site + programs_page), "Estado de gastos")
+        program = None
+        for href, text in get_page_links(site + spending_page):
+            if text.startswith("Programa "):
+                program = text
+            elif text == "CSV" and program and "Resumen" not in program:
+                response = requests.get(site + href, headers=BROWSER_HEADERS, timeout=60)
+                response.raise_for_status()
+                (out_dir / Path(href).name).write_bytes(response.content)
+                count += 1
+    print(f"PGE {year} -> raw/pge_{year}/ ({count} programas)")
+
+
 def main() -> None:
     RAW_DIR.mkdir(exist_ok=True)
     fetch_spending()
     fetch_spending_by_type()
+    fetch_pge(2023)
 
 
 if __name__ == "__main__":
