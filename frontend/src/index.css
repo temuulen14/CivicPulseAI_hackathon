@@ -339,15 +339,16 @@ a.div-row:hover, button.div-row:hover { background: var(--mist); }
 .map-flag line { stroke: var(--ink); stroke-width: 1.5px; vector-effect: non-scaling-stroke; }
 .map-flag circle { fill: var(--ink); }
 .map-flag g { cursor: pointer; color: var(--paper); }
-.map-flag rect { fill: var(--ink); stroke: var(--paper); stroke-width: 1px; vector-effect: non-scaling-stroke; }
-.map-flag g:hover rect { fill: var(--forest-deep); }
+.map-flag path { stroke-linejoin: round; }
+.map-flag g > path { fill: var(--ink); stroke: var(--paper); stroke-width: 1px; vector-effect: non-scaling-stroke; }
+.map-flag g:hover > path { fill: var(--forest-deep); }
 .map-scale-bar { width: 120px; height: 10px; border-radius: 3px; background: linear-gradient(to right, var(--map-low), var(--forest-deep)); }
 .map-empty-swatch { background: var(--mist-2); border: 1px solid var(--line-strong); }
-.leader-cards { display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+.leader-cards { display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
 .leader-card { width: 100%; height: 100%; display: grid; gap: 2px; align-content: start; justify-items: start; text-align: left; padding: 14px; background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); transition: border-color 0.15s, background 0.15s; }
 .leader-card:hover { border-color: var(--graphite); }
 .leader-card[aria-pressed='true'] { border-color: var(--forest); background: var(--forest-soft); }
-.leader-flag { display: inline-flex; padding: 5px 8px; border-radius: 5px; background: var(--ink); color: var(--paper); margin-bottom: 6px; }
+.leader-flag { display: inline-flex; padding: 5px 16px 5px 8px; border-left: 2px solid var(--graphite); clip-path: polygon(0 0, 100% 0, calc(100% - 8px) 50%, 100% 100%, 0 100%); background: var(--ink); color: var(--paper); margin-bottom: 6px; }
 .leader-area { font-size: 0.85rem; color: var(--graphite); }
 .leader-country { font-family: var(--serif); font-size: 1.35rem; line-height: 1.15; }
 .leader-value { font-variant-numeric: tabular-nums; font-weight: 600; }
@@ -368,6 +369,7 @@ a.div-row:hover, button.div-row:hover { background: var(--mist); }
   .chart-box { height: 240px; }
   .panel, .filters-panel { padding: 18px; }
   .map-grid { grid-template-columns: 1fr; }
+  .leader-cards { grid-template-columns: 1fr 1fr; }
   .filter-row { grid-template-columns: 1fr; }
   .sev-bar { flex-direction: column; }
   .sev-seg { flex: none !important; min-height: 52px; grid-template-columns: 40px 1fr; align-items: center; padding: 8px 14px; }

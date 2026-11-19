@@ -43,20 +43,18 @@ export default function WorldMap({ box, label, fillOf, titleOf, flags, flagSize,
           <g key={c.code} className="map-flag">
             <line x1={x} y1={y} x2={x} y2={y - size * (areas.length + 0.35)} />
             <circle cx={x} cy={y} r={size * 0.12} />
-            {areas.map((area, i) => (
-              // Cada banderín es un cuadro con el icono del ámbito; se apilan mástil arriba.
-              <g key={area.id} onClick={() => onPick(area.id)}>
-                <title>{area.title}</title>
-                <rect x={x} y={y - size * (i + 1.35)} width={size * 1.2} height={size * 0.92} rx={size * 0.14} />
-                <AreaIcon
-                  name={area.icon}
-                  x={x + size * 0.26}
-                  y={y - size * (i + 1.35) + size * 0.12}
-                  width={size * 0.68}
-                  height={size * 0.68}
-                />
-              </g>
-            ))}
+            {areas.map((area, i) => {
+              // Cada banderín es un gallardete con dos puntas y el emblema del ámbito; se apilan mástil arriba.
+              const top = y - size * (i + 1.35);
+              const [w, h] = [size * 1.45, size * 0.92];
+              return (
+                <g key={area.id} onClick={() => onPick(area.id)}>
+                  <title>{area.title}</title>
+                  <path d={`M${x},${top}h${w}l${-size * 0.28},${h / 2}l${size * 0.28},${h / 2}h${-w}z`} />
+                  <AreaIcon name={area.icon} x={x + size * 0.2} y={top + size * 0.12} width={size * 0.68} height={size * 0.68} />
+                </g>
+              );
+            })}
           </g>
         );
       })}

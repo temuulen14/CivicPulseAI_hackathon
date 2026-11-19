@@ -643,7 +643,7 @@ Página nueva, `#/mapa` (`pages/WorldLeaders.jsx`), a petición de Pedro.
 | Detalle fino solo en Europa | Fuera de Europa se quita un punto de cada varios | El archivo baja de 366 KB a 180 KB (unos 65 KB comprimido) y Europa, que se ve ampliada, sigue nítida |
 | `components/WorldMap.jsx` | Un único componente para los dos mapas: solo cambia el `viewBox` | Menos código que explicar; Europa es el mismo dibujo, recortado |
 | Mapa de Europa aparte | En el mapa del mundo no se ponen banderas dentro del recuadro de Europa | Casi todos los líderes son europeos (9 de 10 en 2024) y en el mapa del mundo las banderas se taparían |
-| `components/AreaIcon.jsx` | Diez iconos de línea escritos a mano, según el campo `icon` de `/areas` | Evita añadir una librería de iconos para diez dibujos |
+| `components/AreaIcon.jsx` | Diez emblemas macizos dibujados a mano, uno por ámbito según el campo `icon` de `/areas`, sobre banderines de dos puntas: sello (servicios generales), torre (defensa), placa (orden público), engranaje (economía), árbol (medio ambiente), llave (vivienda), cruz (sanidad), máscara (cultura), libro (educación) y paraguas (protección social) | Los iconos de línea habituales parecían de plantilla; un emblema macizo se lee mejor en pequeño y recuerda a una bandera de verdad. Sin librería de iconos |
 | Datos | Una llamada a `/compare` por ámbito (10), guardadas en memoria con `cached` | No hizo falta tocar el backend ni el contrato; el líder es el máximo de `rows` + `world_rows` |
 | Color | Banderas en tinta oscura con icono; mapa en una sola gama de verde (`color-mix` entre `--map-low` y `--forest-deep`) | Diez colores distintos no se distinguen: el ámbito lo dice el icono, y el verde queda libre para la cantidad |
 

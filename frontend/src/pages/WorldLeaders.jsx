@@ -126,7 +126,7 @@ export default function WorldLeaders({ year, years, onYearChange }) {
             return (
               <li key={area.id}>
                 <button type="button" className="leader-card" aria-pressed={selectedId === area.id} onClick={() => toggle(area.id)}>
-                  <span className="leader-flag"><AreaIcon name={area.icon} size={18} /></span>
+                  <span className="leader-flag"><AreaIcon name={area.icon} size={22} /></span>
                   <span className="leader-area">{area.name}</span>
                   <span className="leader-country">{leader.name}</span>
                   <span className="leader-value">{formatPct(leader.value)} del PIB</span>
