@@ -70,6 +70,7 @@ p { margin: 0; }
 
 .container { width: 100%; max-width: 1120px; margin: 0 auto; padding: 0 16px; }
 main.container { padding-top: 28px; padding-bottom: 48px; display: grid; gap: 28px; }
+main.container > * { min-width: 0; } /* deja que las tablas anchas hagan scroll dentro de su caja */
 
 /* ---------- Cabecera y pie ---------- */
 .site-header { background: var(--surface); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 10; }
@@ -177,3 +178,8 @@ th.num, td.num { text-align: right; font-variant-numeric: tabular-nums; white-sp
   .evidence-track { grid-column: 1 / -1; grid-row: 2; }
   nav a { padding: 6px 8px; font-size: 0.9rem; }
 }
+
+/* Leyenda de la comparación de países */
+.legend-swatch { display: inline-block; vertical-align: middle; margin: 0 4px 0 10px; }
+.legend-es { width: 12px; height: 12px; border-radius: 3px; background: var(--accent); }
+.legend-line { width: 16px; border-top: 2px dashed var(--text); }
