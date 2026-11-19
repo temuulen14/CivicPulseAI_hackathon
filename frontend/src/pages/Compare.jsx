@@ -34,8 +34,12 @@ export default function Compare({ year, years, onYearChange }) {
   const options = [...(areas.data?.areas ?? [])].sort((a, b) => b.amount_meur - a.amount_meur);
   const data = compare.data;
   const rows = data ? data.rows.filter((r) => r.value !== null).sort((a, b) => b.value - a.value) : [];
-  const max = Math.max(0, ...rows.map((r) => r.value));
+  // Grandes economías de fuera de la UE (OCDE). Van aparte: no tienen puesto ni entran en la mediana.
+  const worldRows = (data?.world_rows ?? []).filter((r) => r.value !== null);
+  // Una sola escala para las dos listas, para que las barras se puedan comparar entre sí.
+  const max = Math.max(0, ...rows.map((r) => r.value), ...worldRows.map((r) => r.value));
   const source = data && sources[data.source_id];
+  const worldSource = data && sources[data.world_source_id];
 
   const spainOf = (resp) => resp?.rows.find((r) => r.country === 'ES')?.value ?? null;
   const byYear = history.data ?? {};
@@ -119,6 +123,40 @@ export default function Compare({ year, years, onYearChange }) {
                 </a>
                 .{rows.some((r) => r.provisional) && ' Algunos datos son provisionales.'}
               </p>
+            )}
+
+            {worldRows.length > 0 && (
+              <>
+                <h3 className="world-title">Fuera de la UE</h3>
+                <p className="muted">
+                  Grandes economías como referencia, con la misma escala. No tienen puesto ni cuentan para la mediana
+                  europea.
+                </p>
+                <ul className="country-bars">
+                  {worldRows.map((r) => (
+                    <li key={r.country} className="country-bar">
+                      <span className="country-rank" aria-hidden="true">–</span>
+                      <span className="country-name">{r.name}</span>
+                      <span className="country-track" aria-hidden="true">
+                        <span style={{ width: `${(r.value / max) * 100}%` }} />
+                        {data.eu_median !== null && (
+                          <span className="median-mark" style={{ left: `${(data.eu_median / max) * 100}%` }} />
+                        )}
+                      </span>
+                      <span className="country-value">{formatPct(r.value)}</span>
+                    </li>
+                  ))}
+                </ul>
+                {worldSource && (
+                  <p className="muted">
+                    Fuente:{' '}
+                    <a href={worldSource.url} target="_blank" rel="noreferrer">
+                      {worldSource.name}
+                    </a>
+                    . Es una fuente distinta de la europea, así que las cifras son orientativas.
+                  </p>
+                )}
+              </>
             )}
           </section>
 

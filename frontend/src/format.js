@@ -6,6 +6,9 @@ const number = (digits) =>
 
 const int = number(0);
 const dec1 = number(1);
+// Los porcentajes llevan siempre un decimal ("9,0 %", no "9 %"): en una columna quedan
+// alineados y no parece que unos datos sean más precisos que otros.
+const pct1 = new Intl.NumberFormat('es-ES', { maximumFractionDigits: 1, minimumFractionDigits: 1 });
 
 // 84500 -> "84.500 M€"
 export function formatMeur(value) {
@@ -24,14 +27,14 @@ export function formatMeurWords(value) {
 // 12.4 -> "12,4 %"
 export function formatPct(value) {
   if (value === null || value === undefined) return 'Sin dato';
-  return `${dec1.format(value)} %`;
+  return `${pct1.format(value)} %`;
 }
 
-// -8.1 -> "−8,1 %"; 3 -> "+3 %"
+// -8.1 -> "−8,1 %"; 3 -> "+3,0 %"
 export function formatChange(value) {
   if (value === null || value === undefined) return 'Sin dato';
   const sign = value > 0 ? '+' : value < 0 ? '−' : '';
-  return `${sign}${dec1.format(Math.abs(value))} %`;
+  return `${sign}${pct1.format(Math.abs(value))} %`;
 }
 
 export function formatNumber(value, unit) {
@@ -44,7 +47,7 @@ export function formatNumber(value, unit) {
 export function formatPoints(value) {
   if (value === null || value === undefined) return 'Sin dato';
   const sign = value > 0 ? '+' : value < 0 ? '−' : '';
-  return `${sign}${dec1.format(Math.abs(value))} p. p.`;
+  return `${sign}${pct1.format(Math.abs(value))} p. p.`;
 }
 
 // Para ejes de gráficos: 680225 -> "680 mil"

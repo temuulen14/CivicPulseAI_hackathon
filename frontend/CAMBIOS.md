@@ -570,3 +570,42 @@ Quién lo elaboró y quién lo ejecutó siguen siendo los de 2020.
 - Capturas a 1280 y 390 px con el backend de Pedro y el dataset real de `main`: portada (euros y
   % del PIB), Avisos (previsión en 2024 y en 2019), Pensiones, Presupuestos en 2020, un servicio
   (Transporte) y Fuentes. Sin errores en consola y sin scroll horizontal.
+
+## 10. Contrato v1.2: países de fuera de la UE en Comparar, y pulido (19-11-2026, Pedro)
+
+Hecho por Pedro en la rama `Dersu` (acordado), después de mezclar `main` (backend v1.2).
+
+### 10.1 «Fuera de la UE» en Comparar
+
+- **Qué:** debajo de la lista de los 27 países sale un bloque «Fuera de la UE» con Estados
+  Unidos, Reino Unido, Australia, Japón y Corea del Sur (los que tengan dato ese año).
+- **Cómo:** `/compare` trae desde la v1.2 `world_rows` y `world_source_id`. Se pintan con las
+  mismas barras (`country-bar`) y la **misma escala** que la lista europea (el máximo se
+  calcula con las dos listas), para que una barra de EE. UU. se pueda comparar a ojo con una
+  de Francia. La línea de la mediana UE también las cruza.
+- **Por qué aparte y no mezclados:** no tienen puesto (`rank`) ni cuentan para la mediana ni
+  para los avisos, que son europeos. En vez de número de puesto llevan un guion.
+- La fuente es otra (OCDE, no Eurostat): se enlaza y se avisa de que las cifras son orientativas.
+- Si `world_rows` viene vacío (subámbitos, o los mocks), el bloque no aparece.
+
+### 10.2 Porcentajes siempre con un decimal
+
+- **Qué:** `formatPct`, `formatChange` y `formatPoints` escriben siempre un decimal: «9,0 %»
+  y no «9 %».
+- **Por qué:** en las columnas (Comparar, portada) se mezclaban «9 %» y «9,5 %»: quedaban
+  desalineados y parecía que unos datos eran menos precisos que otros.
+
+### 10.3 Arreglos encontrados al probar con el backend real
+
+| Problema | Solución |
+|---|---|
+| Presupuestos pedía `/areas?year=2025` y el backend respondía 404 (2025 tiene presupuesto pero aún no gasto de Eurostat). No rompía nada, pero dejaba un error en la consola | `App.jsx` pasa `dataYears` (los años con gasto real) y `Budget.jsx` solo hace la petición si el año está en esa lista |
+| La pestaña pedía `favicon.ico` y daba 404 | Icono SVG escrito dentro de `index.html` (cuadrado verde con tres barras), sin archivo aparte |
+
+### Comprobado
+
+- `npx eslint src` y `npm run build` sin errores.
+- En navegador contra el backend v1.2 y el dataset real, a 1280 px y 390 px: portada,
+  Presupuestos (año, política y programa), Pensiones, Comparar, Avisos, Fuentes y ámbitos
+  (nivel 1 y subámbito). Sin errores de consola, sin peticiones fallidas, sin scroll
+  horizontal y sin «NaN»/«null» en pantalla.
