@@ -195,3 +195,37 @@ GF99: sin errores en consola y sin scroll horizontal.
 ### Comprobado
 
 Capturas a 1280 px y 390 px, sin errores ni scroll horizontal.
+
+---
+
+## 5. Avisos y Fuentes
+
+### Archivos
+
+| Archivo | Para qué sirve |
+|---|---|
+| `src/pages/Alerts.jsx` | `#/avisos`: todos los avisos del año, con filtros de severidad y tipo. |
+| `src/pages/Sources.jsx` | `#/fuentes`: tabla de `GET /sources`. **Entregable obligatorio.** |
+
+### Cómo funciona y por qué
+
+- **Los filtros los aplica el backend.** La página solo guarda qué severidad y qué tipo
+  están elegidos y los manda en la petición (`/alerts?severity=warning&type=…`). Así hay
+  una sola lógica de filtrado, en el backend.
+- Reutiliza `AlertCard` de la página de ámbito, con un enlace extra al ámbito de cada aviso.
+- La lista avisa a los lectores de pantalla cuando cambia (`aria-live="polite"`).
+- **Fuentes:** nombre con enlace, organismo, licencia y fecha de consulta. Debajo, un bloque
+  "Cómo leer las cifras" con las tres limitaciones que el jurado puede preguntar: gasto
+  ejecutado frente a presupuesto, clasificación COFOG y datos provisionales.
+- La fecha `2026-11-19` se da la vuelta a mano (`19/11/2026`) en vez de usar `new Date`,
+  que la interpreta en UTC y podría mostrar el día anterior según la zona horaria.
+
+### Arreglo de móvil
+
+Las tablas anchas empujaban toda la página hacia los lados en el móvil. Causa: los
+elementos de una rejilla CSS no encogen por debajo de su contenido por defecto. Solución:
+`main.container > * { min-width: 0; }`, y la tabla hace scroll dentro de su caja.
+
+### Comprobado
+
+Capturas de `/avisos` y `/fuentes` a 1280 px y 390 px, sin errores ni scroll horizontal.
