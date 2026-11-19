@@ -8,7 +8,9 @@ Herramienta: Claude Code (modelo Claude Opus 5.5), en la terminal, sobre la carp
 - `fetch.py` y `build.py`: escritura del código de descarga, aplanado del JSON-stat y lectura de los CSV de los PGE; revisado y ejecutado en cada paso.
 - Validación: propuesta de las comprobaciones (sumas, duplicados, negativos) y análisis de los casos que fallaban antes de decidir la regla.
 - Cruces gasto-uso: cálculo de cuotas; el criterio (qué se compara, umbral, notas y qué cruces se descartan) se discutió y decidió en la sesión.
-- Documentación: `data/README.md` y las decisiones de datos en `docs/ARCHITECTURE.md`.
+- Presupuestos 2015-2025: recorrido de la web de Hacienda para leyes y prórrogas, conversión de la tabla HTML de 2015-2016, y detección de los huecos (Seguridad Social en las prórrogas, 2020 sin documento) al revisar la serie.
+- Gobiernos: búsqueda y verificación de los nombramientos en la API del BOE y del partido en La Moncloa; la decisión de no sumar importes por partido se tomó en la sesión.
+- Tests (`data/test_build.py`) y documentación: `data/README.md`, `docs/DATA_SOURCES.md` y las decisiones de datos en `docs/ARCHITECTURE.md`.
 
 ## Pedro (backend, contrato y entrega)
 

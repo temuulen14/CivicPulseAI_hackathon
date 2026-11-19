@@ -156,6 +156,10 @@ de su parte: qué se decidió y por qué, en una fila.
 | Gobiernos en `governments.json` con fechas del BOE (API de sumarios) y partido de La Moncloa | Cada dato con fuente oficial; el BOE no indica partidos |
 | Por año, quién **elaboró** el presupuesto y quién lo **ejecutó** (días de cada Gobierno) | No coinciden en 2018-2020 ni en 2023-2025; atribuir un año a un solo partido sería falso |
 | No se calculan importes por partido | El gasto depende de leyes, contexto y otras administraciones; un marcador por partidos rompe la neutralidad de la app ("señalan, no acusan") |
+| Comparación internacional con la OCDE (EE. UU., Japón, Reino Unido, Corea, Australia) | Es la fuente oficial con la misma clasificación COFOG; para España da exactamente lo mismo que Eurostat (validado) |
+| En % del PIB, calculado con el PIB nominal en moneda nacional de la OCDE | Sin depender de tipos de cambio; la OCDE no publica la tabla COFOG en % del PIB |
+| En `world_spending`, aparte de `spending` | La mediana europea y los avisos se calculan con los países de la UE; mezclarlos los alteraría |
+| Sin China, India, Brasil ni Canadá | No hay datos COFOG oficiales comparables; mejor decirlo que aproximarlo con otra fuente |
 | `dataset.json` sin sangría | Con diez años de PGE pasaba de 20 MB; compacto pesa 15 MB |
 | Ley de cada año en `legal.json`; el título se lee de la API del BOE | Los identificadores se confirmaron uno a uno; si un id no es una ley de presupuestos, `build.py` se para |
 | Años prorrogados (2019, 2020, 2024) apuntan a la ley vigente, con nota | No hubo ley nueva; es lo que el ciudadano necesita saber |
