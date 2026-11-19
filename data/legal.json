@@ -1,0 +1,14 @@
+{
+  "_note": "Ley de presupuestos vigente cada año. Identificadores confirmados con la API de datos abiertos del BOE (/metadatos); el título se toma de esa respuesta. pge_document: documento de los PGE que publica Hacienda para ese año (Ley aprobada, Prorroga, o null si no hay). drafted_by: Gobierno (governments.json) que aprobó el proyecto de la ley vigente; en una prórroga, el de la ley prorrogada.",
+  "2015": {"boe_id": "BOE-A-2014-13612", "pge_document": "Ley", "drafted_by": "rajoy_2011", "note": null},
+  "2016": {"boe_id": "BOE-A-2015-11644", "pge_document": "Ley", "drafted_by": "rajoy_2011", "note": null},
+  "2017": {"boe_id": "BOE-A-2017-7387", "pge_document": "Ley", "drafted_by": "rajoy_2016", "note": "Aprobada en junio de 2017: el primer semestre rigió el presupuesto de 2016 prorrogado."},
+  "2018": {"boe_id": "BOE-A-2018-9268", "pge_document": "Ley", "drafted_by": "rajoy_2016", "note": "Aprobada en julio de 2018: el primer semestre rigió el presupuesto de 2017 prorrogado."},
+  "2019": {"boe_id": "BOE-A-2018-9268", "pge_document": "Prorroga", "drafted_by": "rajoy_2016", "note": "Sin ley nueva: se prorrogó el presupuesto de 2018."},
+  "2020": {"boe_id": "BOE-A-2018-9268", "pge_document": null, "drafted_by": "rajoy_2016", "note": "Sin ley nueva: siguió prorrogado el presupuesto de 2018. Hacienda no publica documento de prórroga para 2020."},
+  "2021": {"boe_id": "BOE-A-2020-17339", "pge_document": "Ley", "drafted_by": "sanchez_2020", "note": null},
+  "2022": {"boe_id": "BOE-A-2021-21653", "pge_document": "Ley", "drafted_by": "sanchez_2020", "note": null},
+  "2023": {"boe_id": "BOE-A-2022-22128", "pge_document": "Ley", "drafted_by": "sanchez_2020", "note": null},
+  "2024": {"boe_id": "BOE-A-2022-22128", "pge_document": "Prorroga", "drafted_by": "sanchez_2020", "note": "Sin ley nueva: se prorrogó el presupuesto de 2023."},
+  "2025": {"boe_id": "BOE-A-2022-22128", "pge_document": "Prorroga", "drafted_by": "sanchez_2020", "note": "Sin ley nueva: siguió prorrogado el presupuesto de 2023."}
+}
