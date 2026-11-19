@@ -154,7 +154,28 @@ de su parte: qué se decidió y por qué, en una fila.
 
 ### Frontend (Dersu)
 
-_Por rellenar._
+Explicación detallada, paso a paso, en `frontend/CAMBIOS.md`.
+
+| Decisión | Por qué |
+|----------|---------|
+| Stack reducido: React + Vite + Recharts, en JavaScript y CSS normales (sin TypeScript, Tailwind ni React Router) | Cubre todas las funciones del brief con menos piezas que justificar; cada una se explica en una frase |
+| Navegación por `#` (`#/ambito/GF07`) con el evento `hashchange`, en unas 20 líneas de `App.jsx` | No hace falta librería ni configurar el servidor; el botón "atrás" y compartir enlaces funcionan igual |
+| `api.js` usa los datos de ejemplo de `mocks.js` si `VITE_API_URL` está vacía | El frontend se pudo construir sin esperar al backend; cambiar al real es cambiar una variable |
+| Franja visible "datos de ejemplo" mientras se usan los mocks | Nunca presentar cifras ilustrativas como reales |
+| Un hook `useApi` para todas las peticiones, que descarta respuestas antiguas | Estados de carga, error y vacío iguales en todas las páginas sin repetir código |
+| El año elegido es compartido entre páginas (vive en `App.jsx`) | Si miras 2022 en la portada, el ámbito también abre en 2022 |
+| Mapa de áreas (treemap) y espectro con una escala verde de 5 pasos según la cuota del total (≥25, ≥10, ≥5, ≥2 %, resto), validada con la skill `dataviz` | Diez colores distintos no se distinguen; asignar el tono por cuota (no por puesto) hace que signifique lo mismo en cualquier año. Con 10 pasos el validador no los distinguía |
+| Severidad siempre con icono + texto ("Merece una mirada"), nunca solo color | Accesible y sin tono alarmista: los avisos señalan, no acusan |
+| Tarjeta de aviso: las dos cifras de `evidence` en barras medidas contra la mayor | La diferencia (55 % frente a 9 %) se ve sin leer números |
+| Comparación en % del PIB, ordenada, España en verde y mediana UE como línea discontinua, más la evolución de España frente a la mediana 2015–2024 | Compara países de tamaños distintos; ordenar lo convierte en un ranking; la línea temporal dice si la distancia es de un año o de siempre |
+| Variación anual del ámbito calculada desde `history` | `GET /areas/{id}` no trae `yoy_change_pct`; es una resta, no un aviso |
+| La portada ofrece cuatro vistas de los mismos datos (Mapa, Ranking, Evolución, Cambios) y dos medidas (importe, % del PIB) con controles segmentados | El usuario pidió más maneras de desglosar los datos; la vista Ranking es además la tabla accesible con la cifra exacta |
+| Rediseño visual: fondo blanco, Newsreader (serif) para titulares y cifras, Geist para la interfaz, verde bosque y azul cielo como colores de dato, sin logo | Petición del usuario (web blanca y elegante, sin el €); se evitan los tópicos de página generada que señala la skill `frontend-design` (crema, acento arcilla, etiquetas en mayúsculas, flechas en enlaces) |
+| Selector de años en fila con una barrita por año (`YearPicker`) en vez de un desplegable | Enseña la tendencia antes de pulsar; las barras parten de cero para no exagerar |
+| `/areas` de los diez años se pide en paralelo una vez y se guarda en memoria (`useAllYears.js`) | Alimenta el selector de años, las sparklines y las vistas de evolución sin cambiar el contrato |
+| Avisos: se piden todos los del año y se filtran en el navegador con botones (barra de severidad, chips de tipo y ámbito) | Filtrar no es calcular avisos; así cada botón enseña su recuento y no hay que esperar al servidor |
+| Avisos: mancuernas (cuota de gasto frente a cuota de uso) y barras divergentes (distancia a la mediana UE), sacadas de `evidence` | Dos desgloses visuales que no necesitan campos nuevos en la API |
+| Formato `Intl.NumberFormat('es-ES')` con `useGrouping: 'always'` | Por defecto el español no pone punto en números de cuatro cifras (8450 → 8.450) |
 
 ## Limitaciones (para contarlas antes de que pregunten)
 
