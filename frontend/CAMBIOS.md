@@ -168,3 +168,30 @@ sus avisos.
 
 Capturas a 1280 px (claro) y 390 px (oscuro) del ámbito GF04, y del ámbito inexistente
 GF99: sin errores en consola y sin scroll horizontal.
+
+---
+
+## 4. Comparar países
+
+**Objetivo:** ver de un vistazo si España gasta más o menos que otros países en un mismo ámbito.
+
+### Archivos
+
+`src/pages/Compare.jsx` (y la leyenda en `src/index.css`).
+
+### Cómo funciona y por qué
+
+- **Selector de ámbito y de año.** El ámbito es estado local de la página (empieza en
+  Sanidad); el año es el compartido. Cada cambio vuelve a pedir `GET /compare`.
+- **Barras horizontales ordenadas de mayor a menor**: con doce países, ordenar convierte
+  el gráfico en un ranking que se entiende sin leer números.
+- **España en azul, el resto en gris.** Un solo color de acento para lo que importa.
+- **Línea discontinua de la mediana de la UE** (`ReferenceLine` de Recharts), con su valor
+  escrito encima. La mediana y no la media porque un país extremo no la mueve.
+- **Frase resumen** encima del gráfico ("puesto 9 de 12, 0,5 % del PIB por debajo de la
+  mediana"): la conclusión está escrita, el gráfico la respalda.
+- **% del PIB y no euros**, porque compara países de tamaños muy distintos.
+
+### Comprobado
+
+Capturas a 1280 px y 390 px, sin errores ni scroll horizontal.
