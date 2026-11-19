@@ -120,7 +120,37 @@ de su parte: qué se decidió y por qué, en una fila.
 
 ### Datos (Mario)
 
-_Por rellenar._
+| Decisión | Por qué |
+|----------|---------|
+| El JSON-stat de Eurostat se aplana a mano (`flatten_jsonstat`, 20 líneas) | Sin librerías; el índice de cada valor es un número en base mixta con los tamaños de cada dimensión |
+| Último año: 2024 (provisional); 2023 ya es definitivo | Es lo que publica hoy Eurostat; el contrato de ejemplo decía 2023 |
+| 27 países + `EU27_2020`, desde 2015 | Comparación completa; el agregado va aparte porque no es un país |
+| Desglose por tipo económico (personal, compras, conciertos, inversión…) solo para España | Para 28 países serían 240 000 filas que la app no enseña |
+| Diez tipos económicos que no se solapan (`spending_types.json`) | Comprobado: suman el total en los 80 ámbitos y todos los años |
+| Validación con tolerancia del 0,5 % o 2 M€ | Eurostat redondea cada partida por separado; en partidas pequeñas el redondeo pesa más que el 0,5 % |
+| Si falta un subámbito de un país, esa suma no se comprueba | Eurostat deja huecos; comprobar con huecos daría falsos errores |
+| Se admiten negativos en subámbitos, nunca en totales ni ámbitos | En contabilidad nacional un subámbito es negativo si se vende más de lo que se compra (terrenos en Finlandia, material militar en Eslovaquia 2023). España no tiene ninguno |
+| PGE: se descargan los CSV oficiales de cada programa (Serie Roja, 472 ficheros) recorriendo la web de Hacienda | No hay API ni descarga única (el ZIP pesa 855 MB); la web exige cabecera de navegador |
+| PGE: se excluye el programa 000X | Son transferencias internas entre el Estado y sus organismos; contarlas duplicaría |
+| PGE: la parte de un organismo que la Ley no reparte por capítulos va en `undetailed_keur` | La Ley no siempre detalla los organismos autónomos; mejor decirlo que inventarlo |
+| PGE: importes en miles de euros (`amount_keur`), como los publica Hacienda | Se pueden cotejar uno a uno con el documento oficial |
+| PGE: equivalencia política de gasto → ámbito COFOG en `pge_policies.json` | Para enlazar el presupuesto con la página de cada ámbito. Es aproximada y nuestra, no oficial |
+| PGE de 2015 a 2025: leyes aprobadas y documentos de prórroga (2019, 2024, 2025) | La década completa para ver la evolución; en las prórrogas se usa el documento de créditos prorrogados que publica Hacienda, que no es idéntico a la ley anterior |
+| 2020 sin datos de PGE | Hacienda no publica documento de 2020 (siguió la prórroga de 2019); copiar 2019 sería inventar |
+| Para comparar años, serie del Estado sin la Seguridad Social (sección 60) | Los documentos de prórroga no incluyen la Seguridad Social; es la única serie homogénea en los diez años |
+| 2015 y 2016: la tabla HTML se guarda como CSV en `raw/` | Esos años no tienen CSV; el HTML pesa 25 MB por año (casi todo estilos) y la tabla tiene las mismas columnas |
+| Fondos europeos medidos por los servicios "Mecanismo de Recuperación y Resiliencia" (`eu_recovery_keur`) | El nombre del programa no los identifica siempre (2021 y 2022 usan formatos distintos); el servicio sí |
+| Gobiernos en `governments.json` con fechas del BOE (API de sumarios) y partido de La Moncloa | Cada dato con fuente oficial; el BOE no indica partidos |
+| Por año, quién **elaboró** el presupuesto y quién lo **ejecutó** (días de cada Gobierno) | No coinciden en 2018-2020 ni en 2023-2025; atribuir un año a un solo partido sería falso |
+| No se calculan importes por partido | El gasto depende de leyes, contexto y otras administraciones; un marcador por partidos rompe la neutralidad de la app ("señalan, no acusan") |
+| `dataset.json` sin sangría | Con diez años de PGE pasaba de 20 MB; compacto pesa 15 MB |
+| Ley de cada año en `legal.json`; el título se lee de la API del BOE | Los identificadores se confirmaron uno a uno; si un id no es una ley de presupuestos, `build.py` se para |
+| Años prorrogados (2019, 2020, 2024) apuntan a la ley vigente, con nota | No hubo ley nueva; es lo que el ciudadano necesita saber |
+| Cruces de educación: cuota de gasto por etapa frente a cuota de alumnado (2023) | Misma fuente (Eurostat), mismas etapas (ISCED) y relación directa gasto-uso |
+| Alumnado solo de centros públicos y concertados | Es el que paga el gasto público; los privados no concertados no |
+| Cuotas de gasto sobre las etapas atribuibles (GF0901-GF0904) | Los gastos no atribuibles a una etapa (comedor, transporte escolar…) no tienen alumnado con que compararse |
+| Umbral 1,5 en educación | Es normal que una etapa cueste algo más por alumno; a partir del 50 % más merece una mirada. Hoy ninguna lo supera (0,93 / 1,19 / 0,80) |
+| Transporte descartado como cruce | El gasto del Estado por modo no incluye la inversión de ADIF ni el autobús urbano que pagan comunidades y ayuntamientos: el aviso no se sostendría |
 
 ### Frontend (Dersu)
 
