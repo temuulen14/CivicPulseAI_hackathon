@@ -101,6 +101,7 @@ main.container > * { min-width: 0; }
 
 /* ---------- Piezas comunes ---------- */
 .section { display: grid; gap: 20px; align-content: start; }
+.section > * { min-width: 0; } /* que un hijo ancho (p. ej. un selector de 5 botones) no ensanche la página en móvil */
 .section-head { display: flex; align-items: end; justify-content: space-between; gap: 16px 24px; flex-wrap: wrap; }
 .section-title { display: grid; gap: 6px; }
 .lead { color: var(--graphite); font-size: 1.125rem; line-height: 1.6; max-width: 62ch; }
@@ -537,6 +538,33 @@ button.chapter-head:hover { background: var(--mist); }
 td a, th[scope='row'] a { color: var(--ink); }
 th[scope='row'] { font-size: 0.95rem; color: var(--ink); white-space: normal; }
 .calc-bars .hbar-label { color: var(--ink); }
+
+/* Calculadora: «Cada 100 €» (una casilla por euro) */
+.units { display: grid; gap: 14px; }
+.units-list { display: grid; gap: 10px; max-width: 900px; }
+.units-row { display: grid; grid-template-columns: minmax(150px, 220px) 1fr auto; gap: 12px; align-items: center; }
+.units-name { color: var(--ink); font-size: 0.92rem; }
+.units-cells { display: flex; flex-wrap: wrap; gap: 3px; }
+.units-cells span { width: 12px; height: 12px; border-radius: 3px; }
+.units-value { font-variant-numeric: tabular-nums; font-weight: 500; min-width: 3.5ch; text-align: right; }
+
+/* Calculadora: «Días de trabajo» (el año como una barra de enero a diciembre) */
+.days { display: grid; gap: 12px; }
+.days-headline { font-size: 1.15rem; max-width: 62ch; }
+.days-track { display: flex; height: 28px; border-radius: 6px; overflow: hidden; gap: 1px; background: var(--paper); }
+.days-track span { display: block; height: 100%; min-width: 1px; }
+.days-mine { background: var(--mist-2); }
+.days-months { display: grid; grid-template-columns: repeat(12, 1fr); font-size: 0.75rem; color: var(--muted); }
+.days-list { display: grid; gap: 0; margin-top: 4px; max-width: 760px; }
+.days-list li { display: grid; grid-template-columns: auto minmax(0, 1fr) auto minmax(0, 1.2fr); gap: 4px 10px; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--line); font-size: 0.92rem; }
+.days-list a { color: var(--ink); }
+.days-count { font-variant-numeric: tabular-nums; font-weight: 500; text-align: right; }
+@media (max-width: 640px) {
+  .units-row { grid-template-columns: 1fr auto; }
+  .units-cells { grid-column: 1 / -1; grid-row: 2; }
+  .days-list li { grid-template-columns: auto 1fr auto; }
+  .days-range { grid-column: 2 / -1; }
+}
 /* El diagrama de flujo necesita anchura: en móvil se desliza dentro de su caja, sin mover la página */
 .sankey-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius); padding: 16px 8px; }
 .sankey { display: block; width: 100%; min-width: 820px; height: auto; }

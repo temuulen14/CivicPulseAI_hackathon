@@ -793,3 +793,28 @@ Página nueva, `#/mapa` (`pages/WorldLeaders.jsx`), a petición de Pedro.
   con líder, 11 banderines entre los dos mapas, selección de ámbito, sin errores de consola,
   sin scroll horizontal y sin «NaN»/«null».
 
+
+## 17. Calculadora: dos formas más de ver el reparto
+
+- **Qué:** además de «Flujo del dinero», «Barras» y «Tabla», el selector de la calculadora tiene:
+  - **Cada 100 €:** una fila por ámbito con una casilla por cada euro de cada 100 que pagas
+    (41 casillas para Protección social, 14 para Sanidad…). Dice cuánto vale cada casilla en tu
+    caso (por ejemplo, 74 € al año).
+  - **Días de trabajo:** «Trabajas hasta el 6 de abril para pagar tus impuestos». Una barra de
+    enero a diciembre con un tramo por ámbito y, debajo, la lista: cuántos días trabajas para cada
+    uno y entre qué fechas. El resto del año es «Para ti».
+- **Por qué:** lo pidió el usuario. El diagrama de flujo es vistoso pero cuesta leerlo; contar
+  casillas o leer una fecha se entiende sin saber leer gráficos.
+- **Cómo:**
+  - `src/components/TaxUnits.jsx`: reparte 100 casillas por la cuota de cada ámbito con el
+    método del mayor resto (parte entera a cada uno y las que faltan a los de mayor decimal), para
+    que siempre sumen 100.
+  - `src/components/TaxDays.jsx`: días de un ámbito = sus euros ÷ lo que cuesta tu sueldo (bruto,
+    más la parte de la empresa si se cuenta) × 365. Los ámbitos se ponen uno tras otro desde el
+    1 de enero; las fechas salen de un año de 365 días (2025).
+  - Mismos colores que el resto de la app (escala verde por cuota del gasto).
+  - Arreglo general en `index.css`: `.section > * { min-width: 0 }`. Con cinco botones, el selector
+    ensanchaba la página en móvil; ahora se desliza dentro de su caja, como ya hacía en otras.
+- **Comprobado:** `npx eslint src` y `npm run build` sin errores. Capturas a 1280 y 390 px de las dos
+  vistas nuevas y repaso de las 9 páginas a los dos anchos: sin scroll horizontal, sin errores de
+  consola y sin «NaN».
