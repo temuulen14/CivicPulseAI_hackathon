@@ -74,3 +74,51 @@ lo mínimo que sigue cubriendo **todas** las funciones del brief:
 - La cabecera del ámbito pide "variación anual", pero `GET /areas/{id}` no trae
   `yoy_change_pct` (solo `GET /areas` lo trae). Mientras tanto se calcula a partir de
   `history` (año elegido frente al anterior). Si Pedro lo añade al contrato, se usa directamente.
+
+---
+
+## 2. Portada
+
+**Objetivo:** que en diez segundos se vea cuánto se gasta, en qué y qué merece atención.
+
+### Archivos
+
+| Archivo | Para qué sirve |
+|---|---|
+| `src/pages/Home.jsx` | La portada: cifra total, mapa del gasto, avisos destacados y ranking. |
+| `src/components/AreaTreemap.jsx` | Mapa de áreas (treemap de Recharts). |
+| `src/components/Severity.jsx` | Etiqueta de severidad (color + icono + texto). |
+| `src/labels.js` | Textos de severidad y de tipo de aviso, en un solo sitio. |
+
+### Cómo funciona y por qué
+
+- **Cifra grande.** Total en palabras ("680 mil millones de €") porque se entiende mejor
+  que "680.225 M€"; la cifra exacta va justo debajo. Si `provisional` es verdadero,
+  aparece la etiqueta "Dato provisional".
+- **Selector de año.** Cambia el año compartido de `App.jsx`. `useApi(..., [year])` vuelve
+  a pedir los datos cada vez que cambia.
+- **Mapa del gasto (treemap).** Cada bloque es un ámbito y su **área es proporcional al
+  importe**. Es el gráfico que mejor muestra "partes de un todo" con diez elementos: con
+  diez sectores, una tarta no se lee.
+  - Color: **un solo tono azul**, más oscuro cuanto más dinero (refuerza el tamaño, no
+    añade información nueva). No usamos colores distintos por ámbito porque diez colores
+    no se distinguen y harían pensar que significan algo.
+  - Los ámbitos con avisos llevan un **círculo con el número de avisos**, del color de su
+    severidad más alta.
+  - Clic o tecla Intro en un bloque → `#/ambito/<id>`. Cada bloque se puede enfocar con
+    el tabulador y tiene `aria-label` para lectores de pantalla.
+  - El nombre se recorta con "…" si no cabe, y en los bloques muy pequeños no se escribe
+    (está en el tooltip y en la tabla).
+  - `Cell` es la función que Recharts llama para dibujar cada rectángulo; ahí decidimos
+    el color, el texto y el círculo.
+- **Avisos destacados.** Los tres primeros de `GET /alerts`, que el backend ya devuelve
+  ordenados por severidad. **El frontend no calcula avisos**, solo los muestra.
+- **Tabla "de mayor a menor".** Las mismas cifras del mapa en una tabla: sirve en el móvil,
+  para lectores de pantalla y para quien quiera la cifra exacta.
+- **Severidad nunca solo con color.** Siempre icono + texto: "Para tu información",
+  "Merece una mirada", "Importante". Lenguaje que señala sin acusar, como pide el brief.
+
+### Comprobado
+
+`npm run build` y `eslint` sin errores. Capturas a 1280 px y a 390 px (móvil): sin errores
+en consola y sin scroll horizontal.

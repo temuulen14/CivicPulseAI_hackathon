@@ -105,7 +105,7 @@ nav a[aria-current='page'] { background: var(--accent-soft); color: var(--accent
 .tag-provisional { background: var(--surface-2); color: var(--text-2); border: 1px dashed var(--axis); }
 
 /* Severidad: color + icono + texto */
-.sev { display: inline-flex; align-items: center; gap: 6px; font-size: 0.78rem; font-weight: 600; padding: 3px 9px 3px 4px; border-radius: 999px; white-space: nowrap; }
+.sev { justify-self: start; display: inline-flex; align-items: center; gap: 6px; font-size: 0.78rem; font-weight: 600; padding: 3px 9px 3px 4px; border-radius: 999px; white-space: nowrap; }
 .sev-icon { display: grid; place-items: center; width: 18px; height: 18px; border-radius: 50%; font-size: 0.72rem; font-weight: 800; color: #fff; }
 .sev-info { background: var(--info-soft); color: var(--info); }
 .sev-info .sev-icon { background: var(--info); }
@@ -165,7 +165,7 @@ nav a[aria-current='page'] { background: var(--accent-soft); color: var(--accent
 table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
 th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--grid); vertical-align: top; }
 th { font-size: 0.8rem; color: var(--muted); font-weight: 600; }
-td.num { text-align: right; font-variant-numeric: tabular-nums; }
+th.num, td.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
 
 /* ---------- Tooltip de gráficos ---------- */
 .tooltip { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12); font-size: 0.85rem; color: var(--text); }
