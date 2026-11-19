@@ -80,3 +80,23 @@ def test_every_policy_and_program_of_the_latest_budget_answers(client):
         )
         for program in detail["programs"]:
             get(client, f"/api/budget/programs/{program['program_id']}")
+
+
+def test_eu_recovery_adds_up_to_the_year_total(client):
+    for year in get(client, "/api/budget/years")["years"]:
+        body = get(client, f"/api/budget/eu-recovery?year={year['year']}")
+        assert body["eu_recovery_keur"] == year["eu_recovery_keur"]
+        if year["eu_recovery_keur"]:
+            for rows in (body["policies"], body["programs"]):
+                added = sum(row["eu_recovery_keur"] for row in rows)
+                assert added == pytest.approx(year["eu_recovery_keur"], abs=1)
+        else:
+            assert body["programs"] == []
+
+
+def test_search_answers_for_every_budget_year(client):
+    for year in get(client, "/api/meta")["budget_years"]:
+        body = get(client, f"/api/budget/search?q=becas&year={year}")
+        assert len(body["results"]) <= 30
+        for result in body["results"]:
+            assert result["name_match"] or result["lines"]

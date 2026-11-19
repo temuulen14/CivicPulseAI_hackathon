@@ -273,6 +273,19 @@ def budget_overview(year: int | None = None):
     return budget.year_overview(data, resolve_budget_year(year))
 
 
+@app.get("/api/budget/search", response_model=models.BudgetSearch)
+def budget_search(
+    q: str = Query(min_length=2, max_length=80, description="Palabras a buscar: becas, AEMET…"),
+    year: int | None = None,
+):
+    return budget.search(data, q, resolve_budget_year(year))
+
+
+@app.get("/api/budget/eu-recovery", response_model=models.EuRecovery)
+def budget_eu_recovery(year: int | None = None):
+    return budget.eu_recovery(data, resolve_budget_year(year))
+
+
 @app.get("/api/budget/policies/{policy_id}", response_model=models.PolicyDetail)
 def budget_policy(policy_id: str, year: int | None = None):
     policy = data.budget_policies.get(policy_id)

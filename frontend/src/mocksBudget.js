@@ -246,3 +246,61 @@ export function program(programId, year) {
     ],
   };
 }
+
+// Resumen de todos los programas de ejemplo de un año, con su política.
+function programSummaries(y) {
+  return POLICIES.flatMap((p) => {
+    const t = policyTotals(p, y);
+    if (t.total_keur === null) return [];
+    return programsOf(p).map((pr) => ({
+      program_id: pr.program_id,
+      name: pr.name,
+      policy_id: p.id,
+      policy_name: p.name,
+      section_names: [pr.section],
+      total_keur: round2(t.total_keur * pr.weight),
+      eu_recovery_keur: round2(t.eu_recovery_keur * pr.weight),
+    }));
+  });
+}
+
+// Como el backend, pero solo por nombre de programa (los datos de ejemplo no traen partidas reales).
+export function search(q, year) {
+  const y = pickYear(year);
+  const words = q.toLowerCase().split(/\s+/).filter(Boolean);
+  const results = programSummaries(y)
+    .filter((pr) => words.every((w) => `${pr.program_id} ${pr.name}`.toLowerCase().includes(w)))
+    .map((pr) => ({ ...pr, name_match: true, matched_bodies: [], line_match_count: 0, lines: [] }));
+  return {
+    query: q,
+    year: y,
+    document: documentOf(y),
+    program_count: results.length,
+    source_id: results.length ? 'sepg_pge_estado_gastos' : null,
+    results,
+  };
+}
+
+export function euRecovery(year) {
+  const y = pickYear(year);
+  const totals = yearTotals(y);
+  const programs = programSummaries(y)
+    .filter((pr) => pr.eu_recovery_keur > 0)
+    .sort((a, b) => b.eu_recovery_keur - a.eu_recovery_keur);
+  const policies = POLICIES.map((p) => ({ id: p.id, name: p.name, area_id: p.area_id, ...policyTotals(p, y) }))
+    .filter((p) => p.eu_recovery_keur > 0)
+    .map((p) => ({ ...p, share_of_eu_recovery_pct: Math.round((p.eu_recovery_keur / totals.eu_recovery_keur) * 1000) / 10 }))
+    .sort((a, b) => b.eu_recovery_keur - a.eu_recovery_keur);
+  return {
+    year: y,
+    document: documentOf(y),
+    eu_recovery_keur: totals.eu_recovery_keur,
+    total_without_social_security_keur: totals.total_without_social_security_keur,
+    share_of_state_budget_pct: totals.eu_recovery_keur
+      ? Math.round((totals.eu_recovery_keur / totals.total_without_social_security_keur) * 1000) / 10
+      : null,
+    source_id: programs.length ? 'sepg_pge_estado_gastos' : null,
+    policies,
+    programs,
+  };
+}

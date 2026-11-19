@@ -793,3 +793,58 @@ Página nueva, `#/mapa` (`pages/WorldLeaders.jsx`), a petición de Pedro.
   con líder, 11 banderines entre los dos mapas, selección de ámbito, sin errores de consola,
   sin scroll horizontal y sin «NaN»/«null».
 
+
+## 18. Buscador, fondos europeos y «Copiar el dato con su fuente» (19-11-2026, Pedro)
+
+Tres funciones nuevas sobre los Presupuestos, con datos que ya estaban en el dataset.
+
+| Qué | Cómo | Por qué |
+|-----|------|---------|
+| Página `#/buscar/<texto>` (`pages/Search.jsx`) y caja `components/SearchBox.jsx`, también en Presupuestos | La caja solo cambia la URL; la página lee de ahí el texto y llama a `/budget/search` | Los PGE son miles de páginas: nadie puede responder «¿cuánto se dedica a X?» sin saber el código del programa. Con el texto en la URL, cualquier búsqueda se enlaza y funciona «atrás» |
+| Se busca al enviar, no al teclear | Un `<form>` normal | Sin temporizadores ni peticiones a medio escribir que explicar |
+| Página `#/fondos-europeos` (`pages/EuFunds.jsx`), enlazada desde Presupuestos y el pie | `/budget/eu-recovery` + el selector de año con una barra por año; barras azules, como la parte europea del resto de gráficos | El importe por programa ya llegaba, pero no había dónde ver a qué se dedican |
+| En el menú de cabecera | Una entrada más en `NAV` | Enlazada solo desde Presupuestos y el pie no se encontraba |
+| `components/CiteButton.jsx` en Presupuestos, política, programa, ámbito y fondos europeos | Copia con `navigator.clipboard` la frase, la fuente oficial con su URL, la ley si la hay y la dirección de la página | Las cifras de gasto público circulan sin fuente; así el dato sale ya con su origen |
+| `formatKeur` dice «237 mil €» o «760 €» por debajo del millón | Tres tramos en `format.js` | Las partidas pequeñas salían como «0 M€», que se lee como «nada» |
+
+Límites que se dicen en la propia página: las partidas encontradas no se suman (pueden
+estar unas dentro de otras); los Presupuestos no usan siglas («AEMET» no sale, «meteorología»
+sí); los fondos europeos son dinero presupuestado, no necesariamente gastado.
+
+### Comprobado
+
+- `npx eslint src` y `npm run build` sin errores; 47 tests del backend en verde.
+- En Chrome sin ventana contra el backend real, a 1280 px y 390 px: búsquedas con y sin
+  resultados, fondos europeos de 2025, y el texto copiado en las cinco páginas. Sin errores
+  de consola, sin scroll horizontal y sin «NaN»/«null».
+
+## 19. El mapa dentro de «Comparar» y el buscador como lupa (19-11-2026, Pedro)
+
+A petición de Pedro, para aligerar la cabecera (de ocho enlaces a seis).
+
+- **Mapa.** Ya no tiene enlace propio: es una vista de «Comparar con otros países». Un
+  control segmentado sobre el título (`Segmented`, el mismo de la portada) cambia entre
+  «País a país» (`#/comparar`) y «Mapa» (`#/comparar/mapa`). La vista va en la URL, así que
+  se puede enlazar y funciona el botón «atrás». `#/mapa` sigue abriendo el mapa para no
+  romper enlaces antiguos. Las dos páginas (`Compare.jsx`, `WorldLeaders.jsx`) no cambian:
+  solo `App.jsx` decide cuál pinta.
+- **Buscar.** Sale del menú y pasa a ser una lupa (SVG en línea, con `aria-label`) a la
+  derecha de la cabecera; en móvil queda arriba a la derecha, junto al nombre. En el pie
+  sigue como enlace de texto.
+
+Comprobado: `npx eslint src` y `npm run build` sin errores; en Chrome sin ventana contra el
+backend real, `#/comparar`, `#/comparar/mapa`, `#/mapa` y `#/buscar` a 1280 px y 390 px.
+
+## 20. Mapa y comparación en una sola página (19-11-2026, Mario)
+
+Sustituye el interruptor «País a país / Mapa» del punto 19: en vez de dos páginas, una.
+
+- `Compare.jsx` tiene, en este orden: selector de ámbito (con el emblema de cada uno) y de
+  año, un índice «En esta página», el mapa, el ranking de países, la evolución de España y
+  las tarjetas «Quién lidera cada ámbito».
+- El mapa (`components/CompareMap.jsx`) tiene dos vistas con un control segmentado: el
+  ámbito elegido (coloreado por % del PIB) o el líder de cada ámbito (todas las banderas).
+  Pulsar una bandera o una tarjeta elige ese ámbito para toda la página.
+- `WorldLeaders.jsx` desaparece; `leaders.js` guarda las dos funciones que compartía.
+  `#/mapa` y `#/comparar/mapa` abren Comparar.
+
