@@ -183,37 +183,31 @@ Explicación detallada, paso a paso, en `frontend/CAMBIOS.md`.
 |----------|---------|
 | Stack reducido: React + Vite + Recharts, en JavaScript y CSS normales (sin TypeScript, Tailwind ni React Router) | Cubre todas las funciones del brief con menos piezas que justificar; cada una se explica en una frase |
 | Navegación por `#` (`#/ambito/GF07`) con el evento `hashchange`, en unas 20 líneas de `App.jsx` | No hace falta librería ni configurar el servidor; el botón "atrás" y compartir enlaces funcionan igual |
-| `api.js` usa los datos de ejemplo de `mocks.js` si `VITE_API_URL` está vacía | El frontend se pudo construir sin esperar al backend; cambiar al real es cambiar una variable |
-| Franja visible "datos de ejemplo" mientras se usan los mocks | Nunca presentar cifras ilustrativas como reales |
+| `api.js` llama por defecto al backend real (`localhost:8000/api`); los mocks solo con `VITE_API_URL=mocks` | Se quitó la franja de "datos de ejemplo" a petición del usuario: por eso lo normal tiene que ser ver cifras reales, y los mocks quedan para desarrollar |
 | Un hook `useApi` para todas las peticiones, que descarta respuestas antiguas | Estados de carga, error y vacío iguales en todas las páginas sin repetir código |
 | El año elegido es compartido entre páginas (vive en `App.jsx`) | Si miras 2022 en la portada, el ámbito también abre en 2022 |
 | Mapa de áreas (treemap) y espectro con una escala verde de 5 pasos según la cuota del total (≥25, ≥10, ≥5, ≥2 %, resto), validada con la skill `dataviz` | Diez colores distintos no se distinguen; asignar el tono por cuota (no por puesto) hace que signifique lo mismo en cualquier año. Con 10 pasos el validador no los distinguía |
 | Severidad siempre con icono + texto ("Merece una mirada"), nunca solo color | Accesible y sin tono alarmista: los avisos señalan, no acusan |
 | Tarjeta de aviso: las dos cifras de `evidence` en barras medidas contra la mayor | La diferencia (55 % frente a 9 %) se ve sin leer números |
 | Comparación en % del PIB, ordenada, España en verde y mediana UE como línea discontinua, más la evolución de España frente a la mediana 2015–2024 | Compara países de tamaños distintos; ordenar lo convierte en un ranking; la línea temporal dice si la distancia es de un año o de siempre |
-| Variación anual del ámbito calculada desde `history` | `GET /areas/{id}` no trae `yoy_change_pct`; es una resta, no un aviso |
+| Variación anual del ámbito: la da la API desde el contrato v1.1 (`yoy_change_pct`); en % del PIB se calcula desde `history` | En puntos del PIB es una resta, no un aviso |
 | La portada ofrece cuatro vistas de los mismos datos (Mapa, Ranking, Evolución, Cambios) y dos medidas (importe, % del PIB) con controles segmentados | El usuario pidió más maneras de desglosar los datos; la vista Ranking es además la tabla accesible con la cifra exacta |
 | Rediseño visual: fondo blanco, Newsreader (serif) para titulares y cifras, Geist para la interfaz, verde bosque y azul cielo como colores de dato, sin logo | Petición del usuario (web blanca y elegante, sin el €); se evitan los tópicos de página generada que señala la skill `frontend-design` (crema, acento arcilla, etiquetas en mayúsculas, flechas en enlaces) |
 | Selector de años en fila con una barrita por año (`YearPicker`) en vez de un desplegable | Enseña la tendencia antes de pulsar; las barras parten de cero para no exagerar |
 | `/areas` de los diez años se pide en paralelo una vez y se guarda en memoria (`useAllYears.js`) | Alimenta el selector de años, las sparklines y las vistas de evolución sin cambiar el contrato |
 | Avisos: se piden todos los del año y se filtran en el navegador con botones (barra de severidad, chips de tipo y ámbito) | Filtrar no es calcular avisos; así cada botón enseña su recuento y no hay que esperar al servidor |
 | Avisos: mancuernas (cuota de gasto frente a cuota de uso) y barras divergentes (distancia a la mediana UE), sacadas de `evidence` | Dos desgloses visuales que no necesitan campos nuevos en la API |
-| Formato `Intl.NumberFormat('es-ES')` con `useGrouping: 'always'` | Por defecto el español no pone punto en números de cuatro cifras (8450 → 8.450) |
-
-## Limitaciones (para contarlas antes de que pregunten)
-
-- Las cifras son **gasto ejecutado** de todas las administraciones según Eurostat, no
-  el crédito inicial que aparece en la ley. La ley del BOE se enlaza como marco legal.
-- El último año va con uno o dos años de retraso y puede ser provisional; la app lo
-  marca con una etiqueta.
-
-## Orden de construcción
-
-1. **Ahora, en paralelo** — Mario: `fetch.py` + `build.py` con gasto real. Pedro: backend
-   con un `dataset.json` de ejemplo. Dersu: frontend con datos de ejemplo del contrato.
-2. **Primera integración** — en cuanto exista un `dataset.json` real: el backend lo
-   carga y el frontend apunta al backend. Todo visible de punta a punta, aunque feo.
-3. **Comparación de países y avisos automáticos.**
-4. **Cruces de uso** de Mario, de uno en uno; cada uno aparece solo en la app.
-5. **Viernes por la mañana**: pulido, README, `AI_USAGE.md` y ensayo de la demo. Ninguna
-   función nueva.
+| Presupuestos del Estado en una sección propia (`#/presupuestos`), con un aviso fijo de que no es la misma cifra que la portada | Son otra fuente (lo presupuestado para el Estado central, no lo gastado por todas las administraciones): mezclarlos o compararlos con Eurostat sería un error (contrato v1.1) |
+| Navegación de los PGE en tres niveles: año → política → programa, y dentro del programa los capítulos se despliegan para ver las partidas | Sigue la forma de la API; cada pantalla pide solo lo que enseña y el detalle aparece al pulsar |
+| La evolución de los PGE usa siempre la serie sin Seguridad Social, y las columnas son botones que eligen el año | Las prórrogas no traen la Seguridad Social: es la única serie comparable. El gráfico hace también de selector |
+| Franja de Gobiernos con tonos neutros alternos, sin colores de partido, y una frase con quién elaboró y quién ejecutó el presupuesto del año | Contexto para leer el gráfico, no una valoración; no se suma nada por Gobierno ni por partido |
+| Importes de los PGE (miles de euros) mostrados en millones con `formatKeur` | Misma unidad visible en toda la app; el campo `_keur` se respeta en el código |
+| El año de los PGE (2015–2025) se guarda aparte del de Eurostat (2015–2024) | Tienen años distintos; compartirlo dejaría páginas sin datos |
+| Interruptor global «Euros / % del PIB» en la cabecera (estado en `App.jsx`) | Una sola elección vale para portada, ámbitos, pensiones y presupuestos; en los PGE el % del PIB es aproximado (PIB deducido del gasto de Eurostat) y se marca con «≈» |
+| 2020 en los PGE enseña el documento de prórroga de 2019 (`budgetInForce.js`), rayado y explicado | En 2020 siguió vigente la misma prórroga del presupuesto de 2018 y Hacienda no publicó otro documento: no es una cifra inventada, es el presupuesto que estuvo vigente |
+| Previsión de riesgos calculada en el navegador (`forecast.js`) con una regla de puntos explicada en la propia página | Petición del usuario. No es un aviso del backend ni una predicción estadística: suma señales ya visibles (avisos que se repiten y apuntan a falta de recursos, distancia a la mediana UE, inversión en % del PIB, peso en el PIB). Se puede «probar con el pasado» calculándola solo con datos hasta un año anterior |
+| Página de Pensiones con la demanda (pensionistas y mayores de 65) desde Eurostat, guardada en `frontend/src/pensionsDemand.js` | Se añadió a última hora; cada cifra lleva su consulta exacta y su URL. Lo correcto a medio plazo es que entre en el pipeline de `data/` y lo sirva el backend |
+| Franja de Gobiernos también bajo los selectores de año de la portada, los ámbitos y Pensiones | Distinguir por Gobierno en todos los gráficos por años, no solo en los PGE |
+| Fuentes sale de la cabecera y pasa al menú del pie, destacada y con botón | Petición del usuario: la cabecera queda para las secciones de uso diario |
+| Países de fuera de la UE en Comparar: lista aparte, sin puesto, con la misma escala que la europea | La mediana, el puesto y los avisos son europeos y no deben cambiar; con una sola escala las barras de las dos listas se comparan a ojo. La fuente (OCDE) es distinta y se dice |
+| Porcentajes siempre con un decimal («9,0 %») | En una columna quedan alineados y no parece que unos datos sean más precisos que otros |

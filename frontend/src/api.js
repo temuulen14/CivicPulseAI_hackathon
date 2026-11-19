@@ -1,12 +1,14 @@
 // Una función por endpoint de docs/API_CONTRACT.md.
-// Si VITE_API_URL está vacía, devuelve los datos de ejemplo de mocks.js;
-// si tiene valor (p. ej. http://localhost:8000/api), llama al backend con fetch.
+// Por defecto llama al backend real (http://localhost:8000/api, o la URL de VITE_API_URL).
+// Con VITE_API_URL=mocks usa los datos de ejemplo de mocks.js (solo para desarrollar sin backend).
 
 import * as mocks from './mocks.js';
+import * as budgetMocks from './mocksBudget.js';
 
-const BASE_URL = import.meta.env.VITE_API_URL || '';
+const SETTING = import.meta.env.VITE_API_URL || 'http://localhost:8000/api';
 
-export const usingMocks = BASE_URL === '';
+export const usingMocks = SETTING === 'mocks';
+const BASE_URL = usingMocks ? '' : SETTING;
 
 // Simula una pequeña espera para que también se vean los estados de carga.
 function fromMocks(build) {
@@ -63,4 +65,23 @@ export function getCompare({ area, year, countries } = {}) {
 
 export function getSources() {
   return usingMocks ? fromMocks(() => mocks.sources()) : get('/sources');
+}
+
+// --- Presupuestos Generales del Estado (contrato v1.1) ---------------------
+// Otra fuente: lo que la Ley presupuesta para el Estado central, en miles de euros.
+
+export function getBudgetYears() {
+  return usingMocks ? fromMocks(() => budgetMocks.budgetYears()) : get('/budget/years');
+}
+
+export function getBudget(year) {
+  return usingMocks ? fromMocks(() => budgetMocks.budget(year)) : get('/budget', { year });
+}
+
+export function getBudgetPolicy(id, year) {
+  return usingMocks ? fromMocks(() => budgetMocks.policy(id, year)) : get(`/budget/policies/${id}`, { year });
+}
+
+export function getBudgetProgram(programId, year) {
+  return usingMocks ? fromMocks(() => budgetMocks.program(programId, year)) : get(`/budget/programs/${programId}`, { year });
 }

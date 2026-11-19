@@ -35,3 +35,19 @@ export function useEachYear(request, years, deps = []) {
 export function useAllAreas(years) {
   return useEachYear(getAreasCached, years);
 }
+
+// Memoria genérica de peticiones por clave: la previsión de riesgos pide muchas veces lo
+// mismo (un ámbito en un año) y así cada respuesta solo se pide una vez por sesión.
+const memo = new Map();
+export function cached(key, request) {
+  if (!memo.has(key)) {
+    memo.set(
+      key,
+      request().catch((err) => {
+        memo.delete(key);
+        throw err;
+      }),
+    );
+  }
+  return memo.get(key);
+}
