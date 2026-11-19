@@ -116,10 +116,28 @@ def fetch_pge(year: int) -> None:
     print(f"PGE {year} -> raw/pge_{year}/ ({count} programas)")
 
 
+BOE_API = "https://www.boe.es/datosabiertos/api/legislacion-consolidada/id/{boe_id}/metadatos"
+
+
+def fetch_boe() -> None:
+    """Metadatos (título, fecha) de cada ley de presupuestos de legal.json."""
+    laws = json.loads((DATA_DIR / "legal.json").read_text(encoding="utf-8"))
+    out_dir = RAW_DIR / "boe"
+    out_dir.mkdir(exist_ok=True)
+    boe_ids = sorted({law["boe_id"] for year, law in laws.items() if not year.startswith("_")})
+    for boe_id in boe_ids:
+        url = BOE_API.format(boe_id=boe_id)
+        response = requests.get(url, headers={"Accept": "application/json"}, timeout=60)
+        response.raise_for_status()
+        (out_dir / f"{boe_id}.json").write_text(response.text, encoding="utf-8")
+    print(f"BOE -> raw/boe/ ({len(boe_ids)} leyes)")
+
+
 def main() -> None:
     RAW_DIR.mkdir(exist_ok=True)
     fetch_spending()
     fetch_spending_by_type()
+    fetch_boe()
     fetch_pge(2023)
 
 

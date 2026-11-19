@@ -279,6 +279,27 @@ def build_budget_policies() -> list[dict]:
     return [{"id": code, **info} for code, info in policies.items() if not code.startswith("_")]
 
 
+def build_legal() -> list[dict]:
+    """Ley de presupuestos de cada año, con el título que devuelve la API del BOE."""
+    laws = load_json(DATA_DIR / "legal.json")
+    legal = []
+    for year, law in laws.items():
+        if year.startswith("_"):
+            continue
+        metadata = load_json(RAW_DIR / "boe" / f"{law['boe_id']}.json")["data"]
+        metadata = metadata[0] if isinstance(metadata, list) else metadata
+        if "Presupuestos Generales del Estado" not in metadata["titulo"]:
+            raise ValueError(f"{law['boe_id']} no es una ley de presupuestos: {metadata['titulo']}")
+        legal.append({
+            "year": int(year),
+            "law_title": metadata["titulo"].rstrip("."),
+            "boe_id": law["boe_id"],
+            "boe_url": f"https://www.boe.es/buscar/act.php?id={law['boe_id']}",
+            "note": law["note"],
+        })
+    return legal
+
+
 def build_sources() -> list[dict]:
     today = date.today().isoformat()
     return [
@@ -287,6 +308,14 @@ def build_sources() -> list[dict]:
             "name": "Eurostat · Gasto de las administraciones públicas por función (COFOG)",
             "publisher": "Eurostat",
             "url": "https://ec.europa.eu/eurostat/databrowser/view/gov_10a_exp/default/table",
+            "license": "Reutilización libre con cita",
+            "retrieved_at": today,
+        },
+        {
+            "id": "boe_legislacion_consolidada",
+            "name": "BOE · Legislación consolidada (leyes de Presupuestos Generales del Estado)",
+            "publisher": "Agencia Estatal Boletín Oficial del Estado",
+            "url": "https://www.boe.es/datosabiertos/",
             "license": "Reutilización libre con cita",
             "retrieved_at": today,
         },
@@ -321,7 +350,7 @@ def main() -> None:
         "budget_programs": build_budget_programs(),
         "indicators": [],
         "crosses": [],
-        "legal": [],
+        "legal": build_legal(),
         "sources": build_sources(),
     }
     out = DATA_DIR / "dataset.json"
