@@ -803,7 +803,7 @@ Tres funciones nuevas sobre los Presupuestos, con datos que ya estaban en el dat
 | Página `#/buscar/<texto>` (`pages/Search.jsx`) y caja `components/SearchBox.jsx`, también en Presupuestos | La caja solo cambia la URL; la página lee de ahí el texto y llama a `/budget/search` | Los PGE son miles de páginas: nadie puede responder «¿cuánto se dedica a X?» sin saber el código del programa. Con el texto en la URL, cualquier búsqueda se enlaza y funciona «atrás» |
 | Se busca al enviar, no al teclear | Un `<form>` normal | Sin temporizadores ni peticiones a medio escribir que explicar |
 | Página `#/fondos-europeos` (`pages/EuFunds.jsx`), enlazada desde Presupuestos y el pie | `/budget/eu-recovery` + el selector de año con una barra por año; barras azules, como la parte europea del resto de gráficos | El importe por programa ya llegaba, pero no había dónde ver a qué se dedican |
-| Fuera del menú de cabecera | Se filtra en `HEADER_NAV`, como Pensiones | El menú ya tiene siete entradas |
+| En el menú de cabecera | Una entrada más en `NAV` | Enlazada solo desde Presupuestos y el pie no se encontraba |
 | `components/CiteButton.jsx` en Presupuestos, política, programa, ámbito y fondos europeos | Copia con `navigator.clipboard` la frase, la fuente oficial con su URL, la ley si la hay y la dirección de la página | Las cifras de gasto público circulan sin fuente; así el dato sale ya con su origen |
 | `formatKeur` dice «237 mil €» o «760 €» por debajo del millón | Tres tramos en `format.js` | Las partidas pequeñas salían como «0 M€», que se lee como «nada» |
 
