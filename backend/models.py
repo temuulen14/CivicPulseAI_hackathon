@@ -282,3 +282,63 @@ class ProgramDetail(BaseModel):
     eu_recovery_keur: float
     source_id: str
     sections: list[ProgramSection]
+
+
+class SearchLine(BaseModel):
+    section_name: str
+    economic_code: str
+    description: str
+    amount_keur: float | None
+
+
+class SearchResult(BaseModel):
+    program_id: str
+    name: str
+    policy_id: str
+    policy_name: str | None
+    section_names: list[str]
+    total_keur: float
+    eu_recovery_keur: float
+    name_match: bool
+    matched_bodies: list[str]
+    line_match_count: int
+    lines: list[SearchLine]
+
+
+class BudgetSearch(BaseModel):
+    query: str
+    year: int
+    document: Literal["Ley", "Prorroga"] | None
+    program_count: int
+    source_id: str | None
+    results: list[SearchResult]
+
+
+class EuRecoveryPolicy(BaseModel):
+    id: str
+    name: str
+    area_id: str
+    total_keur: float
+    eu_recovery_keur: float
+    share_of_eu_recovery_pct: float | None
+
+
+class EuRecoveryProgram(BaseModel):
+    program_id: str
+    name: str
+    policy_id: str
+    policy_name: str | None
+    section_names: list[str]
+    total_keur: float
+    eu_recovery_keur: float
+
+
+class EuRecovery(BaseModel):
+    year: int
+    document: Literal["Ley", "Prorroga"] | None
+    eu_recovery_keur: float | None
+    total_without_social_security_keur: float | None
+    share_of_state_budget_pct: float | None
+    source_id: str | None
+    policies: list[EuRecoveryPolicy]
+    programs: list[EuRecoveryProgram]
