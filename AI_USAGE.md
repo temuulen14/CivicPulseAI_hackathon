@@ -20,4 +20,6 @@ Herramienta: Claude Code, en la terminal, sobre `backend/` y `docs/`.
 - Backend: escritura de la API (FastAPI), las dos reglas de aviso y sus tests; revisado y ejecutado en cada paso.
 - Integración de los datos de Mario: lectura del dataset real, nuevas rutas de los PGE (`/api/budget…`), desglose por tipo de gasto y ampliación del contrato a la v1.1.
 - Tests: casos límite de las reglas, un test por endpoint y comprobaciones de sumas contra el dataset real.
+- Comparación con países de fuera de la UE en `/api/compare` (contrato v1.2), con sus tests escritos antes que el código.
+- `README.md` de entrega y capturas de pantalla, tomadas con la aplicación en marcha.
 - Material de estudio para la defensa (presentación y resumen de decisiones); no forma parte del código.
