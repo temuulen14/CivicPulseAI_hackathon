@@ -2,11 +2,11 @@
 
 ```bash
 pip install requests
-python data/fetch.py   # descarga a raw/ (unos 2 minutos: Eurostat + 472 CSV de los PGE)
+python data/fetch.py   # descarga a raw/ (unos 15 minutos: Eurostat, BOE y 3 400 ficheros de los PGE)
 python data/build.py   # valida y escribe dataset.json; se para si algo no cuadra
 ```
 
-`dataset.json` sigue la forma de `docs/API_CONTRACT.md` y añade cuatro claves nuevas.
+`dataset.json` sigue la forma de `docs/API_CONTRACT.md` y añade cinco claves nuevas (`spending_types`, `spending_by_type`, `budget_policies`, `budget_years`, `budget_programs`).
 **Todavía no están en el contrato** (hay que acordarlas con Pedro); el backend actual
 las ignora, así que no rompen nada.
 
@@ -27,9 +27,10 @@ las ignora, así que no rompen nada.
 Los diez tipos suman el `amount_meur` del ámbito en `spending` (validado). Existe para
 los 10 ámbitos, los subámbitos y `TOTAL`, de 2015 a 2024.
 
-## Presupuestos Generales del Estado 2023, partida a partida
+## Presupuestos Generales del Estado 2015-2025, partida a partida
 
-El nivel más fino que se publica: cada programa de cada ministerio, hasta subconcepto.
+El nivel más fino que se publica: cada programa de cada ministerio, hasta subconcepto,
+para cada año de la década. 3 209 programas en 10 años (2020 no tiene documento).
 
 ```json
 "budget_policies": [{"id": "45", "name": "Infraestructuras", "area_id": "GF04"}],
@@ -54,8 +55,51 @@ El nivel más fino que se publica: cada programa de cada ministerio, hasta subco
   documento no reparte por capítulos (pasa con los organismos autónomos).
 - `area_id` de una política es una equivalencia aproximada nuestra con el ámbito COFOG.
 
+### Evolución por años: `budget_years`
+
+```json
+"budget_years": [
+  {"year": 2023, "document": "Ley", "includes_social_security": true,
+   "total_keur": 583543000.0, "total_without_social_security_keur": 379810000.0,
+   "eu_recovery_keur": 26539000.0, "note": null},
+  {"year": 2024, "document": "Prorroga", "includes_social_security": false, "...": "..."},
+  {"year": 2020, "document": null, "total_keur": null, "note": "Sin ley nueva: siguió prorrogado..."}
+]
+```
+
+| Año | Documento | ¿Incluye Seguridad Social? |
+|-----|-----------|----------------------------|
+| 2015-2018, 2021-2023 | Ley aprobada | Sí |
+| 2019, 2024, 2025 | Prórroga | **No**: Hacienda solo prorroga las secciones del Estado |
+| 2020 | Ninguno (siguió la prórroga de 2019) | Sin datos: no se rellena copiando 2019 |
+
+**Para comparar años, usad la serie sin la Seguridad Social** (filtrar
+`section_id != "60"`, o `total_without_social_security_keur`). Es la única homogénea en
+los diez años. Ejemplos (M€, Estado sin Seguridad Social):
+
+| Política | 2015 | 2018 | 2021 | 2023 | 2025 |
+|----------|-----:|-----:|-----:|-----:|-----:|
+| 12 Defensa | 5 712 | 8 401 | 9 072 | 12 317 | 12 317 |
+| 32 Educación | 2 270 | 2 579 | 4 891 | 5 352 | 5 335 |
+| 45 Infraestructuras | 6 373 | 5 750 | 11 502 | 12 645 | 12 613 |
+| 46 I+D+i y digitalización | 6 406 | 7 062 | 12 345 | 17 767 | 17 813 |
+
+Los códigos de **política** (`policy_id`) son estables entre años; los de **programa** y
+los nombres de ministerio (`section_name`) cambian con cada reorganización del Gobierno,
+así que la evolución se cuenta mejor por política.
+
+Saltos que tienen explicación (para que no parezcan errores):
+
+- **Desde 2021, fondos europeos de recuperación.** `eu_recovery_keur` (por programa y por
+  año) es lo que gestionan los servicios "Mecanismo de Recuperación y Resiliencia"
+  (orgánica xx.50): al menos 22 000-26 500 M€ al año.
+- **2017 y 2018: préstamo del Estado a la Seguridad Social** para pagar pensiones (unos
+  10 000 M€, programa 291M de la sección 19).
+- **Prórrogas 2024 y 2025:** algunas partidas bajan porque al prorrogar no se mantienen
+  los créditos que vencían.
+
 **Ojo al contarlo:** son créditos **presupuestados** del **Estado central** (más la
-Seguridad Social). No incluye a las comunidades autónomas ni a los ayuntamientos; por
+Seguridad Social, salvo en las prórrogas). No incluye a las comunidades autónomas ni a los ayuntamientos; por
 eso Sanidad sale con 7 049 M€ en los PGE y con ~98 600 M€ en Eurostat (que suma todas
 las administraciones y es gasto ejecutado). Sumar todos los programas no da el
 presupuesto consolidado: hay transferencias entre administraciones y amortización de deuda.

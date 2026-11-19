@@ -1,0 +1,91 @@
+;PRESUPUESTOS GENERALES DEL ESTADO
+ESTADO, OO.AA., AGENCIAS, O.PÚBLICOS Y S.SOCIAL
+
+Sección: 06 DEUDA PÚBLICA
+Programa: 951M Amortización y gastos financieros de la deuda pública en euros
+EJERCICIO PRESUPUESTARIO
+2015
+;(Miles de euros)
+Orgánica;Económica;Explicación;;Total
+06.01;;BONOS, OBLIGACIONES Y OTRAS DEUDAS;;
+;3;GASTOS FINANCIEROS;;
+;30;De deuda pública en euros;;32.145.173,40
+;300;Intereses;;31.757.867,00
+;303;Rendimientos implícitos;;387.306,40
+;;TOTAL GASTOS FINANCIEROS;;32.145.173,40
+;;;;
+;9;PASIVOS FINANCIEROS;;
+;90;Amortización de deuda pública en euros;;85.602.466,60
+;901;Amortización de deuda pública en euros a largo plazo;;85.602.466,60
+;;TOTAL PASIVOS FINANCIEROS;;85.602.466,60
+;;;;
+;;TOTAL BONOS, OBLIGACIONES Y OTRAS DEUDAS;;117.747.640,00
+;;;;
+;;;;
+06.02;;PRÉSTAMOS;;
+;3;GASTOS FINANCIEROS;;
+;31;De préstamos en euros;;881.657,16
+;310;Intereses;;881.557,16
+;319;Otros gastos financieros;;100,00
+;;TOTAL GASTOS FINANCIEROS;;881.657,16
+;;;;
+;9;PASIVOS FINANCIEROS;;
+;91;Amortización de préstamos en euros;;971.682,55
+;911;Amortización de préstamos a largo plazo de entes del Sector Público;;971.682,55
+;;TOTAL PASIVOS FINANCIEROS;;971.682,55
+;;;;
+;;TOTAL PRÉSTAMOS;;1.853.339,71
+;;;;
+;;;;
+06.03;;LETRAS DEL TESORO;;
+;3;GASTOS FINANCIEROS;;
+;30;De deuda pública en euros;;579.000,00
+;300;Intereses;;579.000,00
+;;TOTAL GASTOS FINANCIEROS;;579.000,00
+;;;;
+;9;PASIVOS FINANCIEROS;;
+;90;Amortización de deuda pública en euros;;1.000,00
+;900;Amortización  de deuda  pública en euros a corto plazo;;1.000,00
+;;TOTAL PASIVOS FINANCIEROS;;1.000,00
+;;;;
+;;TOTAL LETRAS DEL TESORO;;580.000,00
+;;;;
+;;;;
+06.04;;DEUDAS ASUMIDAS;;
+;3;GASTOS FINANCIEROS;;
+;30;De deuda pública en euros;;873.243,74
+;300;Intereses;;873.243,74
+;31;De préstamos en euros;;359.308,70
+;310;Intereses;;359.308,70
+;;TOTAL GASTOS FINANCIEROS;;1.232.552,44
+;;;;
+;9;PASIVOS FINANCIEROS;;
+;90;Amortización de deuda pública en euros;;5.329.892,00
+;900;Amortización  de deuda  pública en euros a corto plazo;;5.329.892,00
+;91;Amortización de préstamos en euros;;92.970,10
+;913;Amortización de préstamos a largo plazo de entes de fuera del Sector Público;;92.970,10
+;;TOTAL PASIVOS FINANCIEROS;;5.422.862,10
+;;;;
+;;TOTAL DEUDAS ASUMIDAS;;6.655.414,54
+;;;;
+;;;;
+06.05;;OBLIGACIONES DIVERSAS;;
+;3;GASTOS FINANCIEROS;;
+;30;De deuda pública en euros;;77.595,00
+;301;Gastos de emisión, modificación y cancelación;;77.595,00
+;31;De préstamos en euros;;10.110,00
+;311;Gastos de emisión, modificación y cancelación;;10.110,00
+;35;Intereses de demora y otros gastos financieros;;1,00
+;352;Intereses de demora;;1,00
+;;TOTAL GASTOS FINANCIEROS;;87.706,00
+;;;;
+;9;PASIVOS FINANCIEROS;;
+;90;Amortización de deuda pública en euros;;25,00
+;901;Amortización de deuda pública en euros a largo plazo;;25,00
+;;TOTAL PASIVOS FINANCIEROS;;25,00
+;;;;
+;;TOTAL OBLIGACIONES DIVERSAS;;87.731,00
+;;;;
+;;;;
+;;TOTAL Amortización y gastos financieros de la deuda pública en euros;;126.924.125,25
+;

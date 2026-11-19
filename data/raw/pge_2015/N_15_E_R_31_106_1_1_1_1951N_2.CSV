@@ -1,0 +1,50 @@
+;PRESUPUESTOS GENERALES DEL ESTADO
+ESTADO, OO.AA., AGENCIAS, O.PÚBLICOS Y S.SOCIAL
+
+Sección: 06 DEUDA PÚBLICA
+Programa: 951N Amortización y gastos financieros de la deuda pública en moneda extranjera
+EJERCICIO PRESUPUESTARIO
+2015
+;(Miles de euros)
+Orgánica;Económica;Explicación;;Total
+06.01;;BONOS, OBLIGACIONES Y OTRAS DEUDAS;;
+;3;GASTOS FINANCIEROS;;
+;32;De deuda pública en moneda extranjera;;406.500,00
+;320;Intereses;;406.500,00
+;;TOTAL GASTOS FINANCIEROS;;406.500,00
+;;;;
+;;TOTAL BONOS, OBLIGACIONES Y OTRAS DEUDAS;;406.500,00
+;;;;
+;;;;
+06.02;;PRÉSTAMOS;;
+;3;GASTOS FINANCIEROS;;
+;33;De préstamos en moneda extranjera;;138.899,00
+;330;Intereses;;138.684,00
+;339;Otros gastos financieros;;215,00
+;;TOTAL GASTOS FINANCIEROS;;138.899,00
+;;;;
+;;TOTAL PRÉSTAMOS;;138.899,00
+;;;;
+;;;;
+06.05;;OBLIGACIONES DIVERSAS;;
+;3;GASTOS FINANCIEROS;;
+;32;De deuda pública en moneda extranjera;;18.500,00
+;321;Gastos de emisión, modificación y cancelación;;18.500,00
+;33;De préstamos en moneda extranjera;;6,00
+;331;Gastos de emision, modificacion y cancelacion;;6,00
+;35;Intereses de demora y otros gastos financieros;;6,00
+;352;Intereses de demora;;6,00
+;;TOTAL GASTOS FINANCIEROS;;18.512,00
+;;;;
+;9;PASIVOS FINANCIEROS;;
+;92;Amortización de deuda pública en moneda extranjera;;6,00
+;921;Amortización de deuda pública en moneda extranjera a largo plazo;;6,00
+;93;Amortización de préstamos en moneda extranjera;;6,00
+;931;Amortización de préstamos en moneda extranjera a largo plazo;;6,00
+;;TOTAL PASIVOS FINANCIEROS;;12,00
+;;;;
+;;TOTAL OBLIGACIONES DIVERSAS;;18.524,00
+;;;;
+;;;;
+;;TOTAL Amortización y gastos financieros de la deuda pública en moneda extranjera;;563.923,00
+;
