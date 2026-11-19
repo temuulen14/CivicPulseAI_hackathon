@@ -82,6 +82,74 @@ def build_spending() -> list[dict]:
     return sorted(by_key.values(), key=lambda e: (e["country"], e["area_id"], e["year"]))
 
 
+TOLERANCE = 0.005  # 0,5 %: Eurostat redondea cada partida por separado
+MIN_GAP_MEUR = 2.0  # en partidas pequeñas el redondeo pesa más que el 0,5 %
+
+
+def sums_match(parts: float, total: float) -> bool:
+    return abs(parts - total) <= max(MIN_GAP_MEUR, TOLERANCE * abs(total))
+
+
+def check_parts_add_up(amounts: dict, children: dict, label: str) -> int:
+    """Comprueba que las partes suman el todo. amounts: (área, país, año) -> M€.
+
+    children: área madre -> lista de áreas hijas. Si falta alguna hija (Eurostat
+    deja huecos en algunos países), esa combinación no se puede comprobar y se salta.
+    Devuelve cuántas combinaciones se comprobaron.
+    """
+    checked = 0
+    for (area, country, year), total in amounts.items():
+        if area not in children or total is None:
+            continue
+        parts = [amounts.get((child, country, year)) for child in children[area]]
+        if any(p is None for p in parts):
+            continue
+        if not sums_match(sum(parts), total):
+            raise ValueError(f"{label}: {area} {country} {year} suma {sum(parts):.1f}, total {total:.1f}")
+        checked += 1
+    return checked
+
+
+def validate_spending(spending: list[dict], areas: list[dict]) -> None:
+    """Para el script si el gasto no es coherente. Esto se enseña al jurado."""
+    keys = [(s["area_id"], s["country"], s["year"]) for s in spending]
+    if len(keys) != len(set(keys)):
+        raise ValueError("gasto: hay filas duplicadas (ámbito, país, año)")
+    # En contabilidad nacional un subámbito puede ser negativo si se vende más de lo que
+    # se compra (terrenos en Finlandia, material militar en Eslovaquia 2023). En el total
+    # o en un ámbito de nivel 1 sería un error.
+    negatives = [s for s in spending if (s["amount_meur"] or 0) < 0]
+    if any(len(s["area_id"]) <= 5 for s in negatives):  # TOTAL o GFxx
+        raise ValueError(f"gasto: importe negativo en total o ámbito: {negatives[0]}")
+
+    amounts = {(s["area_id"], s["country"], s["year"]): s["amount_meur"] for s in spending}
+    level1 = [a["id"] for a in areas if a["level"] == 1]
+    children = {"TOTAL": level1}
+    for a in areas:
+        if a["level"] == 2:
+            children.setdefault(a["parent_id"], []).append(a["id"])
+    n_total = check_parts_add_up(amounts, {"TOTAL": level1}, "ámbitos vs TOTAL")
+    n_sub = check_parts_add_up(amounts, {k: v for k, v in children.items() if k != "TOTAL"}, "subámbitos vs ámbito")
+    provisional = sum(s["provisional"] for s in spending)
+    print(f"validación gasto: {n_total} totales y {n_sub} ámbitos cuadran; "
+          f"{provisional} filas provisionales marcadas; "
+          f"{len(negatives)} subámbitos negativos admitidos (ventas de activos), "
+          f"{sum(s['country'] == 'ES' for s in negatives)} de España")
+
+
+def validate_spending_by_type(by_type: list[dict], spending: list[dict]) -> None:
+    """Los tipos económicos de un ámbito deben sumar su gasto total."""
+    totals = {(s["area_id"], s["country"], s["year"]): s["amount_meur"] for s in spending}
+    sums: dict[tuple, float] = {}
+    for row in by_type:
+        key = (row["area_id"], row["country"], row["year"])
+        sums[key] = sums.get(key, 0) + row["amount_meur"]
+    for key, parts in sums.items():
+        if totals.get(key) is not None and not sums_match(parts, totals[key]):
+            raise ValueError(f"tipos de gasto: {key} suman {parts:.1f}, total {totals[key]:.1f}")
+    print(f"validación tipos de gasto: {len(sums)} combinaciones cuadran")
+
+
 def build_spending_types() -> list[dict]:
     types = load_json(DATA_DIR / "spending_types.json")
     return [{"id": code, **info} for code, info in types.items()]
@@ -234,13 +302,21 @@ def build_sources() -> list[dict]:
 
 
 def main() -> None:
+    areas = build_areas()
+    spending = build_spending()
+    spending_by_type = build_spending_by_type()
+    validate_spending(spending, areas)
+    validate_spending_by_type(spending_by_type, spending)
     dataset = {
         "generated_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
-        "countries": [{"code": "ES", "name": "España"}],
-        "areas": build_areas(),
-        "spending": build_spending(),
+        "countries": [
+            {"code": code, "name": name}
+            for code, name in load_json(DATA_DIR / "countries.json").items()
+        ],
+        "areas": areas,
+        "spending": spending,
         "spending_types": build_spending_types(),
-        "spending_by_type": build_spending_by_type(),
+        "spending_by_type": spending_by_type,
         "budget_policies": build_budget_policies(),
         "budget_programs": build_budget_programs(),
         "indicators": [],
