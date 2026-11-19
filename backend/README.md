@@ -23,7 +23,7 @@ ilustrativos con un extracto real de los PGE.
 | `main.py` | Rutas de la API y CORS |
 | `dataset.py` | Carga el JSON en memoria y responde consultas sencillas |
 | `alerts.py` | Las dos reglas de aviso y sus textos |
-| `budget.py` | Presupuestos Generales del Estado: año → política → programa → partida |
+| `budget.py` | Presupuestos Generales del Estado: año → política → programa → partida, buscador y fondos europeos |
 | `models.py` | Forma de cada respuesta (igual que `docs/API_CONTRACT.md`) |
 | `test_api.py` | Tests con los datos de muestra |
 | `test_real_dataset.py` | Comprobaciones contra el dataset real |

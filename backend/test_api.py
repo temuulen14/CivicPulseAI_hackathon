@@ -267,3 +267,64 @@ def test_budget_unknowns_return_404():
     assert client.get("/api/budget/policies/99").status_code == 404
     assert client.get("/api/budget/programs/999Z").status_code == 404
     assert client.get("/api/budget/programs/212A?year=2022").status_code == 404  # only in 2023
+
+
+# --- budget search and European recovery funds --------------------------------
+
+
+def test_search_finds_programs_by_name_ignoring_accents_and_case():
+    body = client.get("/api/budget/search?q=ENSENANZAS&year=2023").json()
+    assert body["program_count"] == 1
+    found = body["results"][0]
+    assert found["program_id"] == "322E"
+    assert found["name_match"] is True
+    assert found["total_keur"] == 4757.97
+
+
+def test_search_finds_a_budget_line_inside_a_program():
+    body = client.get("/api/budget/search?q=plátano canarias&year=2023").json()
+    assert [r["program_id"] for r in body["results"]] == ["441P"]
+    found = body["results"][0]
+    assert found["name_match"] is False
+    assert found["lines"][0]["description"] == "Transporte del plátano de Canarias"
+
+
+def test_search_puts_name_matches_before_line_matches():
+    body = client.get("/api/budget/search?q=ferroviaria&year=2023").json()
+    flags = [r["name_match"] for r in body["results"]]
+    assert flags == sorted(flags, reverse=True)
+    assert body["results"][0]["program_id"] == "453N"
+
+
+def test_search_groups_a_program_split_between_ministries():
+    body = client.get("/api/budget/search?q=patrimonio natural&year=2023").json()
+    assert body["program_count"] == 1
+    assert len(body["results"][0]["section_names"]) == 2
+
+
+def test_search_without_matches_and_with_a_short_query():
+    body = client.get("/api/budget/search?q=zzzz&year=2023").json()
+    assert body["results"] == [] and body["source_id"] is None
+    assert client.get("/api/budget/search?q=a").status_code == 422
+    assert client.get("/api/budget/search?q=becas&year=1999").status_code == 404
+
+
+def test_eu_recovery_by_policy_and_program():
+    body = client.get("/api/budget/eu-recovery?year=2023").json()
+    assert body["eu_recovery_keur"] == 48339.06
+    assert [p["program_id"] for p in body["programs"]] == ["45DA"]
+    assert body["programs"][0]["total_keur"] == 78860.96  # both ministries
+    assert len(body["policies"]) == 1
+    assert body["policies"][0]["share_of_eu_recovery_pct"] == 100.0
+
+
+def test_eu_recovery_of_a_year_without_document_is_empty():
+    body = client.get("/api/budget/eu-recovery?year=2020").json()
+    assert body["eu_recovery_keur"] is None
+    assert body["policies"] == [] and body["programs"] == []
+
+
+def test_search_finds_a_program_by_the_body_that_manages_it():
+    body = client.get("/api/budget/search?q=parques nacionales&year=2023").json()
+    assert body["results"][0]["program_id"] == "45DA"
+    assert body["results"][0]["matched_bodies"] == ["PARQUES NACIONALES"]

@@ -131,6 +131,14 @@ de su parte: qué se decidió y por qué, en una fila.
 | Los Gobiernos se devuelven aparte y los años los citan por `id` | No se repite la ficha de cada Gobierno en cada año; y el backend no suma nada por Gobierno ni por partido (neutralidad) |
 | El desglose por tipo de gasto va dentro de `/api/areas/{id}` | Es parte de la ficha del ámbito: una sola petición por página |
 | Los países de fuera de la UE van en `world_rows`, aparte de `rows`, sin posición | La mediana, la posición y los avisos son europeos; mezclarlos cambiaría los tres. El frontend que no los use no nota nada |
+| El buscador (`/api/budget/search`) recorre los programas del año en cada petición, sin índice | Son unas 7 000 partidas por año: tarda unos 50 ms. Un índice sería otra estructura que mantener y explicar |
+| Se busca sin mayúsculas ni tildes y tienen que aparecer todas las palabras | «educacion» tiene que encontrar «Educación»; con todas las palabras, añadir una afina la búsqueda en vez de ampliarla |
+| También se busca en el nombre de los organismos gestores (`matched_bodies`) | «Guardia Civil» o «meteorología» no están en el nombre del programa sino en el del organismo que lo gestiona |
+| El buscador devuelve 30 programas y 5 partidas por programa, con el recuento total aparte | «personal» sale en 225 programas; así la respuesta pesa poco y la web puede decir cuántos hay |
+| Primero los programas encontrados por nombre; el resto, por el importe de su mayor partida coincidente | Quien busca «becas» quiere primero el programa de becas, y después el dinero grande antes que la letra pequeña |
+| Las partidas encontradas no se suman | Una partida puede estar dentro de otra (concepto y subconcepto): sumarlas contaría dinero dos veces |
+| Fondos europeos en ruta propia (`/api/budget/eu-recovery`), con todos los programas del año | El dato ya estaba en cada programa, pero ver los mayores de todas las políticas exigía 27 peticiones |
+| El total de un programa con fondos europeos cuenta todos sus ministerios, tengan o no fondos | Es el total del programa en la Ley; contar solo las secciones con fondos daría otra cifra que la de su ficha |
 
 ### Datos (Mario)
 
