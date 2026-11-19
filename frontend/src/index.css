@@ -543,3 +543,8 @@ th[scope='row'] { font-size: 0.95rem; color: var(--ink); white-space: normal; }
 .sankey-label { font-family: var(--sans); font-size: 15px; paint-order: stroke; stroke: #ffffff; stroke-width: 4px; stroke-linejoin: round; }
 .sankey-value { fill: var(--ink); font-weight: 400; font-variant-numeric: tabular-nums; }
 .sankey-note { fill: var(--muted); font-size: 12.5px; }
+
+/* ---------- Comparar: índice de la página ---------- */
+.page-jump { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 16px; padding-top: 12px; border-top: 1px solid var(--line); }
+.page-jump a { min-height: 32px; display: inline-flex; align-items: center; }
+[id='cmp-map'], [id='cmp-title'], [id='trend-title'], [id='leaders-title'] { scroll-margin-top: 96px; }

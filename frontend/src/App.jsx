@@ -10,7 +10,6 @@ import Budget from './pages/Budget.jsx';
 import BudgetPolicy from './pages/BudgetPolicy.jsx';
 import BudgetProgram from './pages/BudgetProgram.jsx';
 import Pensions from './pages/Pensions.jsx';
-import WorldLeaders from './pages/WorldLeaders.jsx';
 import Calculator from './pages/Calculator.jsx';
 
 // Navegación sin librería: la página actual va en la URL tras la almohadilla
@@ -28,7 +27,6 @@ const NAV = [
   { href: '#/pensiones', page: 'pensiones', label: 'Pensiones' },
   { href: '#/calculadora', page: 'calculadora', label: 'Calculadora' },
   { href: '#/comparar', page: 'comparar', label: 'Comparar con otros países' },
-  { href: '#/mapa', page: 'mapa', label: 'Mapa' },
   { href: '#/avisos', page: 'avisos', label: 'Avisos' },
 ];
 
@@ -77,13 +75,13 @@ export default function App() {
   else if (route.page === 'presupuestos') page = <Budget {...budgetProps} />;
   else if (route.page === 'pensiones') page = <Pensions {...pageProps} />;
   else if (route.page === 'calculadora') page = <Calculator year={selectedYear} />;
-  else if (route.page === 'comparar') page = <Compare {...pageProps} />;
-  else if (route.page === 'mapa') page = <WorldLeaders {...pageProps} />;
+  // #/mapa era una página aparte; ahora el mapa vive en Comparar y el enlace antiguo sigue funcionando.
+  else if (route.page === 'comparar' || route.page === 'mapa') page = <Compare {...pageProps} />;
   else if (route.page === 'avisos') page = <Alerts {...pageProps} focus={route.id} />;
   else if (route.page === 'fuentes') page = <Sources />;
   else page = <p className="state">Esta página no existe. <a href="#/">Volver al inicio</a></p>;
 
-  const activePage = route.page === 'ambito' ? '' : route.page;
+  const activePage = route.page === 'ambito' ? '' : route.page === 'mapa' ? 'comparar' : route.page;
 
   return (
     <>
