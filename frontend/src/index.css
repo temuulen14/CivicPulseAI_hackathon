@@ -137,8 +137,15 @@ main.container > * { min-width: 0; }
 .site-nav a[aria-current='page'] { color: var(--ink); background: var(--mist-2); }
 .header-inner { flex-wrap: wrap; }
 .site-nav { flex: 1; justify-content: center; }
+/* Lupa del buscador, a la derecha del menú */
+.header-search { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 999px; color: var(--graphite); transition: background 0.15s, color 0.15s; }
+.header-search:hover { color: var(--ink); background: var(--mist); }
+.header-search[aria-current='page'] { color: var(--ink); background: var(--mist-2); }
+/* Selector de vista de «Comparar»: va sobre el título y la rejilla de main no debe estirarlo */
+main.container > .segmented { justify-self: start; margin-bottom: -40px; }
 .theme-toggle { display: inline-grid; place-items: center; width: 40px; height: 40px; flex: none; border: 1px solid var(--line); border-radius: 999px; background: transparent; color: var(--graphite); transition: background 0.15s, color 0.15s; }
 .theme-toggle:hover { background: var(--mist); color: var(--ink); }
+.header-tools { display: flex; align-items: center; gap: 6px; flex: none; }
 /* Interruptor euros / % del PIB: va junto a cada gráfico o tabla que cambia con la medida */
 .measure-switch { display: inline-flex; align-items: center; gap: 8px; }
 .measure-switch-label { font-size: 0.8rem; color: var(--muted); white-space: nowrap; }
@@ -475,11 +482,13 @@ a.div-row:hover, button.div-row:hover { background: var(--mist); }
   main.container { padding-top: 28px; gap: 48px; }
   .header-inner { flex-direction: row; flex-wrap: wrap; align-items: center; gap: 4px; padding-top: 10px; padding-bottom: 6px; }
   .wordmark { margin-right: auto; }
-  .theme-toggle { order: 2; } /* junto al nombre, no en una línea aparte */
+  .header-tools { order: 2; } /* lupa y tema junto al nombre, no en una línea aparte */
   .site-nav { order: 3; flex-basis: 100%; } /* sin tocar el margen lateral del .container */
   .site-nav { max-width: 100%; flex-wrap: wrap; margin-left: -10px; justify-content: flex-start; }
   .footer-inner { grid-template-columns: 1fr; padding-top: 32px; }
   .site-nav a { padding: 0 10px; min-height: 36px; }
+  .header-inner { position: relative; }
+  main.container > .segmented { margin-bottom: -28px; }
   .years { gap: 2px; }
   .year { flex: 1 1 0; min-width: 0; padding: 6px 0; font-size: 0.72rem; }
   .hero { grid-template-columns: 1fr; min-height: 0; padding-top: 8px; }
@@ -679,3 +688,25 @@ th[scope='row'] { font-size: 0.95rem; color: var(--ink); white-space: normal; }
 .sankey-label { font-family: var(--sans); font-size: 15px; paint-order: stroke; stroke: var(--halo); stroke-width: 4px; stroke-linejoin: round; }
 .sankey-value { fill: var(--ink); font-weight: 400; font-variant-numeric: tabular-nums; }
 .sankey-note { fill: var(--muted); font-size: 12.5px; }
+
+/* ---------- Comparar: índice de la página ---------- */
+.page-jump { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 16px; padding-top: 12px; border-top: 1px solid var(--line); }
+.page-jump a { min-height: 32px; display: inline-flex; align-items: center; }
+[id='cmp-map'], [id='cmp-title'], [id='trend-title'], [id='leaders-title'] { scroll-margin-top: 96px; }
+
+/* ---------- Buscador, fondos europeos y botón de copiar el dato ---------- */
+.search-box { display: flex; flex-wrap: wrap; gap: 10px; max-width: 720px; }
+.search-box .field-input { flex: 1 1 260px; }
+.search-box .field-input input { font-variant-numeric: normal; }
+.search-box .button-link { border: 0; }
+.chip-link { display: inline-flex; align-items: center; min-height: 40px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--line-strong); color: var(--ink); text-decoration: none; font-size: 0.95rem; transition: background 0.15s; }
+.chip-link:hover { background: var(--mist); }
+.results { display: grid; gap: 12px; }
+.result { display: grid; gap: 6px; padding: 18px 20px; border: 1px solid var(--line); border-radius: var(--radius); }
+.result-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px 24px; flex-wrap: wrap; }
+.result-head .num { font-variant-numeric: tabular-nums; font-weight: 600; white-space: nowrap; }
+.result-lines { margin-top: 6px; }
+.cite { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 12px; }
+.cite-button { min-height: 40px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--line-strong); background: var(--paper); font-size: 0.9rem; transition: background 0.15s, border-color 0.15s; }
+.cite-button:hover { background: var(--mist); border-color: var(--graphite); }
+.eu-bars .pbar-fill { background: var(--sky); }
