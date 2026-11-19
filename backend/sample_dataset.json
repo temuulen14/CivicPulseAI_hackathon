@@ -341,6 +341,14 @@
    "url": "https://www.sepg.pap.hacienda.gob.es/Presup/PGE2023Ley/MaestroDocumentos/PGE-ROM/N_23_E_R_31.htm",
    "license": "Reutilización libre con cita",
    "retrieved_at": "2026-11-19"
+  },
+  {
+   "id": "oecd_cofog_table11",
+   "name": "OCDE · Gasto de las administraciones públicas por función (COFOG) y PIB",
+   "publisher": "OCDE",
+   "url": "https://data-explorer.oecd.org/vis?df[ds]=dsDisseminateFinalDMZ&df[id]=DSD_NASEC10%40DF_TABLE11&df[ag]=OECD.SDD.NAD",
+   "license": "Reutilización libre con cita (CC BY 4.0)",
+   "retrieved_at": "2026-11-19"
   }
  ],
  "spending_types": [
@@ -1411,6 +1419,38 @@
    "policy_id": "45",
    "eu_recovery_keur": 0,
    "source_id": "sepg_pge_estado_gastos"
+  }
+ ],
+ "world_countries": [
+  {
+   "code": "USA",
+   "name": "Estados Unidos",
+   "currency": "USD"
+  },
+  {
+   "code": "JPN",
+   "name": "Japón",
+   "currency": "JPY"
+  }
+ ],
+ "world_spending": [
+  {
+   "area_id": "GF07",
+   "country": "JPN",
+   "year": 2023,
+   "pct_gdp": 7.8,
+   "amount_national_mio": 48107900.0,
+   "currency": "JPY",
+   "source_id": "oecd_cofog_table11"
+  },
+  {
+   "area_id": "GF07",
+   "country": "USA",
+   "year": 2023,
+   "pct_gdp": 10.0,
+   "amount_national_mio": 2793736.109,
+   "currency": "USD",
+   "source_id": "oecd_cofog_table11"
   }
  ]
 }

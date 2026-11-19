@@ -21,7 +21,7 @@ Tres piezas, una frontera entre cada una, y un solo sentido de circulación de l
 |-------|-----------|---------|
 | Datos | Python + `requests` | El lenguaje habitual para tratar datos; sin más librerías porque son pocas filas |
 | Backend | Python + FastAPI | El framework de API más usado en Python; documenta la API solo (`/docs`) |
-| Frontend | React + Vite + TypeScript + Tailwind + Recharts | La combinación más extendida para una web con gráficos |
+| Frontend | React + Vite + Recharts (JavaScript y CSS normales) | La combinación más extendida para una web con gráficos |
 | Almacén | Un archivo JSON versionado en git | No hace falta base de datos para unos miles de filas |
 
 Nada más: sin base de datos, sin ORM, sin gestor de estado, sin librería de peticiones
@@ -130,6 +130,7 @@ de su parte: qué se decidió y por qué, en una fila.
 | El nivel de cada partida (`level` 1-4) lo calcula el backend por la longitud del código económico | Capítulo, artículo, concepto, subconcepto: el frontend solo tiene que sangrar |
 | Los Gobiernos se devuelven aparte y los años los citan por `id` | No se repite la ficha de cada Gobierno en cada año; y el backend no suma nada por Gobierno ni por partido (neutralidad) |
 | El desglose por tipo de gasto va dentro de `/api/areas/{id}` | Es parte de la ficha del ámbito: una sola petición por página |
+| Los países de fuera de la UE van en `world_rows`, aparte de `rows`, sin posición | La mediana, la posición y los avisos son europeos; mezclarlos cambiaría los tres. El frontend que no los use no nota nada |
 
 ### Datos (Mario)
 
