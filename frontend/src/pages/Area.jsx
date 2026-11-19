@@ -6,6 +6,7 @@ import { formatChange, formatMeur, formatNumber, formatPct } from '../format.js'
 import Status from '../components/Status.jsx';
 import YearSelect from '../components/YearSelect.jsx';
 import AlertCard from '../components/AlertCard.jsx';
+import BarValueLabel from '../components/BarValueLabel.jsx';
 
 const AXIS = { stroke: 'var(--axis)', tick: { fill: 'var(--muted)', fontSize: 12 }, tickLine: false };
 const compact = new Intl.NumberFormat('es-ES', { notation: 'compact', maximumFractionDigits: 1 });
@@ -132,11 +133,11 @@ export default function Area({ id, year, years, onYearChange }) {
           {a.subareas.length === 0 ? (
             <p className="muted">No hay desglose disponible para este ámbito.</p>
           ) : (
-            <div className="chart-box">
+            <div style={{ height: Math.max(200, a.subareas.length * 44) }}>
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={a.subareas} layout="vertical" margin={{ top: 0, right: 56, bottom: 0, left: 0 }}>
                   <XAxis type="number" hide domain={[0, 'dataMax']} />
-                  <YAxis type="category" dataKey="name" {...AXIS} axisLine={false} width={150} />
+                  <YAxis type="category" dataKey="name" {...AXIS} axisLine={false} width={170} interval={0} />
                   <Tooltip
                     cursor={{ fill: 'var(--surface-2)' }}
                     content={<ChartTooltip format={(v, p) => `${formatPct(v)} · ${formatMeur(p.amount_meur)}`} />}
@@ -147,7 +148,7 @@ export default function Area({ id, year, years, onYearChange }) {
                     barSize={20}
                     radius={[0, 4, 4, 0]}
                     isAnimationActive={false}
-                    label={{ position: 'right', fill: 'var(--text-2)', fontSize: 12, formatter: (v) => formatPct(v) }}
+                    label={<BarValueLabel />}
                   />
                 </BarChart>
               </ResponsiveContainer>

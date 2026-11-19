@@ -77,7 +77,7 @@ export default function App() {
       )}
 
       <main className="container">
-        {meta.error ? <p className="state state-error">No se pudo conectar con el servidor: {meta.error}</p> : page}
+        {meta.error ? <p className="state state-error">No se pudieron cargar los datos: {meta.error}</p> : page}
       </main>
 
       <footer className="site-footer">

@@ -124,7 +124,23 @@ _Por rellenar._
 
 ### Frontend (Dersu)
 
-_Por rellenar._
+Explicación detallada, paso a paso, en `frontend/CAMBIOS.md`.
+
+| Decisión | Por qué |
+|----------|---------|
+| Stack reducido: React + Vite + Recharts, en JavaScript y CSS normales (sin TypeScript, Tailwind ni React Router) | Cubre todas las funciones del brief con menos piezas que justificar; cada una se explica en una frase |
+| Navegación por `#` (`#/ambito/GF07`) con el evento `hashchange`, en unas 20 líneas de `App.jsx` | No hace falta librería ni configurar el servidor; el botón "atrás" y compartir enlaces funcionan igual |
+| `api.js` usa los datos de ejemplo de `mocks.js` si `VITE_API_URL` está vacía | El frontend se pudo construir sin esperar al backend; cambiar al real es cambiar una variable |
+| Franja visible "datos de ejemplo" mientras se usan los mocks | Nunca presentar cifras ilustrativas como reales |
+| Un hook `useApi` para todas las peticiones, que descarta respuestas antiguas | Estados de carga, error y vacío iguales en todas las páginas sin repetir código |
+| El año elegido es compartido entre páginas (vive en `App.jsx`) | Si miras 2022 en la portada, el ámbito también abre en 2022 |
+| Mapa de áreas (treemap) con un solo tono azul, más oscuro cuanto más gasto | Diez colores distintos no se distinguen y harían pensar que significan algo |
+| Severidad siempre con icono + texto ("Merece una mirada"), nunca solo color | Accesible y sin tono alarmista: los avisos señalan, no acusan |
+| Tarjeta de aviso: las dos cifras de `evidence` en barras medidas contra la mayor | La diferencia (55 % frente a 9 %) se ve sin leer números |
+| Comparación en % del PIB, ordenada, España en azul y mediana UE como línea | Compara países de tamaños distintos; ordenar lo convierte en un ranking |
+| Variación anual del ámbito calculada desde `history` | `GET /areas/{id}` no trae `yoy_change_pct`; es una resta, no un aviso |
+| Tabla con las mismas cifras bajo el mapa | Sirve en móvil, para lectores de pantalla y para quien quiera la cifra exacta |
+| Formato `Intl.NumberFormat('es-ES')` con `useGrouping: 'always'` | Por defecto el español no pone punto en números de cuatro cifras (8450 → 8.450) |
 
 ## Limitaciones (para contarlas antes de que pregunten)
 

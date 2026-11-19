@@ -27,7 +27,13 @@ async function get(path, params = {}) {
     if (value !== undefined && value !== null && value !== '') query.set(key, value);
   }
   const url = `${BASE_URL}${path}${query.size ? `?${query}` : ''}`;
-  const response = await fetch(url);
+  let response;
+  try {
+    response = await fetch(url);
+  } catch {
+    // fetch solo falla así si no hay conexión con el servidor (apagado, URL mal escrita…)
+    throw new Error('el servidor no responde. ¿Está arrancado el backend?');
+  }
   if (!response.ok) {
     const body = await response.json().catch(() => ({}));
     throw new Error(typeof body.detail === 'string' ? body.detail : `Error ${response.status} al pedir ${path}`);

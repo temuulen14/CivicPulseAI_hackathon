@@ -138,6 +138,7 @@ nav a[aria-current='page'] { background: var(--accent-soft); color: var(--accent
 .stat-value { font-size: 1.6rem; font-weight: 700; }
 .stat-note { font-size: 0.8rem; color: var(--text-2); }
 .up { color: var(--text); }
+.charts-2 > .card { align-content: start; }
 .charts-2 { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
 .chart-box { height: 280px; }
 
