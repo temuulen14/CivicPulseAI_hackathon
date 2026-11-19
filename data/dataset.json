@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-19T11:20:18Z",
+ "generated_at": "2026-11-19T11:22:16Z",
  "countries": [
   {
    "code": "ES",
@@ -336209,13 +336209,92 @@
  ],
  "indicators": [],
  "crosses": [],
- "legal": [],
+ "legal": [
+  {
+   "year": 2015,
+   "law_title": "Ley 36/2014, de 26 de diciembre, de Presupuestos Generales del Estado para el año 2015",
+   "boe_id": "BOE-A-2014-13612",
+   "boe_url": "https://www.boe.es/buscar/act.php?id=BOE-A-2014-13612",
+   "note": null
+  },
+  {
+   "year": 2016,
+   "law_title": "Ley 48/2015, de 29 de octubre, de Presupuestos Generales del Estado para el año 2016",
+   "boe_id": "BOE-A-2015-11644",
+   "boe_url": "https://www.boe.es/buscar/act.php?id=BOE-A-2015-11644",
+   "note": null
+  },
+  {
+   "year": 2017,
+   "law_title": "Ley 3/2017, de 27 de junio, de Presupuestos Generales del Estado para el año 2017",
+   "boe_id": "BOE-A-2017-7387",
+   "boe_url": "https://www.boe.es/buscar/act.php?id=BOE-A-2017-7387",
+   "note": "Aprobada en junio de 2017: el primer semestre rigió el presupuesto de 2016 prorrogado."
+  },
+  {
+   "year": 2018,
+   "law_title": "Ley 6/2018, de 3 de julio, de Presupuestos Generales del Estado para el año 2018",
+   "boe_id": "BOE-A-2018-9268",
+   "boe_url": "https://www.boe.es/buscar/act.php?id=BOE-A-2018-9268",
+   "note": "Aprobada en julio de 2018: el primer semestre rigió el presupuesto de 2017 prorrogado."
+  },
+  {
+   "year": 2019,
+   "law_title": "Ley 6/2018, de 3 de julio, de Presupuestos Generales del Estado para el año 2018",
+   "boe_id": "BOE-A-2018-9268",
+   "boe_url": "https://www.boe.es/buscar/act.php?id=BOE-A-2018-9268",
+   "note": "Sin ley nueva: se prorrogó el presupuesto de 2018."
+  },
+  {
+   "year": 2020,
+   "law_title": "Ley 6/2018, de 3 de julio, de Presupuestos Generales del Estado para el año 2018",
+   "boe_id": "BOE-A-2018-9268",
+   "boe_url": "https://www.boe.es/buscar/act.php?id=BOE-A-2018-9268",
+   "note": "Sin ley nueva: siguió prorrogado el presupuesto de 2018."
+  },
+  {
+   "year": 2021,
+   "law_title": "Ley 11/2020, de 30 de diciembre, de Presupuestos Generales del Estado para el año 2021",
+   "boe_id": "BOE-A-2020-17339",
+   "boe_url": "https://www.boe.es/buscar/act.php?id=BOE-A-2020-17339",
+   "note": null
+  },
+  {
+   "year": 2022,
+   "law_title": "Ley 22/2021, de 28 de diciembre, de Presupuestos Generales del Estado para el año 2022",
+   "boe_id": "BOE-A-2021-21653",
+   "boe_url": "https://www.boe.es/buscar/act.php?id=BOE-A-2021-21653",
+   "note": null
+  },
+  {
+   "year": 2023,
+   "law_title": "Ley 31/2022, de 23 de diciembre, de Presupuestos Generales del Estado para el año 2023",
+   "boe_id": "BOE-A-2022-22128",
+   "boe_url": "https://www.boe.es/buscar/act.php?id=BOE-A-2022-22128",
+   "note": null
+  },
+  {
+   "year": 2024,
+   "law_title": "Ley 31/2022, de 23 de diciembre, de Presupuestos Generales del Estado para el año 2023",
+   "boe_id": "BOE-A-2022-22128",
+   "boe_url": "https://www.boe.es/buscar/act.php?id=BOE-A-2022-22128",
+   "note": "Sin ley nueva: se prorrogó el presupuesto de 2023."
+  }
+ ],
  "sources": [
   {
    "id": "eurostat_gov_10a_exp",
    "name": "Eurostat · Gasto de las administraciones públicas por función (COFOG)",
    "publisher": "Eurostat",
    "url": "https://ec.europa.eu/eurostat/databrowser/view/gov_10a_exp/default/table",
+   "license": "Reutilización libre con cita",
+   "retrieved_at": "2026-11-19"
+  },
+  {
+   "id": "boe_legislacion_consolidada",
+   "name": "BOE · Legislación consolidada (leyes de Presupuestos Generales del Estado)",
+   "publisher": "Agencia Estatal Boletín Oficial del Estado",
+   "url": "https://www.boe.es/datosabiertos/",
    "license": "Reutilización libre con cita",
    "retrieved_at": "2026-11-19"
   },
