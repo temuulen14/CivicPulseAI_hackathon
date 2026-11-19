@@ -6,6 +6,7 @@ import { useSourcesById } from '../sources.js';
 import { formatPct } from '../format.js';
 import Status from '../components/Status.jsx';
 import YearSelect from '../components/YearSelect.jsx';
+import BarValueLabel from '../components/BarValueLabel.jsx';
 
 function CompareTooltip({ active, payload }) {
   if (!active || !payload?.length) return null;
@@ -73,12 +74,21 @@ export default function Compare({ year, years, onYearChange }) {
               {data.area_name} · {data.year}
             </h2>
             <p className="muted">
-              <span className="legend-swatch legend-es" aria-hidden="true" /> España{'  '}
-              <span className="legend-swatch legend-line" aria-hidden="true" /> Mediana UE
+              <span className="legend-swatch legend-es" aria-hidden="true" /> España
+              {data.eu_median !== null && (
+                <>
+                  <span className="legend-swatch legend-line" aria-hidden="true" /> Mediana UE
+                </>
+              )}
             </p>
           </div>
           {summary(data) && <p className="alert-message">{summary(data)}</p>}
-          <div style={{ height: Math.max(260, rows.length * 34) }}>
+          {data.eu_median === null && (
+            <p className="muted">
+              Todavía no hay datos de suficientes países (al menos tres) para calcular la mediana europea.
+            </p>
+          )}
+          <div style={{ height: Math.max(120, rows.length * 34 + 40) }}>
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={rows} layout="vertical" margin={{ top: 24, right: 56, bottom: 0, left: 0 }}>
                 <XAxis type="number" hide domain={[0, 'dataMax']} />
@@ -96,7 +106,7 @@ export default function Compare({ year, years, onYearChange }) {
                   barSize={18}
                   radius={[0, 4, 4, 0]}
                   isAnimationActive={false}
-                  label={{ position: 'right', fill: 'var(--text-2)', fontSize: 12, formatter: (v) => formatPct(v) }}
+                  label={<BarValueLabel />}
                 >
                   {rows.map((r) => (
                     <Cell key={r.country} fill={r.country === 'ES' ? 'var(--accent)' : 'var(--neutral-bar)'} />

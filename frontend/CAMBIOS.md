@@ -229,3 +229,38 @@ elementos de una rejilla CSS no encogen por debajo de su contenido por defecto. 
 ### Comprobado
 
 Capturas de `/avisos` y `/fuentes` a 1280 px y 390 px, sin errores ni scroll horizontal.
+
+---
+
+## 6. Integración con el backend y pulido
+
+### Integración
+
+- Rebase sobre `main`, que ya trae el backend de Pedro. Cambios del contrato que afectan
+  al frontend: un año sin datos devuelve 404, y `eu_median` y `evidence[].source_id`
+  pueden ser `null`. Los tres casos ya estaban cubiertos.
+- Probado de punta a punta: backend de Pedro con el `dataset.json` real de Mario (rama
+  `Mario`) y frontend con `VITE_API_URL=http://localhost:8000/api`. Todas las páginas cargan
+  datos reales (2015–2024; por ahora solo de España, sin avisos ni indicadores de uso).
+- Cómo arrancarlo todo:
+  ```bash
+  # terminal 1 (backend)
+  cd backend && .venv/bin/uvicorn main:app --reload
+  # terminal 2 (frontend)
+  cd frontend && echo "VITE_API_URL=http://localhost:8000/api" > .env.local && npm run dev
+  ```
+
+### Arreglos encontrados al usar datos reales
+
+| Problema | Causa | Solución |
+|---|---|---|
+| Con nueve subámbitos, los nombres se montaban unos sobre otros | Altura fija del gráfico (280 px) | La altura crece con el número de barras (44 px cada una) |
+| Valores partidos en dos líneas ("4,6" / "%") en barras cortas | Recharts ajusta la etiqueta al ancho de la barra | `BarValueLabel.jsx` dibuja el texto a mano, al final de la barra |
+| Con un solo país, el gráfico de comparación quedaba vacío y la leyenda hablaba de una mediana que no existe | `eu_median` es `null` con menos de tres países | Mensaje explicándolo, leyenda sin "Mediana UE" y altura ajustada a las filas |
+| La tarjeta "Evolución" se estiraba con un hueco en blanco | Las celdas de una rejilla se estiran a la altura de la más alta | `align-content: start` en las tarjetas de gráficos |
+| Con el backend apagado salía "Failed to fetch" (en inglés) | Es el mensaje del navegador | `api.js` lo traduce: "el servidor no responde. ¿Está arrancado el backend?" |
+
+### Estado de las páginas
+
+Todas tienen estado de carga, de error y de "sin datos". Revisadas a 1280 px y 390 px
+(móvil), en modo claro y oscuro: sin errores en consola y sin scroll horizontal.
