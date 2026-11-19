@@ -148,6 +148,14 @@ class CompareRow(BaseModel):
     provisional: bool
 
 
+class WorldRow(BaseModel):
+    """A country outside the EU: no rank, it is not part of the EU ranking."""
+
+    country: str
+    name: str
+    value: float
+
+
 class Compare(BaseModel):
     area_id: str
     area_name: str
@@ -156,6 +164,8 @@ class Compare(BaseModel):
     eu_median: float | None
     rows: list[CompareRow]
     source_id: str | None
+    world_rows: list[WorldRow]
+    world_source_id: str | None
 
 
 class Source(BaseModel):
