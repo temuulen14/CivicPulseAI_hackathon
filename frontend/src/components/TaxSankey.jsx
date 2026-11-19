@@ -15,12 +15,12 @@ const AREA_GAP = 6;
 const LABEL_LINE = 34; // alto mínimo de cada etiqueta de ámbito (nombre + cifra)
 
 const COLORS = {
-  gross: '#3b72c9',
-  employer: '#8fb0e3',
-  net: '#575b55',
-  left: '#9a9e97',
-  tax: '#12805c',
-  total: '#0f4e37',
+  gross: 'var(--sky)',
+  employer: 'var(--sky-2)',
+  net: 'var(--graphite)',
+  left: 'var(--muted)',
+  tax: 'var(--forest)',
+  total: 'var(--seq-5)',
 };
 
 const euro = new Intl.NumberFormat('es-ES', { maximumFractionDigits: 0, useGrouping: 'always' });

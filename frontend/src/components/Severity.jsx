@@ -9,7 +9,7 @@ export function SeverityIcon({ level, size = 16 }) {
     return (
       <svg {...common}>
         <path d="M5.2 1h5.6L15 5.2v5.6L10.8 15H5.2L1 10.8V5.2z" fill="var(--critical)" />
-        <path d="M8 4.2v4.6M8 11.2v.6" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" />
+        <path d="M8 4.2v4.6M8 11.2v.6" stroke="var(--on-accent)" strokeWidth="1.8" strokeLinecap="round" />
       </svg>
     );
   }
@@ -24,7 +24,7 @@ export function SeverityIcon({ level, size = 16 }) {
   return (
     <svg {...common}>
       <circle cx="8" cy="8" r="7" fill="var(--info)" />
-      <path d="M8 7.2v4.4M8 4.6v.4" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" />
+      <path d="M8 7.2v4.4M8 4.6v.4" stroke="var(--on-accent)" strokeWidth="1.8" strokeLinecap="round" />
     </svg>
   );
 }
