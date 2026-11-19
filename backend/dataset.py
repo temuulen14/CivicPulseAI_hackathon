@@ -1,7 +1,7 @@
 """Loads data/dataset.json once and answers simple lookups over it.
 
-No database: the whole dataset is a few thousand rows, so it lives in
-memory as plain dictionaries.
+No database: the dataset is read-only and fits in memory (15 MB of JSON), so it
+lives as plain dictionaries indexed by the keys the API looks things up by.
 """
 
 import json
@@ -51,9 +51,35 @@ class Dataset:
             if area_id == "TOTAL" and country == HOME_COUNTRY
         )
 
+        # What the money is spent on (staff, purchases, investment...). Spain only.
+        self.spending_types = raw.get("spending_types", [])
+        self.type_rows = {}  # (area_id, year) -> rows, one per spending type
+        for row in raw.get("spending_by_type", []):
+            if row["country"] == HOME_COUNTRY:
+                self.type_rows.setdefault((row["area_id"], row["year"]), []).append(row)
+
+        # Presupuestos Generales del Estado, used by budget.py.
+        self.governments = raw.get("governments", [])
+        self.budget_policies = {p["id"]: p for p in raw.get("budget_policies", [])}
+        self.budget_years = {y["year"]: y for y in raw.get("budget_years", [])}
+        self.programs_by_year = {}  # year -> program rows (one per program and ministry)
+        for program in raw.get("budget_programs", []):
+            self.programs_by_year.setdefault(program["year"], []).append(program)
+
     @property
     def latest_year(self):
         return self.years[-1]
+
+    @property
+    def latest_budget_year(self):
+        """Last year with a published budget document (2020 has none)."""
+        return max(self.programs_by_year, default=None)
+
+    def programs(self, year):
+        return self.programs_by_year.get(year, [])
+
+    def spending_by_type(self, area_id, year):
+        return self.type_rows.get((area_id, year), [])
 
     def spending(self, area_id, year, country=HOME_COUNTRY):
         return self.spending_rows.get((area_id, country, year))
