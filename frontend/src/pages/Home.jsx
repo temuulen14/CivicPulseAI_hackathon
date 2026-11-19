@@ -15,6 +15,8 @@ import Spectrum from '../components/Spectrum.jsx';
 import Contours from '../components/Contours.jsx';
 import Segmented from '../components/Segmented.jsx';
 import Sparkline from '../components/Sparkline.jsx';
+import MeasureSwitch from '../components/MeasureSwitch.jsx';
+import InflationChart from '../components/InflationChart.jsx';
 import AreaTreemap from '../components/AreaTreemap.jsx';
 import ShareLegend from '../components/ShareLegend.jsx';
 import DivergingBars from '../components/DivergingBars.jsx';
@@ -31,7 +33,7 @@ const VIEWS = [
 
 const AXIS = { stroke: 'var(--line-strong)', tick: { fill: 'var(--muted)', fontSize: 12 }, tickLine: false };
 
-export default function Home({ year, years, onYearChange, measure }) {
+export default function Home({ year, years, onYearChange, measure, onMeasureChange }) {
   const [view, setView] = useState('map');
   const governments = useGovernments();
   const [base, setBase] = useState('prev'); // vista Cambios: frente al año anterior o desde el primero
@@ -58,7 +60,7 @@ export default function Home({ year, years, onYearChange, measure }) {
     <>
       <section className="hero" aria-labelledby="hero-title">
         <Contours />
-        <h1 id="hero-title">¿Adónde va el dinero público?</h1>
+        <h1 id="hero-title">¿A dónde va el dinero público?</h1>
         <div className="hero-total">
           <p className="hero-kicker">En {shownYear}, las administraciones públicas de España gastaron</p>
           <p className="hero-figure">
@@ -70,6 +72,7 @@ export default function Home({ year, years, onYearChange, measure }) {
           </p>
         </div>
         <Spectrum areas={list} />
+        <MeasureSwitch value={measure} onChange={onMeasureChange} />
         <YearPicker
           year={shownYear}
           years={years}
@@ -81,6 +84,21 @@ export default function Home({ year, years, onYearChange, measure }) {
         {governments.length > 0 && <GovernmentBand years={years} governments={governments} />}
       </section>
 
+      {/* Pensiones no está en la cabecera: este bloque, justo bajo la cifra principal, es su puerta de entrada. */}
+      <section className="feature section" aria-labelledby="pensions-feature">
+        <div className="feature-text">
+          <p className="feature-kicker">Tema destacado</p>
+          <h2 id="pensions-feature">Pensiones: ¿crece el dinero al ritmo de quienes las cobran?</h2>
+          <p>
+            Es la mayor partida del gasto público. Compara año a año cuánto se gasta en pensiones, cuántos pensionistas
+            hay y cuánto toca a cada uno.
+          </p>
+        </div>
+        <a href="#/pensiones" className="feature-link">
+          Ver las pensiones <span aria-hidden="true">→</span>
+        </a>
+      </section>
+
       <section className="section" aria-labelledby="explore-title">
         <div className="section-head">
           <div className="section-title">
@@ -89,6 +107,7 @@ export default function Home({ year, years, onYearChange, measure }) {
           </div>
           <div className="controls">
             <Segmented label="Vista" options={VIEWS} value={view} onChange={setView} />
+            <MeasureSwitch value={measure} onChange={onMeasureChange} />
           </div>
         </div>
 
@@ -281,6 +300,25 @@ export default function Home({ year, years, onYearChange, measure }) {
               })()
             )}
           </div>
+        )}
+      </section>
+
+      <section className="panel section" aria-labelledby="inflation-title">
+        <div className="section-title">
+          <h2 id="inflation-title">El gasto público frente a la inflación</h2>
+          <p className="muted">
+            Si los precios suben más que el gasto, con el mismo dinero se pagan menos médicos, profesores o kilómetros de
+            carretera. Pulsa un año para verlo en toda la página.
+          </p>
+        </div>
+        {!all.data ? (
+          <Status state={all} />
+        ) : (
+          <InflationChart
+            values={Object.fromEntries(years.map((y) => [y, byYear[y]?.total_meur ?? null]))}
+            year={shownYear}
+            onYearChange={onYearChange}
+          />
         )}
       </section>
 

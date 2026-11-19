@@ -620,11 +620,144 @@ Hecho por Pedro en la rama `Dersu` (acordado), después de mezclar `main` (backe
   propio límite en caracteres (`max-width: 62ch`).
 - Comprobado a 390, 1280, 1366, 1920 y 2560 px: sin scroll horizontal.
 
-## 11. Mapa: quién gasta más en cada ámbito (19-11-2026, Pedro)
+## 11. Titular de la portada: «A dónde» en vez de «Adónde»
+
+- **Qué:** el titular de la portada pasa de «¿Adónde va el dinero público?» a «¿A dónde va el
+  dinero público?». También cambia la meta `description` de `index.html`.
+- **Por qué:** lo pidió el usuario. Las dos formas son correctas según la RAE, así que es una
+  cuestión de estilo.
+- **Cómo:** se cambió el texto en `src/pages/Home.jsx` (el `h1#hero-title`) y en `index.html`.
+
+## 12. El interruptor «Euros / % del PIB» sale de la cabecera
+
+- **Qué:** la cabecera ya no tiene el interruptor. Ahora hay uno junto a cada gráfico o tabla
+  cuyas cifras cambian con la medida:
+  - Portada: encima del selector de años (cifra grande y barras por año) y junto a «Vista» en
+    «Explora el gasto» (mapa, ranking, evolución y cambios).
+  - Ámbito: encima del selector de años y en el panel «Evolución».
+  - Pensiones: en el gráfico «Cómo ha crecido cada cosa».
+  - Presupuestos: en el bloque de la cifra total (si ese año hubo documento).
+  - Comparar, Avisos y las páginas de política y programa no lo llevan: sus cifras no cambian
+    con la medida.
+- **Por qué:** lo pidió el usuario. El control queda donde se ve su efecto, en vez de en una
+  cabecera que comparten todas las páginas.
+- **Cómo:** nuevo componente `src/components/MeasureSwitch.jsx` (el mismo `Segmented` con la
+  etiqueta «Ver en»). La elección sigue guardada en `App.jsx` (`measure`) y llega a cada
+  página con `onMeasureChange`. Así, al cambiarla en un gráfico, cambian todos, y se mantiene
+  al pasar de una página a otra. Se quitaron de `App.jsx` `MEASURE_PAGES` y el bloque de la
+  cabecera.
+- **Comprobado:** `npx eslint src` y `npm run build` sin errores. Capturas a 1280 y 390 px de la
+  portada, Sanidad, Pensiones y Presupuestos: ningún interruptor en la cabecera, ningún scroll
+  horizontal. El único error de consola es el 404 de Presupuestos, que ya salía antes: aún no hay
+  datos de Eurostat de 2025.
+
+## 13. Infografía de flujo del presupuesto de 2023 (Presupuestos)
+
+- **Qué:** nueva imagen `public/presupuesto-2023-flujo.svg`, un diagrama de flujo (Sankey) al
+  estilo de `googleexample.png`, pero con los PGE de 2023: Estado (379,8 mil M€) y Seguridad
+  Social (203,7) → presupuesto total (583,5) → las cinco áreas de gasto → sus políticas
+  principales (las menores de 5 mil M€ se agrupan en «Resto»). Sale en la página Presupuestos,
+  en el bloque «El presupuesto de 2023, de un vistazo», entre la evolución y el reparto.
+- **Por qué:** lo pidió el usuario. Enseña de un vistazo cómo se reparte cada euro. Es 2023
+  porque es el último año con Ley aprobada (Ley 31/2022) y el último que incluye la Seguridad
+  Social (las prórrogas de 2024 y 2025 no la traen).
+- **Cómo:** `scripts/sankey-espana.mjs` (Node, sin dependencias) lee `GET /budget?year=2023`
+  del backend y escribe el SVG a mano: rectángulos para los nodos y curvas de Bézier con
+  degradado para las cintas. Las áreas son la agrupación oficial de los PGE por el primer dígito
+  de la política (1 servicios públicos básicos, 2 protección social, 3 bienes públicos de
+  carácter preferente, que la imagen llama «Sanidad, educación y cultura» para que se entienda,
+  4 actuaciones económicas y 9 actuaciones generales). Ninguna cifra está escrita a mano.
+  Para regenerarla: `node scripts/sankey-espana.mjs`, con el backend arrancado.
+- **Comprobado:** las áreas suman 583,5 = total del año. `npx eslint src scripts` y
+  `npm run build` sin errores. Capturas a 1280 y 390 px sin scroll horizontal. El único error de
+  consola es el 404 de `/areas?year=2025`, que ya salía antes.
+
+## 14. Pensiones sale de la cabecera, pero gana un bloque destacado en la portada
+
+- **Qué:**
+  - La cabecera ya no enlaza a Pensiones. El pie sí, con todas las demás páginas.
+  - En la portada, justo después de la cifra principal y antes de «Explora el gasto», hay un
+    bloque verde oscuro («Tema destacado») con la pregunta «¿Crece el dinero al ritmo de quienes
+    las cobran?», una frase sobre qué se puede ver y un botón blanco: «Ver las pensiones →».
+  - En el ámbito Protección social (`GF10`), bajo la descripción: «Buena parte de este gasto son
+    pensiones», con un enlace a la página.
+- **Por qué:** lo pidió el usuario. La cabecera queda más ligera, y Pensiones sigue siendo uno de
+  los puntos principales: es lo segundo que se ve en la portada, y aparece también donde un
+  usuario la buscaría (Protección social).
+- **Cómo:** en `App.jsx`, `HEADER_NAV` es `NAV` sin Pensiones; el pie sigue usando `NAV`
+  completo. El bloque está en `Home.jsx` (clase `.feature`, en `index.css`) y el enlace, en
+  `Area.jsx`.
+- **Comprobado:** `npx eslint src` y `npm run build` sin errores. Capturas a 1280 y 390 px de la
+  portada y de Protección social: la cabecera no tiene Pensiones, el pie sí, no hay scroll
+  horizontal y la consola no tiene errores.
+
+## 15. Calculadora de impuestos y «Comparar con otros países» en la cabecera
+
+- **Qué:** nueva página **Calculadora** (`#/calculadora`, en la cabecera y el pie). Pregunta
+  sueldo bruto mensual, pagas (12 o 14), tipo de contrato, edad, hijos (y cuántos menores de 3),
+  si contar la cotización de la empresa y el gasto mensual en tres grupos según su IVA (sin IVA,
+  10 % y 21 %). Devuelve cuánto pagas al año en IRPF, cotización social e IVA, y cuánto de eso va a
+  cada ámbito, al año y al mes. Tres formas de verlo: **flujo del dinero** (diagrama tipo
+  `googleexample.png`), **barras** y **tabla**. Además, el enlace de la cabecera «Comparar» pasa a
+  llamarse «Comparar con otros países».
+- **Por qué:** lo pidió el usuario. Pasa de cifras de miles de millones a «tus» euros, que se
+  entienden de un vistazo.
+- **Cómo:**
+  - `src/taxes.js`: el cálculo, en funciones cortas y con la fuente de cada regla. Cotización
+    6,48 % (6,53 % temporal) hasta la base máxima; empresa 30,57 % (31,77 %). IRPF = escala general
+    (19–47 %) sobre bruto − cotización − 2.000 € − reducción por rendimientos del trabajo, menos la
+    escala aplicada al mínimo personal y familiar. IVA = la parte de impuesto que va dentro del
+    precio (10/110, 21/121). El total se reparte por `share_of_total_pct` de `GET /areas` del año
+    elegido (Eurostat COFOG).
+  - `src/components/TaxSankey.jsx`: SVG hecho a mano. Sueldo bruto (y pago de la empresa) → neto,
+    IRPF y cotización → te queda e IVA → tus impuestos → los diez ámbitos. Cada cinta es una curva
+    de Bézier con degradado y grosor proporcional a los euros. Los ámbitos tienen un alto mínimo
+    para que cada etiqueta quede junto a su nodo; las etiquetas llevan borde blanco para leerse
+    sobre las cintas. En móvil el diagrama se desliza dentro de su caja, sin mover la página.
+  - `src/pages/Calculator.jsx`: formulario, cifras clave, las tres vistas y el bloque «Cómo se
+    calcula» con lo que no cuenta (deducciones, impuestos especiales, tributos locales) y las
+    fuentes (BOE y Seguridad Social).
+- **Límites, dichos en la propia página:** escala autonómica de referencia (cada comunidad cambia
+  algo), mínimos por hijos enteros, y el reparto es proporcional: una aproximación, no un recibo.
+- **Comprobado:** `npx eslint src` y `npm run build` sin errores. Caso de control: 2.000 € × 14
+  pagas, indefinido, sin hijos → cotización 1.814 €, IRPF 4.367 € (15,6 % del bruto). Capturas a
+  1280 y 390 px, con y sin la cotización de la empresa: sin scroll horizontal de la página y sin
+  errores de consola.
+
+## 16. El gasto público frente a la inflación
+
+- **Qué:** nuevo bloque «El gasto público frente a la inflación» en la portada (después de
+  «Explora el gasto») y otro, «Frente a la inflación», en cada ámbito (después de «Evolución» y
+  «En qué se reparte»). Cada uno trae:
+  - Una frase resumen: cuánto creció el gasto, cuánto los precios y la variación real.
+  - Cuatro cifras: gasto en euros de cada año, subida de precios, gasto real (sin inflación, con
+    la equivalencia «X M€ de 2024 = Y M€ de 2015») y en cuántos años el gasto subió más que los
+    precios.
+  - Dos vistas: **Año a año** (barras verdes y azules: variación del gasto y de los precios frente
+    al año anterior) y **Acumulado** (líneas con índice 100 en el primer año). Pulsar un año lo
+    elige en toda la página.
+- **Por qué:** lo pidió el usuario. Un gasto que sube un 50 % en euros no es un 50 % más de
+  servicios si los precios han subido un 23 %: así se ve qué parte es crecimiento real.
+- **Cómo:**
+  - `src/inflation.js`: IPCA de España de Eurostat (`prc_hicp_aind`, `coicop=CP00`, `geo=ES`),
+    índice 2015 = 100 y variación anual, 2014–2025, con la consulta exacta y su URL. Igual que
+    `pensionsDemand.js`: va en el frontend porque se añadió a última hora; lo ideal es que entre
+    en el pipeline de `data/`. `toEurosOf()` pasa euros de un año a otro con el índice.
+  - `src/components/InflationChart.jsx`: recibe `{ año: millones de euros }` y lo dibuja con
+    Recharts. En la portada recibe `total_meur` de `/areas` de cada año; en el ámbito, su
+    `history`.
+  - Siempre en euros, aunque esté elegido «% del PIB»: en % del PIB la inflación ya está
+    descontada, porque el PIB también crece con los precios. Se dice bajo el gráfico.
+- **Comprobado:** `npx eslint src` y `npm run build` sin errores. Con el backend real: 2015–2024,
+  gasto +52,7 %, precios +23,3 %, real +23,8 % (725.001 M€ de 2024 = 587.855 M€ de 2015). Capturas a
+  1280 y 390 px de la portada (las dos vistas) y de Sanidad: sin scroll horizontal y sin errores
+  de consola.
+
+## 17. Mapa: quién gasta más en cada ámbito (19-11-2026, Pedro)
 
 Página nueva, `#/mapa` (`pages/WorldLeaders.jsx`), a petición de Pedro.
 
-### 11.1 Qué enseña
+### 17.1 Qué enseña
 
 - Un mapa del mundo y otro de Europa ampliada. En color, solo los países con datos (27 de la
   UE + EE. UU., Japón, Reino Unido, Corea y Australia); el resto queda en gris claro.
@@ -635,7 +768,7 @@ Página nueva, `#/mapa` (`pages/WorldLeaders.jsx`), a petición de Pedro.
 - Al pulsar una tarjeta o una bandera, el mapa se colorea con lo que dedica cada país a ese
   ámbito (más oscuro = más % del PIB). Otra pulsación vuelve a todas las banderas.
 
-### 11.2 Cómo está hecho
+### 17.2 Cómo está hecho
 
 | Pieza | Qué hace | Por qué así |
 |---|---|---|
@@ -647,7 +780,7 @@ Página nueva, `#/mapa` (`pages/WorldLeaders.jsx`), a petición de Pedro.
 | Datos | Una llamada a `/compare` por ámbito (10), guardadas en memoria con `cached` | No hizo falta tocar el backend ni el contrato; el líder es el máximo de `rows` + `world_rows` |
 | Color | Banderas en tinta oscura con icono; mapa en una sola gama de verde (`color-mix` entre `--map-low` y `--forest-deep`) | Diez colores distintos no se distinguen: el ámbito lo dice el icono, y el verde queda libre para la cantidad |
 
-### 11.3 Límites que se dicen en la propia página
+### 17.3 Límites que se dicen en la propia página
 
 - La UE viene de Eurostat y los otros cinco países de la OCDE: son fuentes distintas y la
   comparación entre ellas es orientativa (se dice junto a las fuentes).
