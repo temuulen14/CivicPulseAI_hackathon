@@ -7,9 +7,11 @@ import { MEASURES } from '../measures.js';
 import { useGovernments } from '../governments.js';
 import { GovernmentBand } from '../components/BudgetBars.jsx';
 import Status from '../components/Status.jsx';
+import MeasureSwitch from '../components/MeasureSwitch.jsx';
 import YearPicker from '../components/YearPicker.jsx';
 import AlertCard from '../components/AlertCard.jsx';
 import PolicyBar from '../components/PolicyBar.jsx';
+import InflationChart from '../components/InflationChart.jsx';
 
 const AXIS = { stroke: 'var(--line-strong)', tick: { fill: 'var(--muted)', fontSize: 12 }, tickLine: false };
 
@@ -23,7 +25,7 @@ function Breadcrumb({ name }) {
   );
 }
 
-export default function Area({ id, year, years, onYearChange, onBudgetYearChange, measure }) {
+export default function Area({ id, year, years, onYearChange, onBudgetYearChange, measure, onMeasureChange }) {
   const governments = useGovernments();
   const area = useApi(() => getArea(id, year), [id, year]);
   const sources = useSourcesById();
@@ -54,7 +56,13 @@ export default function Area({ id, year, years, onYearChange, onBudgetYearChange
         <div className="area-head">
           <h1>{a.name}</h1>
           {a.description && <p className="lead">{a.description}</p>}
+          {a.id === 'GF10' && (
+            <p className="area-pensions">
+              Buena parte de este gasto son pensiones. <a href="#/pensiones">Ver pensiones: dinero frente a demanda</a>
+            </p>
+          )}
         </div>
+        <MeasureSwitch value={measure} onChange={onMeasureChange} />
         <YearPicker
           year={a.year}
           years={years}
@@ -110,7 +118,10 @@ export default function Area({ id, year, years, onYearChange, onBudgetYearChange
 
       <div className="two-col">
         <section className="panel section" aria-labelledby="history-title">
-          <h2 id="history-title">Evolución</h2>
+          <div className="section-head">
+            <h2 id="history-title">Evolución</h2>
+            <MeasureSwitch value={measure} onChange={onMeasureChange} />
+          </div>
           <p className="muted">
             {m.label === 'Importe' ? 'Millones de euros' : 'Porcentaje del PIB'} por año. Pulsa un año para verlo.
           </p>
@@ -185,6 +196,16 @@ export default function Area({ id, year, years, onYearChange, onBudgetYearChange
           )}
         </section>
       </div>
+
+      <section className="panel section" aria-labelledby="inflation-title">
+        <h2 id="inflation-title">Frente a la inflación</h2>
+        <InflationChart
+          values={Object.fromEntries(a.history.map((h) => [h.year, h.amount_meur]))}
+          year={a.year}
+          onYearChange={onYearChange}
+          what={`el gasto en ${a.name.toLowerCase()}`}
+        />
+      </section>
 
       {a.spending_by_type?.some((t) => t.amount_meur > 0) && (
         <section className="section" aria-labelledby="type-title">
