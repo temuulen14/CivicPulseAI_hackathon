@@ -94,6 +94,38 @@ justifican y la fuente. Los avisos **señalan, no acusan**: "merece una mirada",
 El segundo tipo es automático para los diez ámbitos, así que la app tiene contenido
 aunque solo dé tiempo a curar tres o cuatro cruces de uso.
 
+## Decisiones de implementación
+
+El detalle fino, para poder explicar cualquier línea al jurado. Cada uno añade aquí las
+de su parte: qué se decidió y por qué, en una fila.
+
+### Backend (Pedro)
+
+| Decisión | Por qué |
+|----------|---------|
+| Cuatro archivos: `main.py` (rutas), `dataset.py` (carga y consultas), `alerts.py` (reglas), `models.py` (forma de las respuestas) | Una responsabilidad por archivo; cada uno se explica por separado |
+| Los avisos se calculan en el backend, no en el frontend | Un único sitio para las reglas, y se pueden probar con tests |
+| Las reglas son funciones que reciben números y devuelven una severidad | No dependen de la web ni de los datos: se prueban y se explican solas |
+| Gasto-uso: se dispara en los dos sentidos (mucho gasto para poco uso, o poco gasto para mucho uso) | Los dos casos merecen una mirada; se invierte la división cuando es menor que 1 |
+| Gasto-uso: el umbral va en cada cruce, no es global | Cada ámbito es distinto; lo decide Mario con criterio |
+| España-Europa: distancia **relativa** a la mediana, no diferencia en puntos de PIB | Con diferencia absoluta solo saltarían los ámbitos grandes (protección social) y nunca los pequeños (medio ambiente) |
+| Mediana y no media | Un país con un valor extremo no la arrastra |
+| La mediana solo se calcula con tres países o más, y sin agregados como la UE-27 | Con dos valores no dice nada; un agregado no es un país |
+| Indicador de uso: el último año disponible que no supere el año consultado | Las estadísticas de uso salen con retraso; exigir el mismo año ocultaría casi todas. El año real se muestra en la evidencia |
+| La posición de un país se calcula sobre todos, aunque se filtren países | Que España sea la 14.ª no cambia por mostrar solo tres |
+| Un dato que falta es `null`, nunca `0` | Un 0 se leería como "no se gasta nada" |
+| Un año sin datos devuelve 404 | Mejor un error claro que una respuesta vacía que parezca válida |
+| CORS abierto y solo peticiones GET | Datos públicos de solo lectura, sin credenciales |
+| Datos de muestra (`sample_dataset.json`) para desarrollo y tests | Los tests no dependen de los datos reales ni de la red |
+
+### Datos (Mario)
+
+_Por rellenar._
+
+### Frontend (Dersu)
+
+_Por rellenar._
+
 ## Limitaciones (para contarlas antes de que pregunten)
 
 - Las cifras son **gasto ejecutado** de todas las administraciones según Eurostat, no
