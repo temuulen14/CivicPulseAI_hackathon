@@ -970,3 +970,17 @@ Sustituye el interruptor «País a país / Mapa» del punto 19: en vez de dos p�
   `prefers-reduced-motion` no hay animación y todo queda invisible (opacidad 0 por defecto).
 - **Comprobado:** `npx eslint src` y `npm run build` sin errores. Capturas en claro, en oscuro y a 390 px:
   la gota, las ondas al cargar, las ondas al pulsar y el reflejo; sin scroll horizontal ni errores de consola.
+
+## 24. Sin animación de agua ni gota
+
+- **Qué:** se quitan la capa de agua de los anillos del gasto (la gota que caía al cargar, las ondas
+  al pulsar un anillo y el reflejo de luz que los cruzaba) y la gota de agua de la marca, junto al
+  nombre. El icono de la pestaña vuelve a ser el cuadrado verde con tres barras. Se mantiene el
+  nombre «Cristalino · claro como el agua», ahora solo con letra.
+- **Por qué:** lo pidió el usuario.
+- **Cómo:** `TreeRings.jsx` vuelve a la versión anterior a la capa de agua (sin `useRef`/`useState`
+  ni el componente `Ripple`). En `index.css` se borran las reglas `.water`, `.ripple`,
+  `.water-drop`, `.water-sheen`, `.wordmark-drop` y las variables `--water` y `--sheen`. En
+  `Brand.jsx` se quita el SVG de la gota.
+- **Comprobado:** `npx eslint src scripts` y `npm run build` sin errores. Capturas de la portada a
+  1280 px (claro) y 390 px (oscuro): sin restos del agua y sin scroll horizontal.

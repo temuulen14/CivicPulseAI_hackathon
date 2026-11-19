@@ -1,4 +1,3 @@
-import { useRef, useState } from 'react';
 import { formatMeurWords } from '../format.js';
 
 // «Los anillos del gasto»: el detalle artístico de la portada, hecho con datos reales.
@@ -6,11 +5,6 @@ import { formatMeurWords } from '../format.js';
 // (el último), y su grosor es lo que se gastó ese año: un anillo más ancho = más gasto.
 // La forma es irregular a propósito (como la madera), pero igual para todos los anillos,
 // así que encajan unos dentro de otros. Pulsar un anillo elige ese año.
-//
-// Encima va una capa de agua (lo «cristalino»): al cargar cae una gota en el centro y abre
-// ondas, y cada vez que se pulsa un anillo salen ondas desde ese punto. Un reflejo de luz
-// cruza el tronco de vez en cuando, como a través de un cristal. Es solo decoración: todo
-// se hace con CSS y desaparece si la persona pidió menos movimiento (prefers-reduced-motion).
 
 const SIZE = 400;
 const C = SIZE / 2;
@@ -51,11 +45,7 @@ const CRACKS = [
   { a: 4.1, from: 0.12, to: 0.45 },
 ];
 
-const RIPPLE_MS = 2200;
-
 export default function TreeRings({ totals, year, onYearChange }) {
-  const svgRef = useRef(null);
-  const [ripples, setRipples] = useState([]); // ondas vivas: { id, x, y }
   const years = Object.keys(totals)
     .map(Number)
     .filter((y) => totals[y] > 0)
@@ -73,23 +63,10 @@ export default function TreeRings({ totals, year, onYearChange }) {
   const selected = rings.find((g) => g.year === year) ?? rings[rings.length - 1];
   const labelOf = (g) => ({ x: C, y: C - (g.inner + g.outer) / 2 + 4 });
   const first = rings[0];
-  const outline = rings[rings.length - 1].d; // borde del tronco: recorta el agua y el reflejo
-
-  // Pasa el punto pulsado (en píxeles de pantalla) a coordenadas del dibujo y lanza una onda allí.
-  function splash(event) {
-    const svg = svgRef.current;
-    const ctm = svg?.getScreenCTM();
-    if (!ctm) return;
-    const p = new DOMPoint(event.clientX, event.clientY).matrixTransform(ctm.inverse());
-    const id = Date.now() + Math.random();
-    setRipples((list) => [...list, { id, x: p.x, y: p.y }]);
-    setTimeout(() => setRipples((list) => list.filter((r) => r.id !== id)), RIPPLE_MS);
-  }
 
   return (
     <figure className="rings">
       <svg
-        ref={svgRef}
         viewBox={`0 0 ${SIZE} ${SIZE}`}
         role="img"
         aria-label={`Anillos del gasto: un anillo por año, de ${first.year} en el centro a ${rings[rings.length - 1].year} fuera. Su grosor es el gasto de ese año.`}
@@ -102,10 +79,7 @@ export default function TreeRings({ totals, year, onYearChange }) {
             pathLength="1"
             className={`ring${g.year === selected.year ? ' is-selected' : ''}${g.i % 2 ? ' is-odd' : ''}`}
             style={{ '--i': g.i }}
-            onClick={(event) => {
-              splash(event);
-              onYearChange?.(g.year);
-            }}
+            onClick={() => onYearChange?.(g.year)}
           >
             <title>{`${g.year}: ${formatMeurWords(totals[g.year])}`}</title>
           </path>
@@ -121,25 +95,6 @@ export default function TreeRings({ totals, year, onYearChange }) {
             y2={C + Math.sin(c.a) * OUTER * c.to}
           />
         ))}
-        {/* Agua: la gota inicial, las ondas y el reflejo, recortados al borde del tronco. */}
-        <defs>
-          <clipPath id="rings-water">
-            <path d={outline} />
-          </clipPath>
-          <linearGradient id="rings-sheen" x1="0" x2="1" y1="0" y2="0">
-            <stop offset="0" className="sheen-stop" stopOpacity="0" />
-            <stop offset="0.5" className="sheen-stop" stopOpacity="0.55" />
-            <stop offset="1" className="sheen-stop" stopOpacity="0" />
-          </linearGradient>
-        </defs>
-        <g className="water" clipPath="url(#rings-water)" aria-hidden="true">
-          <rect className="water-sheen" x={-120} y={-40} width={110} height={SIZE + 80} fill="url(#rings-sheen)" />
-          <Ripple x={C} y={C} intro />
-          {ripples.map((r) => (
-            <Ripple key={r.id} x={r.x} y={r.y} />
-          ))}
-        </g>
-        <circle cx={C} cy={C - 120} r={4} className="water-drop" aria-hidden="true" />
         <text {...labelOf(selected)} className="ring-label is-selected" textAnchor="middle">
           {selected.year}
         </text>
@@ -155,19 +110,4 @@ export default function TreeRings({ totals, year, onYearChange }) {
       </figcaption>
     </figure>
   );
-}
-
-// Una onda: tres círculos que crecen y se desvanecen uno tras otro, como al tirar una piedra.
-// Se dibujan con radio 1 y crecen con `transform: scale`, que el navegador anima con suavidad.
-function Ripple({ x, y, intro = false }) {
-  return [0, 1, 2].map((n) => (
-    <circle
-      key={n}
-      cx={x}
-      cy={y}
-      r={1}
-      className={`ripple${intro ? ' is-intro' : ''}`}
-      style={{ '--n': n }}
-    />
-  ));
 }
