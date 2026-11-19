@@ -848,3 +848,85 @@ Sustituye el interruptor «País a país / Mapa» del punto 19: en vez de dos p�
 - `WorldLeaders.jsx` desaparece; `leaders.js` guarda las dos funciones que compartía.
   `#/mapa` y `#/comparar/mapa` abren Comparar.
 
+## 21. Calculadora: dos formas más de ver el reparto
+
+- **Qué:** además de «Flujo del dinero», «Barras» y «Tabla», el selector de la calculadora tiene:
+  - **Cada 100 €:** una fila por ámbito con una casilla por cada euro de cada 100 que pagas
+    (41 casillas para Protección social, 14 para Sanidad…). Dice cuánto vale cada casilla en tu
+    caso (por ejemplo, 74 € al año).
+  - **Días de trabajo:** «Trabajas hasta el 6 de abril para pagar tus impuestos». Una barra de
+    enero a diciembre con un tramo por ámbito y, debajo, la lista: cuántos días trabajas para cada
+    uno y entre qué fechas. El resto del año es «Para ti».
+- **Por qué:** lo pidió el usuario. El diagrama de flujo es vistoso pero cuesta leerlo; contar
+  casillas o leer una fecha se entiende sin saber leer gráficos.
+- **Cómo:**
+  - `src/components/TaxUnits.jsx`: reparte 100 casillas por la cuota de cada ámbito con el
+    método del mayor resto (parte entera a cada uno y las que faltan a los de mayor decimal), para
+    que siempre sumen 100.
+  - `src/components/TaxDays.jsx`: días de un ámbito = sus euros ÷ lo que cuesta tu sueldo (bruto,
+    más la parte de la empresa si se cuenta) × 365. Los ámbitos se ponen uno tras otro desde el
+    1 de enero; las fechas salen de un año de 365 días (2025).
+  - Mismos colores que el resto de la app (escala verde por cuota del gasto).
+  - Arreglo general en `index.css`: `.section > * { min-width: 0 }`. Con cinco botones, el selector
+    ensanchaba la página en móvil; ahora se desliza dentro de su caja, como ya hacía en otras.
+- **Comprobado:** `npx eslint src` y `npm run build` sin errores. Capturas a 1280 y 390 px de las dos
+  vistas nuevas y repaso de las 9 páginas a los dos anchos: sin scroll horizontal, sin errores de
+  consola y sin «NaN».
+
+## 22. Modo oscuro y una portada más tranquila, con «los anillos del gasto»
+
+### 22.1 Modo oscuro
+
+- **Qué:** la web tiene modo oscuro. Por defecto sigue al sistema (`prefers-color-scheme`) y en la
+  cabecera hay un botón (luna / sol) para cambiarlo. La elección se recuerda al volver.
+- **Por qué:** lo pidió el usuario. Además, en pantallas por la noche cansa menos la vista.
+- **Cómo:**
+  - `index.css`: todos los colores eran ya variables (`--paper`, `--ink`, `--forest`…). El modo
+    oscuro las redefine en dos sitios con los mismos valores: dentro de
+    `@media (prefers-color-scheme: dark)` (si la persona no ha elegido) y en
+    `:root[data-theme='dark']` (si ha elegido oscuro). `data-theme='light'` fuerza el claro.
+  - **No es una inversión automática.** Los colores oscuros se eligieron y validaron con
+    `validate_palette.js` de la skill dataviz, sobre el fondo `#121614`: verde `#2fa67a` y azul
+    `#5b8cdc` para las dos series (todo PASS), y una escala de cinco verdes que en oscuro va de
+    apagado a brillante (`#24805e` → `#b4e6cb`): más brillo = más cuota, igual que en claro más
+    oscuro = más cuota.
+  - Los colores que estaban escritos a mano pasan a variables: la escala (`scale.js` devuelve
+    `var(--seq-1)` … `var(--seq-5)` y su color de texto), el diagrama de flujo de la calculadora,
+    los iconos de aviso (`--on-accent`), el fondo de la cabecera, el bloque destacado y el borde de
+    las etiquetas del flujo (`--halo`).
+  - `components/ThemeToggle.jsx`: el botón. Escribe `data-theme` en `<html>` y lo guarda en
+    `localStorage` (con `try/catch`, por si el navegador no deja guardar).
+  - `index.html`: un script de cuatro líneas aplica la elección guardada **antes** de pintar, para
+    que la página no parpadee en blanco al cargar en oscuro.
+- **Límite:** la infografía de los PGE de 2023 (`public/presupuesto-2023-flujo.svg`) es una imagen
+  fija con fondo blanco; en oscuro se ve como una lámina clara.
+
+### 22.2 Portada más tranquila
+
+- **Qué:** antes, lo primero era una cifra de 6,6 rem («725 mil millones de €»), la barra de
+  ámbitos, una lista de diez filas y el selector de años, todo junto. Ahora:
+  1. **Comienzo:** solo la pregunta «¿A dónde va el dinero público?» en serif grande, con un trazo
+     de pincel verde bajo «dinero público», una frase («…explicado sin prisa») y dos caminos:
+     «Empezar por lo esencial» (baja al bloque siguiente) y «Calcula a dónde van tus impuestos».
+     Al lado, los anillos del gasto.
+  2. **«2024, en tres cifras»:** gasto total, % del PIB («46 € de cada 100 € que produce el país») y
+     a qué va la mayor parte («Protección social, 41 céntimos de cada euro»), en serif mediana y
+     separadas por líneas finas. Debajo, la barra de ámbitos (la lista de los diez queda plegada en
+     «Ver los diez ámbitos»), el selector de años y la franja de Gobiernos.
+- **Por qué:** lo pidió el usuario: que no abrume al entrar y que siga las convenciones de webs
+  editoriales sobrias (mucho aire, una sola idea por pantalla, las cifras después de la pregunta).
+- **Detalle artístico:** `components/TreeRings.jsx`, **los anillos del gasto**. Como en el corte
+  de un tronco, cada anillo es un año (de 2015 en el centro a 2024 fuera) y su **grosor es el
+  gasto de ese año**: es decoración, pero con datos reales. La forma ondulada es la misma para
+  todos los anillos (para que encajen) con un detalle fino distinto en cada uno; tiene tres grietas
+  finas como la madera. El año elegido va en verde, y al pulsar un anillo se elige ese año en toda
+  la página. Los anillos se dibujan uno tras otro al cargar (y el trazo de pincel también), sin
+  animación si el sistema pide movimiento reducido.
+- Se borró `components/Contours.jsx` (las curvas de nivel de antes), que ya no se usaba.
+- En móvil, el botón de tema va a la derecha del nombre, en la misma línea.
+- Al mezclar con `main` (buscador de Pedro): la lupa y el botón de tema van juntos en `.header-tools`, a la
+  derecha. En móvil el grupo se coloca junto al nombre con `order`, así que se quitó la posición absoluta
+  que tenía la lupa (si no, se montaba encima del botón de tema).
+- **Comprobado:** `npx eslint src scripts` y `npm run build` sin errores. Las 10 páginas en claro y
+  en oscuro, a 1280 y 390 px: sin scroll horizontal, sin errores de consola y sin «NaN». El botón
+  cambia el tema, se recuerda al recargar y vuelve al claro.

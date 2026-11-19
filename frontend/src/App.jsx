@@ -11,6 +11,7 @@ import BudgetPolicy from './pages/BudgetPolicy.jsx';
 import BudgetProgram from './pages/BudgetProgram.jsx';
 import Pensions from './pages/Pensions.jsx';
 import Calculator from './pages/Calculator.jsx';
+import ThemeToggle from './components/ThemeToggle.jsx';
 import Search from './pages/Search.jsx';
 import EuFunds from './pages/EuFunds.jsx';
 
@@ -108,18 +109,21 @@ export default function App() {
               </a>
             ))}
           </nav>
-          <a
-            href="#/buscar"
-            className="header-search"
-            aria-label="Buscar en los Presupuestos"
-            title="Buscar"
-            aria-current={activePage === 'buscar' ? 'page' : undefined}
-          >
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
-              <circle cx="11" cy="11" r="7" />
-              <path d="m20 20-3.8-3.8" />
-            </svg>
-          </a>
+          <div className="header-tools">
+            <a
+              href="#/buscar"
+              className="header-search"
+              aria-label="Buscar en los Presupuestos"
+              title="Buscar"
+              aria-current={activePage === 'buscar' ? 'page' : undefined}
+            >
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+                <circle cx="11" cy="11" r="7" />
+                <path d="m20 20-3.8-3.8" />
+              </svg>
+            </a>
+            <ThemeToggle />
+          </div>
         </div>
       </header>
 
