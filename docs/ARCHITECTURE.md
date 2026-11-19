@@ -59,8 +59,10 @@ backend/
   models.py         modelos Pydantic (= el contrato)
   dataset.py        carga dataset.json y responde consultas sencillas
   alerts.py         las dos reglas de aviso y su aplicación
-  sample_dataset.json  datos de muestra para desarrollo y tests
-  test_api.py
+  budget.py         Presupuestos Generales del Estado: año → política → programa → partida
+  sample_dataset.json  datos de muestra para los tests
+  test_api.py          tests con los datos de muestra (cifras esperadas fijas)
+  test_real_dataset.py comprobaciones contra data/dataset.json
 frontend/
   src/api.ts        tipos del contrato + funciones fetch
   src/pages/        Inicio, Ámbito, Avisos, Comparar, Fuentes
@@ -103,7 +105,7 @@ de su parte: qué se decidió y por qué, en una fila.
 
 | Decisión | Por qué |
 |----------|---------|
-| Cuatro archivos: `main.py` (rutas), `dataset.py` (carga y consultas), `alerts.py` (reglas), `models.py` (forma de las respuestas) | Una responsabilidad por archivo; cada uno se explica por separado |
+| Cinco archivos: `main.py` (rutas), `dataset.py` (carga y consultas), `alerts.py` (reglas), `budget.py` (PGE), `models.py` (forma de las respuestas) | Una responsabilidad por archivo; cada uno se explica por separado |
 | Los avisos se calculan en el backend, no en el frontend | Un único sitio para las reglas, y se pueden probar con tests |
 | Las reglas son funciones que reciben números y devuelven una severidad | No dependen de la web ni de los datos: se prueban y se explican solas |
 | Gasto-uso: se dispara en los dos sentidos (mucho gasto para poco uso, o poco gasto para mucho uso) | Los dos casos merecen una mirada; se invierte la división cuando es menor que 1 |
@@ -116,7 +118,18 @@ de su parte: qué se decidió y por qué, en una fila.
 | Un dato que falta es `null`, nunca `0` | Un 0 se leería como "no se gasta nada" |
 | Un año sin datos devuelve 404 | Mejor un error claro que una respuesta vacía que parezca válida |
 | CORS abierto y solo peticiones GET | Datos públicos de solo lectura, sin credenciales |
-| Datos de muestra (`sample_dataset.json`) para desarrollo y tests | Los tests no dependen de los datos reales ni de la red |
+| Datos de muestra (`sample_dataset.json`) para los tests | Cifras esperadas fijas: los tests no cambian cuando Mario regenera los datos |
+| Segundo archivo de tests (`test_real_dataset.py`) contra el dataset real | Comprueba que todos los endpoints responden en todos los años y que las sumas de la API coinciden con los totales del pipeline; si Mario cambia algo que rompe la API, salta aquí |
+| Los PGE van en rutas propias (`/api/budget…`) y no mezclados con `/api/areas` | Son otra cosa: crédito presupuestado del Estado central, no gasto ejecutado de todas las administraciones (Eurostat). Sumarlos o compararlos sería un error |
+| Importes de los PGE en miles de euros (`_keur`), sin convertir a millones | Como en el documento de Hacienda: cualquier cifra se coteja a mano. El sufijo del campo dice la unidad |
+| Los PGE se sirven en tres niveles (año → política → programa); las partidas solo en el programa | El dataset pesa 15 MB, casi todo partidas; así cada respuesta pesa unos pocos KB |
+| Los totales por política se suman en cada petición, sin tabla precalculada | Son como mucho 450 programas por año: tarda milisegundos y no hay una segunda copia que mantener |
+| Cada total de los PGE va por duplicado: con y sin Seguridad Social | Las prórrogas (2019, 2024, 2025) no la incluyen; solo la serie sin ella es comparable entre años |
+| Un año sin documento (2020) responde 200 con importes `null` y su nota, no 404 | El año existe y tiene explicación (siguió la prórroga); un 404 la ocultaría |
+| Un programa repartido entre varios ministerios se devuelve una vez, con una sección por ministerio | En la Ley es un solo programa; el total es la suma de sus secciones |
+| El nivel de cada partida (`level` 1-4) lo calcula el backend por la longitud del código económico | Capítulo, artículo, concepto, subconcepto: el frontend solo tiene que sangrar |
+| Los Gobiernos se devuelven aparte y los años los citan por `id` | No se repite la ficha de cada Gobierno en cada año; y el backend no suma nada por Gobierno ni por partido (neutralidad) |
+| El desglose por tipo de gasto va dentro de `/api/areas/{id}` | Es parte de la ficha del ámbito: una sola petición por página |
 
 ### Datos (Mario)
 

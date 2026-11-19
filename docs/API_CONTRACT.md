@@ -1,8 +1,12 @@
-# Contrato de API (v1)
+# Contrato de API (v1.1)
 
 Base: `http://localhost:8000/api`. Documentación interactiva en `http://localhost:8000/docs`.
 Un `year` sin datos devuelve `404`. Todo JSON, campos en `snake_case`.
 Cambios: solo los hace Pedro y se avisan al equipo antes del merge.
+
+**v1.1 (19-11): solo añade, no rompe nada de v1.** Nuevo: `budget_years` y
+`latest_budget_year` en `/meta`; `yoy_change_pct`, `spending_by_type` y `budget_policies`
+en `/areas/{id}`; y las cuatro rutas de `/budget` (Presupuestos Generales del Estado).
 
 Convenciones:
 
@@ -19,9 +23,13 @@ Convenciones:
   "years": [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023],
   "latest_year": 2023,
   "countries": [{"code": "ES", "name": "España"}, {"code": "FR", "name": "Francia"}],
-  "generated_at": "2026-11-19T13:00:00Z"
+  "generated_at": "2026-11-19T13:00:00Z",
+  "budget_years": [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+  "latest_budget_year": 2025
 }
 ```
+
+`years` son los años con gasto de Eurostat; `budget_years`, los de los PGE (ver `/budget`).
 
 ## GET /areas?year=2023
 
@@ -64,6 +72,7 @@ Todo lo que necesita la página de un ámbito.
   "amount_meur": 84500.0,
   "share_of_total_pct": 12.4,
   "pct_gdp": 5.6,
+  "yoy_change_pct": -8.1,
   "source_id": "eurostat_gov_10a_exp",
   "history": [
     {"year": 2022, "amount_meur": 91900.0, "pct_gdp": 6.8, "provisional": false},
@@ -82,6 +91,14 @@ Todo lo que necesita la página de un ámbito.
       "source_id": "eurostat_tran_hv_psmod"
     }
   ],
+  "spending_by_type": [
+    {"type_id": "D3", "name": "Subvenciones", "description": "Pagos a empresas para reducir precios o costes de producción.",
+     "amount_meur": 19364.0, "share_of_area_pct": 25.9}
+  ],
+  "budget_policies": [
+    {"id": "45", "name": "Infraestructuras", "area_id": "GF04", "total_keur": 12644589.58,
+     "total_without_social_security_keur": 12644589.58, "eu_recovery_keur": 4379469.88}
+  ],
   "alerts": [ { "…": "ver objeto Alert" } ],
   "legal": {
     "law_title": "Ley 31/2022, de 23 de diciembre, de Presupuestos Generales del Estado para el año 2023",
@@ -93,6 +110,13 @@ Todo lo que necesita la página de un ámbito.
 ```
 
 `legal` puede ser `null` si no se ha localizado la ley de ese año.
+
+- `spending_by_type`: en qué se va el dinero del ámbito (personal, compras, inversión…),
+  de mayor a menor. Diez tipos que suman `amount_meur`. Solo España; sirve para ámbitos y
+  subámbitos. Lista vacía si no hay desglose.
+- `budget_policies`: políticas de gasto de los PGE que corresponden a este ámbito (solo
+  nivel 1), con su total de ese año; enlazan con `/budget/policies/{id}`. Importes `null`
+  si ese año no hay documento. **No son comparables con `amount_meur`**: ver `/budget`.
 
 ## Objeto Alert
 
@@ -168,6 +192,135 @@ todos los países, aunque se filtre con `countries`.
 }
 ```
 
+## Presupuestos Generales del Estado: `/budget`
+
+Otra fuente y otra cosa: lo que la Ley **presupuesta** para el **Estado central** (más la
+Seguridad Social cuando el documento la incluye), partida a partida. No incluye comunidades
+ni ayuntamientos, así que **no se suma ni se compara con las cifras de Eurostat** del resto
+de la API (Sanidad: unos 7 000 M€ aquí, unos 98 600 M€ en Eurostat).
+
+- Importes en **miles de euros** (`_keur`), como en el documento de Hacienda.
+- Todo total viene dos veces: `total_keur` y `total_without_social_security_keur`. Las
+  prórrogas (2019, 2024, 2025) no traen Seguridad Social: **para comparar años se usa
+  siempre la serie sin ella**.
+- `eu_recovery_keur`: la parte que son fondos europeos de recuperación (desde 2021).
+- `document`: `"Ley"`, `"Prorroga"` o `null` (2020: Hacienda no publicó documento; sus
+  importes son `null` y `note` lo explica).
+- Sin `year`, se usa `meta.latest_budget_year`. Un año fuera de `meta.budget_years` da `404`.
+
+### GET /budget/years
+
+La década entera, para el gráfico de evolución y las franjas de Gobierno.
+
+```json
+{
+  "years": [
+    {"year": 2023, "document": "Ley", "includes_social_security": true,
+     "total_keur": 583543307.1, "total_without_social_security_keur": 379810403.74,
+     "eu_recovery_keur": 26538869.31,
+     "drafted_by": "sanchez_2020",
+     "executed_by": [{"government_id": "sanchez_2020", "days": 320}, {"government_id": "sanchez_2023", "days": 45}],
+     "note": null}
+  ],
+  "governments": [
+    {"id": "sanchez_2020", "president": "Pedro Sánchez Pérez-Castejón", "parties": ["PSOE", "Unidas Podemos"],
+     "start": "2020-01-08", "end": "2023-11-17",
+     "appointment_boe_id": "BOE-A-2020-231", "appointment_boe_url": "https://www.boe.es/diario_boe/txt.php?id=BOE-A-2020-231",
+     "coalition_boe_id": "BOE-A-2020-413", "party_source_url": "https://…", "coalition_source_url": "https://…",
+     "note": "Gobierno de coalición. …"}
+  ]
+}
+```
+
+`drafted_by` (quién elaboró el presupuesto vigente) y `executed_by` (quién lo ejecutó y
+cuántos días) apuntan a `governments[].id`. Es contexto para los gráficos: **no se suman
+importes por Gobierno ni por partido** (ver `data/README.md`).
+
+### GET /budget?year=2023
+
+Un año: los mismos campos que un elemento de `/budget/years`, más la ley y sus políticas
+de gasto, de mayor a menor.
+
+```json
+{
+  "year": 2023, "document": "Ley", "includes_social_security": true,
+  "total_keur": 583543307.1, "total_without_social_security_keur": 379810403.74,
+  "eu_recovery_keur": 26538869.31,
+  "drafted_by": "sanchez_2020", "executed_by": [ { "…": "…" } ], "note": null,
+  "legal": { "…": "igual que en /areas/{id}" },
+  "source_id": "sepg_pge_estado_gastos",
+  "policies": [
+    {"id": "45", "name": "Infraestructuras", "area_id": "GF04",
+     "total_keur": 12644589.58, "total_without_social_security_keur": 12644589.58,
+     "eu_recovery_keur": 4379469.88, "share_of_total_pct": 2.2, "program_count": 39}
+  ]
+}
+```
+
+`area_id` es nuestra equivalencia aproximada con el ámbito de Eurostat (no es oficial).
+`share_of_total_pct` es sobre `total_keur` del año. En 2020, `policies` es `[]`.
+
+### GET /budget/policies/{id}?year=2023
+
+Una política: su evolución en todos los años y sus programas del año pedido, de mayor a menor.
+
+```json
+{
+  "id": "45", "name": "Infraestructuras", "area_id": "GF04", "year": 2023,
+  "total_keur": 12644589.58, "total_without_social_security_keur": 12644589.58,
+  "eu_recovery_keur": 4379469.88,
+  "source_id": "sepg_pge_estado_gastos",
+  "history": [
+    {"year": 2019, "document": "Prorroga", "total_keur": 5529930.61,
+     "total_without_social_security_keur": 5529930.61, "eu_recovery_keur": 0.0},
+    {"year": 2020, "document": null, "total_keur": null,
+     "total_without_social_security_keur": null, "eu_recovery_keur": null}
+  ],
+  "programs": [
+    {"program_id": "453B", "name": "Creación de infraestructura de carreteras",
+     "section_names": ["MINISTERIO DE TRANSPORTES, MOVILIDAD Y AGENDA URBANA"],
+     "total_keur": 1599547.1, "eu_recovery_keur": 0.0}
+  ]
+}
+```
+
+Los códigos de política son estables entre años; los de programa y los nombres de
+ministerio cambian con cada reorganización, así que la evolución se cuenta por política.
+
+### GET /budget/programs/{program_id}?year=2023
+
+Un programa hasta la última partida de la Ley. `404` si ese programa no existe ese año.
+
+```json
+{
+  "program_id": "453B", "name": "Creación de infraestructura de carreteras",
+  "year": 2023, "document": "Ley", "policy_id": "45", "policy_name": "Infraestructuras",
+  "total_keur": 1599547.1, "eu_recovery_keur": 0.0,
+  "source_id": "sepg_pge_estado_gastos",
+  "sections": [
+    {
+      "section_id": "17", "section_name": "MINISTERIO DE TRANSPORTES, MOVILIDAD Y AGENDA URBANA",
+      "total_keur": 1599547.1,
+      "organics": [
+        {"organic_id": "17.38", "name": "DIRECCIÓN GENERAL DE CARRETERAS", "total_keur": 1599547.1, "undetailed_keur": 0.0}
+      ],
+      "lines": [
+        {"organic_id": "17.38", "economic_code": "1", "level": 1, "description": "GASTOS DE PERSONAL", "amount_keur": 35828.18},
+        {"organic_id": "17.38", "economic_code": "12", "level": 2, "description": "Funcionarios", "amount_keur": 17335.98},
+        {"organic_id": "17.38", "economic_code": "16000", "level": 4, "description": "Seguridad Social", "amount_keur": 5000.78}
+      ]
+    }
+  ]
+}
+```
+
+- Una `section` por ministerio: casi siempre una, pero un programa puede repartirse entre varios.
+- `lines` viene en el orden del documento. `level`: 1 capítulo, 2 artículo, 3 concepto,
+  4 subconcepto. Una línea cuelga de la anterior de nivel menor con su mismo `organic_id`.
+  **Para sumar, solo las de `level` 1**: las demás ya están contenidas en ellas.
+- `undetailed_keur`: la parte de un organismo que la Ley no reparte por capítulos.
+- Un programa puede no tener `lines` (la Ley solo da su total).
+
 ## Errores
 
 `404` con `{"detail": "Área no encontrada: GF99"}`; `422` para parámetros inválidos (por defecto de FastAPI).
@@ -209,6 +362,9 @@ calcula cuotas, variaciones, rankings y avisos.
 }
 ```
 
+- Además lleva `spending_types`, `spending_by_type`, `governments`, `budget_policies`,
+  `budget_years` y `budget_programs`; su forma está en `data/README.md`. Son opcionales
+  para el backend: si faltan, esas partes de la API salen vacías.
 - `spending` incluye el total con `area_id: "TOTAL"`.
 - Todo el gasto es del sector `S13` de Eurostat (conjunto de administraciones públicas).
 - En cada cruce, Mario da siempre `spend_share_pct` (la cuota de gasto, calculada por
