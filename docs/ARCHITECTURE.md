@@ -57,7 +57,9 @@ data/
 backend/
   main.py           FastAPI: rutas y CORS
   models.py         modelos Pydantic (= el contrato)
-  alerts.py         cálculo de avisos
+  dataset.py        carga dataset.json y responde consultas sencillas
+  alerts.py         las dos reglas de aviso y su aplicación
+  sample_dataset.json  datos de muestra para desarrollo y tests
   test_api.py
 frontend/
   src/api.ts        tipos del contrato + funciones fetch
@@ -81,8 +83,8 @@ docs/
 
 | Tipo | Qué detecta | Regla | Cobertura |
 |------|-------------|-------|-----------|
-| `usage_mismatch` | La cuota de gasto de algo no se parece a su cuota de uso (el caso "90% a autobuses, 10% de uso") | cuota de gasto ÷ cuota de uso supera el umbral del cruce (o queda por debajo de su inverso) | Ámbitos con cruce curado |
-| `international_outlier` | España gasta bastante más o menos que la mediana de la UE en esa función | diferencia con la mediana, en % del PIB, mayor que un umbral fijo | Todos los ámbitos, automático |
+| `usage_mismatch` | La cuota de gasto de algo no se parece a su cuota de uso (el caso "90% a autobuses, 10% de uso") | cuota de gasto ÷ cuota de uso supera el umbral del cruce (o queda por debajo de su inverso): `warning`; si dobla el umbral: `critical` | Ámbitos con cruce curado |
+| `international_outlier` | España gasta bastante más o menos que la mediana de la UE en esa función | distancia relativa a la mediana (en % del PIB) de un 25 % o más: `info`; de un 50 % o más: `warning` | Todos los ámbitos, automático |
 
 Son dos reglas aritméticas que caben en una pizarra. Cada aviso lleva severidad
 (`info`, `warning`, `critical`), una frase en lenguaje llano, los números que lo
