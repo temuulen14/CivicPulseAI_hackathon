@@ -1,4 +1,5 @@
-"""HTTP API. Routes only: data lookups live in dataset.py, rules in alerts.py.
+"""HTTP API. Routes only: data lookups live in dataset.py, alert rules in
+alerts.py and the Presupuestos Generales del Estado in budget.py.
 
 Run with:  uvicorn main:app --reload   (docs at http://localhost:8000/docs)
 """
@@ -6,6 +7,7 @@ Run with:  uvicorn main:app --reload   (docs at http://localhost:8000/docs)
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 
+import budget
 import models
 from alerts import SEVERITY_ORDER, build_alerts, eu_median
 from dataset import Dataset
@@ -27,6 +29,15 @@ def resolve_year(year):
         return data.latest_year
     if year not in data.years:
         raise HTTPException(404, f"Año sin datos: {year}")
+    return year
+
+
+def resolve_budget_year(year):
+    """Same idea for the PGE, which cover other years (2015-2025)."""
+    if year is None:
+        year = data.latest_budget_year
+    if year not in data.budget_years:
+        raise HTTPException(404, f"Año sin presupuesto: {year}")
     return year
 
 
@@ -64,6 +75,8 @@ def meta():
         "latest_year": data.latest_year,
         "countries": data.countries,
         "generated_at": data.generated_at,
+        "budget_years": sorted(data.budget_years),
+        "latest_budget_year": data.latest_budget_year,
     }
 
 
@@ -143,6 +156,19 @@ def area_detail(area_id: str, year: int | None = None):
         if indicator:
             indicators.append(indicator)
 
+    types = {t["id"]: t for t in data.spending_types}
+    by_type = [
+        {
+            "type_id": type_row["type_id"],
+            "name": types[type_row["type_id"]]["name"],
+            "description": types[type_row["type_id"]]["description"],
+            "amount_meur": type_row["amount_meur"],
+            "share_of_area_pct": percentage(type_row["amount_meur"], amount(row)),
+        }
+        for type_row in data.spending_by_type(area_id, year)
+    ]
+    by_type.sort(key=lambda t: t["amount_meur"] or 0, reverse=True)
+
     alerts = [
         a for a in build_alerts(data, year) if area_id in (a["area_id"], a["subarea_id"])
     ]
@@ -155,9 +181,12 @@ def area_detail(area_id: str, year: int | None = None):
         "amount_meur": amount(row),
         "share_of_total_pct": percentage(amount(row), amount(total)),
         "pct_gdp": row["pct_gdp"] if row else None,
+        "yoy_change_pct": yoy_change(area_id, year),
         "source_id": row["source_id"] if row else None,
         "history": history,
         "subareas": subareas,
+        "spending_by_type": by_type,
+        "budget_policies": budget.area_policies(data, area_id, year),
         "indicators": indicators,
         "alerts": alerts,
         "legal": data.legal_by_year.get(year),
@@ -219,3 +248,33 @@ def compare(
 @app.get("/api/sources", response_model=models.SourceList)
 def sources():
     return {"sources": data.sources}
+
+
+# --- Presupuestos Generales del Estado (logic in budget.py) -------------------
+
+
+@app.get("/api/budget/years", response_model=models.BudgetYears)
+def budget_years():
+    return budget.years_series(data)
+
+
+@app.get("/api/budget", response_model=models.BudgetOverview)
+def budget_overview(year: int | None = None):
+    return budget.year_overview(data, resolve_budget_year(year))
+
+
+@app.get("/api/budget/policies/{policy_id}", response_model=models.PolicyDetail)
+def budget_policy(policy_id: str, year: int | None = None):
+    policy = data.budget_policies.get(policy_id)
+    if policy is None:
+        raise HTTPException(404, f"Política de gasto no encontrada: {policy_id}")
+    return budget.policy_detail(data, policy, resolve_budget_year(year))
+
+
+@app.get("/api/budget/programs/{program_id}", response_model=models.ProgramDetail)
+def budget_program(program_id: str, year: int | None = None):
+    year = resolve_budget_year(year)
+    program = budget.program_detail(data, program_id.upper(), year)
+    if program is None:
+        raise HTTPException(404, f"Programa {program_id} no encontrado en {year}")
+    return program

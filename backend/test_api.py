@@ -1,4 +1,7 @@
-"""Tests run against sample_dataset.json so they do not depend on real data."""
+"""Tests run against sample_dataset.json so the expected numbers never change.
+
+test_real_dataset.py checks the real data/dataset.json.
+"""
 
 import os
 from pathlib import Path
@@ -143,3 +146,103 @@ def test_compare_with_too_few_countries_has_no_median():
 def test_sources():
     ids = [s["id"] for s in client.get("/api/sources").json()["sources"]]
     assert "eurostat_tran_hv_psmod" in ids
+
+
+def test_area_detail_has_yoy_and_spending_by_type():
+    body = client.get("/api/areas/GF04").json()
+    assert body["yoy_change_pct"] == -2.6  # 76900 -> 74900
+    types = body["spending_by_type"]
+    assert len(types) == 10
+    amounts = [t["amount_meur"] for t in types]
+    assert amounts == sorted(amounts, reverse=True)
+    assert types[0]["name"] and types[0]["share_of_area_pct"] is not None
+
+
+def test_area_detail_links_budget_policies():
+    body = client.get("/api/areas/GF04").json()
+    assert [p["id"] for p in body["budget_policies"]] == ["45", "44"]  # by total
+    assert body["budget_policies"][1]["total_keur"] == 84279.24  # program 441P
+
+
+# --- Presupuestos Generales del Estado ---------------------------------------
+# The sample holds a few real programs of 2022 and 2023, and 2020 without document.
+
+
+def test_meta_lists_budget_years():
+    body = client.get("/api/meta").json()
+    assert body["budget_years"] == [2020, 2022, 2023]
+    assert body["latest_budget_year"] == 2023
+
+
+def test_budget_years_series_with_governments():
+    body = client.get("/api/budget/years").json()
+    assert [y["year"] for y in body["years"]] == [2020, 2022, 2023]
+    government_ids = {g["id"] for g in body["governments"]}
+    for year in body["years"]:
+        assert year["drafted_by"] in government_ids
+        assert all(e["government_id"] in government_ids for e in year["executed_by"])
+
+
+def test_budget_overview_groups_programs_by_policy():
+    body = client.get("/api/budget").json()
+    assert body["year"] == 2023
+    assert body["document"] == "Ley"
+    assert body["legal"]["boe_id"] == "BOE-A-2022-22128"
+    assert [p["id"] for p in body["policies"]] == ["21", "45", "44", "32"]  # by total
+
+    pensions = body["policies"][0]  # program 212A: 4100.0 (State) + 2803945.6 (Social Security)
+    assert pensions["total_keur"] == 2808045.6
+    assert pensions["total_without_social_security_keur"] == 4100.0
+    assert pensions["program_count"] == 1
+
+    infrastructure = body["policies"][1]  # 453N + 453O + 45DA (two ministries)
+    assert infrastructure["total_keur"] == 95840.63
+    assert infrastructure["eu_recovery_keur"] == 48339.06
+    assert infrastructure["program_count"] == 3
+
+
+def test_budget_year_without_document_has_nulls_and_a_note():
+    body = client.get("/api/budget?year=2020").json()
+    assert body["document"] is None
+    assert body["total_keur"] is None
+    assert body["policies"] == []
+    assert "prorrogado" in body["note"]
+
+
+def test_budget_policy_detail():
+    body = client.get("/api/budget/policies/45?year=2023").json()
+    assert body["name"] == "Infraestructuras"
+    assert body["area_id"] == "GF04"
+    assert [p["program_id"] for p in body["programs"]] == ["45DA", "453N", "453O"]
+    assert len(body["programs"][0]["section_names"]) == 2
+    assert [(h["year"], h["total_keur"]) for h in body["history"]] == [
+        (2020, None),  # no document: null, never 0
+        (2022, 49747.83),
+        (2023, 95840.63),
+    ]
+
+
+def test_budget_program_detail_with_line_levels():
+    body = client.get("/api/budget/programs/453o?year=2023").json()  # case-insensitive
+    assert body["name"] == "Comisión de Investigación de Accidentes Ferroviarios"
+    assert body["policy_name"] == "Infraestructuras"
+    assert body["total_keur"] == 516.15
+    lines = body["sections"][0]["lines"]
+    assert [(line["economic_code"], line["level"]) for line in lines] == [
+        ("1", 1), ("12", 2), ("16", 2), ("16000", 4), ("2", 1), ("22", 2), ("23", 2),
+    ]
+    chapters = sum(line["amount_keur"] for line in lines if line["level"] == 1)
+    assert round(chapters, 2) == body["total_keur"]
+
+
+def test_budget_program_split_between_ministries():
+    body = client.get("/api/budget/programs/45DA").json()
+    assert [s["section_id"] for s in body["sections"]] == ["23", "28"]
+    assert body["total_keur"] == 78860.96  # 49828.41 + 29032.55
+
+
+def test_budget_unknowns_return_404():
+    assert client.get("/api/budget?year=1990").status_code == 404
+    assert client.get("/api/budget/policies/99").status_code == 404
+    assert client.get("/api/budget/programs/999Z").status_code == 404
+    assert client.get("/api/budget/programs/212A?year=2022").status_code == 404  # only in 2023

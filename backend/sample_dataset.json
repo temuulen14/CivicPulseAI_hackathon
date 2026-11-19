@@ -1,59 +1,1416 @@
 {
-  "generated_at": "2026-11-19T12:00:00Z",
-  "countries": [
-    {"code": "ES", "name": "España"},
-    {"code": "FR", "name": "Francia"},
-    {"code": "DE", "name": "Alemania"},
-    {"code": "IT", "name": "Italia"},
-    {"code": "PT", "name": "Portugal"}
-  ],
-  "areas": [
-    {"id": "GF04", "level": 1, "parent_id": null, "name": "Asuntos económicos", "description": "Transporte, energía, agricultura, industria y apoyo a la economía.", "icon": "briefcase"},
-    {"id": "GF07", "level": 1, "parent_id": null, "name": "Sanidad", "description": "Hospitales, atención primaria, medicamentos y salud pública.", "icon": "heart-pulse"},
-    {"id": "GF09", "level": 1, "parent_id": null, "name": "Educación", "description": "Colegios, institutos, universidades y becas.", "icon": "graduation-cap"},
-    {"id": "GF0405", "level": 2, "parent_id": "GF04", "name": "Transporte", "description": null, "icon": null}
-  ],
-  "spending": [
-    {"area_id": "TOTAL", "country": "ES", "year": 2022, "amount_meur": 650800.0, "pct_gdp": 47.4, "provisional": false, "source_id": "sample"},
-    {"area_id": "TOTAL", "country": "ES", "year": 2023, "amount_meur": 680225.0, "pct_gdp": 45.4, "provisional": true, "source_id": "sample"},
-
-    {"area_id": "GF04", "country": "ES", "year": 2022, "amount_meur": 76900.0, "pct_gdp": 5.6, "provisional": false, "source_id": "sample"},
-    {"area_id": "GF04", "country": "ES", "year": 2023, "amount_meur": 74900.0, "pct_gdp": 5.0, "provisional": true, "source_id": "sample"},
-    {"area_id": "GF07", "country": "ES", "year": 2022, "amount_meur": 93400.0, "pct_gdp": 6.8, "provisional": false, "source_id": "sample"},
-    {"area_id": "GF07", "country": "ES", "year": 2023, "amount_meur": 98900.0, "pct_gdp": 6.6, "provisional": true, "source_id": "sample"},
-    {"area_id": "GF09", "country": "ES", "year": 2022, "amount_meur": 56300.0, "pct_gdp": 4.1, "provisional": false, "source_id": "sample"},
-    {"area_id": "GF09", "country": "ES", "year": 2023, "amount_meur": 62900.0, "pct_gdp": 4.2, "provisional": true, "source_id": "sample"},
-    {"area_id": "GF0405", "country": "ES", "year": 2022, "amount_meur": 27500.0, "pct_gdp": 2.0, "provisional": false, "source_id": "sample"},
-    {"area_id": "GF0405", "country": "ES", "year": 2023, "amount_meur": 28897.0, "pct_gdp": 1.9, "provisional": true, "source_id": "sample"},
-
-    {"area_id": "GF04", "country": "FR", "year": 2023, "amount_meur": null, "pct_gdp": 6.3, "provisional": true, "source_id": "sample"},
-    {"area_id": "GF04", "country": "DE", "year": 2023, "amount_meur": null, "pct_gdp": 4.6, "provisional": true, "source_id": "sample"},
-    {"area_id": "GF04", "country": "IT", "year": 2023, "amount_meur": null, "pct_gdp": 5.4, "provisional": true, "source_id": "sample"},
-    {"area_id": "GF04", "country": "PT", "year": 2023, "amount_meur": null, "pct_gdp": 4.4, "provisional": true, "source_id": "sample"},
-
-    {"area_id": "GF07", "country": "FR", "year": 2023, "amount_meur": null, "pct_gdp": 8.8, "provisional": true, "source_id": "sample"},
-    {"area_id": "GF07", "country": "DE", "year": 2023, "amount_meur": null, "pct_gdp": 8.2, "provisional": true, "source_id": "sample"},
-    {"area_id": "GF07", "country": "IT", "year": 2023, "amount_meur": null, "pct_gdp": 6.9, "provisional": true, "source_id": "sample"},
-    {"area_id": "GF07", "country": "PT", "year": 2023, "amount_meur": null, "pct_gdp": 7.1, "provisional": true, "source_id": "sample"},
-
-    {"area_id": "GF09", "country": "FR", "year": 2023, "amount_meur": null, "pct_gdp": 5.0, "provisional": true, "source_id": "sample"},
-    {"area_id": "GF09", "country": "DE", "year": 2023, "amount_meur": null, "pct_gdp": 4.5, "provisional": true, "source_id": "sample"},
-    {"area_id": "GF09", "country": "IT", "year": 2023, "amount_meur": null, "pct_gdp": 3.9, "provisional": true, "source_id": "sample"},
-    {"area_id": "GF09", "country": "PT", "year": 2023, "amount_meur": null, "pct_gdp": 4.4, "provisional": true, "source_id": "sample"}
-  ],
-  "indicators": [
-    {"id": "modal_split_train", "area_id": "GF0405", "name": "Viajeros que se mueven en tren", "unit": "% de los viajeros-km", "country": "ES", "year": 2022, "value": 9.3, "source_id": "eurostat_tran_hv_psmod"},
-    {"id": "modal_split_bus", "area_id": "GF0405", "name": "Viajeros que se mueven en autobús", "unit": "% de los viajeros-km", "country": "ES", "year": 2022, "value": 6.7, "source_id": "eurostat_tran_hv_psmod"}
-  ],
-  "crosses": [
-    {"id": "rail_spend_vs_use", "area_id": "GF0405", "title": "El gasto en ferrocarril no se corresponde con su uso", "spend_share_pct": 55.0, "usage_indicator_id": "modal_split_train", "threshold_ratio": 2.0, "analyst_note": "Cifra de gasto ilustrativa. La infraestructura ferroviaria se amortiza en décadas.", "evidence": []},
-    {"id": "bus_spend_vs_use", "area_id": "GF0405", "title": "Gasto y uso del autobús", "spend_share_pct": 10.0, "usage_indicator_id": "modal_split_bus", "threshold_ratio": 2.0, "analyst_note": null, "evidence": []}
-  ],
-  "legal": [
-    {"year": 2023, "law_title": "Ley 31/2022, de 23 de diciembre, de Presupuestos Generales del Estado para el año 2023", "boe_id": "BOE-A-2022-22128", "boe_url": "https://www.boe.es/buscar/act.php?id=BOE-A-2022-22128", "note": null}
-  ],
-  "sources": [
-    {"id": "sample", "name": "Datos de muestra para desarrollo (valores en parte ilustrativos)", "publisher": "Equipo", "url": "https://ec.europa.eu/eurostat/databrowser/view/gov_10a_exp/default/table", "license": "No usar en la demo", "retrieved_at": "2026-11-19"},
-    {"id": "eurostat_tran_hv_psmod", "name": "Eurostat · Reparto modal del transporte interior de viajeros", "publisher": "Eurostat", "url": "https://ec.europa.eu/eurostat/databrowser/view/tran_hv_psmod/default/table", "license": "Reutilización libre con cita", "retrieved_at": "2026-11-19"}
-  ]
+ "generated_at": "2026-11-19T12:00:00Z",
+ "countries": [
+  {
+   "code": "ES",
+   "name": "España"
+  },
+  {
+   "code": "FR",
+   "name": "Francia"
+  },
+  {
+   "code": "DE",
+   "name": "Alemania"
+  },
+  {
+   "code": "IT",
+   "name": "Italia"
+  },
+  {
+   "code": "PT",
+   "name": "Portugal"
+  }
+ ],
+ "areas": [
+  {
+   "id": "GF04",
+   "level": 1,
+   "parent_id": null,
+   "name": "Asuntos económicos",
+   "description": "Transporte, energía, agricultura, industria y apoyo a la economía.",
+   "icon": "briefcase"
+  },
+  {
+   "id": "GF07",
+   "level": 1,
+   "parent_id": null,
+   "name": "Sanidad",
+   "description": "Hospitales, atención primaria, medicamentos y salud pública.",
+   "icon": "heart-pulse"
+  },
+  {
+   "id": "GF09",
+   "level": 1,
+   "parent_id": null,
+   "name": "Educación",
+   "description": "Colegios, institutos, universidades y becas.",
+   "icon": "graduation-cap"
+  },
+  {
+   "id": "GF0405",
+   "level": 2,
+   "parent_id": "GF04",
+   "name": "Transporte",
+   "description": null,
+   "icon": null
+  }
+ ],
+ "spending": [
+  {
+   "area_id": "TOTAL",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 650800.0,
+   "pct_gdp": 47.4,
+   "provisional": false,
+   "source_id": "sample"
+  },
+  {
+   "area_id": "TOTAL",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 680225.0,
+   "pct_gdp": 45.4,
+   "provisional": true,
+   "source_id": "sample"
+  },
+  {
+   "area_id": "GF04",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 76900.0,
+   "pct_gdp": 5.6,
+   "provisional": false,
+   "source_id": "sample"
+  },
+  {
+   "area_id": "GF04",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 74900.0,
+   "pct_gdp": 5.0,
+   "provisional": true,
+   "source_id": "sample"
+  },
+  {
+   "area_id": "GF07",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 93400.0,
+   "pct_gdp": 6.8,
+   "provisional": false,
+   "source_id": "sample"
+  },
+  {
+   "area_id": "GF07",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 98900.0,
+   "pct_gdp": 6.6,
+   "provisional": true,
+   "source_id": "sample"
+  },
+  {
+   "area_id": "GF09",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 56300.0,
+   "pct_gdp": 4.1,
+   "provisional": false,
+   "source_id": "sample"
+  },
+  {
+   "area_id": "GF09",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 62900.0,
+   "pct_gdp": 4.2,
+   "provisional": true,
+   "source_id": "sample"
+  },
+  {
+   "area_id": "GF0405",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 27500.0,
+   "pct_gdp": 2.0,
+   "provisional": false,
+   "source_id": "sample"
+  },
+  {
+   "area_id": "GF0405",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 28897.0,
+   "pct_gdp": 1.9,
+   "provisional": true,
+   "source_id": "sample"
+  },
+  {
+   "area_id": "GF04",
+   "country": "FR",
+   "year": 2023,
+   "amount_meur": null,
+   "pct_gdp": 6.3,
+   "provisional": true,
+   "source_id": "sample"
+  },
+  {
+   "area_id": "GF04",
+   "country": "DE",
+   "year": 2023,
+   "amount_meur": null,
+   "pct_gdp": 4.6,
+   "provisional": true,
+   "source_id": "sample"
+  },
+  {
+   "area_id": "GF04",
+   "country": "IT",
+   "year": 2023,
+   "amount_meur": null,
+   "pct_gdp": 5.4,
+   "provisional": true,
+   "source_id": "sample"
+  },
+  {
+   "area_id": "GF04",
+   "country": "PT",
+   "year": 2023,
+   "amount_meur": null,
+   "pct_gdp": 4.4,
+   "provisional": true,
+   "source_id": "sample"
+  },
+  {
+   "area_id": "GF07",
+   "country": "FR",
+   "year": 2023,
+   "amount_meur": null,
+   "pct_gdp": 8.8,
+   "provisional": true,
+   "source_id": "sample"
+  },
+  {
+   "area_id": "GF07",
+   "country": "DE",
+   "year": 2023,
+   "amount_meur": null,
+   "pct_gdp": 8.2,
+   "provisional": true,
+   "source_id": "sample"
+  },
+  {
+   "area_id": "GF07",
+   "country": "IT",
+   "year": 2023,
+   "amount_meur": null,
+   "pct_gdp": 6.9,
+   "provisional": true,
+   "source_id": "sample"
+  },
+  {
+   "area_id": "GF07",
+   "country": "PT",
+   "year": 2023,
+   "amount_meur": null,
+   "pct_gdp": 7.1,
+   "provisional": true,
+   "source_id": "sample"
+  },
+  {
+   "area_id": "GF09",
+   "country": "FR",
+   "year": 2023,
+   "amount_meur": null,
+   "pct_gdp": 5.0,
+   "provisional": true,
+   "source_id": "sample"
+  },
+  {
+   "area_id": "GF09",
+   "country": "DE",
+   "year": 2023,
+   "amount_meur": null,
+   "pct_gdp": 4.5,
+   "provisional": true,
+   "source_id": "sample"
+  },
+  {
+   "area_id": "GF09",
+   "country": "IT",
+   "year": 2023,
+   "amount_meur": null,
+   "pct_gdp": 3.9,
+   "provisional": true,
+   "source_id": "sample"
+  },
+  {
+   "area_id": "GF09",
+   "country": "PT",
+   "year": 2023,
+   "amount_meur": null,
+   "pct_gdp": 4.4,
+   "provisional": true,
+   "source_id": "sample"
+  }
+ ],
+ "indicators": [
+  {
+   "id": "modal_split_train",
+   "area_id": "GF0405",
+   "name": "Viajeros que se mueven en tren",
+   "unit": "% de los viajeros-km",
+   "country": "ES",
+   "year": 2022,
+   "value": 9.3,
+   "source_id": "eurostat_tran_hv_psmod"
+  },
+  {
+   "id": "modal_split_bus",
+   "area_id": "GF0405",
+   "name": "Viajeros que se mueven en autobús",
+   "unit": "% de los viajeros-km",
+   "country": "ES",
+   "year": 2022,
+   "value": 6.7,
+   "source_id": "eurostat_tran_hv_psmod"
+  }
+ ],
+ "crosses": [
+  {
+   "id": "rail_spend_vs_use",
+   "area_id": "GF0405",
+   "title": "El gasto en ferrocarril no se corresponde con su uso",
+   "spend_share_pct": 55.0,
+   "usage_indicator_id": "modal_split_train",
+   "threshold_ratio": 2.0,
+   "analyst_note": "Cifra de gasto ilustrativa. La infraestructura ferroviaria se amortiza en décadas.",
+   "evidence": []
+  },
+  {
+   "id": "bus_spend_vs_use",
+   "area_id": "GF0405",
+   "title": "Gasto y uso del autobús",
+   "spend_share_pct": 10.0,
+   "usage_indicator_id": "modal_split_bus",
+   "threshold_ratio": 2.0,
+   "analyst_note": null,
+   "evidence": []
+  }
+ ],
+ "legal": [
+  {
+   "year": 2023,
+   "law_title": "Ley 31/2022, de 23 de diciembre, de Presupuestos Generales del Estado para el año 2023",
+   "boe_id": "BOE-A-2022-22128",
+   "boe_url": "https://www.boe.es/buscar/act.php?id=BOE-A-2022-22128",
+   "note": null
+  }
+ ],
+ "sources": [
+  {
+   "id": "sample",
+   "name": "Datos de muestra para desarrollo (valores en parte ilustrativos)",
+   "publisher": "Equipo",
+   "url": "https://ec.europa.eu/eurostat/databrowser/view/gov_10a_exp/default/table",
+   "license": "No usar en la demo",
+   "retrieved_at": "2026-11-19"
+  },
+  {
+   "id": "eurostat_tran_hv_psmod",
+   "name": "Eurostat · Reparto modal del transporte interior de viajeros",
+   "publisher": "Eurostat",
+   "url": "https://ec.europa.eu/eurostat/databrowser/view/tran_hv_psmod/default/table",
+   "license": "Reutilización libre con cita",
+   "retrieved_at": "2026-11-19"
+  },
+  {
+   "id": "eurostat_gov_10a_exp",
+   "name": "Eurostat · Gasto de las administraciones públicas por función (COFOG)",
+   "publisher": "Eurostat",
+   "url": "https://ec.europa.eu/eurostat/databrowser/view/gov_10a_exp/default/table",
+   "license": "Reutilización libre con cita",
+   "retrieved_at": "2026-11-19"
+  },
+  {
+   "id": "sepg_pge_estado_gastos",
+   "name": "Presupuestos Generales del Estado · Estado de gastos por programas (Serie Roja)",
+   "publisher": "Ministerio de Hacienda · Secretaría de Estado de Presupuestos y Gastos",
+   "url": "https://www.sepg.pap.hacienda.gob.es/Presup/PGE2023Ley/MaestroDocumentos/PGE-ROM/N_23_E_R_31.htm",
+   "license": "Reutilización libre con cita",
+   "retrieved_at": "2026-11-19"
+  }
+ ],
+ "spending_types": [
+  {
+   "id": "D1",
+   "name": "Personal",
+   "description": "Sueldos, salarios y cotizaciones sociales de los empleados públicos."
+  },
+  {
+   "id": "P2",
+   "name": "Compras de bienes y servicios",
+   "description": "Material, suministros, mantenimiento, alquileres y servicios contratados para el funcionamiento propio."
+  },
+  {
+   "id": "D632",
+   "name": "Servicios comprados para el ciudadano",
+   "description": "Bienes y servicios que la administración paga a proveedores privados y recibe directamente el ciudadano: conciertos sanitarios y educativos, medicamentos con receta."
+  },
+  {
+   "id": "D62",
+   "name": "Prestaciones en dinero",
+   "description": "Pagos en efectivo a los hogares: pensiones, subsidios de desempleo, ayudas familiares."
+  },
+  {
+   "id": "D3",
+   "name": "Subvenciones",
+   "description": "Pagos a empresas para reducir precios o costes de producción."
+  },
+  {
+   "id": "D4",
+   "name": "Intereses y rentas de la propiedad",
+   "description": "Sobre todo intereses de la deuda pública."
+  },
+  {
+   "id": "D7",
+   "name": "Otras transferencias corrientes",
+   "description": "Transferencias a otras administraciones, a instituciones sin fines de lucro y a la Unión Europea."
+  },
+  {
+   "id": "D9",
+   "name": "Transferencias de capital",
+   "description": "Ayudas a la inversión de terceros y otras transferencias de capital."
+  },
+  {
+   "id": "OP5ANP",
+   "name": "Inversión",
+   "description": "Construcción de edificios e infraestructuras, compra de equipos y terrenos."
+  },
+  {
+   "id": "D29_D5_D8",
+   "name": "Impuestos pagados y otros",
+   "description": "Impuestos que paga la propia administración y ajustes contables de pensiones."
+  }
+ ],
+ "spending_by_type": [
+  {
+   "area_id": "GF04",
+   "country": "ES",
+   "year": 2023,
+   "type_id": "D1",
+   "amount_meur": 14184.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF04",
+   "country": "ES",
+   "year": 2023,
+   "type_id": "D29_D5_D8",
+   "amount_meur": 418.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF04",
+   "country": "ES",
+   "year": 2023,
+   "type_id": "D3",
+   "amount_meur": 19364.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF04",
+   "country": "ES",
+   "year": 2023,
+   "type_id": "D4",
+   "amount_meur": 1.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF04",
+   "country": "ES",
+   "year": 2023,
+   "type_id": "D62",
+   "amount_meur": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF04",
+   "country": "ES",
+   "year": 2023,
+   "type_id": "D632",
+   "amount_meur": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF04",
+   "country": "ES",
+   "year": 2023,
+   "type_id": "D7",
+   "amount_meur": 2947.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF04",
+   "country": "ES",
+   "year": 2023,
+   "type_id": "D9",
+   "amount_meur": 9933.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF04",
+   "country": "ES",
+   "year": 2023,
+   "type_id": "OP5ANP",
+   "amount_meur": 16164.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF04",
+   "country": "ES",
+   "year": 2023,
+   "type_id": "P2",
+   "amount_meur": 11840.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  }
+ ],
+ "budget_policies": [
+  {
+   "id": "21",
+   "name": "Pensiones",
+   "area_id": "GF10"
+  },
+  {
+   "id": "32",
+   "name": "Educación",
+   "area_id": "GF09"
+  },
+  {
+   "id": "44",
+   "name": "Subvenciones al transporte",
+   "area_id": "GF04"
+  },
+  {
+   "id": "45",
+   "name": "Infraestructuras",
+   "area_id": "GF04"
+  }
+ ],
+ "governments": [
+  {
+   "id": "rajoy_2011",
+   "president": "Mariano Rajoy Brey",
+   "parties": [
+    "PP"
+   ],
+   "start": "2011-12-21",
+   "end": "2016-10-31",
+   "appointment_boe_id": "BOE-A-2011-19861",
+   "coalition_boe_id": null,
+   "party_source_url": "https://www.lamoncloa.gob.es/presidente/presidentes/Paginas/MarianoRajoy_BIO.aspx",
+   "coalition_source_url": null,
+   "note": "En funciones desde las elecciones del 20 de diciembre de 2015 hasta la investidura de octubre de 2016.",
+   "appointment_boe_url": "https://www.boe.es/diario_boe/txt.php?id=BOE-A-2011-19861"
+  },
+  {
+   "id": "rajoy_2016",
+   "president": "Mariano Rajoy Brey",
+   "parties": [
+    "PP"
+   ],
+   "start": "2016-10-31",
+   "end": "2018-06-02",
+   "appointment_boe_id": "BOE-A-2016-9962",
+   "coalition_boe_id": null,
+   "party_source_url": "https://www.lamoncloa.gob.es/presidente/presidentes/Paginas/MarianoRajoy_BIO.aspx",
+   "coalition_source_url": null,
+   "note": "Cesa por la moción de censura de junio de 2018 (cese: BOE-A-2018-7402).",
+   "appointment_boe_url": "https://www.boe.es/diario_boe/txt.php?id=BOE-A-2016-9962"
+  },
+  {
+   "id": "sanchez_2018",
+   "president": "Pedro Sánchez Pérez-Castejón",
+   "parties": [
+    "PSOE"
+   ],
+   "start": "2018-06-02",
+   "end": "2020-01-08",
+   "appointment_boe_id": "BOE-A-2018-7400",
+   "coalition_boe_id": null,
+   "party_source_url": "https://www.lamoncloa.gob.es/presidente/biografia/Paginas/index.aspx",
+   "coalition_source_url": null,
+   "note": "Llega por moción de censura. En funciones desde las elecciones del 28 de abril de 2019 hasta la investidura de enero de 2020.",
+   "appointment_boe_url": "https://www.boe.es/diario_boe/txt.php?id=BOE-A-2018-7400"
+  },
+  {
+   "id": "sanchez_2020",
+   "president": "Pedro Sánchez Pérez-Castejón",
+   "parties": [
+    "PSOE",
+    "Unidas Podemos"
+   ],
+   "start": "2020-01-08",
+   "end": "2023-11-17",
+   "appointment_boe_id": "BOE-A-2020-231",
+   "coalition_boe_id": "BOE-A-2020-413",
+   "party_source_url": "https://www.lamoncloa.gob.es/presidente/biografia/Paginas/index.aspx",
+   "coalition_source_url": "https://www.lamoncloa.gob.es/presidente/presidentes/investiduras/Paginas/04012020_InvestSanchez.aspx",
+   "note": "Gobierno de coalición. En funciones desde las elecciones del 23 de julio de 2023 hasta la investidura de noviembre de 2023.",
+   "appointment_boe_url": "https://www.boe.es/diario_boe/txt.php?id=BOE-A-2020-231"
+  },
+  {
+   "id": "sanchez_2023",
+   "president": "Pedro Sánchez Pérez-Castejón",
+   "parties": [
+    "PSOE",
+    "Sumar"
+   ],
+   "start": "2023-11-17",
+   "end": null,
+   "appointment_boe_id": "BOE-A-2023-23302",
+   "coalition_boe_id": "BOE-A-2023-23540",
+   "party_source_url": "https://www.lamoncloa.gob.es/presidente/biografia/Paginas/index.aspx",
+   "coalition_source_url": "https://www.lamoncloa.gob.es/presidente/presidentes/investiduras/Paginas/15112023_InvestSanchez.aspx",
+   "note": "Gobierno de coalición.",
+   "appointment_boe_url": "https://www.boe.es/diario_boe/txt.php?id=BOE-A-2023-23302"
+  }
+ ],
+ "budget_years": [
+  {
+   "year": 2020,
+   "document": null,
+   "includes_social_security": false,
+   "total_keur": null,
+   "total_without_social_security_keur": null,
+   "eu_recovery_keur": null,
+   "drafted_by": "rajoy_2016",
+   "executed_by": [
+    {
+     "government_id": "sanchez_2018",
+     "days": 7
+    },
+    {
+     "government_id": "sanchez_2020",
+     "days": 359
+    }
+   ],
+   "note": "Sin ley nueva: siguió prorrogado el presupuesto de 2018. Hacienda no publica documento de prórroga para 2020."
+  },
+  {
+   "year": 2022,
+   "document": "Ley",
+   "includes_social_security": true,
+   "total_keur": 527107763.22,
+   "total_without_social_security_keur": 346229737.17,
+   "eu_recovery_keur": 24696227.16,
+   "drafted_by": "sanchez_2020",
+   "executed_by": [
+    {
+     "government_id": "sanchez_2020",
+     "days": 365
+    }
+   ],
+   "note": null
+  },
+  {
+   "year": 2023,
+   "document": "Ley",
+   "includes_social_security": true,
+   "total_keur": 583543307.1,
+   "total_without_social_security_keur": 379810403.74,
+   "eu_recovery_keur": 26538869.31,
+   "drafted_by": "sanchez_2020",
+   "executed_by": [
+    {
+     "government_id": "sanchez_2020",
+     "days": 320
+    },
+    {
+     "government_id": "sanchez_2023",
+     "days": 45
+    }
+   ],
+   "note": null
+  }
+ ],
+ "budget_programs": [
+  {
+   "year": 2022,
+   "organics": [
+    {
+     "organic_id": "18.01",
+     "name": "MINISTERIO, SUBSECRETARÍA Y SERVICIOS GENERALES",
+     "total_keur": 3959.92,
+     "undetailed_keur": 0.0
+    },
+    {
+     "organic_id": "18.04",
+     "name": "DIRECCIÓN GENERAL DE EVALUACIÓN Y COOPERACIÓN TERRITORIAL",
+     "total_keur": 2.08,
+     "undetailed_keur": 0.0
+    },
+    {
+     "organic_id": "18.08",
+     "name": "DIRECCIÓN GENERAL DE PLANIFICACIÓN Y GESTIÓN EDUCATIVA",
+     "total_keur": 296.75,
+     "undetailed_keur": 0.0
+    }
+   ],
+   "lines": [
+    {
+     "organic_id": "18.01",
+     "economic_code": "1",
+     "description": "GASTOS DE PERSONAL",
+     "amount_keur": 3959.92
+    },
+    {
+     "organic_id": "18.01",
+     "economic_code": "12",
+     "description": "Funcionarios",
+     "amount_keur": 3272.21
+    },
+    {
+     "organic_id": "18.01",
+     "economic_code": "13",
+     "description": "Laborales",
+     "amount_keur": 74.11
+    },
+    {
+     "organic_id": "18.01",
+     "economic_code": "16",
+     "description": "Cuotas, prestaciones y gastos sociales a cargo del empleador",
+     "amount_keur": 613.6
+    },
+    {
+     "organic_id": "18.01",
+     "economic_code": "16000",
+     "description": "Seguridad Social",
+     "amount_keur": 613.6
+    },
+    {
+     "organic_id": "18.04",
+     "economic_code": "2",
+     "description": "GASTOS CORRIENTES EN BIENES Y SERVICIOS",
+     "amount_keur": 2.08
+    },
+    {
+     "organic_id": "18.04",
+     "economic_code": "22",
+     "description": "Material, suministros y otros",
+     "amount_keur": 2.08
+    },
+    {
+     "organic_id": "18.08",
+     "economic_code": "2",
+     "description": "GASTOS CORRIENTES EN BIENES Y SERVICIOS",
+     "amount_keur": 296.75
+    },
+    {
+     "organic_id": "18.08",
+     "economic_code": "22",
+     "description": "Material, suministros y otros",
+     "amount_keur": 296.75
+    }
+   ],
+   "section_id": "18",
+   "section_name": "MINISTERIO DE EDUCACIÓN Y FORMACIÓN PROFESIONAL",
+   "program_id": "322E",
+   "name": "Enseñanzas artísticas",
+   "total_keur": 4258.75,
+   "document": "Ley",
+   "policy_id": "32",
+   "eu_recovery_keur": 0,
+   "source_id": "sepg_pge_estado_gastos"
+  },
+  {
+   "year": 2022,
+   "organics": [
+    {
+     "organic_id": "17.20",
+     "name": "SECRETARÍA DE ESTADO DE TRANSPORTES, MOVILIDAD Y AGENDA URBANA",
+     "total_keur": 74279.24,
+     "undetailed_keur": 0.0
+    }
+   ],
+   "lines": [
+    {
+     "organic_id": "17.20",
+     "economic_code": "4",
+     "description": "TRANSFERENCIAS CORRIENTES",
+     "amount_keur": 74279.24
+    },
+    {
+     "organic_id": "17.20",
+     "economic_code": "47",
+     "description": "A empresas privadas",
+     "amount_keur": 74279.24
+    },
+    {
+     "organic_id": "17.20",
+     "economic_code": "471",
+     "description": "Transporte del plátano de Canarias",
+     "amount_keur": 10000.0
+    },
+    {
+     "organic_id": "17.20",
+     "economic_code": "478",
+     "description": "Subvención al transporte marítimo y aéreo de mercancías con origen o destino en territorios extrapeninsulares de acuerdo con la legislación vigente",
+     "amount_keur": 64279.24
+    }
+   ],
+   "section_id": "17",
+   "section_name": "MINISTERIO DE TRANSPORTES, MOVILIDAD Y AGENDA URBANA",
+   "program_id": "441P",
+   "name": "Subvenciones al transporte extrapeninsular de mercancías",
+   "total_keur": 74279.24,
+   "document": "Ley",
+   "policy_id": "44",
+   "eu_recovery_keur": 0,
+   "source_id": "sepg_pge_estado_gastos"
+  },
+  {
+   "year": 2022,
+   "organics": [
+    {
+     "organic_id": "17.302",
+     "name": "AGENCIA ESTATAL DE SEGURIDAD FERROVIARIA",
+     "total_keur": 14860.3,
+     "undetailed_keur": 7964.25
+    }
+   ],
+   "lines": [
+    {
+     "organic_id": "17.302",
+     "economic_code": "1",
+     "description": "GASTOS DE PERSONAL",
+     "amount_keur": 6896.05
+    },
+    {
+     "organic_id": "17.302",
+     "economic_code": "15",
+     "description": "Incentivos al rendimiento",
+     "amount_keur": 844.66
+    },
+    {
+     "organic_id": "17.302",
+     "economic_code": "150",
+     "description": "Productividad",
+     "amount_keur": 790.33
+    },
+    {
+     "organic_id": "17.302",
+     "economic_code": "151",
+     "description": "Gratificaciones",
+     "amount_keur": 54.33
+    },
+    {
+     "organic_id": "17.302",
+     "economic_code": "16200",
+     "description": "Formación y perfeccionamiento del personal",
+     "amount_keur": 55.0
+    },
+    {
+     "organic_id": "17.302",
+     "economic_code": "16204",
+     "description": "Acción social",
+     "amount_keur": 20.0
+    },
+    {
+     "organic_id": "17.302",
+     "economic_code": "22109",
+     "description": "Labores Fábrica Nacional Moneda y Timbre",
+     "amount_keur": 64.0
+    },
+    {
+     "organic_id": "17.302",
+     "economic_code": "22601",
+     "description": "Atenciones protocolarias y representativas",
+     "amount_keur": 2.34
+    },
+    {
+     "organic_id": "17.302",
+     "economic_code": "22706",
+     "description": "Estudios y trabajos técnicos",
+     "amount_keur": 7.0
+    }
+   ],
+   "section_id": "17",
+   "section_name": "MINISTERIO DE TRANSPORTES, MOVILIDAD Y AGENDA URBANA",
+   "program_id": "453N",
+   "name": "Regulación y supervisión de la seguridad ferroviaria",
+   "total_keur": 14860.3,
+   "document": "Ley",
+   "policy_id": "45",
+   "eu_recovery_keur": 0,
+   "source_id": "sepg_pge_estado_gastos"
+  },
+  {
+   "year": 2022,
+   "organics": [
+    {
+     "organic_id": "17.01",
+     "name": "MINISTERIO, SUBSECRETARÍA Y SERVICIOS GENERALES",
+     "total_keur": 605.53,
+     "undetailed_keur": 0.0
+    }
+   ],
+   "lines": [
+    {
+     "organic_id": "17.01",
+     "economic_code": "1",
+     "description": "GASTOS DE PERSONAL",
+     "amount_keur": 503.53
+    },
+    {
+     "organic_id": "17.01",
+     "economic_code": "12",
+     "description": "Funcionarios",
+     "amount_keur": 443.53
+    },
+    {
+     "organic_id": "17.01",
+     "economic_code": "16",
+     "description": "Cuotas, prestaciones y gastos sociales a cargo del empleador",
+     "amount_keur": 60.0
+    },
+    {
+     "organic_id": "17.01",
+     "economic_code": "16000",
+     "description": "Seguridad Social",
+     "amount_keur": 60.0
+    },
+    {
+     "organic_id": "17.01",
+     "economic_code": "2",
+     "description": "GASTOS CORRIENTES EN BIENES Y SERVICIOS",
+     "amount_keur": 102.0
+    },
+    {
+     "organic_id": "17.01",
+     "economic_code": "22",
+     "description": "Material, suministros y otros",
+     "amount_keur": 50.0
+    },
+    {
+     "organic_id": "17.01",
+     "economic_code": "22706",
+     "description": "Estudios y trabajos técnicos",
+     "amount_keur": 50.0
+    },
+    {
+     "organic_id": "17.01",
+     "economic_code": "23",
+     "description": "Indemnizaciones por razón del servicio",
+     "amount_keur": 52.0
+    }
+   ],
+   "section_id": "17",
+   "section_name": "MINISTERIO DE TRANSPORTES, MOVILIDAD Y AGENDA URBANA",
+   "program_id": "453O",
+   "name": "Comisión de Investigación de Accidentes Ferroviarios",
+   "total_keur": 605.53,
+   "document": "Ley",
+   "policy_id": "45",
+   "eu_recovery_keur": 0,
+   "source_id": "sepg_pge_estado_gastos"
+  },
+  {
+   "year": 2022,
+   "organics": [
+    {
+     "organic_id": "23.50",
+     "name": "MECANISMO DE RECUPERACIÓN Y RESILIENCIA",
+     "total_keur": 32782.0,
+     "undetailed_keur": 32782.0
+    },
+    {
+     "organic_id": "23.101",
+     "name": "PARQUES NACIONALES",
+     "total_keur": 1500.0,
+     "undetailed_keur": 1500.0
+    }
+   ],
+   "lines": [
+    {
+     "organic_id": "23.50",
+     "economic_code": "74301",
+     "description": "Aportación al FRER para actuaciones de adquisición de información, mejora de conocimiento y digitalización del patrimonio natural",
+     "amount_keur": 19684.0
+    }
+   ],
+   "section_id": "23",
+   "section_name": "MINISTERIO PARA LA TRANSICIÓN ECOLÓGICA Y EL RETO DEMOGRÁFICO",
+   "program_id": "45DA",
+   "name": "C04.I01 Digitalización y conocimientos del patrimonio natural",
+   "total_keur": 34282.0,
+   "document": "Ley",
+   "policy_id": "45",
+   "eu_recovery_keur": 32782.0,
+   "source_id": "sepg_pge_estado_gastos"
+  },
+  {
+   "year": 2023,
+   "organics": [
+    {
+     "organic_id": "32.02",
+     "name": "SECRETARÍA DE ESTADO DE SEGURIDAD SOCIAL Y PENSIONES",
+     "total_keur": 4100.0,
+     "undetailed_keur": 0.0
+    }
+   ],
+   "lines": [
+    {
+     "organic_id": "32.02",
+     "economic_code": "4",
+     "description": "TRANSFERENCIAS CORRIENTES",
+     "amount_keur": 4100.0
+    },
+    {
+     "organic_id": "32.02",
+     "economic_code": "48",
+     "description": "A familias e instituciones sin fines de lucro",
+     "amount_keur": 4100.0
+    },
+    {
+     "organic_id": "32.02",
+     "economic_code": "481",
+     "description": "Prestaciones asistenciales",
+     "amount_keur": 4100.0
+    }
+   ],
+   "section_id": "32",
+   "section_name": "MINISTERIO DE INCLUSIÓN, SEGURIDAD SOCIAL Y MIGRACIONES",
+   "program_id": "212A",
+   "name": "Pensiones no contributivas y prestaciones asistenciales",
+   "total_keur": 4100.0,
+   "document": "Ley",
+   "policy_id": "21",
+   "eu_recovery_keur": 0,
+   "source_id": "sepg_pge_estado_gastos"
+  },
+  {
+   "year": 2023,
+   "organics": [
+    {
+     "organic_id": "60.02",
+     "name": "PRESTACIONES ASISTENCIALES, SANITARIAS Y SOCIALES DEL INGESA Y DEL IMSERSO",
+     "total_keur": 2803945.6,
+     "undetailed_keur": 0.0
+    }
+   ],
+   "lines": [
+    {
+     "organic_id": "60.02",
+     "economic_code": "1",
+     "description": "GASTOS DE PERSONAL",
+     "amount_keur": 270.09
+    },
+    {
+     "organic_id": "60.02",
+     "economic_code": "12",
+     "description": "Funcionarios",
+     "amount_keur": 140.77
+    },
+    {
+     "organic_id": "60.02",
+     "economic_code": "15",
+     "description": "Incentivos al rendimiento",
+     "amount_keur": 75.66
+    },
+    {
+     "organic_id": "60.02",
+     "economic_code": "16",
+     "description": "Cuotas, prestaciones y gastos sociales a cargo del empleador",
+     "amount_keur": 53.66
+    },
+    {
+     "organic_id": "60.02",
+     "economic_code": "4",
+     "description": "TRANSFERENCIAS CORRIENTES",
+     "amount_keur": 2803675.51
+    },
+    {
+     "organic_id": "60.02",
+     "economic_code": "45",
+     "description": "A Comunidades Autónomas",
+     "amount_keur": 1014.67
+    },
+    {
+     "organic_id": "60.02",
+     "economic_code": "459",
+     "description": "Otras transferencias corrientes",
+     "amount_keur": 1014.67
+    },
+    {
+     "organic_id": "60.02",
+     "economic_code": "48",
+     "description": "A familias e instituciones sin fines de lucro",
+     "amount_keur": 2802660.84
+    },
+    {
+     "organic_id": "60.02",
+     "economic_code": "481",
+     "description": "Pensiones",
+     "amount_keur": 2802660.84
+    }
+   ],
+   "section_id": "60",
+   "section_name": "SEGURIDAD SOCIAL",
+   "program_id": "212A",
+   "name": "Pensiones no contributivas y prestaciones asistenciales",
+   "total_keur": 2803945.6,
+   "document": "Ley",
+   "policy_id": "21",
+   "eu_recovery_keur": 0,
+   "source_id": "sepg_pge_estado_gastos"
+  },
+  {
+   "year": 2023,
+   "organics": [
+    {
+     "organic_id": "18.01",
+     "name": "MINISTERIO, SUBSECRETARÍA Y SERVICIOS GENERALES",
+     "total_keur": 4459.14,
+     "undetailed_keur": 0.0
+    },
+    {
+     "organic_id": "18.04",
+     "name": "DIRECCIÓN GENERAL DE EVALUACIÓN Y COOPERACIÓN TERRITORIAL",
+     "total_keur": 2.08,
+     "undetailed_keur": 0.0
+    },
+    {
+     "organic_id": "18.08",
+     "name": "DIRECCIÓN GENERAL DE PLANIFICACIÓN Y GESTIÓN EDUCATIVA",
+     "total_keur": 296.75,
+     "undetailed_keur": 0.0
+    }
+   ],
+   "lines": [
+    {
+     "organic_id": "18.01",
+     "economic_code": "1",
+     "description": "GASTOS DE PERSONAL",
+     "amount_keur": 4459.14
+    },
+    {
+     "organic_id": "18.01",
+     "economic_code": "12",
+     "description": "Funcionarios",
+     "amount_keur": 3645.91
+    },
+    {
+     "organic_id": "18.01",
+     "economic_code": "13",
+     "description": "Laborales",
+     "amount_keur": 187.36
+    },
+    {
+     "organic_id": "18.01",
+     "economic_code": "16",
+     "description": "Cuotas, prestaciones y gastos sociales a cargo del empleador",
+     "amount_keur": 625.87
+    },
+    {
+     "organic_id": "18.01",
+     "economic_code": "16000",
+     "description": "Seguridad Social",
+     "amount_keur": 625.87
+    },
+    {
+     "organic_id": "18.04",
+     "economic_code": "2",
+     "description": "GASTOS CORRIENTES EN BIENES Y SERVICIOS",
+     "amount_keur": 2.08
+    },
+    {
+     "organic_id": "18.04",
+     "economic_code": "22",
+     "description": "Material, suministros y otros",
+     "amount_keur": 2.08
+    },
+    {
+     "organic_id": "18.08",
+     "economic_code": "2",
+     "description": "GASTOS CORRIENTES EN BIENES Y SERVICIOS",
+     "amount_keur": 296.75
+    },
+    {
+     "organic_id": "18.08",
+     "economic_code": "22",
+     "description": "Material, suministros y otros",
+     "amount_keur": 296.75
+    }
+   ],
+   "section_id": "18",
+   "section_name": "MINISTERIO DE EDUCACIÓN Y FORMACIÓN PROFESIONAL",
+   "program_id": "322E",
+   "name": "Enseñanzas artísticas",
+   "total_keur": 4757.97,
+   "document": "Ley",
+   "policy_id": "32",
+   "eu_recovery_keur": 0,
+   "source_id": "sepg_pge_estado_gastos"
+  },
+  {
+   "year": 2023,
+   "organics": [
+    {
+     "organic_id": "17.20",
+     "name": "SECRETARÍA DE ESTADO DE TRANSPORTES, MOVILIDAD Y AGENDA URBANA",
+     "total_keur": 84279.24,
+     "undetailed_keur": 0.0
+    }
+   ],
+   "lines": [
+    {
+     "organic_id": "17.20",
+     "economic_code": "4",
+     "description": "TRANSFERENCIAS CORRIENTES",
+     "amount_keur": 84279.24
+    },
+    {
+     "organic_id": "17.20",
+     "economic_code": "47",
+     "description": "A empresas privadas",
+     "amount_keur": 84279.24
+    },
+    {
+     "organic_id": "17.20",
+     "economic_code": "471",
+     "description": "Transporte del plátano de Canarias",
+     "amount_keur": 20000.0
+    },
+    {
+     "organic_id": "17.20",
+     "economic_code": "478",
+     "description": "Subvención al transporte marítimo y aéreo de mercancías con origen o destino en territorios extrapeninsulares de acuerdo con la legislación vigente",
+     "amount_keur": 64279.24
+    }
+   ],
+   "section_id": "17",
+   "section_name": "MINISTERIO DE TRANSPORTES, MOVILIDAD Y AGENDA URBANA",
+   "program_id": "441P",
+   "name": "Subvenciones al transporte extrapeninsular de mercancías",
+   "total_keur": 84279.24,
+   "document": "Ley",
+   "policy_id": "44",
+   "eu_recovery_keur": 0,
+   "source_id": "sepg_pge_estado_gastos"
+  },
+  {
+   "year": 2023,
+   "organics": [
+    {
+     "organic_id": "17.302",
+     "name": "AGENCIA ESTATAL DE SEGURIDAD FERROVIARIA",
+     "total_keur": 16463.52,
+     "undetailed_keur": 9567.47
+    }
+   ],
+   "lines": [
+    {
+     "organic_id": "17.302",
+     "economic_code": "1",
+     "description": "GASTOS DE PERSONAL",
+     "amount_keur": 6896.05
+    },
+    {
+     "organic_id": "17.302",
+     "economic_code": "15",
+     "description": "Incentivos al rendimiento",
+     "amount_keur": 844.66
+    },
+    {
+     "organic_id": "17.302",
+     "economic_code": "150",
+     "description": "Productividad",
+     "amount_keur": 790.33
+    },
+    {
+     "organic_id": "17.302",
+     "economic_code": "151",
+     "description": "Gratificaciones",
+     "amount_keur": 54.33
+    },
+    {
+     "organic_id": "17.302",
+     "economic_code": "16200",
+     "description": "Formación y perfeccionamiento del personal",
+     "amount_keur": 55.0
+    },
+    {
+     "organic_id": "17.302",
+     "economic_code": "16204",
+     "description": "Acción social",
+     "amount_keur": 20.0
+    },
+    {
+     "organic_id": "17.302",
+     "economic_code": "22109",
+     "description": "Labores Fábrica Nacional Moneda y Timbre",
+     "amount_keur": 92.0
+    },
+    {
+     "organic_id": "17.302",
+     "economic_code": "22601",
+     "description": "Atenciones protocolarias y representativas",
+     "amount_keur": 2.34
+    }
+   ],
+   "section_id": "17",
+   "section_name": "MINISTERIO DE TRANSPORTES, MOVILIDAD Y AGENDA URBANA",
+   "program_id": "453N",
+   "name": "Regulación y supervisión de la seguridad ferroviaria",
+   "total_keur": 16463.52,
+   "document": "Ley",
+   "policy_id": "45",
+   "eu_recovery_keur": 0,
+   "source_id": "sepg_pge_estado_gastos"
+  },
+  {
+   "year": 2023,
+   "organics": [
+    {
+     "organic_id": "17.01",
+     "name": "MINISTERIO, SUBSECRETARÍA Y SERVICIOS GENERALES",
+     "total_keur": 516.15,
+     "undetailed_keur": 0.0
+    }
+   ],
+   "lines": [
+    {
+     "organic_id": "17.01",
+     "economic_code": "1",
+     "description": "GASTOS DE PERSONAL",
+     "amount_keur": 414.15
+    },
+    {
+     "organic_id": "17.01",
+     "economic_code": "12",
+     "description": "Funcionarios",
+     "amount_keur": 384.15
+    },
+    {
+     "organic_id": "17.01",
+     "economic_code": "16",
+     "description": "Cuotas, prestaciones y gastos sociales a cargo del empleador",
+     "amount_keur": 30.0
+    },
+    {
+     "organic_id": "17.01",
+     "economic_code": "16000",
+     "description": "Seguridad Social",
+     "amount_keur": 30.0
+    },
+    {
+     "organic_id": "17.01",
+     "economic_code": "2",
+     "description": "GASTOS CORRIENTES EN BIENES Y SERVICIOS",
+     "amount_keur": 102.0
+    },
+    {
+     "organic_id": "17.01",
+     "economic_code": "22",
+     "description": "Material, suministros y otros",
+     "amount_keur": 50.0
+    },
+    {
+     "organic_id": "17.01",
+     "economic_code": "23",
+     "description": "Indemnizaciones por razón del servicio",
+     "amount_keur": 52.0
+    }
+   ],
+   "section_id": "17",
+   "section_name": "MINISTERIO DE TRANSPORTES, MOVILIDAD Y AGENDA URBANA",
+   "program_id": "453O",
+   "name": "Comisión de Investigación de Accidentes Ferroviarios",
+   "total_keur": 516.15,
+   "document": "Ley",
+   "policy_id": "45",
+   "eu_recovery_keur": 0,
+   "source_id": "sepg_pge_estado_gastos"
+  },
+  {
+   "year": 2023,
+   "organics": [
+    {
+     "organic_id": "23.50",
+     "name": "MECANISMO DE RECUPERACIÓN Y RESILIENCIA",
+     "total_keur": 48339.06,
+     "undetailed_keur": 48339.06
+    },
+    {
+     "organic_id": "23.101",
+     "name": "PARQUES NACIONALES",
+     "total_keur": 1489.35,
+     "undetailed_keur": 1489.35
+    }
+   ],
+   "lines": [
+    {
+     "organic_id": "23.50",
+     "economic_code": "74301",
+     "description": "Aportación al FRER para actuaciones de adquisición de información, mejora de conocimiento y digitalización del patrimonio natural. Mecanismo de Recuperación y Resiliencia",
+     "amount_keur": 255.17
+    },
+    {
+     "organic_id": "23.50",
+     "economic_code": "74311",
+     "description": "Aportación al FRER para actuaciones de adquisición de información y mejora de conocimiento en espacios gestionados por O.A. Parques Nacionales. Mecanismo de Recuperación y Resiliencia",
+     "amount_keur": 2722.22
+    }
+   ],
+   "section_id": "23",
+   "section_name": "MINISTERIO PARA LA TRANSICIÓN ECOLÓGICA Y EL RETO DEMOGRÁFICO",
+   "program_id": "45DA",
+   "name": "C04.I01 Digitalización y conocimientos del patrimonio natural",
+   "total_keur": 49828.41,
+   "document": "Ley",
+   "policy_id": "45",
+   "eu_recovery_keur": 48339.06,
+   "source_id": "sepg_pge_estado_gastos"
+  },
+  {
+   "year": 2023,
+   "organics": [
+    {
+     "organic_id": "28.103",
+     "name": "CENTRO DE INVESTIGACIONES ENERGÉTICAS, MEDIOAMBIENTALES Y TECNOLÓGICAS",
+     "total_keur": 2326.52,
+     "undetailed_keur": 2326.52
+    },
+    {
+     "organic_id": "28.301",
+     "name": "CONSEJO SUPERIOR DE INVESTIGACIONES CIENTÍFICAS",
+     "total_keur": 26706.03,
+     "undetailed_keur": 26706.03
+    }
+   ],
+   "lines": [],
+   "section_id": "28",
+   "section_name": "MINISTERIO DE CIENCIA E INNOVACIÓN",
+   "program_id": "45DA",
+   "name": "C04.I01 Digitalización y conocimientos del patrimonio natural",
+   "total_keur": 29032.55,
+   "document": "Ley",
+   "policy_id": "45",
+   "eu_recovery_keur": 0,
+   "source_id": "sepg_pge_estado_gastos"
+  }
+ ]
 }
