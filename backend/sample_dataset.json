@@ -1,0 +1,59 @@
+{
+  "generated_at": "2026-11-19T12:00:00Z",
+  "countries": [
+    {"code": "ES", "name": "España"},
+    {"code": "FR", "name": "Francia"},
+    {"code": "DE", "name": "Alemania"},
+    {"code": "IT", "name": "Italia"},
+    {"code": "PT", "name": "Portugal"}
+  ],
+  "areas": [
+    {"id": "GF04", "level": 1, "parent_id": null, "name": "Asuntos económicos", "description": "Transporte, energía, agricultura, industria y apoyo a la economía.", "icon": "briefcase"},
+    {"id": "GF07", "level": 1, "parent_id": null, "name": "Sanidad", "description": "Hospitales, atención primaria, medicamentos y salud pública.", "icon": "heart-pulse"},
+    {"id": "GF09", "level": 1, "parent_id": null, "name": "Educación", "description": "Colegios, institutos, universidades y becas.", "icon": "graduation-cap"},
+    {"id": "GF0405", "level": 2, "parent_id": "GF04", "name": "Transporte", "description": null, "icon": null}
+  ],
+  "spending": [
+    {"area_id": "TOTAL", "country": "ES", "year": 2022, "amount_meur": 650800.0, "pct_gdp": 47.4, "provisional": false, "source_id": "sample"},
+    {"area_id": "TOTAL", "country": "ES", "year": 2023, "amount_meur": 680225.0, "pct_gdp": 45.4, "provisional": true, "source_id": "sample"},
+
+    {"area_id": "GF04", "country": "ES", "year": 2022, "amount_meur": 76900.0, "pct_gdp": 5.6, "provisional": false, "source_id": "sample"},
+    {"area_id": "GF04", "country": "ES", "year": 2023, "amount_meur": 74900.0, "pct_gdp": 5.0, "provisional": true, "source_id": "sample"},
+    {"area_id": "GF07", "country": "ES", "year": 2022, "amount_meur": 93400.0, "pct_gdp": 6.8, "provisional": false, "source_id": "sample"},
+    {"area_id": "GF07", "country": "ES", "year": 2023, "amount_meur": 98900.0, "pct_gdp": 6.6, "provisional": true, "source_id": "sample"},
+    {"area_id": "GF09", "country": "ES", "year": 2022, "amount_meur": 56300.0, "pct_gdp": 4.1, "provisional": false, "source_id": "sample"},
+    {"area_id": "GF09", "country": "ES", "year": 2023, "amount_meur": 62900.0, "pct_gdp": 4.2, "provisional": true, "source_id": "sample"},
+    {"area_id": "GF0405", "country": "ES", "year": 2022, "amount_meur": 27500.0, "pct_gdp": 2.0, "provisional": false, "source_id": "sample"},
+    {"area_id": "GF0405", "country": "ES", "year": 2023, "amount_meur": 28897.0, "pct_gdp": 1.9, "provisional": true, "source_id": "sample"},
+
+    {"area_id": "GF04", "country": "FR", "year": 2023, "amount_meur": null, "pct_gdp": 6.3, "provisional": true, "source_id": "sample"},
+    {"area_id": "GF04", "country": "DE", "year": 2023, "amount_meur": null, "pct_gdp": 4.6, "provisional": true, "source_id": "sample"},
+    {"area_id": "GF04", "country": "IT", "year": 2023, "amount_meur": null, "pct_gdp": 5.4, "provisional": true, "source_id": "sample"},
+    {"area_id": "GF04", "country": "PT", "year": 2023, "amount_meur": null, "pct_gdp": 4.4, "provisional": true, "source_id": "sample"},
+
+    {"area_id": "GF07", "country": "FR", "year": 2023, "amount_meur": null, "pct_gdp": 8.8, "provisional": true, "source_id": "sample"},
+    {"area_id": "GF07", "country": "DE", "year": 2023, "amount_meur": null, "pct_gdp": 8.2, "provisional": true, "source_id": "sample"},
+    {"area_id": "GF07", "country": "IT", "year": 2023, "amount_meur": null, "pct_gdp": 6.9, "provisional": true, "source_id": "sample"},
+    {"area_id": "GF07", "country": "PT", "year": 2023, "amount_meur": null, "pct_gdp": 7.1, "provisional": true, "source_id": "sample"},
+
+    {"area_id": "GF09", "country": "FR", "year": 2023, "amount_meur": null, "pct_gdp": 5.0, "provisional": true, "source_id": "sample"},
+    {"area_id": "GF09", "country": "DE", "year": 2023, "amount_meur": null, "pct_gdp": 4.5, "provisional": true, "source_id": "sample"},
+    {"area_id": "GF09", "country": "IT", "year": 2023, "amount_meur": null, "pct_gdp": 3.9, "provisional": true, "source_id": "sample"},
+    {"area_id": "GF09", "country": "PT", "year": 2023, "amount_meur": null, "pct_gdp": 4.4, "provisional": true, "source_id": "sample"}
+  ],
+  "indicators": [
+    {"id": "modal_split_train", "area_id": "GF0405", "name": "Viajeros que se mueven en tren", "unit": "% de los viajeros-km", "country": "ES", "year": 2022, "value": 9.3, "source_id": "eurostat_tran_hv_psmod"},
+    {"id": "modal_split_bus", "area_id": "GF0405", "name": "Viajeros que se mueven en autobús", "unit": "% de los viajeros-km", "country": "ES", "year": 2022, "value": 6.7, "source_id": "eurostat_tran_hv_psmod"}
+  ],
+  "crosses": [
+    {"id": "rail_spend_vs_use", "area_id": "GF0405", "title": "El gasto en ferrocarril no se corresponde con su uso", "spend_share_pct": 55.0, "usage_indicator_id": "modal_split_train", "threshold_ratio": 2.0, "analyst_note": "Cifra de gasto ilustrativa. La infraestructura ferroviaria se amortiza en décadas.", "evidence": []},
+    {"id": "bus_spend_vs_use", "area_id": "GF0405", "title": "Gasto y uso del autobús", "spend_share_pct": 10.0, "usage_indicator_id": "modal_split_bus", "threshold_ratio": 2.0, "analyst_note": null, "evidence": []}
+  ],
+  "legal": [
+    {"year": 2023, "law_title": "Ley 31/2022, de 23 de diciembre, de Presupuestos Generales del Estado para el año 2023", "boe_id": "BOE-A-2022-22128", "boe_url": "https://www.boe.es/buscar/act.php?id=BOE-A-2022-22128", "note": null}
+  ],
+  "sources": [
+    {"id": "sample", "name": "Datos de muestra para desarrollo (valores en parte ilustrativos)", "publisher": "Equipo", "url": "https://ec.europa.eu/eurostat/databrowser/view/gov_10a_exp/default/table", "license": "No usar en la demo", "retrieved_at": "2026-11-19"},
+    {"id": "eurostat_tran_hv_psmod", "name": "Eurostat · Reparto modal del transporte interior de viajeros", "publisher": "Eurostat", "url": "https://ec.europa.eu/eurostat/databrowser/view/tran_hv_psmod/default/table", "license": "Reutilización libre con cita", "retrieved_at": "2026-11-19"}
+  ]
+}

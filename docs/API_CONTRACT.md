@@ -1,6 +1,7 @@
 # Contrato de API (v1)
 
-Base: `http://localhost:8000/api`. Todo JSON, campos en `snake_case`.
+Base: `http://localhost:8000/api`. Documentación interactiva en `http://localhost:8000/docs`.
+Un `year` sin datos devuelve `404`. Todo JSON, campos en `snake_case`.
 Cambios: solo los hace Pedro y se avisan al equipo antes del merge.
 
 Convenciones:
@@ -117,6 +118,7 @@ Todo lo que necesita la página de un ámbito.
 - `type`: `usage_mismatch` | `international_outlier`
 - `severity`: `info` | `warning` | `critical`
 - `subarea_id` y `analyst_note` pueden ser `null`.
+- `evidence[].source_id` puede ser `null`.
 - Las cifras del ejemplo son ilustrativas, no datos reales.
 
 ## GET /alerts?year=2023&severity=warning&type=usage_mismatch
@@ -130,6 +132,9 @@ Todos los filtros son opcionales. Orden: severidad descendente.
 ## GET /compare?area=GF07&year=2023&countries=ES,FR,DE,IT,PT
 
 `area` admite nivel 1 o 2. Sin `countries`, devuelve todos los disponibles.
+Solo aparecen países: los agregados (`EU27_2020`…) no entran en filas, mediana ni posición.
+`eu_median` es `null` si hay menos de tres países con dato. `rank` es la posición entre
+todos los países, aunque se filtre con `countries`.
 
 ```json
 {
