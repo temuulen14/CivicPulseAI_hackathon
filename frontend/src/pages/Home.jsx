@@ -277,6 +277,15 @@ export default function Home({ year, years, onYearChange }) {
         )}
       </section>
 
+      <section className="panel-soft section budget-teaser" aria-labelledby="pge-teaser">
+        <h2 id="pge-teaser">Partida a partida</h2>
+        <p className="lead">
+          Los Presupuestos Generales del Estado de cada año, desde las grandes políticas de gasto hasta el último
+          concepto, con quién los elaboró y quién los ejecutó.
+        </p>
+        <a href="#/presupuestos">Ver los Presupuestos del Estado</a>
+      </section>
+
       <section className="section" aria-labelledby="alerts-title">
         <div className="section-head">
           <h2 id="alerts-title">En qué fijarse en {shownYear}</h2>

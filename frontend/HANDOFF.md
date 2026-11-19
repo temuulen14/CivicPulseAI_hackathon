@@ -37,6 +37,10 @@ real, usando el dataset de `main` (27 países de la UE, cruces de educación y l
 
 Las skills `frontend-design`, `ui-ux-pro-max` y `dataviz` se cargaron de forma nativa en la sesión del 19-11.
 
+**Paso 8 (19-11):** frontend adaptado al contrato v1.1 de Pedro: sección Presupuestos
+(año, política, programa y partidas), tipo de gasto y políticas de los PGE en cada ámbito. Ver
+`frontend/CAMBIOS.md`, sección 8.
+
 ## 3. Qué pidió el usuario para el rediseño (literal, resumido)
 
 1. UI **como la web de Anthropic**: blanca, bonita, elegante, con un toque futurista y

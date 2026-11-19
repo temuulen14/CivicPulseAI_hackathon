@@ -14,10 +14,11 @@ export function formatMeur(value) {
 }
 
 // 680225 -> "680 mil millones de €"; 8450 -> "8.450 millones de €"
+// El espacio antes del € es de no separación: así el símbolo nunca queda solo en una línea.
 export function formatMeurWords(value) {
   if (value === null || value === undefined) return 'Sin dato';
-  if (value >= 1000) return `${int.format(value / 1000)} mil millones de €`;
-  return `${int.format(value)} millones de €`;
+  if (value >= 1000) return `${int.format(value / 1000)} mil millones de\u00a0€`;
+  return `${int.format(value)} millones de\u00a0€`;
 }
 
 // 12.4 -> "12,4 %"
@@ -48,3 +49,15 @@ export function formatPoints(value) {
 
 // Para ejes de gráficos: 680225 -> "680 mil"
 export const compact = new Intl.NumberFormat('es-ES', { notation: 'compact', maximumFractionDigits: 1 });
+
+// Los Presupuestos del Estado vienen en miles de euros (_keur), como el documento de Hacienda.
+// Se enseñan en millones, igual que el resto de la app: 1599547.1 -> "1.600 M€"
+export function formatKeur(value) {
+  if (value === null || value === undefined) return 'Sin dato';
+  return formatMeur(value / 1000);
+}
+
+export function formatKeurWords(value) {
+  if (value === null || value === undefined) return 'Sin dato';
+  return formatMeurWords(value / 1000);
+}

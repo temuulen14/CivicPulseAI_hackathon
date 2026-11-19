@@ -6,18 +6,23 @@ import Area from './pages/Area.jsx';
 import Compare from './pages/Compare.jsx';
 import Alerts from './pages/Alerts.jsx';
 import Sources from './pages/Sources.jsx';
+import Budget from './pages/Budget.jsx';
+import BudgetPolicy from './pages/BudgetPolicy.jsx';
+import BudgetProgram from './pages/BudgetProgram.jsx';
 
 // Navegación sin librería: la página actual va en la URL tras la almohadilla
-// (#/ambito/GF07). El navegador avisa con el evento "hashchange" cuando cambia,
-// así que los enlaces, el botón "atrás" y compartir la URL funcionan sin más.
+// (#/ambito/GF07, #/presupuestos/programa/453B). El navegador avisa con el evento
+// "hashchange" cuando cambia, así que los enlaces, el botón "atrás" y compartir la URL
+// funcionan sin más.
 function readRoute() {
-  const [page = '', id = null] = window.location.hash.replace(/^#\/?/, '').split('/');
-  return { page, id };
+  const [page = '', id = null, sub = null] = window.location.hash.replace(/^#\/?/, '').split('/');
+  return { page, id, sub };
 }
 
 const NAV = [
   { href: '#/', page: '', label: 'Inicio' },
-  { href: '#/comparar', page: 'comparar', label: 'Comparar países' },
+  { href: '#/presupuestos', page: 'presupuestos', label: 'Presupuestos' },
+  { href: '#/comparar', page: 'comparar', label: 'Comparar' },
   { href: '#/avisos', page: 'avisos', label: 'Avisos' },
   { href: '#/fuentes', page: 'fuentes', label: 'Fuentes' },
 ];
@@ -25,6 +30,8 @@ const NAV = [
 export default function App() {
   const [route, setRoute] = useState(readRoute);
   const [year, setYear] = useState(null); // null = último año con datos
+  // Los Presupuestos del Estado tienen sus propios años (2015–2025), por eso van aparte.
+  const [budgetYear, setBudgetYear] = useState(null);
   const meta = useApi(getMeta, []);
 
   useEffect(() => {
@@ -39,10 +46,18 @@ export default function App() {
   const years = meta.data?.years ?? [];
   const selectedYear = year ?? meta.data?.latest_year ?? null;
   const pageProps = { year: selectedYear, years, onYearChange: setYear };
+  const budgetProps = {
+    year: budgetYear ?? meta.data?.latest_budget_year ?? null,
+    years: meta.data?.budget_years ?? [],
+    onYearChange: setBudgetYear,
+  };
 
   let page;
   if (route.page === '') page = <Home {...pageProps} />;
-  else if (route.page === 'ambito') page = <Area id={route.id} {...pageProps} />;
+  else if (route.page === 'ambito') page = <Area id={route.id} {...pageProps} onBudgetYearChange={setBudgetYear} />;
+  else if (route.page === 'presupuestos' && route.id === 'politica') page = <BudgetPolicy id={route.sub} {...budgetProps} />;
+  else if (route.page === 'presupuestos' && route.id === 'programa') page = <BudgetProgram id={route.sub} {...budgetProps} />;
+  else if (route.page === 'presupuestos') page = <Budget {...budgetProps} />;
   else if (route.page === 'comparar') page = <Compare {...pageProps} />;
   else if (route.page === 'avisos') page = <Alerts {...pageProps} />;
   else if (route.page === 'fuentes') page = <Sources />;
