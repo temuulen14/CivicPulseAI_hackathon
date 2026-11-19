@@ -60,5 +60,8 @@ documentación en español.
   `dataviz` (gráficos), `superpowers:systematic-debugging` (errores),
   `superpowers:verification-before-completion`, `context7` (documentación de librerías).
   El repo propone instalar estos plugins al abrirlo (`.claude/settings.json`).
+- Cuando tomes una decisión que no sea obvia, añade una fila (qué y por qué) a tu
+  apartado de "Decisiones de implementación" en `docs/ARCHITECTURE.md`. El jurado
+  pregunta por el código y hay que poder explicarlo.
 - Anota en `AI_USAGE.md` (sección de tu nombre) para qué has usado la IA: una línea por
   bloque de trabajo basta.
