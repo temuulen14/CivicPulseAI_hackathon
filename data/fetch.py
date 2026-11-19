@@ -64,6 +64,22 @@ def fetch_spending_by_type() -> None:
     )
 
 
+def fetch_enrolment() -> None:
+    """Alumnado matriculado por etapa (ISCED) en España, para los cruces de educación."""
+    fetch_eurostat(
+        "educ_uoe_enra01",
+        {
+            "geo": HOME_COUNTRY,
+            "sex": "T",
+            "worktime": "TOTAL",
+            "sector": ["PUB", "PRV_DEP"],
+            "isced11": ["ED0", "ED1", "ED2", "ED3", "ED4", "ED5", "ED6", "ED7", "ED8"],
+            "sinceTimePeriod": FIRST_YEAR,
+        },
+        "educ_uoe_enra01.json",
+    )
+
+
 PGE_SITE = "https://www.sepg.pap.hacienda.gob.es/Presup/PGE{year}Ley/MaestroDocumentos/PGE-ROM/"
 # La web de Hacienda rechaza peticiones sin cabecera de navegador.
 BROWSER_HEADERS = {"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) Firefox/130.0"}
@@ -137,6 +153,7 @@ def main() -> None:
     RAW_DIR.mkdir(exist_ok=True)
     fetch_spending()
     fetch_spending_by_type()
+    fetch_enrolment()
     fetch_boe()
     fetch_pge(2023)
 

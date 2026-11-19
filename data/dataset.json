@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-19T11:22:16Z",
+ "generated_at": "2026-11-19T11:24:34Z",
  "countries": [
   {
    "code": "ES",
@@ -336207,8 +336207,145 @@
    "source_id": "sepg_pge_estado_gastos"
   }
  ],
- "indicators": [],
- "crosses": [],
+ "indicators": [
+  {
+   "id": "students_share_primary",
+   "area_id": "GF0901",
+   "name": "Alumnado en infantil y primaria",
+   "unit": "% del alumnado",
+   "country": "ES",
+   "year": 2023,
+   "value": 44.9,
+   "source_id": "eurostat_educ_uoe_enra01"
+  },
+  {
+   "id": "students_share_secondary",
+   "area_id": "GF0902",
+   "name": "Alumnado en secundaria (ESO, bachillerato y FP de grado medio)",
+   "unit": "% del alumnado",
+   "country": "ES",
+   "year": 2023,
+   "value": 36.5,
+   "source_id": "eurostat_educ_uoe_enra01"
+  },
+  {
+   "id": "students_share_tertiary",
+   "area_id": "GF0904",
+   "name": "Alumnado en universidad y FP de grado superior",
+   "unit": "% del alumnado",
+   "country": "ES",
+   "year": 2023,
+   "value": 18.5,
+   "source_id": "eurostat_educ_uoe_enra01"
+  }
+ ],
+ "crosses": [
+  {
+   "id": "edu_primary_spend_vs_students",
+   "area_id": "GF0901",
+   "title": "Infantil y primaria: gasto frente a alumnado",
+   "spend_share_pct": 41.9,
+   "usage_indicator_id": "students_share_primary",
+   "threshold_ratio": 1.5,
+   "analyst_note": "Infantil y primaria concentran casi la mitad del alumnado y reciben una parte del gasto parecida. Es lo esperable: grupos de alumnos más grandes y profesorado generalista.",
+   "evidence": [
+    {
+     "label": "Cuota del gasto en educación (2023)",
+     "value": 41.9,
+     "unit": "%",
+     "source_id": "eurostat_gov_10a_exp"
+    },
+    {
+     "label": "Cuota del alumnado (2023)",
+     "value": 44.9,
+     "unit": "%",
+     "source_id": "eurostat_educ_uoe_enra01"
+    },
+    {
+     "label": "Gasto de la etapa",
+     "value": 23497.0,
+     "unit": "M€",
+     "source_id": "eurostat_gov_10a_exp"
+    },
+    {
+     "label": "Alumnado de la etapa",
+     "value": 4196548,
+     "unit": "alumnos",
+     "source_id": "eurostat_educ_uoe_enra01"
+    }
+   ]
+  },
+  {
+   "id": "edu_secondary_spend_vs_students",
+   "area_id": "GF0902",
+   "title": "Secundaria: gasto frente a alumnado",
+   "spend_share_pct": 43.4,
+   "usage_indicator_id": "students_share_secondary",
+   "threshold_ratio": 1.5,
+   "analyst_note": "La secundaria cuesta algo más por alumno que la primaria: profesorado especialista, más materias y talleres de FP. Una cuota de gasto un 20 % mayor que la de alumnado entra en lo razonable.",
+   "evidence": [
+    {
+     "label": "Cuota del gasto en educación (2023)",
+     "value": 43.4,
+     "unit": "%",
+     "source_id": "eurostat_gov_10a_exp"
+    },
+    {
+     "label": "Cuota del alumnado (2023)",
+     "value": 36.5,
+     "unit": "%",
+     "source_id": "eurostat_educ_uoe_enra01"
+    },
+    {
+     "label": "Gasto de la etapa",
+     "value": 24345.0,
+     "unit": "M€",
+     "source_id": "eurostat_gov_10a_exp"
+    },
+    {
+     "label": "Alumnado de la etapa",
+     "value": 3413954,
+     "unit": "alumnos",
+     "source_id": "eurostat_educ_uoe_enra01"
+    }
+   ]
+  },
+  {
+   "id": "edu_tertiary_spend_vs_students",
+   "area_id": "GF0904",
+   "title": "Universidad y FP superior: gasto frente a alumnado",
+   "spend_share_pct": 14.8,
+   "usage_indicator_id": "students_share_tertiary",
+   "threshold_ratio": 1.5,
+   "analyst_note": "En casi toda Europa un universitario cuesta más que un escolar, y aquí la cuota de gasto es menor que la de alumnado. Dos matices: las matrículas universitarias cubren parte del coste, y la FP de grado superior (incluida en el alumnado) puede contabilizarse como gasto de secundaria.",
+   "evidence": [
+    {
+     "label": "Cuota del gasto en educación (2023)",
+     "value": 14.8,
+     "unit": "%",
+     "source_id": "eurostat_gov_10a_exp"
+    },
+    {
+     "label": "Cuota del alumnado (2023)",
+     "value": 18.5,
+     "unit": "%",
+     "source_id": "eurostat_educ_uoe_enra01"
+    },
+    {
+     "label": "Gasto de la etapa",
+     "value": 8295.0,
+     "unit": "M€",
+     "source_id": "eurostat_gov_10a_exp"
+    },
+    {
+     "label": "Alumnado de la etapa",
+     "value": 1730904,
+     "unit": "alumnos",
+     "source_id": "eurostat_educ_uoe_enra01"
+    }
+   ]
+  }
+ ],
  "legal": [
   {
    "year": 2015,
@@ -336287,6 +336424,14 @@
    "name": "Eurostat · Gasto de las administraciones públicas por función (COFOG)",
    "publisher": "Eurostat",
    "url": "https://ec.europa.eu/eurostat/databrowser/view/gov_10a_exp/default/table",
+   "license": "Reutilización libre con cita",
+   "retrieved_at": "2026-11-19"
+  },
+  {
+   "id": "eurostat_educ_uoe_enra01",
+   "name": "Eurostat · Alumnado matriculado por nivel educativo y tipo de centro",
+   "publisher": "Eurostat",
+   "url": "https://ec.europa.eu/eurostat/databrowser/view/educ_uoe_enra01/default/table",
    "license": "Reutilización libre con cita",
    "retrieved_at": "2026-11-19"
   },

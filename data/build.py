@@ -279,6 +279,56 @@ def build_budget_policies() -> list[dict]:
     return [{"id": code, **info} for code, info in policies.items() if not code.startswith("_")]
 
 
+ENROLMENT_SOURCE = "eurostat_educ_uoe_enra01"
+
+
+def share_pct(part: float, base: float) -> float:
+    return round(100 * part / base, 1)
+
+
+def build_crosses(spending: list[dict]) -> tuple[list[dict], list[dict]]:
+    """Aplica cruces.json: cuota de gasto de una etapa frente a su cuota de alumnado."""
+    config = load_json(DATA_DIR / "cruces.json")
+    year = config["year"]
+    spend = {s["area_id"]: s["amount_meur"] for s in spending
+             if s["country"] == "ES" and s["year"] == year}
+    students: dict[str, float] = {}
+    for row in flatten_jsonstat(load_json(RAW_DIR / "educ_uoe_enra01.json")):
+        if int(row["time"]) == year:
+            students[row["isced11"]] = students.get(row["isced11"], 0) + row["value"]
+
+    spend_base = sum(spend[a] for a in config["spend_base"])
+    usage_base = sum(students[level] for level in config["usage_base"])
+    indicators, crosses = [], []
+    for cross in config["crosses"]:
+        spend_amount = sum(spend[a] for a in cross["spend_areas"])
+        usage_count = sum(students[level] for level in cross["usage"]["levels"])
+        spend_share = share_pct(spend_amount, spend_base)
+        usage_share = share_pct(usage_count, usage_base)
+        indicators.append({
+            "id": cross["usage"]["id"], "area_id": cross["area_id"], "name": cross["usage"]["name"],
+            "unit": "% del alumnado", "country": "ES", "year": year, "value": usage_share,
+            "source_id": ENROLMENT_SOURCE,
+        })
+        crosses.append({
+            "id": cross["id"], "area_id": cross["area_id"], "title": cross["title"],
+            "spend_share_pct": spend_share, "usage_indicator_id": cross["usage"]["id"],
+            "threshold_ratio": cross["threshold_ratio"], "analyst_note": cross["analyst_note"],
+            "evidence": [
+                {"label": f"Cuota del gasto en educación ({year})", "value": spend_share,
+                 "unit": "%", "source_id": SPENDING_SOURCE},
+                {"label": f"Cuota del alumnado ({year})", "value": usage_share,
+                 "unit": "%", "source_id": ENROLMENT_SOURCE},
+                {"label": "Gasto de la etapa", "value": spend_amount,
+                 "unit": "M€", "source_id": SPENDING_SOURCE},
+                {"label": "Alumnado de la etapa", "value": round(usage_count),
+                 "unit": "alumnos", "source_id": ENROLMENT_SOURCE},
+            ],
+        })
+        print(f"cruce {cross['id']}: gasto {spend_share} % / uso {usage_share} % = {spend_share / usage_share:.2f}")
+    return indicators, crosses
+
+
 def build_legal() -> list[dict]:
     """Ley de presupuestos de cada año, con el título que devuelve la API del BOE."""
     laws = load_json(DATA_DIR / "legal.json")
@@ -312,6 +362,14 @@ def build_sources() -> list[dict]:
             "retrieved_at": today,
         },
         {
+            "id": ENROLMENT_SOURCE,
+            "name": "Eurostat · Alumnado matriculado por nivel educativo y tipo de centro",
+            "publisher": "Eurostat",
+            "url": "https://ec.europa.eu/eurostat/databrowser/view/educ_uoe_enra01/default/table",
+            "license": "Reutilización libre con cita",
+            "retrieved_at": today,
+        },
+        {
             "id": "boe_legislacion_consolidada",
             "name": "BOE · Legislación consolidada (leyes de Presupuestos Generales del Estado)",
             "publisher": "Agencia Estatal Boletín Oficial del Estado",
@@ -336,6 +394,7 @@ def main() -> None:
     spending_by_type = build_spending_by_type()
     validate_spending(spending, areas)
     validate_spending_by_type(spending_by_type, spending)
+    indicators, crosses = build_crosses(spending)
     dataset = {
         "generated_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "countries": [
@@ -348,8 +407,8 @@ def main() -> None:
         "spending_by_type": spending_by_type,
         "budget_policies": build_budget_policies(),
         "budget_programs": build_budget_programs(),
-        "indicators": [],
-        "crosses": [],
+        "indicators": indicators,
+        "crosses": crosses,
         "legal": build_legal(),
         "sources": build_sources(),
     }

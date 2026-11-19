@@ -1,0 +1,35 @@
+{
+  "_note": "Criterio de Mario: qué gasto se compara con qué uso, con qué umbral y por qué. build.py calcula las cuotas; el backend solo divide y compara con threshold_ratio. Cuotas de gasto sobre la suma de las etapas atribuibles (GF0901-GF0904), sin los gastos no atribuibles a ningún nivel. Cuotas de alumnado sobre centros públicos y concertados, que son los que paga el gasto público. Cruces descartados: transporte (el gasto del Estado por modo no incluye la inversión de ADIF ni el transporte urbano que pagan comunidades y ayuntamientos; el aviso no se sostendría).",
+  "year": 2023,
+  "spend_base": ["GF0901", "GF0902", "GF0903", "GF0904"],
+  "usage_base": ["ED0", "ED1", "ED2", "ED3", "ED4", "ED5", "ED6", "ED7", "ED8"],
+  "crosses": [
+    {
+      "id": "edu_primary_spend_vs_students",
+      "area_id": "GF0901",
+      "title": "Infantil y primaria: gasto frente a alumnado",
+      "spend_areas": ["GF0901"],
+      "usage": {"id": "students_share_primary", "name": "Alumnado en infantil y primaria", "levels": ["ED0", "ED1"]},
+      "threshold_ratio": 1.5,
+      "analyst_note": "Infantil y primaria concentran casi la mitad del alumnado y reciben una parte del gasto parecida. Es lo esperable: grupos de alumnos más grandes y profesorado generalista."
+    },
+    {
+      "id": "edu_secondary_spend_vs_students",
+      "area_id": "GF0902",
+      "title": "Secundaria: gasto frente a alumnado",
+      "spend_areas": ["GF0902", "GF0903"],
+      "usage": {"id": "students_share_secondary", "name": "Alumnado en secundaria (ESO, bachillerato y FP de grado medio)", "levels": ["ED2", "ED3", "ED4"]},
+      "threshold_ratio": 1.5,
+      "analyst_note": "La secundaria cuesta algo más por alumno que la primaria: profesorado especialista, más materias y talleres de FP. Una cuota de gasto un 20 % mayor que la de alumnado entra en lo razonable."
+    },
+    {
+      "id": "edu_tertiary_spend_vs_students",
+      "area_id": "GF0904",
+      "title": "Universidad y FP superior: gasto frente a alumnado",
+      "spend_areas": ["GF0904"],
+      "usage": {"id": "students_share_tertiary", "name": "Alumnado en universidad y FP de grado superior", "levels": ["ED5", "ED6", "ED7", "ED8"]},
+      "threshold_ratio": 1.5,
+      "analyst_note": "En casi toda Europa un universitario cuesta más que un escolar, y aquí la cuota de gasto es menor que la de alumnado. Dos matices: las matrículas universitarias cubren parte del coste, y la FP de grado superior (incluida en el alumnado) puede contabilizarse como gasto de secundaria."
+    }
+  ]
+}
