@@ -13,7 +13,9 @@ import requests
 RAW_DIR = Path(__file__).parent / "raw"
 EUROSTAT_API = "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data"
 
-COUNTRIES = ["ES"]
+DATA_DIR = Path(__file__).parent
+COUNTRIES = list(json.loads((DATA_DIR / "countries.json").read_text(encoding="utf-8")))
+HOME_COUNTRY = "ES"
 FIRST_YEAR = 2015
 
 
@@ -46,12 +48,13 @@ def fetch_spending_by_type() -> None:
     """El mismo gasto, repartido por tipo económico (personal, compras, inversión...).
 
     Los códigos de spending_types.json no se solapan y suman el total (TE).
+    Solo España: para 28 países serían 240 000 filas que la app no enseña.
     """
-    types = json.loads((Path(__file__).parent / "spending_types.json").read_text(encoding="utf-8"))
+    types = json.loads((DATA_DIR / "spending_types.json").read_text(encoding="utf-8"))
     fetch_eurostat(
         "gov_10a_exp",
         {
-            "geo": COUNTRIES,
+            "geo": HOME_COUNTRY,
             "unit": "MIO_EUR",
             "sector": "S13",
             "na_item": list(types),
