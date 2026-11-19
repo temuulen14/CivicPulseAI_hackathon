@@ -140,6 +140,9 @@ de su parte: qué se decidió y por qué, en una fila.
 | Para comparar años, serie del Estado sin la Seguridad Social (sección 60) | Los documentos de prórroga no incluyen la Seguridad Social; es la única serie homogénea en los diez años |
 | 2015 y 2016: la tabla HTML se guarda como CSV en `raw/` | Esos años no tienen CSV; el HTML pesa 25 MB por año (casi todo estilos) y la tabla tiene las mismas columnas |
 | Fondos europeos medidos por los servicios "Mecanismo de Recuperación y Resiliencia" (`eu_recovery_keur`) | El nombre del programa no los identifica siempre (2021 y 2022 usan formatos distintos); el servicio sí |
+| Gobiernos en `governments.json` con fechas del BOE (API de sumarios) y partido de La Moncloa | Cada dato con fuente oficial; el BOE no indica partidos |
+| Por año, quién **elaboró** el presupuesto y quién lo **ejecutó** (días de cada Gobierno) | No coinciden en 2018-2020 ni en 2023-2025; atribuir un año a un solo partido sería falso |
+| No se calculan importes por partido | El gasto depende de leyes, contexto y otras administraciones; un marcador por partidos rompe la neutralidad de la app ("señalan, no acusan") |
 | `dataset.json` sin sangría | Con diez años de PGE pasaba de 20 MB; compacto pesa 15 MB |
 | Ley de cada año en `legal.json`; el título se lee de la API del BOE | Los identificadores se confirmaron uno a uno; si un id no es una ley de presupuestos, `build.py` se para |
 | Años prorrogados (2019, 2020, 2024) apuntan a la ley vigente, con nota | No hubo ley nueva; es lo que el ciudadano necesita saber |

@@ -6,7 +6,7 @@ python data/fetch.py   # descarga a raw/ (unos 15 minutos: Eurostat, BOE y 3 400
 python data/build.py   # valida y escribe dataset.json; se para si algo no cuadra
 ```
 
-`dataset.json` sigue la forma de `docs/API_CONTRACT.md` y añade cinco claves nuevas (`spending_types`, `spending_by_type`, `budget_policies`, `budget_years`, `budget_programs`).
+`dataset.json` sigue la forma de `docs/API_CONTRACT.md` y añade seis claves nuevas (`spending_types`, `spending_by_type`, `governments`, `budget_policies`, `budget_years`, `budget_programs`).
 **Todavía no están en el contrato** (hay que acordarlas con Pedro); el backend actual
 las ignora, así que no rompen nada.
 
@@ -97,6 +97,32 @@ Saltos que tienen explicación (para que no parezcan errores):
   10 000 M€, programa 291M de la sección 19).
 - **Prórrogas 2024 y 2025:** algunas partidas bajan porque al prorrogar no se mantienen
   los créditos que vencían.
+
+### Gobiernos: contexto para los gráficos, no un marcador
+
+`governments` lista cada Gobierno desde 2011 (presidente, partidos, fechas, nombramiento
+en el BOE y fuente del partido en La Moncloa). En `budget_years`, cada año dice quién
+**elaboró** el presupuesto vigente (`drafted_by`) y quién lo **ejecutó**
+(`executed_by`, con los días de cada Gobierno):
+
+| Año | Presupuesto | Elaboró | Ejecutó |
+|-----|-------------|---------|---------|
+| 2015-2017 | Ley | Rajoy (PP) | Rajoy (PP) |
+| 2018 | Ley | Rajoy (PP) | Rajoy (PP) 152 días, Sánchez (PSOE) 213 días |
+| 2019 | Prórroga de 2018 | Rajoy (PP) | Sánchez (PSOE) |
+| 2020 | Prórroga de 2018 (sin documento) | Rajoy (PP) | Sánchez (PSOE + Unidas Podemos) desde el 8 de enero |
+| 2021-2022 | Ley | Sánchez (PSOE + Unidas Podemos) | el mismo |
+| 2023 | Ley | Sánchez (PSOE + Unidas Podemos) | el mismo; desde el 17 de noviembre, Sánchez (PSOE + Sumar) |
+| 2024-2025 | Prórroga de 2023 | Sánchez (PSOE + Unidas Podemos) | Sánchez (PSOE + Sumar) |
+
+Cómo usarlo (acordado para que la app siga siendo neutral):
+
+- **Sí:** franjas de fondo en los gráficos de evolución con el Gobierno de cada etapa, y en
+  la ficha de cada año "elaborado por… / ejecutado por…", con enlace al BOE.
+- **No:** sumar o comparar importes por partido ("el PP gastó X, el PSOE Y"). Elaborar y
+  ejecutar no coinciden (2018-2020), cada ley se aprueba con votos de varios grupos, mucho
+  gasto lo fija la ley o el contexto (pensiones, intereses, COVID, fondos europeos) y el
+  gasto de Eurostat incluye comunidades y ayuntamientos de todos los colores.
 
 **Ojo al contarlo:** son créditos **presupuestados** del **Estado central** (más la
 Seguridad Social, salvo en las prórrogas). No incluye a las comunidades autónomas ni a los ayuntamientos; por
