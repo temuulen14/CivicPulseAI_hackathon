@@ -1,0 +1,7858 @@
+{
+ "generated_at": "2026-11-19T10:51:57Z",
+ "countries": [
+  {
+   "code": "ES",
+   "name": "España"
+  }
+ ],
+ "areas": [
+  {
+   "id": "GF01",
+   "level": 1,
+   "parent_id": null,
+   "name": "Servicios públicos generales",
+   "description": "Funcionamiento de las instituciones, intereses de la deuda y transferencias entre administraciones.",
+   "icon": "landmark"
+  },
+  {
+   "id": "GF0101",
+   "level": 2,
+   "parent_id": "GF01",
+   "name": "Órganos ejecutivos y legislativos, asuntos financieros, fiscales y exteriores",
+   "description": null,
+   "icon": null
+  },
+  {
+   "id": "GF0102",
+   "level": 2,
+   "parent_id": "GF01",
+   "name": "Ayuda económica exterior",
+   "description": null,
+   "icon": null
+  },
+  {
+   "id": "GF0103",
+   "level": 2,
+   "parent_id": "GF01",
+   "name": "Servicios generales",
+   "description": null,
+   "icon": null
+  },
+  {
+   "id": "GF0104",
+   "level": 2,
+   "parent_id": "GF01",
+   "name": "Investigación básica",
+   "description": null,
+   "icon": null
+  },
+  {
+   "id": "GF0105",
+   "level": 2,
+   "parent_id": "GF01",
+   "name": "I+D en servicios públicos generales",
+   "description": null,
+   "icon": null
+  },
+  {
+   "id": "GF0106",
+   "level": 2,
+   "parent_id": "GF01",
+   "name": "Otros servicios públicos generales",
+   "description": null,
+   "icon": null
+  },
+  {
+   "id": "GF0107",
+   "level": 2,
+   "parent_id": "GF01",
+   "name": "Operaciones de la deuda pública",
+   "description": null,
+   "icon": null
+  },
+  {
+   "id": "GF0108",
+   "level": 2,
+   "parent_id": "GF01",
+   "name": "Transferencias de carácter general entre administraciones",
+   "description": null,
+   "icon": null
+  },
+  {
+   "id": "GF02",
+   "level": 1,
+   "parent_id": null,
+   "name": "Defensa",
+   "description": "Fuerzas armadas, protección civil y ayuda militar exterior.",
+   "icon": "shield"
+  },
+  {
+   "id": "GF0201",
+   "level": 2,
+   "parent_id": "GF02",
+   "name": "Defensa militar",
+   "description": null,
+   "icon": null
+  },
+  {
+   "id": "GF0202",
+   "level": 2,
+   "parent_id": "GF02",
+   "name": "Protección civil",
+   "description": null,
+   "icon": null
+  },
+  {
+   "id": "GF0203",
+   "level": 2,
+   "parent_id": "GF02",
+   "name": "Ayuda militar exterior",
+   "description": null,
+   "icon": null
+  },
+  {
+   "id": "GF0204",
+   "level": 2,
+   "parent_id": "GF02",
+   "name": "I+D en defensa",
+   "description": null,
+   "icon": null
+  },
+  {
+   "id": "GF0205",
+   "level": 2,
+   "parent_id": "GF02",
+   "name": "Otros gastos de defensa",
+   "description": null,
+   "icon": null
+  },
+  {
+   "id": "GF03",
+   "level": 1,
+   "parent_id": null,
+   "name": "Orden público y seguridad",
+   "description": "Policía, bomberos, tribunales y prisiones.",
+   "icon": "siren"
+  },
+  {
+   "id": "GF0301",
+   "level": 2,
+   "parent_id": "GF03",
+   "name": "Servicios de policía",
+   "description": null,
+   "icon": null
+  },
+  {
+   "id": "GF0302",
+   "level": 2,
+   "parent_id": "GF03",
+   "name": "Protección contra incendios",
+   "description": null,
+   "icon": null
+  },
+  {
+   "id": "GF0303",
+   "level": 2,
+   "parent_id": "GF03",
+   "name": "Tribunales de justicia",
+   "description": null,
+   "icon": null
+  },
+  {
+   "id": "GF0304",
+   "level": 2,
+   "parent_id": "GF03",
+   "name": "Prisiones",
+   "description": null,
+   "icon": null
+  },
+  {
+   "id": "GF0305",
+   "level": 2,
+   "parent_id": "GF03",
+   "name": "I+D en orden público y seguridad",
+   "description": null,
+   "icon": null
+  },
+  {
+   "id": "GF0306",
+   "level": 2,
+   "parent_id": "GF03",
+   "name": "Otros gastos de orden público y seguridad",
+   "description": null,
+   "icon": null
+  },
+  {
+   "id": "GF04",
+   "level": 1,
+   "parent_id": null,
+   "name": "Asuntos económicos",
+   "description": "Transporte, energía, agricultura, industria y apoyo a la economía.",
+   "icon": "briefcase"
+  },
+  {
+   "id": "GF0401",
+   "level": 2,
+   "parent_id": "GF04",
+   "name": "Asuntos económicos, comerciales y laborales en general",
+   "description": null,
+   "icon": null
+  },
+  {
+   "id": "GF0402",
+   "level": 2,
+   "parent_id": "GF04",
+   "name": "Agricultura, silvicultura, pesca y caza",
+   "description": null,
+   "icon": null
+  },
+  {
+   "id": "GF0403",
+   "level": 2,
+   "parent_id": "GF04",
+   "name": "Combustibles y energía",
+   "description": null,
+   "icon": null
+  },
+  {
+   "id": "GF0404",
+   "level": 2,
+   "parent_id": "GF04",
+   "name": "Minería, manufacturas y construcción",
+   "description": null,
+   "icon": null
+  },
+  {
+   "id": "GF0405",
+   "level": 2,
+   "parent_id": "GF04",
+   "name": "Transporte",
+   "description": null,
+   "icon": null
+  },
+  {
+   "id": "GF0406",
+   "level": 2,
+   "parent_id": "GF04",
+   "name": "Comunicaciones",
+   "description": null,
+   "icon": null
+  },
+  {
+   "id": "GF0407",
+   "level": 2,
+   "parent_id": "GF04",
+   "name": "Otras industrias",
+   "description": null,
+   "icon": null
+  },
+  {
+   "id": "GF0408",
+   "level": 2,
+   "parent_id": "GF04",
+   "name": "I+D en asuntos económicos",
+   "description": null,
+   "icon": null
+  },
+  {
+   "id": "GF0409",
+   "level": 2,
+   "parent_id": "GF04",
+   "name": "Otros asuntos económicos",
+   "description": null,
+   "icon": null
+  },
+  {
+   "id": "GF05",
+   "level": 1,
+   "parent_id": null,
+   "name": "Protección del medio ambiente",
+   "description": "Residuos, aguas residuales, contaminación y biodiversidad.",
+   "icon": "leaf"
+  },
+  {
+   "id": "GF0501",
+   "level": 2,
+   "parent_id": "GF05",
+   "name": "Gestión de residuos",
+   "description": null,
+   "icon": null
+  },
+  {
+   "id": "GF0502",
+   "level": 2,
+   "parent_id": "GF05",
+   "name": "Gestión de aguas residuales",
+   "description": null,
+   "icon": null
+  },
+  {
+   "id": "GF0503",
+   "level": 2,
+   "parent_id": "GF05",
+   "name": "Reducción de la contaminación",
+   "description": null,
+   "icon": null
+  },
+  {
+   "id": "GF0504",
+   "level": 2,
+   "parent_id": "GF05",
+   "name": "Protección de la biodiversidad y del paisaje",
+   "description": null,
+   "icon": null
+  },
+  {
+   "id": "GF0505",
+   "level": 2,
+   "parent_id": "GF05",
+   "name": "I+D en protección del medio ambiente",
+   "description": null,
+   "icon": null
+  },
+  {
+   "id": "GF0506",
+   "level": 2,
+   "parent_id": "GF05",
+   "name": "Otros gastos de protección del medio ambiente",
+   "description": null,
+   "icon": null
+  },
+  {
+   "id": "GF06",
+   "level": 1,
+   "parent_id": null,
+   "name": "Vivienda y servicios comunitarios",
+   "description": "Urbanismo, desarrollo de vivienda, abastecimiento de agua y alumbrado público.",
+   "icon": "home"
+  },
+  {
+   "id": "GF0601",
+   "level": 2,
+   "parent_id": "GF06",
+   "name": "Urbanización",
+   "description": null,
+   "icon": null
+  },
+  {
+   "id": "GF0602",
+   "level": 2,
+   "parent_id": "GF06",
+   "name": "Desarrollo comunitario",
+   "description": null,
+   "icon": null
+  },
+  {
+   "id": "GF0603",
+   "level": 2,
+   "parent_id": "GF06",
+   "name": "Abastecimiento de agua",
+   "description": null,
+   "icon": null
+  },
+  {
+   "id": "GF0604",
+   "level": 2,
+   "parent_id": "GF06",
+   "name": "Alumbrado público",
+   "description": null,
+   "icon": null
+  },
+  {
+   "id": "GF0605",
+   "level": 2,
+   "parent_id": "GF06",
+   "name": "I+D en vivienda y servicios comunitarios",
+   "description": null,
+   "icon": null
+  },
+  {
+   "id": "GF0606",
+   "level": 2,
+   "parent_id": "GF06",
+   "name": "Otros gastos de vivienda y servicios comunitarios",
+   "description": null,
+   "icon": null
+  },
+  {
+   "id": "GF07",
+   "level": 1,
+   "parent_id": null,
+   "name": "Sanidad",
+   "description": "Hospitales, atención primaria, medicamentos y salud pública.",
+   "icon": "heart-pulse"
+  },
+  {
+   "id": "GF0701",
+   "level": 2,
+   "parent_id": "GF07",
+   "name": "Productos, aparatos y equipos médicos",
+   "description": null,
+   "icon": null
+  },
+  {
+   "id": "GF0702",
+   "level": 2,
+   "parent_id": "GF07",
+   "name": "Servicios ambulatorios",
+   "description": null,
+   "icon": null
+  },
+  {
+   "id": "GF0703",
+   "level": 2,
+   "parent_id": "GF07",
+   "name": "Servicios hospitalarios",
+   "description": null,
+   "icon": null
+  },
+  {
+   "id": "GF0704",
+   "level": 2,
+   "parent_id": "GF07",
+   "name": "Servicios de salud pública",
+   "description": null,
+   "icon": null
+  },
+  {
+   "id": "GF0705",
+   "level": 2,
+   "parent_id": "GF07",
+   "name": "I+D en sanidad",
+   "description": null,
+   "icon": null
+  },
+  {
+   "id": "GF0706",
+   "level": 2,
+   "parent_id": "GF07",
+   "name": "Otros gastos de sanidad",
+   "description": null,
+   "icon": null
+  },
+  {
+   "id": "GF08",
+   "level": 1,
+   "parent_id": null,
+   "name": "Ocio, cultura y religión",
+   "description": "Deporte, cultura, medios públicos de comunicación y servicios comunitarios.",
+   "icon": "palette"
+  },
+  {
+   "id": "GF0801",
+   "level": 2,
+   "parent_id": "GF08",
+   "name": "Servicios recreativos y deportivos",
+   "description": null,
+   "icon": null
+  },
+  {
+   "id": "GF0802",
+   "level": 2,
+   "parent_id": "GF08",
+   "name": "Servicios culturales",
+   "description": null,
+   "icon": null
+  },
+  {
+   "id": "GF0803",
+   "level": 2,
+   "parent_id": "GF08",
+   "name": "Servicios de radio, televisión y edición",
+   "description": null,
+   "icon": null
+  },
+  {
+   "id": "GF0804",
+   "level": 2,
+   "parent_id": "GF08",
+   "name": "Servicios religiosos y otros servicios comunitarios",
+   "description": null,
+   "icon": null
+  },
+  {
+   "id": "GF0805",
+   "level": 2,
+   "parent_id": "GF08",
+   "name": "I+D en ocio, cultura y religión",
+   "description": null,
+   "icon": null
+  },
+  {
+   "id": "GF0806",
+   "level": 2,
+   "parent_id": "GF08",
+   "name": "Otros gastos de ocio, cultura y religión",
+   "description": null,
+   "icon": null
+  },
+  {
+   "id": "GF09",
+   "level": 1,
+   "parent_id": null,
+   "name": "Educación",
+   "description": "Enseñanza infantil, primaria, secundaria, universitaria y servicios auxiliares.",
+   "icon": "graduation-cap"
+  },
+  {
+   "id": "GF0901",
+   "level": 2,
+   "parent_id": "GF09",
+   "name": "Educación infantil y primaria",
+   "description": null,
+   "icon": null
+  },
+  {
+   "id": "GF0902",
+   "level": 2,
+   "parent_id": "GF09",
+   "name": "Educación secundaria",
+   "description": null,
+   "icon": null
+  },
+  {
+   "id": "GF0903",
+   "level": 2,
+   "parent_id": "GF09",
+   "name": "Educación postsecundaria no terciaria",
+   "description": null,
+   "icon": null
+  },
+  {
+   "id": "GF0904",
+   "level": 2,
+   "parent_id": "GF09",
+   "name": "Educación terciaria",
+   "description": null,
+   "icon": null
+  },
+  {
+   "id": "GF0905",
+   "level": 2,
+   "parent_id": "GF09",
+   "name": "Educación no atribuible a ningún nivel",
+   "description": null,
+   "icon": null
+  },
+  {
+   "id": "GF0906",
+   "level": 2,
+   "parent_id": "GF09",
+   "name": "Servicios auxiliares de la educación",
+   "description": null,
+   "icon": null
+  },
+  {
+   "id": "GF0907",
+   "level": 2,
+   "parent_id": "GF09",
+   "name": "I+D en educación",
+   "description": null,
+   "icon": null
+  },
+  {
+   "id": "GF0908",
+   "level": 2,
+   "parent_id": "GF09",
+   "name": "Otros gastos de educación",
+   "description": null,
+   "icon": null
+  },
+  {
+   "id": "GF10",
+   "level": 1,
+   "parent_id": null,
+   "name": "Protección social",
+   "description": "Pensiones, desempleo, incapacidad, familia y lucha contra la exclusión.",
+   "icon": "users"
+  },
+  {
+   "id": "GF1001",
+   "level": 2,
+   "parent_id": "GF10",
+   "name": "Enfermedad e incapacidad",
+   "description": null,
+   "icon": null
+  },
+  {
+   "id": "GF1002",
+   "level": 2,
+   "parent_id": "GF10",
+   "name": "Vejez",
+   "description": null,
+   "icon": null
+  },
+  {
+   "id": "GF1003",
+   "level": 2,
+   "parent_id": "GF10",
+   "name": "Supervivientes",
+   "description": null,
+   "icon": null
+  },
+  {
+   "id": "GF1004",
+   "level": 2,
+   "parent_id": "GF10",
+   "name": "Familia e hijos",
+   "description": null,
+   "icon": null
+  },
+  {
+   "id": "GF1005",
+   "level": 2,
+   "parent_id": "GF10",
+   "name": "Desempleo",
+   "description": null,
+   "icon": null
+  },
+  {
+   "id": "GF1006",
+   "level": 2,
+   "parent_id": "GF10",
+   "name": "Vivienda",
+   "description": null,
+   "icon": null
+  },
+  {
+   "id": "GF1007",
+   "level": 2,
+   "parent_id": "GF10",
+   "name": "Exclusión social",
+   "description": null,
+   "icon": null
+  },
+  {
+   "id": "GF1008",
+   "level": 2,
+   "parent_id": "GF10",
+   "name": "I+D en protección social",
+   "description": null,
+   "icon": null
+  },
+  {
+   "id": "GF1009",
+   "level": 2,
+   "parent_id": "GF10",
+   "name": "Otros gastos de protección social",
+   "description": null,
+   "icon": null
+  }
+ ],
+ "spending": [
+  {
+   "area_id": "GF01",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 70356.0,
+   "pct_gdp": 6.5,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF01",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 68317.0,
+   "pct_gdp": 6.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF01",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 64641.0,
+   "pct_gdp": 5.5,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF01",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 67520.0,
+   "pct_gdp": 5.6,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF01",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 67671.0,
+   "pct_gdp": 5.4,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF01",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 66059.0,
+   "pct_gdp": 5.8,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF01",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 70976.0,
+   "pct_gdp": 5.7,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF01",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 77818.0,
+   "pct_gdp": 5.7,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF01",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 84425.0,
+   "pct_gdp": 5.6,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF01",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 92551.0,
+   "pct_gdp": 5.8,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0101",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 17458.0,
+   "pct_gdp": 1.6,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0101",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 18276.0,
+   "pct_gdp": 1.6,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0101",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 16101.0,
+   "pct_gdp": 1.4,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0101",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 18640.0,
+   "pct_gdp": 1.5,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0101",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 18789.0,
+   "pct_gdp": 1.5,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0101",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 19873.0,
+   "pct_gdp": 1.8,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0101",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 21941.0,
+   "pct_gdp": 1.8,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0101",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 21308.0,
+   "pct_gdp": 1.5,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0101",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 20901.0,
+   "pct_gdp": 1.4,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0101",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 21444.0,
+   "pct_gdp": 1.3,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0102",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 494.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0102",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 566.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0102",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 557.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0102",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 521.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0102",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 779.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0102",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 1029.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0102",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 1648.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0102",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 1728.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0102",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 1732.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0102",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 1255.0,
+   "pct_gdp": 0.1,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0103",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 11081.0,
+   "pct_gdp": 1.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0103",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 11030.0,
+   "pct_gdp": 1.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0103",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 11374.0,
+   "pct_gdp": 1.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0103",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 11761.0,
+   "pct_gdp": 1.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0103",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 12347.0,
+   "pct_gdp": 1.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0103",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 12926.0,
+   "pct_gdp": 1.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0103",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 13709.0,
+   "pct_gdp": 1.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0103",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 14610.0,
+   "pct_gdp": 1.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0103",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 15851.0,
+   "pct_gdp": 1.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0103",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 16626.0,
+   "pct_gdp": 1.0,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0104",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 5032.0,
+   "pct_gdp": 0.5,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0104",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 4934.0,
+   "pct_gdp": 0.4,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0104",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 5236.0,
+   "pct_gdp": 0.4,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0104",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 5307.0,
+   "pct_gdp": 0.4,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0104",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 5584.0,
+   "pct_gdp": 0.4,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0104",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 5721.0,
+   "pct_gdp": 0.5,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0104",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 6261.0,
+   "pct_gdp": 0.5,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0104",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 7130.0,
+   "pct_gdp": 0.5,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0104",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 8133.0,
+   "pct_gdp": 0.5,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0104",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 8513.0,
+   "pct_gdp": 0.5,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0105",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 278.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0105",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 324.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0105",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 271.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0105",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 327.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0105",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 296.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0105",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 322.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0105",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 350.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0105",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 378.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0105",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 397.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0105",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 408.0,
+   "pct_gdp": 0.0,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0106",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 353.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0106",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 261.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0106",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 49.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0106",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 40.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0106",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 576.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0106",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 96.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0106",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 91.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0106",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 54.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0106",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 685.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0106",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 4661.0,
+   "pct_gdp": 0.3,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0107",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 35660.0,
+   "pct_gdp": 3.3,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0107",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 32926.0,
+   "pct_gdp": 2.9,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0107",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 31053.0,
+   "pct_gdp": 2.7,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0107",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 30924.0,
+   "pct_gdp": 2.6,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0107",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 29300.0,
+   "pct_gdp": 2.3,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0107",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 26092.0,
+   "pct_gdp": 2.3,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0107",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 26976.0,
+   "pct_gdp": 2.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0107",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 32610.0,
+   "pct_gdp": 2.4,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0107",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 36726.0,
+   "pct_gdp": 2.5,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0107",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 39644.0,
+   "pct_gdp": 2.5,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0108",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 0.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0108",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 0.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0108",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 0.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0108",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 0.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0108",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 0.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0108",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 0.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0108",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 0.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0108",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 0.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0108",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 0.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0108",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 0.0,
+   "pct_gdp": 0.0,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF02",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 10416.0,
+   "pct_gdp": 1.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF02",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 10889.0,
+   "pct_gdp": 1.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF02",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 10373.0,
+   "pct_gdp": 0.9,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF02",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 10287.0,
+   "pct_gdp": 0.8,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF02",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 10537.0,
+   "pct_gdp": 0.8,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF02",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 10549.0,
+   "pct_gdp": 0.9,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF02",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 11716.0,
+   "pct_gdp": 0.9,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF02",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 15347.0,
+   "pct_gdp": 1.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF02",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 14008.0,
+   "pct_gdp": 0.9,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF02",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 14233.0,
+   "pct_gdp": 0.9,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0201",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 8862.0,
+   "pct_gdp": 0.8,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0201",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 9379.0,
+   "pct_gdp": 0.8,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0201",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 9024.0,
+   "pct_gdp": 0.8,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0201",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 8779.0,
+   "pct_gdp": 0.7,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0201",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 9128.0,
+   "pct_gdp": 0.7,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0201",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 9129.0,
+   "pct_gdp": 0.8,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0201",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 10102.0,
+   "pct_gdp": 0.8,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0201",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 13375.0,
+   "pct_gdp": 1.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0201",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 11399.0,
+   "pct_gdp": 0.8,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0201",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 11317.0,
+   "pct_gdp": 0.7,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0202",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 0.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0202",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 0.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0202",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 0.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0202",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 0.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0202",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 0.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0202",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 0.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0202",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 0.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0202",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 0.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0202",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 0.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0202",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 0.0,
+   "pct_gdp": 0.0,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0203",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 1204.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0203",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 1172.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0203",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 1117.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0203",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 1236.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0203",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 1171.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0203",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 1163.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0203",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 1374.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0203",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 1541.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0203",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 2001.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0203",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 2204.0,
+   "pct_gdp": 0.1,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0204",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 350.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0204",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 338.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0204",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 232.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0204",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 272.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0204",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 238.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0204",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 257.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0204",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 240.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0204",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 431.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0204",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 608.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0204",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 712.0,
+   "pct_gdp": 0.0,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0205",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 0.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0205",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 0.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0205",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 0.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0205",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 0.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0205",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 0.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0205",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 0.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0205",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 0.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0205",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 0.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0205",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 0.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0205",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 0.0,
+   "pct_gdp": 0.0,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF03",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 21772.0,
+   "pct_gdp": 2.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF03",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 21215.0,
+   "pct_gdp": 1.9,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF03",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 21262.0,
+   "pct_gdp": 1.8,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF03",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 21542.0,
+   "pct_gdp": 1.8,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF03",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 22685.0,
+   "pct_gdp": 1.8,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF03",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 23458.0,
+   "pct_gdp": 2.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF03",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 24540.0,
+   "pct_gdp": 2.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF03",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 25798.0,
+   "pct_gdp": 1.9,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF03",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 27414.0,
+   "pct_gdp": 1.8,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF03",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 28628.0,
+   "pct_gdp": 1.8,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0301",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 13698.0,
+   "pct_gdp": 1.3,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0301",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 13548.0,
+   "pct_gdp": 1.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0301",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 13512.0,
+   "pct_gdp": 1.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0301",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 13495.0,
+   "pct_gdp": 1.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0301",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 14233.0,
+   "pct_gdp": 1.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0301",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 14742.0,
+   "pct_gdp": 1.3,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0301",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 15230.0,
+   "pct_gdp": 1.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0301",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 16158.0,
+   "pct_gdp": 1.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0301",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 16960.0,
+   "pct_gdp": 1.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0301",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 17541.0,
+   "pct_gdp": 1.1,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0302",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 1739.0,
+   "pct_gdp": 0.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0302",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 1806.0,
+   "pct_gdp": 0.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0302",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 1841.0,
+   "pct_gdp": 0.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0302",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 1952.0,
+   "pct_gdp": 0.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0302",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 2108.0,
+   "pct_gdp": 0.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0302",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 2227.0,
+   "pct_gdp": 0.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0302",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 2372.0,
+   "pct_gdp": 0.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0302",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 2506.0,
+   "pct_gdp": 0.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0302",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 2807.0,
+   "pct_gdp": 0.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0302",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 3014.0,
+   "pct_gdp": 0.2,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0303",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 3879.0,
+   "pct_gdp": 0.4,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0303",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 3877.0,
+   "pct_gdp": 0.3,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0303",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 3958.0,
+   "pct_gdp": 0.3,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0303",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 4114.0,
+   "pct_gdp": 0.3,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0303",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 4253.0,
+   "pct_gdp": 0.3,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0303",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 4365.0,
+   "pct_gdp": 0.4,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0303",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 4641.0,
+   "pct_gdp": 0.4,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0303",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 4874.0,
+   "pct_gdp": 0.4,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0303",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 5122.0,
+   "pct_gdp": 0.3,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0303",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 5416.0,
+   "pct_gdp": 0.3,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0304",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 2269.0,
+   "pct_gdp": 0.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0304",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 1787.0,
+   "pct_gdp": 0.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0304",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 1769.0,
+   "pct_gdp": 0.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0304",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 1794.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0304",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 1832.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0304",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 1858.0,
+   "pct_gdp": 0.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0304",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 1943.0,
+   "pct_gdp": 0.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0304",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 2003.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0304",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 2222.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0304",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 2333.0,
+   "pct_gdp": 0.1,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0305",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 0.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0305",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 0.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0305",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 0.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0305",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 1.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0305",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 1.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0305",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 2.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0305",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 2.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0305",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 3.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0305",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 2.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0305",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 2.0,
+   "pct_gdp": 0.0,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0306",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 187.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0306",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 197.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0306",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 182.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0306",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 186.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0306",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 258.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0306",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 264.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0306",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 352.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0306",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 254.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0306",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 301.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0306",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 322.0,
+   "pct_gdp": 0.0,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF04",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 48799.0,
+   "pct_gdp": 4.5,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF04",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 43174.0,
+   "pct_gdp": 3.8,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF04",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 46256.0,
+   "pct_gdp": 4.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF04",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 51532.0,
+   "pct_gdp": 4.3,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF04",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 52761.0,
+   "pct_gdp": 4.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF04",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 65789.0,
+   "pct_gdp": 5.8,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF04",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 78943.0,
+   "pct_gdp": 6.4,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF04",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 77131.0,
+   "pct_gdp": 5.6,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF04",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 74851.0,
+   "pct_gdp": 5.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF04",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 80908.0,
+   "pct_gdp": 5.1,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0401",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 11759.0,
+   "pct_gdp": 1.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0401",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 12426.0,
+   "pct_gdp": 1.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0401",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 13941.0,
+   "pct_gdp": 1.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0401",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 15095.0,
+   "pct_gdp": 1.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0401",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 17165.0,
+   "pct_gdp": 1.4,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0401",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 24851.0,
+   "pct_gdp": 2.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0401",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 30636.0,
+   "pct_gdp": 2.5,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0401",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 17604.0,
+   "pct_gdp": 1.3,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0401",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 17474.0,
+   "pct_gdp": 1.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0401",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 21124.0,
+   "pct_gdp": 1.3,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0402",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 4533.0,
+   "pct_gdp": 0.4,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0402",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 3649.0,
+   "pct_gdp": 0.3,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0402",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 3826.0,
+   "pct_gdp": 0.3,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0402",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 4302.0,
+   "pct_gdp": 0.4,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0402",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 4733.0,
+   "pct_gdp": 0.4,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0402",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 4825.0,
+   "pct_gdp": 0.4,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0402",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 4879.0,
+   "pct_gdp": 0.4,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0402",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 5738.0,
+   "pct_gdp": 0.4,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0402",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 7485.0,
+   "pct_gdp": 0.5,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0402",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 7156.0,
+   "pct_gdp": 0.4,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0403",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 5423.0,
+   "pct_gdp": 0.5,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0403",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 3736.0,
+   "pct_gdp": 0.3,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0403",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 4346.0,
+   "pct_gdp": 0.4,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0403",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 4373.0,
+   "pct_gdp": 0.4,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0403",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 4144.0,
+   "pct_gdp": 0.3,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0403",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 5796.0,
+   "pct_gdp": 0.5,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0403",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 6572.0,
+   "pct_gdp": 0.5,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0403",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 15827.0,
+   "pct_gdp": 1.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0403",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 4995.0,
+   "pct_gdp": 0.3,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0403",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 5756.0,
+   "pct_gdp": 0.4,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0404",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 530.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0404",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 423.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0404",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 676.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0404",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 763.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0404",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 850.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0404",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 773.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0404",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 1299.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0404",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 1078.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0404",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 2899.0,
+   "pct_gdp": 0.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0404",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 2519.0,
+   "pct_gdp": 0.2,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0405",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 18592.0,
+   "pct_gdp": 1.7,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0405",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 15961.0,
+   "pct_gdp": 1.4,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0405",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 16491.0,
+   "pct_gdp": 1.4,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0405",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 19607.0,
+   "pct_gdp": 1.6,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0405",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 18493.0,
+   "pct_gdp": 1.5,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0405",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 21069.0,
+   "pct_gdp": 1.9,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0405",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 24785.0,
+   "pct_gdp": 2.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0405",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 25167.0,
+   "pct_gdp": 1.8,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0405",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 28897.0,
+   "pct_gdp": 1.9,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0405",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 28634.0,
+   "pct_gdp": 1.8,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0406",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 1020.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0406",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 847.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0406",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 839.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0406",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 870.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0406",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 936.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0406",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 1055.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0406",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 1449.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0406",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 3469.0,
+   "pct_gdp": 0.3,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0406",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 2734.0,
+   "pct_gdp": 0.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0406",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 3685.0,
+   "pct_gdp": 0.2,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0407",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 2496.0,
+   "pct_gdp": 0.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0407",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 1907.0,
+   "pct_gdp": 0.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0407",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 1861.0,
+   "pct_gdp": 0.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0407",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 1971.0,
+   "pct_gdp": 0.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0407",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 1911.0,
+   "pct_gdp": 0.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0407",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 2227.0,
+   "pct_gdp": 0.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0407",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 4217.0,
+   "pct_gdp": 0.3,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0407",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 3023.0,
+   "pct_gdp": 0.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0407",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 3995.0,
+   "pct_gdp": 0.3,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0407",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 4212.0,
+   "pct_gdp": 0.3,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0408",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 4014.0,
+   "pct_gdp": 0.4,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0408",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 3847.0,
+   "pct_gdp": 0.3,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0408",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 3912.0,
+   "pct_gdp": 0.3,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0408",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 4196.0,
+   "pct_gdp": 0.3,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0408",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 4166.0,
+   "pct_gdp": 0.3,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0408",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 4229.0,
+   "pct_gdp": 0.4,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0408",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 4593.0,
+   "pct_gdp": 0.4,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0408",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 4664.0,
+   "pct_gdp": 0.3,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0408",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 5269.0,
+   "pct_gdp": 0.4,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0408",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 5485.0,
+   "pct_gdp": 0.3,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0409",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 432.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0409",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 378.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0409",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 364.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0409",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 355.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0409",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 363.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0409",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 964.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0409",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 513.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0409",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 561.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0409",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 1103.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0409",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 2337.0,
+   "pct_gdp": 0.1,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF05",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 9495.0,
+   "pct_gdp": 0.9,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF05",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 9492.0,
+   "pct_gdp": 0.8,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF05",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 9924.0,
+   "pct_gdp": 0.8,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF05",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 10258.0,
+   "pct_gdp": 0.8,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF05",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 10803.0,
+   "pct_gdp": 0.9,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF05",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 10785.0,
+   "pct_gdp": 1.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF05",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 11465.0,
+   "pct_gdp": 0.9,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF05",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 13335.0,
+   "pct_gdp": 1.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF05",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 14579.0,
+   "pct_gdp": 1.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF05",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 15539.0,
+   "pct_gdp": 1.0,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0501",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 5607.0,
+   "pct_gdp": 0.5,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0501",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 5717.0,
+   "pct_gdp": 0.5,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0501",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 6141.0,
+   "pct_gdp": 0.5,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0501",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 6370.0,
+   "pct_gdp": 0.5,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0501",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 6773.0,
+   "pct_gdp": 0.5,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0501",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 6737.0,
+   "pct_gdp": 0.6,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0501",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 7054.0,
+   "pct_gdp": 0.6,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0501",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 8257.0,
+   "pct_gdp": 0.6,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0501",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 8414.0,
+   "pct_gdp": 0.6,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0501",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 8852.0,
+   "pct_gdp": 0.6,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0502",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 1533.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0502",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 1469.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0502",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 1455.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0502",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 1523.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0502",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 1603.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0502",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 1565.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0502",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 1656.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0502",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 1897.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0502",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 2111.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0502",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 2209.0,
+   "pct_gdp": 0.1,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0503",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 230.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0503",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 242.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0503",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 285.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0503",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 337.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0503",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 424.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0503",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 398.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0503",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 434.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0503",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 514.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0503",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 593.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0503",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 585.0,
+   "pct_gdp": 0.0,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0504",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 1086.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0504",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 979.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0504",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 970.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0504",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 993.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0504",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 961.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0504",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 979.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0504",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 1215.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0504",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 1442.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0504",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 2061.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0504",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 2431.0,
+   "pct_gdp": 0.2,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0505",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 420.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0505",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 395.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0505",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 395.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0505",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 392.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0505",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 425.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0505",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 430.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0505",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 476.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0505",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 524.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0505",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 574.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0505",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 597.0,
+   "pct_gdp": 0.0,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0506",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 619.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0506",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 690.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0506",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 678.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0506",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 643.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0506",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 617.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0506",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 676.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0506",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 630.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0506",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 701.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0506",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 826.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0506",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 865.0,
+   "pct_gdp": 0.1,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF06",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 5550.0,
+   "pct_gdp": 0.5,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF06",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 4876.0,
+   "pct_gdp": 0.4,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF06",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 5031.0,
+   "pct_gdp": 0.4,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF06",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 5130.0,
+   "pct_gdp": 0.4,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF06",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 5190.0,
+   "pct_gdp": 0.4,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF06",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 5149.0,
+   "pct_gdp": 0.5,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF06",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 5780.0,
+   "pct_gdp": 0.5,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF06",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 6461.0,
+   "pct_gdp": 0.5,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF06",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 7821.0,
+   "pct_gdp": 0.5,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF06",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 7613.0,
+   "pct_gdp": 0.5,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0601",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 2081.0,
+   "pct_gdp": 0.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0601",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 1672.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0601",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 1625.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0601",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 1634.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0601",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 1883.0,
+   "pct_gdp": 0.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0601",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 1854.0,
+   "pct_gdp": 0.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0601",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 2316.0,
+   "pct_gdp": 0.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0601",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 2303.0,
+   "pct_gdp": 0.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0601",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 2961.0,
+   "pct_gdp": 0.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0601",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 2756.0,
+   "pct_gdp": 0.2,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0602",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 709.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0602",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 614.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0602",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 655.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0602",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 731.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0602",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 423.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0602",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 410.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0602",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 508.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0602",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 535.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0602",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 649.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0602",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 624.0,
+   "pct_gdp": 0.0,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0603",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 1252.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0603",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 1084.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0603",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 1206.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0603",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 1157.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0603",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 1232.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0603",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 1283.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0603",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 1354.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0603",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 1645.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0603",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 2051.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0603",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 2055.0,
+   "pct_gdp": 0.1,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0604",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 1272.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0604",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 1245.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0604",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 1280.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0604",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 1354.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0604",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 1378.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0604",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 1350.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0604",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 1373.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0604",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 1702.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0604",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 1888.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0604",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 1895.0,
+   "pct_gdp": 0.1,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0605",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 129.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0605",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 150.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0605",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 169.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0605",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 154.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0605",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 154.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0605",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 170.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0605",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 147.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0605",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 168.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0605",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 179.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0605",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 185.0,
+   "pct_gdp": 0.0,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0606",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 107.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0606",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 111.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0606",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 96.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0606",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 100.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0606",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 120.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0606",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 82.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0606",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 82.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0606",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 108.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0606",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 93.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0606",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 98.0,
+   "pct_gdp": 0.0,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF07",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 66484.0,
+   "pct_gdp": 6.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF07",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 67713.0,
+   "pct_gdp": 6.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF07",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 69298.0,
+   "pct_gdp": 5.9,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF07",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 72146.0,
+   "pct_gdp": 6.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF07",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 75917.0,
+   "pct_gdp": 6.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF07",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 85545.0,
+   "pct_gdp": 7.6,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF07",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 88541.0,
+   "pct_gdp": 7.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF07",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 93327.0,
+   "pct_gdp": 6.8,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF07",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 98630.0,
+   "pct_gdp": 6.6,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF07",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 102942.0,
+   "pct_gdp": 6.5,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0701",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 10717.0,
+   "pct_gdp": 1.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0701",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 11160.0,
+   "pct_gdp": 1.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0701",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 11360.0,
+   "pct_gdp": 1.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0701",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 11663.0,
+   "pct_gdp": 1.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0701",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 11956.0,
+   "pct_gdp": 1.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0701",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 12992.0,
+   "pct_gdp": 1.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0701",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 13249.0,
+   "pct_gdp": 1.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0701",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 13915.0,
+   "pct_gdp": 1.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0701",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 14428.0,
+   "pct_gdp": 1.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0701",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 15083.0,
+   "pct_gdp": 0.9,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0702",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 24330.0,
+   "pct_gdp": 2.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0702",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 24736.0,
+   "pct_gdp": 2.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0702",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 25362.0,
+   "pct_gdp": 2.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0702",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 26484.0,
+   "pct_gdp": 2.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0702",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 28074.0,
+   "pct_gdp": 2.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0702",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 31042.0,
+   "pct_gdp": 2.7,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0702",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 32147.0,
+   "pct_gdp": 2.6,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0702",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 33619.0,
+   "pct_gdp": 2.4,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0702",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 35213.0,
+   "pct_gdp": 2.4,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0702",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 37253.0,
+   "pct_gdp": 2.3,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0703",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 27255.0,
+   "pct_gdp": 2.5,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0703",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 27558.0,
+   "pct_gdp": 2.5,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0703",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 28202.0,
+   "pct_gdp": 2.4,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0703",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 29513.0,
+   "pct_gdp": 2.4,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0703",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 31172.0,
+   "pct_gdp": 2.5,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0703",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 36459.0,
+   "pct_gdp": 3.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0703",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 36598.0,
+   "pct_gdp": 3.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0703",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 38667.0,
+   "pct_gdp": 2.8,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0703",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 42252.0,
+   "pct_gdp": 2.8,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0703",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 43650.0,
+   "pct_gdp": 2.7,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0704",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 1000.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0704",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 1027.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0704",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 1057.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0704",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 1081.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0704",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 1123.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0704",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 1333.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0704",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 2619.0,
+   "pct_gdp": 0.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0704",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 2915.0,
+   "pct_gdp": 0.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0704",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 1886.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0704",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 1777.0,
+   "pct_gdp": 0.1,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0705",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 2707.0,
+   "pct_gdp": 0.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0705",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 2835.0,
+   "pct_gdp": 0.3,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0705",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 2920.0,
+   "pct_gdp": 0.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0705",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 3004.0,
+   "pct_gdp": 0.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0705",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 3239.0,
+   "pct_gdp": 0.3,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0705",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 3299.0,
+   "pct_gdp": 0.3,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0705",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 3495.0,
+   "pct_gdp": 0.3,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0705",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 3804.0,
+   "pct_gdp": 0.3,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0705",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 4400.0,
+   "pct_gdp": 0.3,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0705",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 4713.0,
+   "pct_gdp": 0.3,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0706",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 475.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0706",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 397.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0706",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 397.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0706",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 401.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0706",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 353.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0706",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 420.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0706",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 433.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0706",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 407.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0706",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 451.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0706",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 466.0,
+   "pct_gdp": 0.0,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF08",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 12445.0,
+   "pct_gdp": 1.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF08",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 12334.0,
+   "pct_gdp": 1.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF08",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 12811.0,
+   "pct_gdp": 1.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF08",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 13544.0,
+   "pct_gdp": 1.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF08",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 14420.0,
+   "pct_gdp": 1.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF08",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 13382.0,
+   "pct_gdp": 1.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF08",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 14607.0,
+   "pct_gdp": 1.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF08",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 17120.0,
+   "pct_gdp": 1.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF08",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 18638.0,
+   "pct_gdp": 1.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF08",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 19193.0,
+   "pct_gdp": 1.2,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0801",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 4137.0,
+   "pct_gdp": 0.4,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0801",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 4143.0,
+   "pct_gdp": 0.4,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0801",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 4429.0,
+   "pct_gdp": 0.4,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0801",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 4723.0,
+   "pct_gdp": 0.4,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0801",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 5116.0,
+   "pct_gdp": 0.4,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0801",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 4697.0,
+   "pct_gdp": 0.4,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0801",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 5308.0,
+   "pct_gdp": 0.4,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0801",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 6112.0,
+   "pct_gdp": 0.4,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0801",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 6799.0,
+   "pct_gdp": 0.5,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0801",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 6770.0,
+   "pct_gdp": 0.4,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0802",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 4903.0,
+   "pct_gdp": 0.5,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0802",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 4811.0,
+   "pct_gdp": 0.4,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0802",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 5034.0,
+   "pct_gdp": 0.4,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0802",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 5321.0,
+   "pct_gdp": 0.4,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0802",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 5736.0,
+   "pct_gdp": 0.5,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0802",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 4964.0,
+   "pct_gdp": 0.4,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0802",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 5553.0,
+   "pct_gdp": 0.4,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0802",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 6818.0,
+   "pct_gdp": 0.5,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0802",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 7607.0,
+   "pct_gdp": 0.5,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0802",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 7804.0,
+   "pct_gdp": 0.5,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0803",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 2204.0,
+   "pct_gdp": 0.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0803",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 2213.0,
+   "pct_gdp": 0.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0803",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 2246.0,
+   "pct_gdp": 0.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0803",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 2414.0,
+   "pct_gdp": 0.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0803",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 2495.0,
+   "pct_gdp": 0.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0803",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 2469.0,
+   "pct_gdp": 0.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0803",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 2661.0,
+   "pct_gdp": 0.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0803",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 2721.0,
+   "pct_gdp": 0.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0803",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 2964.0,
+   "pct_gdp": 0.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0803",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 3144.0,
+   "pct_gdp": 0.2,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0804",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 950.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0804",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 933.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0804",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 858.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0804",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 826.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0804",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 804.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0804",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 963.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0804",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 782.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0804",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 1056.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0804",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 824.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0804",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 975.0,
+   "pct_gdp": 0.1,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0805",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 124.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0805",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 119.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0805",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 129.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0805",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 127.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0805",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 126.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0805",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 145.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0805",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 147.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0805",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 164.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0805",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 178.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0805",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 175.0,
+   "pct_gdp": 0.0,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0806",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 127.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0806",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 115.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0806",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 115.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0806",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 133.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0806",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 143.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0806",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 144.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0806",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 156.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0806",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 249.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0806",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 266.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0806",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 325.0,
+   "pct_gdp": 0.0,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF09",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 44390.0,
+   "pct_gdp": 4.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF09",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 45328.0,
+   "pct_gdp": 4.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF09",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 46442.0,
+   "pct_gdp": 4.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF09",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 47764.0,
+   "pct_gdp": 3.9,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF09",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 50052.0,
+   "pct_gdp": 4.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF09",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 52003.0,
+   "pct_gdp": 4.6,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF09",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 55885.0,
+   "pct_gdp": 4.5,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF09",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 58669.0,
+   "pct_gdp": 4.3,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF09",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 62532.0,
+   "pct_gdp": 4.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF09",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 65862.0,
+   "pct_gdp": 4.1,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0901",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 17313.0,
+   "pct_gdp": 1.6,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0901",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 17750.0,
+   "pct_gdp": 1.6,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0901",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 18028.0,
+   "pct_gdp": 1.5,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0901",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 18633.0,
+   "pct_gdp": 1.5,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0901",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 19609.0,
+   "pct_gdp": 1.6,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0901",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 20269.0,
+   "pct_gdp": 1.8,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0901",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 21489.0,
+   "pct_gdp": 1.7,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0901",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 22118.0,
+   "pct_gdp": 1.6,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0901",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 23497.0,
+   "pct_gdp": 1.6,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0901",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 24586.0,
+   "pct_gdp": 1.5,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0902",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 16502.0,
+   "pct_gdp": 1.5,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0902",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 17131.0,
+   "pct_gdp": 1.5,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0902",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 17661.0,
+   "pct_gdp": 1.5,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0902",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 18216.0,
+   "pct_gdp": 1.5,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0902",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 18967.0,
+   "pct_gdp": 1.5,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0902",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 20148.0,
+   "pct_gdp": 1.8,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0902",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 21645.0,
+   "pct_gdp": 1.8,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0902",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 22800.0,
+   "pct_gdp": 1.7,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0902",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 24321.0,
+   "pct_gdp": 1.6,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0902",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 25638.0,
+   "pct_gdp": 1.6,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0903",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 3.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0903",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 4.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0903",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 5.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0903",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 4.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0903",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 4.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0903",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 4.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0903",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 4.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0903",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 25.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0903",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 24.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0903",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 26.0,
+   "pct_gdp": 0.0,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0904",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 6385.0,
+   "pct_gdp": 0.6,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0904",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 6436.0,
+   "pct_gdp": 0.6,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0904",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 6533.0,
+   "pct_gdp": 0.6,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0904",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 6652.0,
+   "pct_gdp": 0.5,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0904",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 6894.0,
+   "pct_gdp": 0.5,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0904",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 6972.0,
+   "pct_gdp": 0.6,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0904",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 7646.0,
+   "pct_gdp": 0.6,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0904",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 8078.0,
+   "pct_gdp": 0.6,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0904",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 8295.0,
+   "pct_gdp": 0.6,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0904",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 8796.0,
+   "pct_gdp": 0.6,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0905",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 838.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0905",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 890.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0905",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 891.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0905",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 926.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0905",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 992.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0905",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 984.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0905",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 848.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0905",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 894.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0905",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 878.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0905",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 1005.0,
+   "pct_gdp": 0.1,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0906",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 1281.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0906",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 1304.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0906",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 1387.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0906",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 1371.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0906",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 1508.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0906",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 1407.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0906",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 1789.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0906",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 2004.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0906",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 2282.0,
+   "pct_gdp": 0.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0906",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 2364.0,
+   "pct_gdp": 0.1,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0907",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 787.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0907",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 611.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0907",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 635.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0907",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 650.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0907",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 781.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0907",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 695.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0907",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 902.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0907",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 1067.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0907",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 1323.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0907",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 1397.0,
+   "pct_gdp": 0.1,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0908",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 1281.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0908",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 1202.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0908",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 1302.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0908",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 1312.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0908",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 1297.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0908",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 1524.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0908",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 1562.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0908",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 1683.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0908",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 1912.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF0908",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 2050.0,
+   "pct_gdp": 0.1,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF10",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 185186.0,
+   "pct_gdp": 17.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF10",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 189379.0,
+   "pct_gdp": 16.9,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF10",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 193870.0,
+   "pct_gdp": 16.6,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF10",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 203470.0,
+   "pct_gdp": 16.8,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF10",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 216733.0,
+   "pct_gdp": 17.3,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF10",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 247445.0,
+   "pct_gdp": 21.9,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF10",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 248671.0,
+   "pct_gdp": 20.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF10",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 252111.0,
+   "pct_gdp": 18.3,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF10",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 277327.0,
+   "pct_gdp": 18.5,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF10",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 297532.0,
+   "pct_gdp": 18.7,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1001",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 25606.0,
+   "pct_gdp": 2.4,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1001",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 26678.0,
+   "pct_gdp": 2.4,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1001",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 27822.0,
+   "pct_gdp": 2.4,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1001",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 29376.0,
+   "pct_gdp": 2.4,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1001",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 31379.0,
+   "pct_gdp": 2.5,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1001",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 34136.0,
+   "pct_gdp": 3.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1001",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 35295.0,
+   "pct_gdp": 2.9,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1001",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 37445.0,
+   "pct_gdp": 2.7,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1001",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 40134.0,
+   "pct_gdp": 2.7,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1001",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 44019.0,
+   "pct_gdp": 2.8,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1002",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 98901.0,
+   "pct_gdp": 9.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1002",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 102579.0,
+   "pct_gdp": 9.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1002",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 106655.0,
+   "pct_gdp": 9.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1002",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 112641.0,
+   "pct_gdp": 9.3,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1002",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 118714.0,
+   "pct_gdp": 9.5,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1002",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 122744.0,
+   "pct_gdp": 10.9,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1002",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 129584.0,
+   "pct_gdp": 10.5,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1002",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 137505.0,
+   "pct_gdp": 10.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1002",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 153051.0,
+   "pct_gdp": 10.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1002",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 165050.0,
+   "pct_gdp": 10.4,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1003",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 25268.0,
+   "pct_gdp": 2.3,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1003",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 25546.0,
+   "pct_gdp": 2.3,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1003",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 25844.0,
+   "pct_gdp": 2.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1003",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 26736.0,
+   "pct_gdp": 2.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1003",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 28268.0,
+   "pct_gdp": 2.3,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1003",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 28769.0,
+   "pct_gdp": 2.5,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1003",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 29794.0,
+   "pct_gdp": 2.4,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1003",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 30854.0,
+   "pct_gdp": 2.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1003",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 33633.0,
+   "pct_gdp": 2.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1003",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 35425.0,
+   "pct_gdp": 2.2,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1004",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 7570.0,
+   "pct_gdp": 0.7,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1004",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 8290.0,
+   "pct_gdp": 0.7,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1004",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 8868.0,
+   "pct_gdp": 0.8,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1004",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 9981.0,
+   "pct_gdp": 0.8,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1004",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 11671.0,
+   "pct_gdp": 0.9,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1004",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 11657.0,
+   "pct_gdp": 1.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1004",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 12625.0,
+   "pct_gdp": 1.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1004",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 13229.0,
+   "pct_gdp": 1.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1004",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 14664.0,
+   "pct_gdp": 1.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1004",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 15294.0,
+   "pct_gdp": 1.0,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1005",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 22564.0,
+   "pct_gdp": 2.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1005",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 20460.0,
+   "pct_gdp": 1.8,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1005",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 18747.0,
+   "pct_gdp": 1.6,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1005",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 18647.0,
+   "pct_gdp": 1.5,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1005",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 20087.0,
+   "pct_gdp": 1.6,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1005",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 42338.0,
+   "pct_gdp": 3.7,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1005",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 32137.0,
+   "pct_gdp": 2.6,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1005",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 21609.0,
+   "pct_gdp": 1.6,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1005",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 22995.0,
+   "pct_gdp": 1.5,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1005",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 24077.0,
+   "pct_gdp": 1.5,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1006",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 442.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1006",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 428.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1006",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 454.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1006",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 366.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1006",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 373.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1006",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 385.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1006",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 440.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1006",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 391.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1006",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 627.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1006",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 657.0,
+   "pct_gdp": 0.0,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1007",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 3022.0,
+   "pct_gdp": 0.3,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1007",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 3503.0,
+   "pct_gdp": 0.3,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1007",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 3883.0,
+   "pct_gdp": 0.3,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1007",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 4079.0,
+   "pct_gdp": 0.3,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1007",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 4542.0,
+   "pct_gdp": 0.4,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1007",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 5760.0,
+   "pct_gdp": 0.5,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1007",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 7088.0,
+   "pct_gdp": 0.6,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1007",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 9284.0,
+   "pct_gdp": 0.7,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1007",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 10224.0,
+   "pct_gdp": 0.7,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1007",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 10878.0,
+   "pct_gdp": 0.7,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1008",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 0.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1008",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 0.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1008",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 0.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1008",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 0.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1008",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 1.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1008",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 3.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1008",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 54.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1008",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 111.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1008",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 2.0,
+   "pct_gdp": 0.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1008",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 5.0,
+   "pct_gdp": 0.0,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1009",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 1813.0,
+   "pct_gdp": 0.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1009",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 1895.0,
+   "pct_gdp": 0.2,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1009",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 1597.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1009",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 1644.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1009",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 1698.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1009",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 1653.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1009",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 1654.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1009",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 1683.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1009",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 1997.0,
+   "pct_gdp": 0.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "GF1009",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 2127.0,
+   "pct_gdp": 0.1,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "TOTAL",
+   "country": "ES",
+   "year": 2015,
+   "amount_meur": 474893.0,
+   "pct_gdp": 43.7,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "TOTAL",
+   "country": "ES",
+   "year": 2016,
+   "amount_meur": 472717.0,
+   "pct_gdp": 42.1,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "TOTAL",
+   "country": "ES",
+   "year": 2017,
+   "amount_meur": 479908.0,
+   "pct_gdp": 41.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "TOTAL",
+   "country": "ES",
+   "year": 2018,
+   "amount_meur": 503193.0,
+   "pct_gdp": 41.5,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "TOTAL",
+   "country": "ES",
+   "year": 2019,
+   "amount_meur": 526769.0,
+   "pct_gdp": 42.0,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "TOTAL",
+   "country": "ES",
+   "year": 2020,
+   "amount_meur": 580164.0,
+   "pct_gdp": 51.4,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "TOTAL",
+   "country": "ES",
+   "year": 2021,
+   "amount_meur": 611124.0,
+   "pct_gdp": 49.5,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "TOTAL",
+   "country": "ES",
+   "year": 2022,
+   "amount_meur": 637117.0,
+   "pct_gdp": 46.3,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "TOTAL",
+   "country": "ES",
+   "year": 2023,
+   "amount_meur": 680225.0,
+   "pct_gdp": 45.4,
+   "provisional": false,
+   "source_id": "eurostat_gov_10a_exp"
+  },
+  {
+   "area_id": "TOTAL",
+   "country": "ES",
+   "year": 2024,
+   "amount_meur": 725001.0,
+   "pct_gdp": 45.5,
+   "provisional": true,
+   "source_id": "eurostat_gov_10a_exp"
+  }
+ ],
+ "indicators": [],
+ "crosses": [],
+ "legal": [],
+ "sources": [
+  {
+   "id": "eurostat_gov_10a_exp",
+   "name": "Eurostat · Gasto de las administraciones públicas por función (COFOG)",
+   "publisher": "Eurostat",
+   "url": "https://ec.europa.eu/eurostat/databrowser/view/gov_10a_exp/default/table",
+   "license": "Reutilización libre con cita",
+   "retrieved_at": "2026-11-19"
+  }
+ ]
+}
