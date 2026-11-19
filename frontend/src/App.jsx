@@ -10,8 +10,7 @@ import Budget from './pages/Budget.jsx';
 import BudgetPolicy from './pages/BudgetPolicy.jsx';
 import BudgetProgram from './pages/BudgetProgram.jsx';
 import Pensions from './pages/Pensions.jsx';
-import Segmented from './components/Segmented.jsx';
-import { MEASURE_SWITCH } from './measures.js';
+import Calculator from './pages/Calculator.jsx';
 
 // Navegación sin librería: la página actual va en la URL tras la almohadilla
 // (#/ambito/GF07, #/presupuestos/programa/453B). El navegador avisa con el evento
@@ -26,22 +25,24 @@ const NAV = [
   { href: '#/', page: '', label: 'Inicio' },
   { href: '#/presupuestos', page: 'presupuestos', label: 'Presupuestos' },
   { href: '#/pensiones', page: 'pensiones', label: 'Pensiones' },
-  { href: '#/comparar', page: 'comparar', label: 'Comparar' },
+  { href: '#/calculadora', page: 'calculadora', label: 'Calculadora' },
+  { href: '#/comparar', page: 'comparar', label: 'Comparar con otros países' },
   { href: '#/avisos', page: 'avisos', label: 'Avisos' },
 ];
 
+// Cabecera: todas menos Pensiones, que tiene su propio bloque destacado en la portada
+// (y un enlace desde Protección social), para no recargar el menú.
+const HEADER_NAV = NAV.filter((item) => item.page !== 'pensiones');
+
 // Menú del pie: todas las páginas, con Fuentes bien visible (ya no está en la cabecera).
 const FOOTER_NAV = [...NAV, { href: '#/fuentes', page: 'fuentes', label: 'Fuentes de datos' }];
-
-// Páginas donde tiene sentido elegir entre euros y % del PIB (Comparar ya va siempre en % del PIB).
-const MEASURE_PAGES = ['', 'ambito', 'pensiones', 'presupuestos'];
 
 export default function App() {
   const [route, setRoute] = useState(readRoute);
   const [year, setYear] = useState(null); // null = último año con datos
   // Los Presupuestos del Estado tienen sus propios años (2015–2025), por eso van aparte.
   const [budgetYear, setBudgetYear] = useState(null);
-  // Euros o % del PIB: se elige una vez en la cabecera y vale para todas las páginas.
+  // Euros o % del PIB: se elige en el interruptor de cada gráfico y vale para todas las páginas.
   const [measure, setMeasure] = useState('amount');
   const meta = useApi(getMeta, []);
 
@@ -59,6 +60,7 @@ export default function App() {
   const pageProps = { year: selectedYear, years, onYearChange: setYear, measure, onMeasureChange: setMeasure };
   const budgetProps = {
     measure,
+    onMeasureChange: setMeasure,
     year: budgetYear ?? meta.data?.latest_budget_year ?? null,
     years: meta.data?.budget_years ?? [],
     onYearChange: setBudgetYear,
@@ -71,6 +73,7 @@ export default function App() {
   else if (route.page === 'presupuestos' && route.id === 'programa') page = <BudgetProgram id={route.sub} {...budgetProps} />;
   else if (route.page === 'presupuestos') page = <Budget {...budgetProps} />;
   else if (route.page === 'pensiones') page = <Pensions {...pageProps} />;
+  else if (route.page === 'calculadora') page = <Calculator year={selectedYear} />;
   else if (route.page === 'comparar') page = <Compare {...pageProps} />;
   else if (route.page === 'avisos') page = <Alerts {...pageProps} focus={route.id} />;
   else if (route.page === 'fuentes') page = <Sources />;
@@ -86,18 +89,12 @@ export default function App() {
             CuentasClaras
           </a>
           <nav className="site-nav" aria-label="Principal">
-            {NAV.map((item) => (
+            {HEADER_NAV.map((item) => (
               <a key={item.page} href={item.href} aria-current={activePage === item.page ? 'page' : undefined}>
                 {item.label}
               </a>
             ))}
           </nav>
-          {MEASURE_PAGES.includes(route.page) && (
-            <div className="measure-switch">
-              <span className="measure-switch-label">Ver en</span>
-              <Segmented label="Ver las cifras en" options={MEASURE_SWITCH} value={measure} onChange={setMeasure} />
-            </div>
-          )}
         </div>
       </header>
 
