@@ -381,3 +381,231 @@ Solo estilos.
   y sin scroll horizontal.
 - Con datos reales de 2024 hay 2 avisos (los dos de comparación con la UE). Los cruces de
   educación de Mario no superan su umbral, así que no generan aviso: es lo esperado.
+
+---
+
+## 8. Backend v1.1 de Pedro: Presupuestos Generales del Estado
+
+Pedro publicó el contrato v1.1 (`docs/API_CONTRACT.md`). Solo añade campos y rutas, así que
+nada de lo anterior se rompe. El frontend aprovecha todo lo nuevo:
+
+### Ámbito
+
+| Qué | Cómo |
+|---|---|
+| Variación anual | Se usa `yoy_change_pct` de la API. En % del PIB (puntos) se sigue calculando desde `history` |
+| **"En qué se va el dinero"** | `spending_by_type`: personal, compras, inversión, subvenciones… con barra, porcentaje, importe y una frase que explica cada tipo. Los tipos a cero no se enseñan |
+| **"En los Presupuestos del Estado"** | `budget_policies`: las políticas de los PGE que corresponden al ámbito, con enlace a cada una. El texto avisa de que es otra cifra y no se compara con la de arriba. Al pulsar, la sección de Presupuestos se abre en el mismo año |
+
+### Sección nueva: Presupuestos (`#/presupuestos`)
+
+Nueva entrada en el menú ("Comparar países" pasa a "Comparar" para que quepa). Tres pantallas,
+igual que las rutas de la API:
+
+1. **El año** (`Budget.jsx`, `/budget/years` y `/budget`):
+   - La cifra de la Ley de ese año en grande. Si es una prórroga o no hay documento (2020), la
+     frase lo dice, con la nota del backend.
+   - **Evolución 2015–2025** (`BudgetBars.jsx`): columnas con la serie sin Seguridad Social (la
+     única comparable entre años). Verde = ley aprobada, verde claro = prórroga, azul = fondos
+     europeos de recuperación, hueco = sin documento. Cada columna es un botón que elige el año.
+   - **Franja de Gobiernos** alineada con las columnas, con tonos neutros y sin colores de partido,
+     más una frase: quién elaboró el presupuesto vigente y quién lo ejecutó (con días). No se
+     suma nada por Gobierno.
+   - **Políticas del año**: barras con el tramo de fondos europeos en azul. Se pueden agrupar
+     **por política** o **por ámbito** (equivalencia aproximada) y ver **con o sin Seguridad
+     Social** cuando la ley la incluye.
+2. **La política** (`BudgetPolicy.jsx`, `/budget/policies/{id}`): cifras clave, su evolución (las
+   mismas columnas, clicables), enlace al ámbito de Eurostat y sus programas.
+3. **El programa** (`BudgetProgram.jsx`, `/budget/programs/{id}`): por ministerio y organismo; los
+   capítulos (nivel 1) son filas desplegables y dentro aparecen artículos, conceptos y
+   subconceptos sangrados por nivel. Solo se suman los capítulos, como dice el contrato.
+   Un programa que no existe ese año muestra el error del backend y el selector para cambiar.
+
+Un aviso fijo (`BudgetNotice.jsx`) explica en cada pantalla que **no es la misma cifra que la
+portada**: lo presupuestado para el Estado central frente a lo gastado por todas las
+administraciones.
+
+### Otros cambios
+
+- `api.js`: cuatro funciones nuevas (`getBudgetYears`, `getBudget`, `getBudgetPolicy`,
+  `getBudgetProgram`).
+- `mocksBudget.js`: datos de ejemplo con la forma de v1.1 y la estructura real (prórrogas en 2019,
+  2024 y 2025; 2020 sin documento; fondos europeos desde 2021; los Gobiernos de cada año).
+  `mocks.js` añade `budget_years`, `yoy_change_pct`, `spending_by_type` y `budget_policies`.
+- `format.js`: `formatKeur` y `formatKeurWords` (los PGE vienen en miles de euros; se enseñan en
+  millones como el resto). El € va con espacio de no separación para que nunca quede solo.
+- `labels.js`: `sentenceCase` (ministerios y capítulos vienen en mayúsculas en el documento).
+- `governments.js`: textos de los Gobiernos ("Sánchez (PSOE y Sumar)").
+- `App.jsx`: rutas de tres partes (`#/presupuestos/programa/453B`) y un año propio para los PGE
+  (2015–2025), separado del de Eurostat (2015–2024).
+- `YearPicker`: sin valores, enseña solo los años (lo usa la página de programa).
+- Portada: bloque "Partida a partida" que lleva a la sección nueva.
+
+### Arreglos encontrados al revisar las capturas
+
+| Problema | Solución |
+|---|---|
+| En móvil las columnas de los PGE no se veían | Al ocultar la cifra de encima se descolocaba la rejilla; ahora la rejilla móvil tiene sus propias filas |
+| En móvil el menú cortaba "Fuentes" | El menú pasa a dos líneas si no cabe |
+| En móvil la cabecera perdía el margen lateral (ya pasaba antes) | El relleno vertical ya no pisa el lateral del contenedor |
+| "mil millones de €" dejaba el € solo en otra línea | Espacio de no separación antes del € |
+| "En qué se va el dinero" se descolocaba en escritorio | Heredaba una regla de columna de otra lista; se anula para esta |
+
+### Comprobado
+
+- `npx eslint src` y `npm run build` sin errores.
+- Capturas a 1280 px y 390 px de todas las páginas (también las tres nuevas, con un capítulo
+  desplegado), con mocks y con el backend de Pedro en `main` y el dataset real. Sin errores en
+  consola y sin scroll horizontal.
+
+
+---
+
+## 9. Euros o % del PIB, previsión de riesgos, pensiones y 2020 (19-11-2026)
+
+Lo que pidió el usuario, punto por punto, y cómo se hizo.
+
+### 9.1 Interruptor «Euros / % del PIB»
+
+- **Qué:** un control en la cabecera («Ver en: Euros | % del PIB») que cambia todas las cifras.
+- **Cómo:** el estado `measure` vive en `App.jsx` (como el año) y baja a las páginas. Se quitaron
+  los dos controles «Medida» que había dentro de la portada y del ámbito, para no tener dos
+  botones que hacen lo mismo. Solo aparece en las páginas donde tiene sentido (Comparar ya va
+  siempre en % del PIB).
+- La cifra grande de la portada pasa a «el 45,6 % del PIB», y el selector de años, el treemap,
+  el ranking y la evolución usan la medida elegida.
+- **Presupuestos:** los PGE no traen PIB. Se deduce del gasto de Eurostat del mismo año
+  (suma de importes / suma de % del PIB) y se enseña con «≈». En 2025 no hay dato de Eurostat:
+  se dice y se queda en euros.
+
+### 9.2 Distinción por Gobierno
+
+Ya existía en Presupuestos. Ahora la franja de Gobiernos (`GovernmentBand`) aparece también bajo
+el selector de años de la portada, de cada ámbito y de Pensiones. Los Gobiernos se piden una vez
+(`useGovernments` en `governments.js`, con `/budget/years`). En tramos estrechos solo sale el
+apellido para que no se corte a media palabra.
+
+### 9.3 Sin franja de «datos de ejemplo»
+
+- Se quitó la franja. Para no enseñar cifras de ejemplo como si fueran reales, `api.js` llama
+  ahora **por defecto al backend real** (`http://localhost:8000/api`). Los mocks solo se usan con
+  `VITE_API_URL=mocks` (ver `.env.example` y `README.md`).
+
+### 9.4 Previsión: qué servicios públicos pueden dar problemas
+
+- **Archivos:** `forecast.js` (la regla) y `components/RiskWatch.jsx` (la vista).
+- **Idea:** los problemas de un servicio (averías, accidentes, esperas) llegan tras años de
+  señales: avisos que se repiten, inversión que cae, quedarse por detrás de Europa. Se suman
+  esas señales con una regla de puntos sencilla y explicada en la propia página:
+
+| Señal | Puntos |
+|---|---|
+| Tiene avisos en el año (2 si alguno no es informativo) | 1–2 |
+| Avisos en 3 o más de los últimos años | 1 |
+| Gasta un 15 % o más por debajo de la mediana UE (en % del PIB, solo si la mediana es ≥ 0,3 %) | 1 |
+| … y la distancia ha crecido | 1 |
+| La inversión (tipo de gasto `OP5ANP`) cae un 15 % o más en % del PIB (2 puntos si cae un 30 %) | 1–2 |
+| El ámbito pierde 0,2 puntos o más del PIB (y al menos un 5 %) | 1 |
+
+  2 o más puntos = «Vigilar»; 4 o más = «Riesgo alto». Ventana de 5 años.
+- Solo cuentan los avisos que apuntan a **falta** de recursos: gastar más que Europa (medio
+  ambiente) no es un riesgo.
+- Se analizan los diez ámbitos y 13 servicios concretos (transporte, hospitales, atención
+  primaria, colegios, institutos, universidad, policía, bomberos, juzgados, prisiones, agua,
+  aguas residuales y residuos).
+- **«¿Y si esta web hubiera existido antes?»:** se elige un año y la previsión se calcula solo con
+  los datos hasta ese año; cada tarjeta dice qué pasó después. Con los datos reales, en 2019 ya
+  salía **Transporte** («Vigilar»: un 42 % por debajo de la mediana UE e inversión del 0,82 % al
+  0,55 % del PIB entre 2015 y 2019), que es justo el ejemplo del usuario con el ferrocarril.
+- Está en Avisos (completa, con tabla de señales) y en la portada.
+- **Por qué en el frontend:** lo pidió el usuario a última hora. No es un aviso del backend: usa
+  las respuestas de `/areas`, `/areas/{id}`, `/alerts` y `/compare`, guardadas en memoria
+  (`cached` en `useAllYears.js`) para no pedir dos veces lo mismo.
+
+### 9.5 «En qué fijarse» en el último año
+
+Solo cuando se mira el año más reciente (2024), la sección de la portada pasa a «En qué fijarse
+ahora»: explica que es el año más cercano a hoy, enseña las tres primeras tarjetas de la
+previsión y enlaza a la completa (`#/avisos/prevision`, que baja directamente a ella). El resto
+de años sigue igual.
+
+### 9.6 Pensiones: dinero frente a demanda
+
+- **Página nueva** `#/pensiones` (`pages/Pensions.jsx`), en el menú principal.
+- **Dinero:** gasto de todas las administraciones en «Vejez» (GF1002) y «Supervivientes» (GF1003),
+  de `/areas/{id}`.
+- **Demanda:** pensionistas de jubilación y supervivencia (Eurostat `spr_pns_ben`, `OLD_SRV`, que
+  no cuenta dos veces a quien cobra ambas) y población de 65 años o más (Eurostat
+  `demo_pjanbroad`). Descargadas de la API de Eurostat el 19-11-2026 y guardadas, con la
+  consulta exacta, en `pensionsDemand.js`. Habría que pasarlas al pipeline de Mario.
+- **Qué enseña:** gasto, pensionistas, gasto por pensionista (y en 14 pagas), mayores de 65 y
+  pensionistas por cada 100; un gráfico índice (2015 = 100) con las tres curvas; una frase que lo
+  resume («el gasto creció un 61,5 %; los pensionistas, un 11,3 %…»). En euros se avisa de que
+  parte de la subida es inflación; en % del PIB no hace falta.
+
+### 9.7 Fuentes en el pie
+
+«Fuentes» sale de la cabecera. El pie es nuevo: marca y descripción, menú con todas las secciones
+(«Fuentes de datos» destacada en verde) y un bloque «De dónde sale cada cifra» con botón.
+
+### 9.8 2020 ya no sale vacío en Presupuestos
+
+En 2020 no hubo ley ni documento: siguió vigente la prórroga del presupuesto de 2018, la misma
+que en 2019. `budgetInForce.js` envuelve las llamadas de los PGE: si un año no tiene documento,
+usa el del año anterior y lo marca con `carried_from`. La página lo dice («siguió vigente la
+misma prórroga que en 2019… las cifras son las del documento de 2019»), la columna de 2020 sale
+rayada con la etiqueta «Prórroga (=2019)», y lo mismo en las páginas de política y programa.
+Quién lo elaboró y quién lo ejecutó siguen siendo los de 2020.
+
+### 9.9 Interfaz
+
+- Cabecera con el interruptor de medida en negro; menú centrado.
+- Tarjetas de riesgo con medidor de 4 tramos, filo de color por nivel y lista de motivos.
+- Barras del selector de años algo más altas (se lee mejor la tendencia).
+- Pie nuevo en gris bruma con tres columnas (una en móvil).
+
+### Comprobado
+
+- `npx eslint src` y `npm run build` sin errores.
+- Capturas a 1280 y 390 px con el backend de Pedro y el dataset real de `main`: portada (euros y
+  % del PIB), Avisos (previsión en 2024 y en 2019), Pensiones, Presupuestos en 2020, un servicio
+  (Transporte) y Fuentes. Sin errores en consola y sin scroll horizontal.
+
+## 10. Contrato v1.2: países de fuera de la UE en Comparar, y pulido (19-11-2026, Pedro)
+
+Hecho por Pedro en la rama `Dersu` (acordado), después de mezclar `main` (backend v1.2).
+
+### 10.1 «Fuera de la UE» en Comparar
+
+- **Qué:** debajo de la lista de los 27 países sale un bloque «Fuera de la UE» con Estados
+  Unidos, Reino Unido, Australia, Japón y Corea del Sur (los que tengan dato ese año).
+- **Cómo:** `/compare` trae desde la v1.2 `world_rows` y `world_source_id`. Se pintan con las
+  mismas barras (`country-bar`) y la **misma escala** que la lista europea (el máximo se
+  calcula con las dos listas), para que una barra de EE. UU. se pueda comparar a ojo con una
+  de Francia. La línea de la mediana UE también las cruza.
+- **Por qué aparte y no mezclados:** no tienen puesto (`rank`) ni cuentan para la mediana ni
+  para los avisos, que son europeos. En vez de número de puesto llevan un guion.
+- La fuente es otra (OCDE, no Eurostat): se enlaza y se avisa de que las cifras son orientativas.
+- Si `world_rows` viene vacío (subámbitos, o los mocks), el bloque no aparece.
+
+### 10.2 Porcentajes siempre con un decimal
+
+- **Qué:** `formatPct`, `formatChange` y `formatPoints` escriben siempre un decimal: «9,0 %»
+  y no «9 %».
+- **Por qué:** en las columnas (Comparar, portada) se mezclaban «9 %» y «9,5 %»: quedaban
+  desalineados y parecía que unos datos eran menos precisos que otros.
+
+### 10.3 Arreglos encontrados al probar con el backend real
+
+| Problema | Solución |
+|---|---|
+| Presupuestos pedía `/areas?year=2025` y el backend respondía 404 (2025 tiene presupuesto pero aún no gasto de Eurostat). No rompía nada, pero dejaba un error en la consola | `App.jsx` pasa `dataYears` (los años con gasto real) y `Budget.jsx` solo hace la petición si el año está en esa lista |
+| La pestaña pedía `favicon.ico` y daba 404 | Icono SVG escrito dentro de `index.html` (cuadrado verde con tres barras), sin archivo aparte |
+
+### Comprobado
+
+- `npx eslint src` y `npm run build` sin errores.
+- En navegador contra el backend v1.2 y el dataset real, a 1280 px y 390 px: portada,
+  Presupuestos (año, política y programa), Pensiones, Comparar, Avisos, Fuentes y ámbitos
+  (nivel 1 y subámbito). Sin errores de consola, sin peticiones fallidas, sin scroll
+  horizontal y sin «NaN»/«null» en pantalla.

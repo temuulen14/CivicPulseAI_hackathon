@@ -25,7 +25,7 @@ _Actualizado: 2026-11-19. Código congelado el viernes 20-11-2026 a las 12:00._
   "Decisiones de implementación" de `docs/ARCHITECTURE.md` cuando no sea obvio.
 - Solo se toca `frontend/` (y la fila del frontend en `docs/ARCHITECTURE.md`). `data/` es
   de Mario, y `backend/`, `README.md` y `AI_USAGE.md` son de Pedro.
-- Ningún dato inventado presentado como real: los mocks llevan la franja "datos de ejemplo".
+- Ningún dato inventado presentado como real: la franja de mocks se quitó (paso 9), así que la app usa el backend real por defecto y los mocks solo con `VITE_API_URL=mocks`.
 - El frontend **no calcula avisos**: solo los muestra (sí puede filtrar o agrupar en cliente).
 - Verificar con capturas antes de dar algo por hecho (ver sección 6).
 
@@ -36,6 +36,12 @@ completo y explicado en `frontend/CAMBIOS.md`, sección 7. Se probó con mocks y
 real, usando el dataset de `main` (27 países de la UE, cruces de educación y ley de cada año).
 
 Las skills `frontend-design`, `ui-ux-pro-max` y `dataviz` se cargaron de forma nativa en la sesión del 19-11.
+
+**Paso 9 (19-11):** interruptor euros / % del PIB, previsión de riesgos, página de Pensiones, 2020 con la prórroga vigente, Fuentes en el pie y sin franja de mocks (la app usa el backend real por defecto). Ver `frontend/CAMBIOS.md`, sección 9.
+
+**Paso 8 (19-11):** frontend adaptado al contrato v1.1 de Pedro: sección Presupuestos
+(año, política, programa y partidas), tipo de gasto y políticas de los PGE en cada ámbito. Ver
+`frontend/CAMBIOS.md`, sección 8.
 
 ## 3. Qué pidió el usuario para el rediseño (literal, resumido)
 

@@ -4,6 +4,8 @@
 // Los avisos de ejemplo siguen las mismas reglas que el backend (docs/ARCHITECTURE.md),
 // para que se parezcan a lo que devolverá la API real.
 
+import { budgetMeta, policiesOfArea } from './mocksBudget.js';
+
 const YEARS = [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024];
 const LATEST = 2024;
 
@@ -200,6 +202,22 @@ const SOURCES = [
     retrieved_at: '2026-11-19',
   },
   {
+    id: 'sepg_pge_estado_gastos',
+    name: 'Presupuestos Generales del Estado · Estado de gastos por programas (Serie Roja)',
+    publisher: 'Ministerio de Hacienda · Secretaría de Estado de Presupuestos y Gastos',
+    url: 'https://www.sepg.pap.hacienda.gob.es/Presup/PGE2023Ley/MaestroDocumentos/PGE-ROM/N_23_E_R_31.htm',
+    license: 'Reutilización libre con cita',
+    retrieved_at: '2026-11-19',
+  },
+  {
+    id: 'moncloa_gobiernos',
+    name: 'La Moncloa · Presidentes del Gobierno y discursos de investidura (partido y coalición)',
+    publisher: 'Presidencia del Gobierno',
+    url: 'https://www.lamoncloa.gob.es/presidente/presidentes/Paginas/index.aspx',
+    license: 'Reutilización libre con cita',
+    retrieved_at: '2026-11-19',
+  },
+  {
     id: 'boe_datos_abiertos',
     name: 'BOE · API de datos abiertos (legislación consolidada)',
     publisher: 'Agencia Estatal Boletín Oficial del Estado',
@@ -210,6 +228,21 @@ const SOURCES = [
 ];
 
 const SEVERITY_ORDER = { critical: 0, warning: 1, info: 2 };
+
+// Reparto ilustrativo por tipo de gasto (en la API real viene de Eurostat, gov_10a_exp por na_item).
+const SPENDING_TYPES = [
+  { type_id: 'D1', name: 'Personal', description: 'Sueldos, salarios y cotizaciones sociales de los empleados públicos.', share: 32 },
+  { type_id: 'P2', name: 'Compras de bienes y servicios', description: 'Material, suministros, mantenimiento, alquileres y servicios contratados para el funcionamiento propio.', share: 22 },
+  { type_id: 'D632', name: 'Servicios comprados para el ciudadano', description: 'Bienes y servicios que la administración paga a proveedores privados y recibe directamente el ciudadano: conciertos sanitarios y educativos, medicamentos con receta.', share: 14 },
+  { type_id: 'OP5ANP', name: 'Inversión', description: 'Construcción de edificios e infraestructuras, compra de equipos y terrenos.', share: 12 },
+  { type_id: 'D3', name: 'Subvenciones', description: 'Pagos a empresas para reducir precios o costes de producción.', share: 9 },
+  { type_id: 'D7', name: 'Otras transferencias corrientes', description: 'Transferencias a otras administraciones, a instituciones sin fines de lucro y a la Unión Europea.', share: 6 },
+  { type_id: 'D9', name: 'Transferencias de capital', description: 'Ayudas a la inversión de terceros y otras transferencias de capital.', share: 5 },
+];
+
+function spendingByType(amount) {
+  return SPENDING_TYPES.map(({ share, ...t }) => ({ ...t, amount_meur: round1((amount * share) / 100), share_of_area_pct: share }));
+}
 
 // --- Funciones auxiliares ---------------------------------------------------
 
@@ -322,6 +355,7 @@ export function meta() {
     latest_year: LATEST,
     countries: COUNTRIES.map(({ code, name }) => ({ code, name })),
     generated_at: '2026-11-19T13:00:00Z',
+    ...budgetMeta,
   };
 }
 
@@ -366,6 +400,7 @@ export function area(id, year) {
     amount_meur: summary.amount_meur,
     share_of_total_pct: summary.share_of_total_pct,
     pct_gdp: summary.pct_gdp,
+    yoy_change_pct: summary.yoy_change_pct,
     source_id: 'eurostat_gov_10a_exp',
     history: YEARS.map((yy) => ({
       year: yy,
@@ -380,6 +415,8 @@ export function area(id, year) {
       share_of_area_pct: s.share,
     })),
     indicators: INDICATORS[id] || [],
+    spending_by_type: spendingByType(summary.amount_meur),
+    budget_policies: policiesOfArea(id, y),
     alerts: alertsOf(y).filter((al) => al.area_id === id).sort(bySeverity),
     legal: y === 2023 || y === 2024
       ? {

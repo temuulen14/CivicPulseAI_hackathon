@@ -6,6 +6,9 @@ const number = (digits) =>
 
 const int = number(0);
 const dec1 = number(1);
+// Los porcentajes llevan siempre un decimal ("9,0 %", no "9 %"): en una columna quedan
+// alineados y no parece que unos datos sean más precisos que otros.
+const pct1 = new Intl.NumberFormat('es-ES', { maximumFractionDigits: 1, minimumFractionDigits: 1 });
 
 // 84500 -> "84.500 M€"
 export function formatMeur(value) {
@@ -14,23 +17,24 @@ export function formatMeur(value) {
 }
 
 // 680225 -> "680 mil millones de €"; 8450 -> "8.450 millones de €"
+// El espacio antes del € es de no separación: así el símbolo nunca queda solo en una línea.
 export function formatMeurWords(value) {
   if (value === null || value === undefined) return 'Sin dato';
-  if (value >= 1000) return `${int.format(value / 1000)} mil millones de €`;
-  return `${int.format(value)} millones de €`;
+  if (value >= 1000) return `${int.format(value / 1000)} mil millones de\u00a0€`;
+  return `${int.format(value)} millones de\u00a0€`;
 }
 
 // 12.4 -> "12,4 %"
 export function formatPct(value) {
   if (value === null || value === undefined) return 'Sin dato';
-  return `${dec1.format(value)} %`;
+  return `${pct1.format(value)} %`;
 }
 
-// -8.1 -> "−8,1 %"; 3 -> "+3 %"
+// -8.1 -> "−8,1 %"; 3 -> "+3,0 %"
 export function formatChange(value) {
   if (value === null || value === undefined) return 'Sin dato';
   const sign = value > 0 ? '+' : value < 0 ? '−' : '';
-  return `${sign}${dec1.format(Math.abs(value))} %`;
+  return `${sign}${pct1.format(Math.abs(value))} %`;
 }
 
 export function formatNumber(value, unit) {
@@ -43,8 +47,20 @@ export function formatNumber(value, unit) {
 export function formatPoints(value) {
   if (value === null || value === undefined) return 'Sin dato';
   const sign = value > 0 ? '+' : value < 0 ? '−' : '';
-  return `${sign}${dec1.format(Math.abs(value))} p. p.`;
+  return `${sign}${pct1.format(Math.abs(value))} p. p.`;
 }
 
 // Para ejes de gráficos: 680225 -> "680 mil"
 export const compact = new Intl.NumberFormat('es-ES', { notation: 'compact', maximumFractionDigits: 1 });
+
+// Los Presupuestos del Estado vienen en miles de euros (_keur), como el documento de Hacienda.
+// Se enseñan en millones, igual que el resto de la app: 1599547.1 -> "1.600 M€"
+export function formatKeur(value) {
+  if (value === null || value === undefined) return 'Sin dato';
+  return formatMeur(value / 1000);
+}
+
+export function formatKeurWords(value) {
+  if (value === null || value === undefined) return 'Sin dato';
+  return formatMeurWords(value / 1000);
+}
