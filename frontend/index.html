@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="A dónde va el dinero público en España y en qué merece la pena fijarse." />
     <title>CuentasClaras</title>
+    <meta name="color-scheme" content="light dark" />
+    <!-- Modo claro u oscuro elegido antes (ThemeToggle.jsx): se aplica antes de pintar para que no parpadee -->
+    <script>
+      try {
+        var t = localStorage.getItem('cuentasclaras-theme');
+        if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
+      } catch (e) {}
+    </script>
     <!-- Icono de la pestaña: un cuadrado verde con tres barras, dibujado aquí mismo en SVG -->
     <link
       rel="icon"

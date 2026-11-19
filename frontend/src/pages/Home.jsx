@@ -12,7 +12,7 @@ import { shareStep } from '../scale.js';
 import Status from '../components/Status.jsx';
 import YearPicker from '../components/YearPicker.jsx';
 import Spectrum from '../components/Spectrum.jsx';
-import Contours from '../components/Contours.jsx';
+import TreeRings from '../components/TreeRings.jsx';
 import Segmented from '../components/Segmented.jsx';
 import Sparkline from '../components/Sparkline.jsx';
 import MeasureSwitch from '../components/MeasureSwitch.jsx';
@@ -30,6 +30,9 @@ const VIEWS = [
   { value: 'trend', label: 'Evolución' },
   { value: 'changes', label: 'Cambios' },
 ];
+
+// 41,0 % -> «41 céntimos»
+const euroCents = (pct) => `${Math.round(pct)} céntimos`;
 
 const AXIS = { stroke: 'var(--line-strong)', tick: { fill: 'var(--muted)', fontSize: 12 }, tickLine: false };
 
@@ -58,21 +61,63 @@ export default function Home({ year, years, onYearChange, measure, onMeasureChan
 
   return (
     <>
+      {/* Comienzo tranquilo: una pregunta, una frase y dos caminos. Las cifras vienen después. */}
       <section className="hero" aria-labelledby="hero-title">
-        <Contours />
-        <h1 id="hero-title">¿A dónde va el dinero público?</h1>
-        <div className="hero-total">
-          <p className="hero-kicker">En {shownYear}, las administraciones públicas de España gastaron</p>
-          <p className="hero-figure">
-            {measure === 'amount' ? formatMeurWords(total_meur) : `el ${formatPct(totalGdp)} del PIB`}
+        <div className="hero-text">
+          <h1 id="hero-title">
+            ¿A dónde va el <span className="swash">dinero público</span>?
+          </h1>
+          <p className="hero-lead">
+            En qué gastan las administraciones públicas de España, cómo cambia cada año y en qué merece la pena
+            fijarse. Con datos oficiales, explicado sin prisa.
           </p>
-          <p className="hero-sub">
-            {measure === 'amount' ? `${formatMeur(total_meur)}, el ${formatPct(totalGdp)} del PIB` : formatMeurWords(total_meur)}
-            {provisional && <span className="tag-provisional">Dato provisional</span>}
-          </p>
+          <div className="hero-actions">
+            <button type="button" className="button-link" onClick={() => document.getElementById('glance-title')?.scrollIntoView({ behavior: 'smooth' })}>
+              Empezar por lo esencial
+            </button>
+            <a href="#/calculadora" className="quiet-link">
+              Calcula a dónde van tus impuestos <span aria-hidden="true">→</span>
+            </a>
+          </div>
         </div>
+        <TreeRings
+          totals={Object.fromEntries(years.map((y) => [y, byYear[y]?.total_meur ?? 0]))}
+          year={shownYear}
+          onYearChange={onYearChange}
+        />
+      </section>
+
+      {/* Lo esencial del año: tres cifras de tamaño moderado y la barra de ámbitos. */}
+      <section className="section glance-section" aria-labelledby="glance-title">
+        <div className="section-head">
+          <h2 id="glance-title">{shownYear}, en tres cifras</h2>
+          <MeasureSwitch value={measure} onChange={onMeasureChange} />
+        </div>
+        <dl className="glance">
+          <div>
+            <dt>Gasto de todas las administraciones</dt>
+            <dd>{measure === 'amount' ? formatMeurWords(total_meur) : `${formatPct(totalGdp)} del PIB`}</dd>
+            <span className="glance-note">
+              {measure === 'amount' ? formatMeur(total_meur) : formatMeurWords(total_meur)}
+              {provisional && <span className="tag-provisional">Dato provisional</span>}
+            </span>
+          </div>
+          <div>
+            <dt>{measure === 'amount' ? 'Frente a lo que produce el país' : 'En euros'}</dt>
+            <dd>{measure === 'amount' ? `${formatPct(totalGdp)} del PIB` : formatMeurWords(total_meur)}</dd>
+            <span className="glance-note">
+              {measure === 'amount' ? `${Math.round(totalGdp)} € de cada 100 € que produce el país` : 'En euros de ese año'}
+            </span>
+          </div>
+          <div>
+            <dt>La mayor parte va a</dt>
+            <dd>{ranking[0].name}</dd>
+            <span className="glance-note">
+              {euroCents(ranking[0].share_of_total_pct)} de cada euro
+            </span>
+          </div>
+        </dl>
         <Spectrum areas={list} />
-        <MeasureSwitch value={measure} onChange={onMeasureChange} />
         <YearPicker
           year={shownYear}
           years={years}

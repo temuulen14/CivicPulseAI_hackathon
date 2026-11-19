@@ -31,8 +31,11 @@ export default function Spectrum({ areas }) {
           />
         ))}
       </div>
+      {/* La lista completa va plegada: la barra ya enseña el reparto y no hace falta leerlo todo de golpe. */}
       <figcaption>
-        <ol className="spectrum-legend">
+        <details className="spectrum-more">
+          <summary>Ver los diez ámbitos</summary>
+          <ol className="spectrum-legend">
           {sorted.map((a) => (
             <li key={a.id}>
               <span className="swatch" style={{ background: shareStep(a.share_of_total_pct).fill }} aria-hidden="true" />
@@ -40,7 +43,8 @@ export default function Spectrum({ areas }) {
               <span className="num">{formatPct(a.share_of_total_pct)}</span>
             </li>
           ))}
-        </ol>
+          </ol>
+        </details>
       </figcaption>
     </figure>
   );

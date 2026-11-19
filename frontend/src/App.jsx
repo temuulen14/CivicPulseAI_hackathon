@@ -12,6 +12,7 @@ import BudgetProgram from './pages/BudgetProgram.jsx';
 import Pensions from './pages/Pensions.jsx';
 import WorldLeaders from './pages/WorldLeaders.jsx';
 import Calculator from './pages/Calculator.jsx';
+import ThemeToggle from './components/ThemeToggle.jsx';
 
 // Navegación sin librería: la página actual va en la URL tras la almohadilla
 // (#/ambito/GF07, #/presupuestos/programa/453B). El navegador avisa con el evento
@@ -99,6 +100,7 @@ export default function App() {
               </a>
             ))}
           </nav>
+          <ThemeToggle />
         </div>
       </header>
 
