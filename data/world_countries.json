@@ -1,0 +1,8 @@
+{
+  "_note": "Grandes economías fuera de la UE con gasto público por función (COFOG) publicado por la OCDE. ESP solo se descarga para comprobar que la OCDE coincide con Eurostat. Sin datos COFOG oficiales: China, India, Brasil (no son miembros de la OCDE) y Canadá (no lo publica en esta tabla).",
+  "USA": {"name": "Estados Unidos", "currency": "USD"},
+  "JPN": {"name": "Japón", "currency": "JPY"},
+  "GBR": {"name": "Reino Unido", "currency": "GBP"},
+  "KOR": {"name": "Corea del Sur", "currency": "KRW"},
+  "AUS": {"name": "Australia", "currency": "AUD"}
+}
