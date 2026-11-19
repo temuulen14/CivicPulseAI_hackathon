@@ -54,6 +54,12 @@ def test_compare_has_the_27_countries_and_no_aggregate(client):
     assert not any(row["country"].startswith("EU") for row in rows)
 
 
+def test_compare_has_the_five_non_eu_countries(client):
+    body = get(client, "/api/compare?area=GF07&year=2023")
+    assert {row["country"] for row in body["world_rows"]} == {"USA", "JPN", "GBR", "KOR", "AUS"}
+    assert body["world_source_id"] in {s["id"] for s in get(client, "/api/sources")["sources"]}
+
+
 def test_budget_policies_add_up_to_the_year_total(client):
     for year in get(client, "/api/budget/years")["years"]:
         overview = get(client, f"/api/budget?year={year['year']}")
