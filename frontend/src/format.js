@@ -1,0 +1,40 @@
+// Formato numérico español para toda la app.
+// useGrouping 'always' fuerza el punto de miles también en números de 4 cifras (8.450).
+
+const number = (digits) =>
+  new Intl.NumberFormat('es-ES', { maximumFractionDigits: digits, minimumFractionDigits: 0, useGrouping: 'always' });
+
+const int = number(0);
+const dec1 = number(1);
+
+// 84500 -> "84.500 M€"
+export function formatMeur(value) {
+  if (value === null || value === undefined) return 'Sin dato';
+  return `${int.format(value)} M€`;
+}
+
+// 680225 -> "680 mil millones de €"; 8450 -> "8.450 millones de €"
+export function formatMeurWords(value) {
+  if (value === null || value === undefined) return 'Sin dato';
+  if (value >= 1000) return `${int.format(value / 1000)} mil millones de €`;
+  return `${int.format(value)} millones de €`;
+}
+
+// 12.4 -> "12,4 %"
+export function formatPct(value) {
+  if (value === null || value === undefined) return 'Sin dato';
+  return `${dec1.format(value)} %`;
+}
+
+// -8.1 -> "−8,1 %"; 3 -> "+3 %"
+export function formatChange(value) {
+  if (value === null || value === undefined) return 'Sin dato';
+  const sign = value > 0 ? '+' : value < 0 ? '−' : '';
+  return `${sign}${dec1.format(Math.abs(value))} %`;
+}
+
+export function formatNumber(value, unit) {
+  if (value === null || value === undefined) return 'Sin dato';
+  if (unit === '%') return formatPct(value);
+  return `${dec1.format(value)}${unit ? ` ${unit}` : ''}`;
+}
