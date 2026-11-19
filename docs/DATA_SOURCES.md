@@ -9,6 +9,7 @@ descarga y guarda la respuesta en `data/raw/`; cada cifra de `dataset.json` llev
 | `eurostat_gov_10a_exp` | Eurostat · gasto de las administraciones públicas por función (COFOG) | Gasto por ámbito, 27 países + UE, 2015-2024; desglose por tipo económico (España) |
 | `eurostat_educ_uoe_enra01` | Eurostat · alumnado matriculado por nivel y tipo de centro | Cruces de educación |
 | `sepg_pge_estado_gastos` | Hacienda (SEPG) · Presupuestos Generales del Estado, estado de gastos por programas | Presupuesto partida a partida, 2015-2025 |
+| `oecd_cofog_table11` | OCDE · gasto público por función (COFOG) y PIB | Comparación con EE. UU., Japón, Reino Unido, Corea y Australia |
 | `boe_legislacion_consolidada` | BOE · API de datos abiertos | Ley de presupuestos de cada año; nombramientos de cada Gobierno |
 | `moncloa_gobiernos` | La Moncloa · presidentes y discursos de investidura | Partido del presidente y coaliciones |
 
@@ -40,7 +41,21 @@ https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/gov_10a_exp
 
 Centros públicos (`PUB`) y concertados (`PRV_DEP`), que son los que paga el gasto público.
 
-## 3. Hacienda · Presupuestos Generales del Estado (Serie Roja)
+## 3. OCDE · gasto por función (Table 11) y PIB (Table 1)
+
+API SDMX, sin clave. La clave lleva un valor (o vacío) por dimensión, en orden.
+
+```
+https://sdmx.oecd.org/public/rest/data/OECD.SDD.NAD,DSD_NASEC10@DF_TABLE11,/A.USA+JPN+GBR+KOR+AUS+ESP.S13...OTE...XDC....?startPeriod=2015&format=csvfilewithlabels
+https://sdmx.oecd.org/public/rest/data/OECD.SDD.NAD,DSD_NAMAIN10@DF_TABLE1_EXPENDITURE,/A.USA+JPN+GBR+KOR+AUS+ESP.S1..B1GQ....XDC.V..?startPeriod=2015&format=csvfilewithlabels
+```
+
+- `S13` + `OTE`: gasto total de las administraciones públicas; `XDC`: moneda nacional,
+  en millones. `B1GQ`: PIB nominal. % del PIB = gasto / PIB.
+- España se descarga solo para comprobar que coincide con Eurostat (coincide).
+- Sin datos: China, India, Brasil, Canadá.
+
+## 4. Hacienda · Presupuestos Generales del Estado (Serie Roja)
 
 Secretaría de Estado de Presupuestos y Gastos. No hay API ni descarga única (el ZIP de
 un año pesa 855 MB): `fetch.py` recorre la web y baja el estado de gastos de cada
@@ -62,7 +77,7 @@ https://www.sepg.pap.hacienda.gob.es/Presup/PGE2023Ley/MaestroDocumentos/PGE-ROM
   organismos y la Seguridad Social. **No** incluye comunidades autónomas ni ayuntamientos.
 - Se excluye el programa `000X` (transferencias internas).
 
-## 4. BOE · API de datos abiertos
+## 5. BOE · API de datos abiertos
 
 Sin clave. Cabecera `Accept: application/json`.
 
@@ -79,7 +94,7 @@ https://www.boe.es/datosabiertos/api/boe/sumario/AAAAMMDD
   `/sumario` del día de publicación.
 - La API da texto legal, no tablas de importes: las cifras salen de Hacienda y Eurostat.
 
-## 5. La Moncloa
+## 6. La Moncloa
 
 El BOE no dice a qué partido pertenece cada presidente. Se toma de su biografía oficial
 y, para las coaliciones, de los discursos de investidura publicados por La Moncloa

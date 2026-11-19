@@ -172,6 +172,31 @@ def fetch_pge(year: int) -> None:
     print(f"PGE {year} ({kind}) -> raw/pge_{year}/ ({len(sections)} secciones, {count} programas)")
 
 
+OECD_API = "https://sdmx.oecd.org/public/rest/data/{flow}/{key}"
+
+
+def fetch_oecd() -> None:
+    """Gasto público por función (COFOG) y PIB de las grandes economías fuera de la UE.
+
+    Las dos tablas vienen en moneda nacional; build.py calcula el % del PIB.
+    """
+    world = json.loads((DATA_DIR / "world_countries.json").read_text(encoding="utf-8"))
+    areas = "+".join([code for code in world if not code.startswith("_")] + ["ESP"])
+    # La clave SDMX lleva un valor (o vacío = todos) por dimensión, en orden.
+    cofog_key = ".".join(["A", areas, "S13", "", "", "OTE", "", "", "XDC", "", "", "", ""])
+    gdp_key = ".".join(["A", areas, "S1", "", "B1GQ", "", "", "", "XDC", "V", "", ""])
+    for flow, key, filename in [
+        ("OECD.SDD.NAD,DSD_NASEC10@DF_TABLE11,", cofog_key, "oecd_cofog.csv"),
+        ("OECD.SDD.NAD,DSD_NAMAIN10@DF_TABLE1_EXPENDITURE,", gdp_key, "oecd_gdp.csv"),
+    ]:
+        url = OECD_API.format(flow=flow, key=key)
+        params = {"startPeriod": FIRST_YEAR, "format": "csvfilewithlabels"}
+        response = requests.get(url, params=params, timeout=120)
+        response.raise_for_status()
+        (RAW_DIR / filename).write_bytes(response.content)
+        print(f"OCDE -> raw/{filename} ({response.text.count(chr(10)) - 1} filas)")
+
+
 BOE_API = "https://www.boe.es/datosabiertos/api/legislacion-consolidada/id/{boe_id}/metadatos"
 
 
@@ -194,6 +219,7 @@ def main() -> None:
     fetch_spending()
     fetch_spending_by_type()
     fetch_enrolment()
+    fetch_oecd()
     fetch_boe()
     for year in PGE_DOCUMENTS:
         fetch_pge(year)
