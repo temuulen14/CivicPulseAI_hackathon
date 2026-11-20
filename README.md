@@ -40,7 +40,8 @@ cd frontend && npm install && VITE_API_URL=http://localhost:8000/api npm run dev
 cd backend && .venv/bin/python -m pytest -q
 ```
 
-Sin `VITE_API_URL`, el frontend funciona con datos de ejemplo. Para regenerar los datos
+Sin `VITE_API_URL`, el frontend llama a `http://localhost:8000/api`; con
+`VITE_API_URL=mocks` funciona con datos de ejemplo, sin backend. Para regenerar los datos
 desde las fuentes oficiales, ver [`data/README.md`](data/README.md).
 
 ## Cómo está hecho
