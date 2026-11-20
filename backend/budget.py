@@ -222,7 +222,9 @@ def search(dataset, text, year):
 
     def matches(candidate):
         candidate = plain(candidate)
-        return all(word in candidate for word in words)
+        # Without words (only spaces or loose accents) nothing matches;
+        # all() of an empty list is True and would return every program.
+        return bool(words) and all(word in candidate for word in words)
 
     results = []
     for program_id, rows in grouped_by_program(programs).items():

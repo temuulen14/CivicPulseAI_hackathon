@@ -309,6 +309,18 @@ def test_search_without_matches_and_with_a_short_query():
     assert client.get("/api/budget/search?q=becas&year=1999").status_code == 404
 
 
+def test_an_empty_id_is_not_found_instead_of_redirecting_to_the_list():
+    for path in ["/api/areas/", "/api/budget/programs/", "/api/budget/policies/"]:
+        assert client.get(path, follow_redirects=False).status_code == 404
+
+
+def test_search_with_no_real_words_finds_nothing():
+    # Only spaces or loose accents: nothing to look for, so it must not match everything.
+    for blank in ["  ", "́́"]:
+        body = client.get("/api/budget/search", params={"q": blank, "year": 2023}).json()
+        assert body["program_count"] == 0 and body["results"] == []
+
+
 def test_eu_recovery_by_policy_and_program():
     body = client.get("/api/budget/eu-recovery?year=2023").json()
     assert body["eu_recovery_keur"] == 48339.06

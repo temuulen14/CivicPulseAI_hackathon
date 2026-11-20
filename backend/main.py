@@ -12,7 +12,9 @@ import models
 from alerts import SEVERITY_ORDER, build_alerts, eu_median
 from dataset import Dataset
 
-app = FastAPI(title="Presupuestos públicos: gasto, uso y avisos")
+# redirect_slashes off: "/api/areas/" (an empty id) is a 404, not a redirect to the
+# list of areas, which has another shape and broke the page that asked for one area.
+app = FastAPI(title="Presupuestos públicos: gasto, uso y avisos", redirect_slashes=False)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],  # public read-only data, no credentials
