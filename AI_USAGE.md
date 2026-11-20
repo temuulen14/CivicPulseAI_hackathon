@@ -1,8 +1,6 @@
 # Uso de IA
 
-Somos Mario, Pedro y Dersu (equipo Leather and Lies). Hemos usado Claude Code, de
-Anthropic, cada uno en su terminal. La aplicación no llama a ningún modelo: lo que se ve
-en pantalla son cifras oficiales y cuentas que se pueden leer en el código.
+Somos Mario, Pedro y Dersu (equipo Leather and Lies). Hemos usado Claude Code, cada uno en su terminal. 
 
 ## Cómo la hemos usado
 
@@ -95,20 +93,4 @@ se han tomado en común y todos hemos tocado y revisado el trabajo de los demás
 - Estilos en CSS normal, modo oscuro y adaptación a móvil, comprobados en el navegador.
 - Anotar cada cambio de interfaz y su motivo en `frontend/CAMBIOS.md`.
 
-## Cómo hemos comprobado lo que generaba
 
-- Hay 49 tests del backend y 6 del pipeline de datos. Comprueban, entre otras cosas, que
-  las políticas suman el total del año y que los tipos de gasto suman el importe de cada
-  ámbito.
-- Las cifras de los PGE se guardan en miles de euros, sin convertir, para poder cotejarlas
-  tal cual con el documento de Hacienda.
-- Hemos abierto cada pantalla en el navegador contra el backend real, a ancho de
-  escritorio y de móvil.
-- Al revisar descartamos o corregimos varias cosas que había escrito la IA. Por ejemplo,
-  una búsqueda vacía devolvía todos los programas, y un presupuesto de 2015 aparecía como
-  vigente en 2020.
-
-## Límites
-
-Las fuentes y los umbrales los hemos elegido nosotros. La IA tampoco ha producido datos
-ni interviene cuando la aplicación está en marcha.
