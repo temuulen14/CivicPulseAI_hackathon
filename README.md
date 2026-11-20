@@ -11,7 +11,7 @@ La hemos hecho Mario, Pedro y Dersu, el equipo **Leather and Lies**, en el hacka
 cambiamos el nombre por Cristalino, porque queríamos que las cuentas públicas se vieran
 así, hasta el fondo.
 
-![Portada de Cristalino, con los anillos del gasto](docs/screenshots/portada.png)
+![Portada de Cristalino, con los anillos del gasto](docs/screenshots/cristalino-portada.png)
 
 ## Por qué la hicimos
 
@@ -45,7 +45,7 @@ Los datos provisionales van marcados, y hay modo claro y modo oscuro.
 
 | Ficha de un ámbito | Comparar con otros países | Avisos |
 |---|---|---|
-| ![Ficha de un ámbito](docs/screenshots/ambito.png) | ![Mapa de la comparación entre países](docs/screenshots/comparar.png) | ![Avisos de 2024](docs/screenshots/avisos.png) |
+| ![Ficha de un ámbito](docs/screenshots/cristalino-ambito.png) | ![Mapa de la comparación entre países](docs/screenshots/cristalino-comparar.png) | ![Avisos de 2024](docs/screenshots/cristalino-avisos.png) |
 
 ## Cómo arrancarlo
 
