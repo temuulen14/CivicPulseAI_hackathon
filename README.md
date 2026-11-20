@@ -1,28 +1,51 @@
-# CuentasClaras
+# Cristalino
 
-**¿Adónde va el dinero público?** Un explorador del gasto público de España: cuánto se
-gasta en cada ámbito, qué uso real se le da y avisos cuando gasto y uso no cuadran o
-cuando España se aleja de la mediana europea.
+*Como el agua.*
 
-Equipo **Leather and Lies** (Mario, Pedro y Dersu) · Hackatón 2Campus1Code, noviembre de 2026.
+**¿A dónde va el dinero público?** Cristalino es una web para entender, sin ser experto,
+en qué gastan las administraciones públicas de España. Todo sale de datos oficiales y
+abiertos, y cada cifra enlaza a su fuente.
 
-![Portada: gasto total y reparto por ámbitos](docs/screenshots/portada.png)
+La hemos hecho Mario, Pedro y Dersu, el equipo **Leather and Lies**, en el hackatón
+2Campus1Code de noviembre de 2026. Empezó llamándose CuentasClaras. A mitad de camino le
+cambiamos el nombre por Cristalino, porque queríamos que las cuentas públicas se vieran
+así, hasta el fondo.
 
-## Qué hace
+![Portada de Cristalino, con los anillos del gasto](docs/screenshots/portada.png)
 
-- **Gasto por ámbito** (sanidad, educación, defensa…), de 2015 a 2024, con su evolución,
-  sus subámbitos y en qué se va el dinero (personal, compras, inversión…).
-- **Comparación entre países** en % del PIB: los 27 de la UE con su mediana y la posición
-  de España; la API añade además EE. UU., Japón, Reino Unido, Corea del Sur y Australia.
-- **Avisos**, de dos tipos: gasto que no se corresponde con el uso real (por ejemplo, la
-  cuota de gasto en un modo de transporte frente a los viajeros que lo usan) y ámbitos en
-  los que España se desvía de la mediana europea. Señalan dónde mirar; no acusan.
-- **Presupuestos Generales del Estado** partida a partida (2015-2025), en la API.
-- **Cada cifra lleva su fuente oficial** y su enlace. Los datos provisionales van marcados.
+## Por qué la hicimos
 
-| Ficha de un ámbito | Comparar países | Avisos |
+Los presupuestos son públicos, pero están repartidos en tablas que casi nadie abre. A
+nosotros también nos costaba contestar a preguntas tan simples como cuánto se gasta en
+sanidad o qué parte de la nómina acaba en pensiones. Por eso la portada son preguntas, las
+mismas que nos hacíamos, y cada una lleva a una página que la contesta con cifras
+oficiales.
+
+El dibujo de la portada son los anillos del gasto. Como en un tronco, cada anillo es un
+año, de 2015 en el centro a 2024 fuera, y cuanto más ancho, más se gastó.
+
+## Qué puedes hacer
+
+- **Gasto público.** Cuánto se gasta en cada ámbito (sanidad, educación, defensa…) de 2015
+  a 2024, con su evolución, sus subámbitos y en qué se va el dinero (personal, compras,
+  inversión…).
+- **Calculadora.** Escribes tu sueldo y ves cuánto pagas al año en IRPF, cotización social
+  e IVA, y cómo se reparte entre los ámbitos.
+- **Presupuestos.** Los Presupuestos Generales del Estado de 2015 a 2025, partida a
+  partida, con un diagrama de flujo que se puede recorrer con el ratón.
+- **Fondos europeos** y **pensiones**, cada uno en su página.
+- **Comparar con otros países.** Un mapa con el país que más dedica a cada ámbito y la
+  posición de España entre los 27 de la UE, en % del PIB. Fuera de Europa están EE. UU.,
+  Japón, Reino Unido, Corea del Sur y Australia.
+- **Avisos.** Ámbitos en los que España se aleja de la mediana europea, o en los que el
+  gasto no se corresponde con el uso real. Dicen dónde mirar y no acusan a nadie.
+- **Buscador.** La lupa de la cabecera busca entre las partidas del presupuesto.
+
+Los datos provisionales van marcados, y hay modo claro y modo oscuro.
+
+| Ficha de un ámbito | Comparar con otros países | Avisos |
 |---|---|---|
-| ![Ficha de Sanidad](docs/screenshots/ambito.png) | ![Comparación de países](docs/screenshots/comparar.png) | ![Avisos](docs/screenshots/avisos.png) |
+| ![Ficha de un ámbito](docs/screenshots/ambito.png) | ![Mapa de la comparación entre países](docs/screenshots/comparar.png) | ![Avisos de 2024](docs/screenshots/avisos.png) |
 
 ## Cómo arrancarlo
 
@@ -73,4 +96,14 @@ Las llamadas exactas a cada fuente están en [`docs/DATA_SOURCES.md`](docs/DATA_
 
 ## Uso de IA
 
-Descrito en [`AI_USAGE.md`](AI_USAGE.md).
+Hemos usado Claude Code para ir más rápido, con las reglas que están en
+[`CLAUDE.md`](CLAUDE.md). La web no llama a ningún modelo: lo que se ve en pantalla son
+cifras oficiales y aritmética que se puede leer en el código. El detalle está en
+[`AI_USAGE.md`](AI_USAGE.md).
+
+## Gracias
+
+A la organización de 2Campus1Code por el reto, y a Eurostat, Hacienda, el BOE y la OCDE
+por publicar sus datos en abierto. Sin eso, esta web no existiría.
+
+Mario, Pedro y Dersu

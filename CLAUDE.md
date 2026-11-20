@@ -1,4 +1,4 @@
-# CuentasClaras (nombre provisional) · equipo Leather and Lies
+# Cristalino · equipo Leather and Lies
 
 Explorador de los Presupuestos Generales del Estado: cuánto se gasta en cada ámbito,
 qué uso real se le da, y avisos cuando gasto y uso no cuadran o cuando España se
