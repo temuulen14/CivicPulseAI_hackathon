@@ -29,13 +29,39 @@ function Breadcrumb({ program }) {
 // Las partidas vienen en el orden del documento. Cada capítulo (nivel 1) abre un grupo y las
 // líneas de nivel 2-4 que le siguen cuelgan de él. Solo se suman los capítulos: los demás
 // niveles ya están dentro (docs/API_CONTRACT.md).
+// A veces el documento da una partida sin la fila de su capítulo (pasa mucho en los fondos
+// europeos): esas van aparte, en `loose`, para no esconderlas ni colgarlas de otro capítulo.
 function chaptersOf(lines, organicId) {
   const chapters = [];
+  const loose = [];
   for (const line of lines.filter((l) => l.organic_id === organicId)) {
+    const last = chapters[chapters.length - 1];
     if (line.level === 1) chapters.push({ ...line, children: [] });
-    else chapters[chapters.length - 1]?.children.push(line);
+    else if (last && line.economic_code.startsWith(last.economic_code)) last.children.push(line);
+    else loose.push(line);
   }
-  return chapters;
+  return { chapters, loose };
+}
+
+// Importe de las partidas sueltas sin contar dos veces: una partida que cuelga de otra
+// suelta (el 74800 del 748) ya está dentro de ella.
+function looseTotal(loose) {
+  const top = loose.filter((l) => !loose.some((o) => o !== l && o.economic_code !== l.economic_code && l.economic_code.startsWith(o.economic_code)));
+  return top.reduce((sum, l) => sum + (l.amount_keur ?? 0), 0);
+}
+
+function Lines({ lines }) {
+  return (
+    <ul className="lines">
+      {lines.map((l, i) => (
+        <li key={`${l.economic_code}-${i}`} className={`line level-${l.level}`}>
+          <span className="chapter-code">{l.economic_code}</span>
+          <span className="line-desc">{l.description}</span>
+          <span className="line-value">{formatKeur(l.amount_keur)}</span>
+        </li>
+      ))}
+    </ul>
+  );
 }
 
 function Chapter({ chapter, max, total }) {
@@ -72,17 +98,7 @@ function Chapter({ chapter, max, total }) {
           {content}
         </button>
       )}
-      {open && (
-        <ul className="lines">
-          {chapter.children.map((l, i) => (
-            <li key={`${l.economic_code}-${i}`} className={`line level-${l.level}`}>
-              <span className="chapter-code">{l.economic_code}</span>
-              <span className="line-desc">{l.description}</span>
-              <span className="line-value">{formatKeur(l.amount_keur)}</span>
-            </li>
-          ))}
-        </ul>
-      )}
+      {open && <Lines lines={chapter.children} />}
     </li>
   );
 }
@@ -150,8 +166,11 @@ export default function BudgetProgram({ id, year, years, onYearChange }) {
             <span className="num">{formatKeur(s.total_keur)}</span>
           </div>
           {s.organics.map((o) => {
-            const chapters = chaptersOf(s.lines, o.organic_id);
+            const { chapters, loose } = chaptersOf(s.lines, o.organic_id);
             const max = Math.max(0, ...chapters.map((c) => c.amount_keur));
+            // `undetailed_keur` es el total menos los capítulos: las partidas sueltas sí están
+            // detalladas, así que se descuentan antes de decir cuánto queda sin repartir.
+            const undetailed = (o.undetailed_keur ?? 0) - looseTotal(loose);
             return (
               <div key={o.organic_id} className="panel">
                 <div className="section-head">
@@ -159,7 +178,7 @@ export default function BudgetProgram({ id, year, years, onYearChange }) {
                   <span className="num">{formatKeur(o.total_keur)}</span>
                 </div>
                 {chapters.length === 0 ? (
-                  <p className="muted">La Ley solo da el total de este organismo, sin repartirlo por capítulos.</p>
+                  loose.length === 0 && <p className="muted">La Ley solo da el total de este organismo, sin repartirlo por capítulos.</p>
                 ) : (
                   <>
                     <p className="muted">Por capítulos. Pulsa uno para ver sus partidas.</p>
@@ -170,8 +189,14 @@ export default function BudgetProgram({ id, year, years, onYearChange }) {
                     </ul>
                   </>
                 )}
-                {o.undetailed_keur > 0 && (
-                  <p className="muted">{formatKeur(o.undetailed_keur)} de este organismo no están repartidos por capítulos en la Ley.</p>
+                {loose.length > 0 && (
+                  <>
+                    <p className="muted">Partidas que el documento da sin la fila de su capítulo:</p>
+                    <Lines lines={loose} />
+                  </>
+                )}
+                {undetailed >= 1 && (
+                  <p className="muted">{formatKeur(undetailed)} de este organismo no están repartidos por capítulos en la Ley.</p>
                 )}
               </div>
             );

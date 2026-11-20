@@ -15,6 +15,11 @@ function Meter({ score }) {
   );
 }
 
+// Puntos de un servicio en un grupo de señales (avisos, Europa, inversión, peso en el PIB).
+const pointsIn = (row, group) => row.signals.filter((s) => s.group === group).reduce((sum, s) => sum + s.points, 0);
+
+// Tarjeta de un servicio: nivel, las cuatro señales como casillas (encendidas o no)
+// y, plegadas, las frases con las cifras que las justifican.
 function RiskCard({ row, afterwards, cutoff }) {
   const href = `#/ambito/${row.id}`;
   return (
@@ -28,18 +33,37 @@ function RiskCard({ row, afterwards, cutoff }) {
           {row.level.label}
         </span>
       </div>
-      <ul className="risk-reasons">
-        {row.signals.map((s, i) => (
-          <li key={i}>{s.text}</li>
-        ))}
-      </ul>
-      {afterwards && (
-        <p className="risk-after">
-          {afterwards.length
-            ? `Qué pasó después: la web le dio avisos en ${afterwards.join(', ')}.`
-            : `Después de ${cutoff}, la web no le dio avisos (solo mira cifras de gasto, no incidentes).`}
-        </p>
-      )}
+      <div className="risk-card-body">
+        <ul className="risk-signals">
+          {SIGNAL_GROUPS.map((g) => {
+            const pts = pointsIn(row, g.key);
+            return (
+              <li key={g.key} className={pts > 0 ? 'on' : ''}>
+                <span className="risk-signal-points" aria-hidden="true">
+                  {pts > 0 ? '●'.repeat(pts) : '○'}
+                </span>
+                {g.label}
+                <span className="visually-hidden">{pts > 0 ? `: ${pts} ${pts === 1 ? 'punto' : 'puntos'}` : ': sin señal'}</span>
+              </li>
+            );
+          })}
+        </ul>
+        <details className="risk-details">
+          <summary>Ver las cifras</summary>
+          <ul className="risk-reasons">
+            {row.signals.map((s, i) => (
+              <li key={i}>{s.text}</li>
+            ))}
+          </ul>
+        </details>
+        {afterwards && (
+          <p className="risk-after">
+            {afterwards.length
+              ? `Qué pasó después: la web le dio avisos en ${afterwards.join(', ')}.`
+              : `Después de ${cutoff}, la web no le dio avisos (solo mira cifras de gasto, no incidentes).`}
+          </p>
+        )}
+      </div>
     </li>
   );
 }
@@ -63,13 +87,7 @@ export default function RiskWatch({ years, compact = false, limit = 3 }) {
     <div className="risk">
       {!compact && (
         <div className="risk-time">
-          <div>
-            <h3>¿Y si esta web hubiera existido antes?</h3>
-            <p className="muted">
-              Elige un año: la previsión se calcula solo con los datos que había hasta entonces, y debajo de cada
-              servicio se ve qué pasó después.
-            </p>
-          </div>
+          <h3>¿Y si esta web hubiera existido antes?</h3>
           <YearPicker
             year={shown}
             years={years.filter((y) => y >= years[0] + 3)}
@@ -82,7 +100,7 @@ export default function RiskWatch({ years, compact = false, limit = 3 }) {
       {list.length === 0 ? (
         <p className="state">Con los datos hasta {shown}, ningún servicio acumula dos o más señales de alerta.</p>
       ) : (
-        <ol className="risk-cards">
+        <ol className={`risk-cards${compact ? '' : ' wide'}`}>
           {list.map((r) => (
             <RiskCard key={r.id} row={r} cutoff={shown} afterwards={isPast ? afterwards.data?.[r.id] ?? [] : null} />
           ))}
@@ -112,7 +130,7 @@ export default function RiskWatch({ years, compact = false, limit = 3 }) {
                       <a href={`#/ambito/${r.id}`}>{r.name}</a>
                     </td>
                     {SIGNAL_GROUPS.map((g) => {
-                      const pts = r.signals.filter((s) => s.group === g.key).reduce((s, x) => s + x.points, 0);
+                      const pts = pointsIn(r, g.key);
                       return (
                         <td key={g.key} className="center">
                           {pts > 0 ? (
@@ -136,13 +154,13 @@ export default function RiskWatch({ years, compact = false, limit = 3 }) {
         </details>
       )}
 
-      <p className="risk-method">
-        <strong>Cómo se calcula. </strong>
-        Es una estimación orientativa del equipo, no una predicción oficial. Suma señales de alerta temprana de los
+      <details className="risk-method">
+        <summary>Estimación orientativa del equipo, no una predicción oficial. Cómo se calcula</summary>
+        Suma señales de alerta temprana de los
         últimos {WINDOW} años: avisos que se repiten, gastar bastante menos que la mediana de la UE (y alejarse),
         inversión que cae en % del PIB y pérdida de peso en el PIB. Los problemas de un servicio (averías, accidentes,
         esperas) suelen llegar después de años de estas señales. Dos puntos o más: «Vigilar»; cuatro o más: «Riesgo alto».
-      </p>
+      </details>
     </div>
   );
 }

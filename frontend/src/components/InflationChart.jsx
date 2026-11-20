@@ -33,10 +33,11 @@ const COLORS = { spend: 'var(--forest)', prices: 'var(--sky)' };
 export default function InflationChart({ values, year, onYearChange, what = 'el gasto público' }) {
   const [view, setView] = useState('yearly');
 
-  // Solo los años con gasto y con dato de precios.
+  // Solo los años con gasto y con dato de precios. Un año con gasto 0 no sirve de base:
+  // dividir entre él daba «∞ %» o «NaN %» en subámbitos que empiezan en cero.
   const years = Object.keys(values)
     .map(Number)
-    .filter((y) => values[y] != null && PRICE_INDEX[y] != null)
+    .filter((y) => values[y] > 0 && PRICE_INDEX[y] != null)
     .sort((a, b) => a - b);
   if (years.length < 2) return null;
 

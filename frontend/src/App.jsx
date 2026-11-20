@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { getMeta } from './api.js';
 import { useApi } from './useApi.js';
 import Home from './pages/Home.jsx';
+import Spending from './pages/Spending.jsx';
 import Area from './pages/Area.jsx';
 import Compare from './pages/Compare.jsx';
 import Alerts from './pages/Alerts.jsx';
@@ -13,6 +14,7 @@ import Pensions from './pages/Pensions.jsx';
 import Calculator from './pages/Calculator.jsx';
 import ThemeToggle from './components/ThemeToggle.jsx';
 import Brand from './components/Brand.jsx';
+import HeaderSearch from './components/HeaderSearch.jsx';
 import Search from './pages/Search.jsx';
 import EuFunds from './pages/EuFunds.jsx';
 
@@ -27,6 +29,7 @@ function readRoute() {
 
 const NAV = [
   { href: '#/', page: '', label: 'Inicio' },
+  { href: '#/gasto', page: 'gasto', label: 'Gasto público' },
   { href: '#/presupuestos', page: 'presupuestos', label: 'Presupuestos' },
   { href: '#/fondos-europeos', page: 'fondos-europeos', label: 'Fondos europeos' },
   { href: '#/pensiones', page: 'pensiones', label: 'Pensiones' },
@@ -35,17 +38,17 @@ const NAV = [
   { href: '#/avisos', page: 'avisos', label: 'Avisos' },
 ];
 
-// Cabecera: todas menos Pensiones, que tiene su propio bloque destacado en la portada
+// Cabecera: todas menos Pensiones, que tiene su tarjeta en la portada
 // (y un enlace desde Protección social), para no recargar el menú. El buscador va aparte,
-// como lupa a la derecha.
+// como lupa a la derecha: al pulsarla se escribe ahí mismo (HeaderSearch).
 const HEADER_NAV = NAV.filter((item) => item.page !== 'pensiones');
 
 
-// Menú del pie: todas las páginas, con Fuentes bien visible (ya no está en la cabecera).
+// Menú del pie: todas las páginas en una sola línea; Fuentes solo se enlaza desde aquí.
 const FOOTER_NAV = [
   ...NAV,
   { href: '#/buscar', page: 'buscar', label: 'Buscar' },
-  { href: '#/fuentes', page: 'fuentes', label: 'Fuentes de datos' },
+  { href: '#/fuentes', page: 'fuentes', label: 'Fuentes' },
 ];
 
 export default function App() {
@@ -80,6 +83,7 @@ export default function App() {
 
   let page;
   if (route.page === '') page = <Home {...pageProps} />;
+  else if (route.page === 'gasto') page = <Spending {...pageProps} />;
   else if (route.page === 'ambito') page = <Area id={route.id} {...pageProps} onBudgetYearChange={setBudgetYear} />;
   else if (route.page === 'presupuestos' && route.id === 'politica') page = <BudgetPolicy id={route.sub} {...budgetProps} />;
   else if (route.page === 'presupuestos' && route.id === 'programa') page = <BudgetProgram id={route.sub} {...budgetProps} />;
@@ -94,7 +98,7 @@ export default function App() {
   else if (route.page === 'fuentes') page = <Sources />;
   else page = <p className="state">Esta página no existe. <a href="#/">Volver al inicio</a></p>;
 
-  const activePage = route.page === 'ambito' ? '' : route.page === 'mapa' ? 'comparar' : route.page;
+  const activePage = route.page === 'ambito' ? 'gasto' : route.page === 'mapa' ? 'comparar' : route.page;
 
   return (
     <>
@@ -109,18 +113,7 @@ export default function App() {
             ))}
           </nav>
           <div className="header-tools">
-            <a
-              href="#/buscar"
-              className="header-search"
-              aria-label="Buscar en los Presupuestos"
-              title="Buscar"
-              aria-current={activePage === 'buscar' ? 'page' : undefined}
-            >
-              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
-                <circle cx="11" cy="11" r="7" />
-                <path d="m20 20-3.8-3.8" />
-              </svg>
-            </a>
+            <HeaderSearch active={activePage === 'buscar'} />
             <ThemeToggle />
           </div>
         </div>
@@ -132,39 +125,18 @@ export default function App() {
 
       <footer className="site-footer">
         <div className="container footer-inner">
-          <div className="footer-brand">
-            <Brand />
-            <p>
-              Gasto del conjunto de las administraciones públicas según Eurostat (COFOG) y Presupuestos Generales del
-              Estado. Datos oficiales y abiertos.
-            </p>
-          </div>
+          <Brand />
           <nav className="footer-nav" aria-label="Pie de página">
-            <h2 className="footer-title">Secciones</h2>
-            <ul>
-              {FOOTER_NAV.map((item) => (
-                <li key={item.page}>
-                  <a
-                    href={item.href}
-                    className={item.page === 'fuentes' ? 'footer-sources' : undefined}
-                    aria-current={activePage === item.page ? 'page' : undefined}
-                  >
-                    {item.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
+            {FOOTER_NAV.map((item) => (
+              <a key={item.page} href={item.href} aria-current={activePage === item.page ? 'page' : undefined}>
+                {item.label}
+              </a>
+            ))}
           </nav>
-          <div className="footer-cta">
-            <h2 className="footer-title">De dónde sale cada cifra</h2>
-            <p>Cada dato enlaza a su fuente oficial: Eurostat, Hacienda, el BOE y la OCDE.</p>
-            <a href="#/fuentes" className="button-link">
-              Ver las fuentes de datos
-            </a>
-          </div>
         </div>
         <div className="container footer-base">
-          <p>Hecho por el equipo Leather and Lies para el Hackatón 2Campus1Code.</p>
+          <p>Datos oficiales y abiertos: Eurostat, Hacienda, el BOE y la OCDE.</p>
+          <p>Equipo Leather and Lies · Hackatón 2Campus1Code</p>
         </div>
       </footer>
     </>

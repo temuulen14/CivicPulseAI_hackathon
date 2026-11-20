@@ -1,6 +1,6 @@
-// Marca de la app: el nombre «Cristalino» y su sobrenombre «claro como el agua», solo con letra.
+// Marca de la app: el nombre «Cristalino» y su sobrenombre «como el agua», solo con letra.
 export const APP_NAME = 'Cristalino';
-export const APP_TAGLINE = 'claro como el agua';
+export const APP_TAGLINE = 'como el agua';
 
 export default function Brand({ withTagline = true }) {
   return (

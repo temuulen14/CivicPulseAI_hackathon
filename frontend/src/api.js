@@ -28,7 +28,9 @@ async function get(path, params = {}) {
   for (const [key, value] of Object.entries(params)) {
     if (value !== undefined && value !== null && value !== '') query.set(key, value);
   }
-  const url = `${BASE_URL}${path}${query.size ? `?${query}` : ''}`;
+  // toString() y no query.size: `size` no existe en Safari anterior al 17 y se perdían los parámetros.
+  const qs = query.toString();
+  const url = `${BASE_URL}${path}${qs ? `?${qs}` : ''}`;
   let response;
   try {
     response = await fetch(url);

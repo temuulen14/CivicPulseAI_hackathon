@@ -1,80 +1,99 @@
-import { useState } from 'react';
-import { CartesianGrid, Line, LineChart, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
-import { getAlerts } from '../api.js';
 import { useApi } from '../useApi.js';
 import { getAreasCached, useAllAreas } from '../useAllYears.js';
-import { compact, formatMeur, formatMeurWords, formatPct } from '../format.js';
-import { MEASURES, totalOf } from '../measures.js';
-import { useGovernments } from '../governments.js';
-import { GovernmentBand } from '../components/BudgetBars.jsx';
-import RiskWatch from '../components/RiskWatch.jsx';
-import { shareStep } from '../scale.js';
+import { formatMeurWords } from '../format.js';
 import Status from '../components/Status.jsx';
-import YearPicker from '../components/YearPicker.jsx';
-import Spectrum from '../components/Spectrum.jsx';
 import TreeRings from '../components/TreeRings.jsx';
-import Segmented from '../components/Segmented.jsx';
-import Sparkline from '../components/Sparkline.jsx';
-import MeasureSwitch from '../components/MeasureSwitch.jsx';
-import InflationChart from '../components/InflationChart.jsx';
-import AreaTreemap from '../components/AreaTreemap.jsx';
-import ShareLegend from '../components/ShareLegend.jsx';
-import DivergingBars from '../components/DivergingBars.jsx';
-import { SeverityIcon } from '../components/Severity.jsx';
-import { SEVERITY } from '../labels.js';
+import DoorArt from '../components/DoorArt.jsx';
 
-// Cuatro maneras de mirar los mismos datos, sin salir de la portada.
-const VIEWS = [
-  { value: 'map', label: 'Mapa' },
-  { value: 'ranking', label: 'Ranking' },
-  { value: 'trend', label: 'Evolución' },
-  { value: 'changes', label: 'Cambios' },
+// Portada: una puerta de entrada. La pregunta principal y un banner grande por cada cosa que
+// se puede hacer en la web, con la pregunta que responde. Las cifras y los gráficos están en sus páginas
+// (el gasto por ámbitos, que antes vivía aquí, está en «Gasto público», pages/Spending.jsx).
+const DOORS = [
+  {
+    href: '#/calculadora',
+    art: 'coin',
+    featured: true,
+    title: '¿A dónde van mis impuestos?',
+    text: 'Escribe tu sueldo y mira cuánto pagas al año y en qué se gasta cada euro.',
+    go: 'Calcúlalo',
+  },
+  {
+    href: '#/gasto',
+    art: 'bars',
+    title: '¿En qué se gasta el dinero de todos?',
+    go: 'Ver el reparto',
+  },
+  {
+    href: '#/pensiones',
+    art: 'pensioners',
+    title: '¿Habrá dinero para las pensiones?',
+    text: 'La mayor partida del gasto, frente a cuántos pensionistas hay y cuánto toca a cada uno.',
+    go: 'Ver las pensiones',
+  },
+  {
+    href: '#/comparar',
+    art: 'europe',
+    title: '¿Gastamos más que otros países?',
+    text: 'España frente a Europa y el mundo, en un mapa.',
+    go: 'Comparar',
+  },
+  {
+    href: '#/avisos',
+    art: 'outlier',
+    title: '¿Hay algo que no cuadra?',
+    text: 'Dónde España se aparta de los demás y qué servicios pueden dar problemas.',
+    go: 'Ver los avisos',
+  },
+  {
+    href: '#/presupuestos',
+    art: 'blocks',
+    title: '¿Qué dice el presupuesto, partida a partida?',
+    text: 'Los Presupuestos Generales del Estado, de las grandes políticas al último programa.',
+    go: 'Abrir los presupuestos',
+  },
+  {
+    href: '#/fondos-europeos',
+    art: 'stars',
+    title: '¿Qué se hace con el dinero de Europa?',
+    text: 'En qué políticas y programas se usan los fondos europeos de recuperación.',
+    go: 'Ver los fondos',
+  },
+  {
+    href: '#/buscar',
+    art: 'search',
+    title: '¿Cuánto se dedica a lo que me importa?',
+    text: 'Busca una palabra (becas, carreteras, museos…) en los presupuestos.',
+    go: 'Buscar',
+  },
 ];
 
-// 41,0 % -> «41 céntimos»
-const euroCents = (pct) => `${Math.round(pct)} céntimos`;
-
-const AXIS = { stroke: 'var(--line-strong)', tick: { fill: 'var(--muted)', fontSize: 12 }, tickLine: false };
-
-export default function Home({ year, years, onYearChange, measure, onMeasureChange }) {
-  const [view, setView] = useState('map');
-  const governments = useGovernments();
-  const [base, setBase] = useState('prev'); // vista Cambios: frente al año anterior o desde el primero
+export default function Home({ year, years, onYearChange }) {
   const areas = useApi(() => getAreasCached(year), [year]);
   const all = useAllAreas(years);
-  const alerts = useApi(() => getAlerts({ year }), [year]);
 
   if (!areas.data) return <Status state={areas} />;
-  const m = MEASURES[measure];
   const { total_meur, provisional, areas: list } = areas.data;
   const shownYear = areas.data.year;
   const byYear = all.data ?? {};
-
-  // Valor de un ámbito en cada año, en la medida elegida (null si falta ese año).
-  const seriesOf = (id) => years.map((y) => m.get(byYear[y]?.areas.find((a) => a.id === id)));
-  const totals = Object.fromEntries(years.map((y) => [y, totalOf(byYear[y], measure)]));
   const ranking = [...list].sort((a, b) => b.amount_meur - a.amount_meur);
-  const topAlerts = alerts.data?.alerts.slice(0, 3) ?? []; // el backend ya los ordena por severidad
-  const areaName = Object.fromEntries(list.map((a) => [a.id, a.name]));
-  const isLatest = shownYear === years[years.length - 1];
-  const totalGdp = totalOf(areas.data, 'gdp');
+  // La única cifra de la portada va en el banner del gasto; el detalle está en «Gasto público».
+  const spendingText = `${formatMeurWords(total_meur)} en ${shownYear}${provisional ? ' (dato provisional)' : ''}. De cada euro, ${Math.round(ranking[0].share_of_total_pct)} céntimos van a ${ranking[0].name}.`;
 
   return (
     <>
-      {/* Comienzo tranquilo: una pregunta, una frase y dos caminos. Las cifras vienen después. */}
       <section className="hero" aria-labelledby="hero-title">
         <div className="hero-text">
           <h1 id="hero-title">
             ¿A dónde va el <span className="swash">dinero público</span>?
           </h1>
           <p className="hero-lead">
-            En qué gastan las administraciones públicas de España, cómo cambia cada año y en qué merece la pena
-            fijarse. Con datos oficiales, explicado sin prisa.
+            Una web para entender, sin ser experto, en qué gastan las administraciones públicas de España. Con datos
+            oficiales y explicado sin prisa.
           </p>
           <div className="hero-actions">
-            <button type="button" className="button-link" onClick={() => document.getElementById('glance-title')?.scrollIntoView({ behavior: 'smooth' })}>
-              Empezar por lo esencial
-            </button>
+            <a href="#/gasto" className="button-link">
+              Ver en qué se gasta
+            </a>
             <a href="#/calculadora" className="quiet-link">
               Calcula a dónde van tus impuestos <span aria-hidden="true">→</span>
             </a>
@@ -87,338 +106,26 @@ export default function Home({ year, years, onYearChange, measure, onMeasureChan
         />
       </section>
 
-      {/* Lo esencial del año: tres cifras de tamaño moderado y la barra de ámbitos. */}
-      <section className="section glance-section" aria-labelledby="glance-title">
-        <div className="section-head">
-          <h2 id="glance-title">{shownYear}, en tres cifras</h2>
-          <MeasureSwitch value={measure} onChange={onMeasureChange} />
-        </div>
-        <dl className="glance">
-          <div>
-            <dt>Gasto de todas las administraciones</dt>
-            <dd>{measure === 'amount' ? formatMeurWords(total_meur) : `${formatPct(totalGdp)} del PIB`}</dd>
-            <span className="glance-note">
-              {measure === 'amount' ? formatMeur(total_meur) : formatMeurWords(total_meur)}
-              {provisional && <span className="tag-provisional">Dato provisional</span>}
-            </span>
-          </div>
-          <div>
-            <dt>{measure === 'amount' ? 'Frente a lo que produce el país' : 'En euros'}</dt>
-            <dd>{measure === 'amount' ? `${formatPct(totalGdp)} del PIB` : formatMeurWords(total_meur)}</dd>
-            <span className="glance-note">
-              {measure === 'amount' ? `${Math.round(totalGdp)} € de cada 100 € que produce el país` : 'En euros de ese año'}
-            </span>
-          </div>
-          <div>
-            <dt>La mayor parte va a</dt>
-            <dd>{ranking[0].name}</dd>
-            <span className="glance-note">
-              {euroCents(ranking[0].share_of_total_pct)} de cada euro
-            </span>
-          </div>
-        </dl>
-        <Spectrum areas={list} />
-        <YearPicker
-          year={shownYear}
-          years={years}
-          onYearChange={onYearChange}
-          values={totals}
-          format={m.format}
-          caption={`Cada barra es el gasto total de ese año${measure === 'gdp' ? ', en % del PIB' : ''}. Pulsa un año para ver sus cifras.`}
-        />
-        {governments.length > 0 && <GovernmentBand years={years} governments={governments} />}
-      </section>
-
-      {/* Pensiones no está en la cabecera: este bloque, justo bajo la cifra principal, es su puerta de entrada. */}
-      <section className="feature section" aria-labelledby="pensions-feature">
-        <div className="feature-text">
-          <p className="feature-kicker">Tema destacado</p>
-          <h2 id="pensions-feature">Pensiones: ¿crece el dinero al ritmo de quienes las cobran?</h2>
-          <p>
-            Es la mayor partida del gasto público. Compara año a año cuánto se gasta en pensiones, cuántos pensionistas
-            hay y cuánto toca a cada uno.
-          </p>
-        </div>
-        <a href="#/pensiones" className="feature-link">
-          Ver las pensiones <span aria-hidden="true">→</span>
-        </a>
-      </section>
-
-      <section className="section" aria-labelledby="explore-title">
-        <div className="section-head">
-          <div className="section-title">
-            <h2 id="explore-title">Explora el gasto de {shownYear}</h2>
-            <p className="muted">Los mismos datos, vistos de cuatro maneras. Pulsa un ámbito para ver su detalle.</p>
-          </div>
-          <div className="controls">
-            <Segmented label="Vista" options={VIEWS} value={view} onChange={setView} />
-            <MeasureSwitch value={measure} onChange={onMeasureChange} />
-          </div>
-        </div>
-
-        {view === 'map' && (
-          <div className="view">
-            <p className="muted">El tamaño de cada bloque es su importe. El círculo indica cuántos avisos tiene.</p>
-            <AreaTreemap areas={list} measure={measure} />
-            <ShareLegend />
-          </div>
-        )}
-
-        {view === 'ranking' && (
-          <div className="view table-wrap">
-            <table className="ranking">
-              <thead>
-                <tr>
-                  <th>Ámbito</th>
-                  <th className="share-col">Cuota del total</th>
-                  <th className="num">{m.label}</th>
-                  <th>
-                    {years[0]}–{years[years.length - 1]}
-                  </th>
-                  <th className="num">Frente a {shownYear - 1}</th>
-                  <th>Avisos</th>
-                </tr>
-              </thead>
-              <tbody>
-                {ranking.map((a) => {
-                  const values = seriesOf(a.id);
-                  const i = years.indexOf(shownYear);
-                  const change = measure === 'amount' ? a.yoy_change_pct : m.change(values[i], values[i - 1]);
-                  return (
-                    <tr key={a.id}>
-                      <td>
-                        <a href={`#/ambito/${a.id}`}>{a.name}</a>
-                      </td>
-                      <td className="share-col">
-                        <span className="share-cell">
-                          <span className="share-track" aria-hidden="true">
-                            <span
-                              style={{
-                                width: `${(a.share_of_total_pct / ranking[0].share_of_total_pct) * 100}%`,
-                                background: shareStep(a.share_of_total_pct).fill,
-                              }}
-                            />
-                          </span>
-                          <span className="num">{formatPct(a.share_of_total_pct)}</span>
-                        </span>
-                      </td>
-                      <td className="num">{m.format(m.get(a))}</td>
-                      <td>
-                        <Sparkline values={values} />
-                      </td>
-                      <td className="num">{m.formatChange(change)}</td>
-                      <td>
-                        {a.alert_count > 0 ? (
-                          <a href="#/avisos" className="alert-count" title={SEVERITY[a.max_severity]?.label}>
-                            <SeverityIcon level={a.max_severity} size={14} />
-                            {a.alert_count}
-                          </a>
-                        ) : (
-                          <span className="muted">Ninguno</span>
-                        )}
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-        )}
-
-        {view === 'trend' && (
-          <div className="view">
-            {!all.data ? (
-              <Status state={all} />
-            ) : (
-              <>
-                <div className="panel">
-                  <h3>Gasto total, {m.unit}</h3>
-                  <div className="chart-box">
-                    <ResponsiveContainer width="100%" height="100%">
-                      <LineChart
-                        data={years.map((y) => ({ year: y, value: totals[y] }))}
-                        margin={{ top: 16, right: 16, bottom: 0, left: 0 }}
-                        onClick={(e) => e?.activeLabel && onYearChange(Number(e.activeLabel))}
-                      >
-                        <CartesianGrid vertical={false} stroke="var(--line)" />
-                        <XAxis dataKey="year" {...AXIS} />
-                        <YAxis
-                          {...AXIS}
-                          axisLine={false}
-                          width={52}
-                          domain={['auto', 'auto']}
-                          tickFormatter={(v) => (measure === 'amount' ? compact.format(v) : formatPct(v))}
-                        />
-                        <Tooltip
-                          content={({ active, payload, label }) =>
-                            active && payload?.length ? (
-                              <div className="tooltip">
-                                <strong>{label}</strong>
-                                <div>{m.format(payload[0].value)}</div>
-                              </div>
-                            ) : null
-                          }
-                        />
-                        <ReferenceLine x={shownYear} stroke="var(--line-strong)" strokeDasharray="3 3" />
-                        <Line
-                          type="monotone"
-                          dataKey="value"
-                          stroke="var(--forest)"
-                          strokeWidth={2}
-                          dot={{ r: 4, fill: 'var(--forest)', stroke: 'var(--paper)', strokeWidth: 2 }}
-                          activeDot={{ r: 6 }}
-                          connectNulls={false}
-                          isAnimationActive={false}
-                        />
-                      </LineChart>
-                    </ResponsiveContainer>
-                  </div>
-                  <p className="muted">Pulsa un año del gráfico para verlo en toda la página.</p>
-                </div>
-                <h3 className="multiples-title">Cada ámbito, {years[0]}–{years[years.length - 1]}</h3>
-                <p className="muted">Cada gráfico tiene su propia escala, para que se vea bien la forma de su evolución.</p>
-                <div className="multiples">
-                  {ranking.map((a) => {
-                    const values = seriesOf(a.id);
-                    const first = values.find((v) => v != null);
-                    const change = m.change(m.get(a), first);
-                    return (
-                      <a key={a.id} href={`#/ambito/${a.id}`} className="multiple">
-                        <span className="multiple-name">{a.name}</span>
-                        <span className="multiple-value">{m.format(m.get(a))}</span>
-                        <Sparkline values={values} width={240} height={56} className="sparkline-wide" />
-                        <span className="muted">
-                          {m.formatChange(change)} desde {years[0]}
-                        </span>
-                      </a>
-                    );
-                  })}
-                </div>
-              </>
-            )}
-          </div>
-        )}
-
-        {view === 'changes' && (
-          <div className="view">
-            <div className="view-toolbar">
-              <Segmented
-                label="Comparar con"
-                options={[
-                  { value: 'prev', label: `Frente a ${shownYear - 1}` },
-                  { value: 'first', label: `Desde ${years[0]}` },
-                ]}
-                value={base}
-                onChange={setBase}
-              />
-              <p className="muted">
-                {measure === 'amount'
-                  ? 'Variación del importe, en porcentaje.'
-                  : 'Diferencia en puntos del PIB (p. p.).'}
-              </p>
-            </div>
-            {!all.data ? (
-              <Status state={all} />
-            ) : (
-              (() => {
-                const baseYear = base === 'prev' ? shownYear - 1 : years[0];
-                const before = byYear[baseYear];
-                if (!before || baseYear === shownYear) {
-                  return <p className="state">No hay datos de {baseYear} para comparar.</p>;
-                }
-                const rows = list
-                  .map((a) => ({
-                    key: a.id,
-                    id: a.id,
-                    label: a.name,
-                    value: m.change(m.get(a), m.get(before.areas.find((b) => b.id === a.id))),
-                  }))
-                  .sort((r1, r2) => (r2.value ?? -Infinity) - (r1.value ?? -Infinity));
-                return (
-                  <DivergingBars
-                    rows={rows}
-                    format={m.formatChange}
-                    labels={['Baja', 'Sube']}
-                    hrefFor={(r) => `#/ambito/${r.id}`}
-                  />
-                );
-              })()
-            )}
-          </div>
-        )}
-      </section>
-
-      <section className="panel section" aria-labelledby="inflation-title">
-        <div className="section-title">
-          <h2 id="inflation-title">El gasto público frente a la inflación</h2>
-          <p className="muted">
-            Si los precios suben más que el gasto, con el mismo dinero se pagan menos médicos, profesores o kilómetros de
-            carretera. Pulsa un año para verlo en toda la página.
-          </p>
-        </div>
-        {!all.data ? (
-          <Status state={all} />
-        ) : (
-          <InflationChart
-            values={Object.fromEntries(years.map((y) => [y, byYear[y]?.total_meur ?? null]))}
-            year={shownYear}
-            onYearChange={onYearChange}
-          />
-        )}
-      </section>
-
-      <section className="panel-soft section budget-teaser" aria-labelledby="pge-teaser">
-        <h2 id="pge-teaser">Partida a partida</h2>
-        <p className="lead">
-          Los Presupuestos Generales del Estado de cada año, desde las grandes políticas de gasto hasta el último
-          concepto, con quién los elaboró y quién los ejecutó.
-        </p>
-        <a href="#/presupuestos">Ver los Presupuestos del Estado</a>
-      </section>
-
-      <section className="section" aria-labelledby="alerts-title">
-        <div className="section-head">
-          <div className="section-title">
-            <h2 id="alerts-title">{isLatest ? 'En qué fijarse ahora' : `En qué fijarse en ${shownYear}`}</h2>
-            {isLatest && (
-              <p className="muted">
-                {shownYear} es el último año con datos, el más cercano a hoy: además de sus avisos, qué servicios
-                públicos pueden dar problemas en los próximos años.
-              </p>
-            )}
-          </div>
-          <a href="#/avisos">Ver todos los avisos</a>
-        </div>
-        {isLatest && (
-          <div className="now-block">
-            <h3>Qué puede dar problemas</h3>
-            <RiskWatch years={years} compact />
-            <a href="#/avisos/prevision">Ver la previsión completa y probarla con años pasados</a>
-          </div>
-        )}
-        {isLatest && <h3>Avisos de {shownYear}</h3>}
-        {!alerts.data ? (
-          <Status state={alerts} />
-        ) : topAlerts.length === 0 ? (
-          <p className="muted">No hay avisos para {shownYear}.</p>
-        ) : (
-          <ul className="alert-list">
-            {topAlerts.map((al) => (
-              <li key={al.id}>
-                <a href={`#/ambito/${al.area_id}`} className={`alert-item sev-text-${al.severity}`}>
-                  <SeverityIcon level={al.severity} />
-                  <span className="alert-item-body">
-                    <span className="alert-item-title">{al.title}</span>
-                    <span className="muted">
-                      {SEVERITY[al.severity]?.label}. {areaName[al.area_id] ?? al.area_id}
-                    </span>
-                  </span>
-                </a>
-              </li>
-            ))}
-          </ul>
-        )}
-      </section>
+      {/* Un banner por pregunta: la pregunta en grande, un dibujo y un botón. Todo el banner es el enlace. */}
+      <ul className="doors" aria-label="Qué puedes ver aquí">
+        {DOORS.map((door) => (
+          <li key={door.href} className={door.featured ? 'is-featured' : undefined}>
+            <a href={door.href} className="door">
+              <span className="door-body">
+                <span className="door-title">{door.title}</span>
+                <span className="door-text">{door.text ?? spendingText}</span>
+                <span className="door-go">
+                  {door.go} <span aria-hidden="true">→</span>
+                </span>
+              </span>
+              <DoorArt kind={door.art} areas={ranking} />
+            </a>
+          </li>
+        ))}
+      </ul>
+      <p className="muted">
+        Cada cifra lleva su fuente oficial (Eurostat, Hacienda, el BOE y la OCDE). <a href="#/fuentes">Ver las fuentes</a>
+      </p>
     </>
   );
 }

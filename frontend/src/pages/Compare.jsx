@@ -48,7 +48,8 @@ export default function Compare({ year, years, onYearChange }) {
   // El mismo ámbito en todos los años, para la evolución de España frente a la mediana.
   const history = useEachYear((y) => getCompare({ area: areaId, year: y }), years, [areaId]);
   const leaders = useApi(() => loadLeaders(year), [year]);
-  const [mapView, setMapView] = useState('area'); // 'area' = ámbito elegido; 'leaders' = líder de cada ámbito
+  // 'leaders' = vista general (líder de cada ámbito), la que se ve al entrar; 'area' = ámbito elegido
+  const [mapView, setMapView] = useState('leaders');
   const sources = useSourcesById();
 
   // Elegir un ámbito desde el mapa o las tarjetas: cambia toda la página y vuelve a la vista del ámbito.
@@ -81,11 +82,45 @@ export default function Compare({ year, years, onYearChange }) {
           Cuánto dedica cada país a un mismo ámbito, en porcentaje de su PIB. Usar el % del PIB permite comparar
           países de tamaños muy distintos.
         </p>
+      </section>
+
+      {/* El mapa va lo primero y a todo el ancho; el ámbito y el año se eligen debajo. */}
+      {data && rows.length > 0 && (
+        <section className="section" aria-labelledby="cmp-map">
+          <h2 id="cmp-map">
+            {mapView === 'area' ? `${data.area_name} en el mapa, ${data.year}` : `Quién más dedica a cada ámbito, ${data.year}`}
+          </h2>
+          {mapView === 'area' && summary(data) && <p className="lead">{summary(data)}</p>}
+          {!leaders.data ? (
+            <Status state={leaders} />
+          ) : (
+            <CompareMap
+              view={mapView}
+                compare={data}
+              area={{ id: areaId, name: data.area_name }}
+              leaders={leaders.data}
+              onPickArea={(id) => pickArea(id)}
+            />
+          )}
+        </section>
+      )}
+
+      <section className="section" aria-label="Elegir ámbito y año">
         <div className="filter-group">
-          <h2 className="filter-title">Ámbito</h2>
+          <h2 className="filter-title">Qué muestra el mapa</h2>
           <div className="chips">
+            {/* «Todos» es la vista general del mapa; el ranking de debajo sigue con el último ámbito elegido. */}
+            <button type="button" className="chip" aria-pressed={mapView === 'leaders'} onClick={() => setMapView('leaders')}>
+              Todos los ámbitos
+            </button>
             {options.map((a) => (
-              <button key={a.id} type="button" className="chip" aria-pressed={areaId === a.id} onClick={() => setAreaId(a.id)}>
+              <button
+                key={a.id}
+                type="button"
+                className="chip"
+                aria-pressed={mapView === 'area' && areaId === a.id}
+                onClick={() => pickArea(a.id)}
+              >
                 <AreaIcon name={a.icon} size={16} />
                 {a.name}
               </button>
@@ -115,25 +150,6 @@ export default function Compare({ year, years, onYearChange }) {
         <p className="state">No hay datos de otros países para esta selección.</p>
       ) : (
         <>
-          <section className="section" aria-labelledby="cmp-map">
-            <h2 id="cmp-map">
-              {mapView === 'area' ? `${data.area_name} en el mapa, ${data.year}` : `Quién más dedica a cada ámbito, ${data.year}`}
-            </h2>
-            {mapView === 'area' && summary(data) && <p className="lead">{summary(data)}</p>}
-            {!leaders.data ? (
-              <Status state={leaders} />
-            ) : (
-              <CompareMap
-                view={mapView}
-                onViewChange={setMapView}
-                compare={data}
-                area={{ id: areaId, name: data.area_name }}
-                leaders={leaders.data}
-                onPickArea={(id) => pickArea(id)}
-              />
-            )}
-          </section>
-
           <section className="section" aria-labelledby="cmp-title">
             <div className="section-head">
               <h2 id="cmp-title">Ranking de países</h2>

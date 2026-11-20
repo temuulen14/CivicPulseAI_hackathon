@@ -1,7 +1,7 @@
 import { formatMeur, formatPct } from '../format.js';
 import { shareStep } from '../scale.js';
 
-// El "espectro" de la portada: los diez ámbitos en una sola barra, cada uno con el ancho
+// El "espectro" de «Gasto público»: los diez ámbitos en una sola barra, cada uno con el ancho
 // de su cuota del total y el tono verde de la escala. Cada segmento enlaza a su ámbito.
 // Los segmentos anchos llevan el nombre encima; todos aparecen en la lista de debajo.
 export default function Spectrum({ areas }) {

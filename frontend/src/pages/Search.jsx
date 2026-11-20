@@ -93,7 +93,8 @@ export default function Search({ query, year, years, onYearChange }) {
             ))}
           </div>
         </section>
-      ) : !data ? (
+      ) : !data || found.loading ? (
+        // Mientras llega la búsqueda nueva no se enseñan los resultados de la anterior bajo el título nuevo.
         <Status state={found} />
       ) : (
         <section className="section" aria-live="polite" aria-labelledby="results-title">

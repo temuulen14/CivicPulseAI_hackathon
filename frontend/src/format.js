@@ -59,6 +59,8 @@ export const compact = new Intl.NumberFormat('es-ES', { notation: 'compact', max
 export function formatKeur(value) {
   if (value === null || value === undefined) return 'Sin dato';
   const size = Math.abs(value);
+  // Entre 1 y 10 millones, con un decimal: 1.465 mil € es "1,5 M€", no "1 M€".
+  if (size >= 1000 && size < 10000) return `${dec1.format(value / 1000)} M€`;
   if (size >= 1000 || size === 0) return formatMeur(value / 1000);
   if (size >= 1) return `${int.format(value)} mil\u00a0€`;
   return `${int.format(value * 1000)}\u00a0€`;

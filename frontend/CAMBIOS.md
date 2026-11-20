@@ -562,7 +562,7 @@ Quién lo elaboró y quién lo ejecutó siguen siendo los de 2020.
 - Cabecera con el interruptor de medida en negro; menú centrado.
 - Tarjetas de riesgo con medidor de 4 tramos, filo de color por nivel y lista de motivos.
 - Barras del selector de años algo más altas (se lee mejor la tendencia).
-- Pie nuevo en gris bruma con tres columnas (una en móvil).
+- Pie en dos líneas finas: marca y menú en una fila, y debajo fuentes y equipo sobre el mismo gris bruma (antes, tres columnas).
 
 ### Comprobado
 
@@ -984,3 +984,57 @@ Sustituye el interruptor «País a país / Mapa» del punto 19: en vez de dos p�
   `Brand.jsx` se quita el SVG de la gota.
 - **Comprobado:** `npx eslint src scripts` y `npm run build` sin errores. Capturas de la portada a
   1280 px (claro) y 390 px (oscuro): sin restos del agua y sin scroll horizontal.
+
+## 25. «Comparar»: el mapa primero y en grande, e iconos de línea (20-11-2026, Pedro)
+
+- **Qué:** al entrar en «Comparar con otros países» lo primero es el mapa, en la vista general
+  (el líder de cada ámbito), con el mundo y Europa ampliada en la misma fila. Debajo van los
+  chips, que deciden qué muestra el mapa («Todos los ámbitos» o un ámbito), y el selector de año.
+  Se quita la pestaña que había sobre el mapa. Los iconos de ámbito pasan de siluetas macizas a
+  dibujos de línea fina.
+- **Por qué:** lo pidió el usuario: ver el mapa grande y general nada más entrar, cambiar de
+  vista desde abajo en un solo sitio y unos iconos más minimalistas.
+- **Cómo:** en `Compare.jsx` la sección del mapa sube por encima de los filtros y `mapView`
+  empieza en `'leaders'`; el chip «Todos los ámbitos» vuelve a esa vista y los demás llaman a
+  `pickArea`. El ranking de debajo sigue con el último ámbito elegido. En `CompareMap.jsx` se
+  quita el `Segmented` y `.map-grid` reparte el ancho en 2,12 : 1, la proporción entre las formas
+  de los dos mapas, para que tengan la misma altura. `AreaIcon.jsx` dibuja con `stroke` (grosor
+  1,6, puntas redondeadas) en vez de `fill`; las claves siguen siendo el campo `icon` de la API.
+- **Comprobado:** `npm run lint` sin errores. Captura a 1440 px (modo oscuro) contra el backend
+  real.
+
+## 26. Portada más sencilla, página «Gasto público» y lema «como el agua» (20-11-2026, Pedro)
+
+- **Qué:** la portada queda como puerta de entrada: la pregunta con los anillos, una frase con la
+  cifra del año y ocho tarjetas, una por cosa que se puede hacer (cada una es una pregunta, con
+  una explicación corta y enlace a su página). Las cifras del año, las cuatro vistas de los
+  ámbitos y el gráfico de la inflación pasan, sin cambios, a la página nueva «Gasto público»
+  (`#/gasto`), que entra en el menú. El lema pasa de «claro como el agua» a «como el agua».
+- **Por qué:** lo pidió el usuario: la portada tenía demasiada información e intimidaba al
+  entrar. No se pierde nada: lo que se quita de la portada está en «Gasto público» o ya estaba
+  en «Avisos» (avisos del año y previsión).
+- **Cómo:** `pages/Spending.jsx` es la portada antigua sin el arranque ni los bloques de enlace;
+  `pages/Home.jsx` se reescribe (lista `DOORS` + estilos `.home-fact` y `.door*` en `index.css`).
+  En `App.jsx`, ruta `gasto` y entrada en `NAV`; la página de ámbito marca «Gasto público» en el
+  menú y lo añade a sus migas. `BudgetNotice.jsx` ya no dice «la portada» sino «Gasto público».
+  Las entradas anteriores de este archivo conservan el lema antiguo porque cuentan lo que se hizo
+  entonces.
+- **Comprobado:** `npm run lint` y `npm run build` sin errores. Capturas de la portada a 1440 y
+  390 px y de «Gasto público» a 1440 px contra el backend real.
+
+## 27. Portada: las preguntas como banners grandes (20-11-2026, Pedro)
+
+- **Qué:** las ocho tarjetas de la portada pasan a ser banners: la pregunta en grande, una frase,
+  un dibujo pequeño y un botón con un verbo («Calcúlalo», «Ver el reparto»…). El primero,
+  «¿A dónde van mis impuestos?», ocupa todo el ancho en verde; los demás van de dos en dos. Se
+  quitan la frase suelta con la cifra del año (ahora es el texto del banner del gasto) y el
+  título «¿Qué quieres saber?».
+- **Por qué:** lo pidió el usuario: que quien abre la página vea preguntas grandes que inviten
+  a pulsar, y que el detalle esté al otro lado del clic.
+- **Cómo:** `components/DoorArt.jsx` dibuja el gráfico de cada banner. Cuatro salen de datos reales
+  (la moneda de 1 € partida según la cuota de cada ámbito, las barras por ámbito, la línea de
+  pensionistas de `pensionsDemand.js` y Europa recortada del mapa de «Comparar» con España
+  resaltada); los otros cuatro son ilustraciones sin datos (el punto que se sale de la fila,
+  los bloques que se parten, las doce estrellas y una caja de búsqueda). Primero fueron iconos
+  de línea, pero al usuario le parecieron demasiado estándar. Estilos `.door*` en `index.css`.
+- **Comprobado:** `npm run lint` y `npm run build` sin errores; capturas a 1440 y 390 px.

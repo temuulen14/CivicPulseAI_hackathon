@@ -76,7 +76,10 @@ export async function getBudgetProgramInForce(id, year) {
     // Solo se busca el documento vigente si ese año no tuvo documento (2020).
     const b = await getBudget(year).catch(() => null);
     if (!isEmpty(b)) throw err;
-    const prev = await previousWithDocument((y) => getBudgetProgram(id, y), year);
+    // Solo vale el documento vigente ese año (el de 2019 para 2020). Si el programa no está
+    // en él, no existía: buscarlo más atrás enseñaría cifras de otro presupuesto como vigentes.
+    const inForce = await previousWithDocument(getBudget, year);
+    const prev = inForce && (await getBudgetProgram(id, inForce.year).catch(() => null));
     if (!prev) throw err;
     return { ...prev, year, document: 'Prorroga', carried_from: prev.year };
   }

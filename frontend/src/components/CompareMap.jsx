@@ -1,15 +1,15 @@
 import { formatPct } from '../format.js';
 import { EUROPE_BOX, WORLD_BOX } from '../worldMap.js';
 import WorldMap from './WorldMap.jsx';
-import Segmented from './Segmented.jsx';
 import { leaderOf, valuesOf } from '../leaders.js';
 
 // Mapa de la página Comparar. Tiene dos vistas:
 // - "area": cada país coloreado por lo que dedica al ámbito elegido (más oscuro = más gasto),
 //   con la bandera del que más dedica.
 // - "leaders": una bandera por ámbito, clavada en el país que más le dedica.
-// Al pulsar una bandera se elige ese ámbito para toda la página.
-export default function CompareMap({ view, onViewChange, compare, area, leaders, onPickArea }) {
+// Al pulsar una bandera se elige ese ámbito para toda la página. La vista la decide la página
+// (los chips de debajo del mapa), no el mapa.
+export default function CompareMap({ view, compare, area, leaders, onPickArea }) {
   const isArea = view === 'area';
 
   const names = {};
@@ -55,15 +55,6 @@ export default function CompareMap({ view, onViewChange, compare, area, leaders,
   return (
     <>
       <div className="section-head">
-        <Segmented
-          label="Qué muestra el mapa"
-          value={view}
-          onChange={onViewChange}
-          options={[
-            { value: 'area', label: area.name },
-            { value: 'leaders', label: 'Líder de cada ámbito' },
-          ]}
-        />
         {isArea ? (
           <div className="legend map-scale" aria-hidden="true">
             <span>{formatPct(low)}</span>
@@ -80,6 +71,8 @@ export default function CompareMap({ view, onViewChange, compare, area, leaders,
         )}
       </div>
 
+      {/* Los dos mapas en una fila. Las columnas van en proporción a la forma de cada mapa
+          (el mundo es el doble de ancho que alto; Europa, casi cuadrada) para que midan lo mismo de alto. */}
       <div className="map-grid">
         <figure className="map-figure">
           <WorldMap box={WORLD_BOX} label={label} flagSize={0.03} hideFlagsIn={EUROPE_BOX} {...mapProps} />

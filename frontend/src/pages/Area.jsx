@@ -21,6 +21,8 @@ function Breadcrumb({ name }) {
     <nav className="breadcrumb" aria-label="Estás en">
       <a href="#/">Inicio</a>
       <span aria-hidden="true">/</span>
+      <a href="#/gasto">Gasto público</a>
+      <span aria-hidden="true">/</span>
       <span aria-current="page">{name ?? 'Ámbito'}</span>
     </nav>
   );

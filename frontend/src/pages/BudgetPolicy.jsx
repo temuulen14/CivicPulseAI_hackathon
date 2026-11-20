@@ -111,7 +111,10 @@ export default function BudgetPolicy({ id, year, onYearChange }) {
           <p className="muted">Pulsa un programa para verlo partida a partida.</p>
         </div>
         {p.programs.length === 0 ? (
-          <p className="state">No hay programas para {p.year}: ese año no hubo documento de presupuestos.</p>
+          <p className="state">
+            No hay programas para {p.year}:{' '}
+            {yearRow?.document == null ? 'ese año no hubo documento de presupuestos.' : 'esta política de gasto todavía no existía ese año.'}
+          </p>
         ) : (
           <ul className="pbars">
             {p.programs.map((pr) => (

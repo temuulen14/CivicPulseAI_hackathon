@@ -56,7 +56,7 @@ export default function TaxDays({ result, areas }) {
             <span className="swatch" style={{ background: shareStep(s.share).fill }} aria-hidden="true" />
             <a href={`#/ambito/${s.id}`}>{s.name}</a>
             <span className="days-count">{dayCount(s.days)}</span>
-            <span className="muted days-range">{range(s.from + 1, s.to)}</span>
+            <span className="muted days-range">{range(Math.min(s.from + 1, s.to), s.to)}</span>
           </li>
         ))}
         <li>

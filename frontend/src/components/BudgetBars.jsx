@@ -17,7 +17,7 @@ export default function BudgetBars({ rows, year, onYearChange }) {
           const height = max > 0 && r.value != null ? (r.value / max) * 100 : 0;
           const euShare = r.value ? ((r.eu ?? 0) / r.value) * 100 : 0;
           const doc = r.carried ? `Prórroga (=${r.carried})` : r.document === 'Prorroga' ? 'Prórroga' : r.document === null ? 'Sin documento' : 'Ley';
-          const text = `${r.year}: ${r.value != null ? formatKeur(r.value) : 'sin documento'}${r.carried ? ` (sigue vigente la prórroga de ${r.carried})` : r.document === 'Prorroga' ? ' (prórroga)' : ''}${r.eu ? `, de ellos ${formatKeur(r.eu)} de fondos europeos` : ''}`;
+          const text = `${r.year}: ${r.value != null ? formatKeur(r.value) : r.document == null ? 'sin documento' : 'sin dato'}${r.carried ? ` (sigue vigente la prórroga de ${r.carried})` : r.document === 'Prorroga' ? ' (prórroga)' : ''}${r.eu ? `, de ellos ${formatKeur(r.eu)} de fondos europeos` : ''}`;
           return (
             <button
               key={r.year}
