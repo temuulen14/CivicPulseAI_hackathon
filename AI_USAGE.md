@@ -1,35 +1,114 @@
 # Uso de IA
 
-## Mario (datos)
+Somos Mario, Pedro y Dersu (equipo Leather and Lies). Hemos usado Claude Code, de
+Anthropic, cada uno en su terminal. La aplicación no llama a ningún modelo: lo que se ve
+en pantalla son cifras oficiales y cuentas que se pueden leer en el código.
 
-Herramienta: Claude Code (modelo Claude Opus 5.5), en la terminal, sobre la carpeta `data/`.
+## Cómo la hemos usado
 
-- Exploración de fuentes: localizar y comprobar con llamadas reales las APIs de Eurostat, BOE y los CSV de los PGE en la web de Hacienda.
-- `fetch.py` y `build.py`: escritura del código de descarga, aplanado del JSON-stat y lectura de los CSV de los PGE; revisado y ejecutado en cada paso.
-- Validación: propuesta de las comprobaciones (sumas, duplicados, negativos) y análisis de los casos que fallaban antes de decidir la regla.
-- Cruces gasto-uso: cálculo de cuotas; el criterio (qué se compara, umbral, notas y qué cruces se descartan) se discutió y decidió en la sesión.
-- Presupuestos 2015-2025: recorrido de la web de Hacienda para leyes y prórrogas, conversión de la tabla HTML de 2015-2016, y detección de los huecos (Seguridad Social en las prórrogas, 2020 sin documento) al revisar la serie.
-- Gobiernos: búsqueda y verificación de los nombramientos en la API del BOE y del partido en La Moncloa; la decisión de no sumar importes por partido se tomó en la sesión.
-- Cruces de protección social: búsqueda de fuentes de uso (INE, Eurostat), comprobación de las cifras y propuesta de umbral; la decisión de incluir pensiones y dejar fuera sanidad y transporte se tomó en la sesión.
-- Tests (`data/test_build.py`) y documentación: `data/README.md`, `docs/DATA_SOURCES.md` y las decisiones de datos en `docs/ARCHITECTURE.md`.
+Para nosotros la IA ha sido una herramienta más, que nos ha servido para ir más rápido
+en las pocas horas del hackatón. El proyecto no dependía de ella. La hemos tratado como a
+un programador júnior: le encargábamos el código con instrucciones concretas en cada
+momento, y lo revisábamos. Es código que sabemos escribir nosotros, así que podemos
+explicar cualquier archivo.
 
-## Pedro (backend, contrato y entrega)
+La arquitectura, el stack y el estilo gráfico los decidimos los tres. Elegimos a
+propósito el stack más habitual y con menos dependencias: Python con `requests`, FastAPI
+con Pydantic, y React con Vite y Recharts. Son librerías conocidas y probadas. El mapa,
+los diagramas de flujo y los iconos no necesitaban ninguna, así que son SVG y CSS
+normales.
 
-Herramienta: Claude Code, en la terminal, sobre `backend/` y `docs/`.
+Las reglas que le pusimos están en `CLAUDE.md`, en el repositorio:
 
-- Diseño inicial: arquitectura, contrato de la API y reparto de tareas (`docs/`), discutido y aprobado por el equipo antes de programar.
-- Backend: escritura de la API (FastAPI), las dos reglas de aviso y sus tests; revisado y ejecutado en cada paso.
-- Integración de los datos de Mario: lectura del dataset real, nuevas rutas de los PGE (`/api/budget…`), desglose por tipo de gasto y ampliación del contrato a la v1.1.
-- Tests: casos límite de las reglas, un test por endpoint y comprobaciones de sumas contra el dataset real.
-- Comparación con países de fuera de la UE en `/api/compare` (contrato v1.2), con sus tests escritos antes que el código.
-- `README.md` de entrega y capturas de pantalla, tomadas con la aplicación en marcha.
-- Frontend (sobre el trabajo de Dersu): bloque «Fuera de la UE» en Comparar y repaso de todas las páginas en navegador, a ancho de escritorio y de móvil, contra el backend real.
-- Frontend: página «Mapa» (qué país dedica más a cada ámbito), con el mapa generado desde Natural Earth y comprobada en navegador.
-- Buscador de partidas, página de fondos europeos y botón «Copiar el dato con su fuente»: propuesta de funciones a partir del dataset, dos rutas nuevas (contrato v1.3) con sus tests, páginas del frontend y comprobación en navegador.
-- Cabecera: el mapa pasa a ser una vista de «Comparar con otros países» y el buscador una lupa a la derecha; comprobado en navegador a ancho de escritorio y de móvil.
-- Revisión final de errores y seguridad de todo el repositorio: barrido de todas las rutas de la API con entradas válidas y hostiles sobre el dataset real, búsqueda de secretos en el historial y revisión de `frontend/` y `data/`; los fallos encontrados se corrigieron con su test.
-- Frontend: el flujo de los PGE deja de ser una imagen fija de 2023 y pasa a ser un diagrama interactivo del año elegido (`BudgetSankey.jsx`); comprobado en navegador (resaltado, clic, modo oscuro y móvil). Después, el mismo resaltado en el flujo de la calculadora (`TaxSankey.jsx`), con un hook común (`useHighlight.js`); el parpadeo al cruzar cintas se reprodujo y se midió con un barrido automático del ratón.
-- Material de estudio para la defensa (presentación y resumen de decisiones); no forma parte del código.
-- Frontend: «Comparar» abre con el mapa en grande y en vista general, con el ámbito y el año debajo; iconos de ámbito redibujados en línea fina; comprobado con capturas a ancho de escritorio y de móvil.
-- Frontend: la página «Avisos» pasa de una lista con filtros a una tarjeta por aviso (cifra de la desviación y las dos cifras que la explican); el diseño se eligió entre tres propuestas y se comprobó con capturas a ancho de escritorio y de móvil.
-- Frontend: portada simplificada (pregunta, una cifra y tarjetas-enlace a cada sección); el detalle del gasto pasa a la página nueva «Gasto público»; lema «como el agua»; comprobado con lint, build y capturas a escritorio y móvil.
+1. No se inventa ningún dato. Cada cifra sale de una fuente oficial y lleva su URL, y lo
+   provisional va marcado como tal. La IA no ha generado ni estimado ninguna cifra.
+2. Primero el diseño. Discutimos y aprobamos la arquitectura y el contrato de la API
+   (`docs/`) antes de programar, y la IA ha trabajado siempre contra ese contrato.
+3. No se añaden dependencias sin acordarlo. No hay base de datos, gestor de estado ni
+   librerías de mapas o de iconos, para que cualquiera de los tres pueda explicar
+   cualquier archivo.
+4. Nada está hecho hasta que se comprueba: se ejecuta el script, pasan los tests y se
+   abre la página en el navegador.
+5. Cada decisión que no sea obvia se anota con su porqué en `docs/ARCHITECTURE.md`
+   («Decisiones de implementación»). Es lo que hemos estudiado para la defensa.
+
+## Lo que hemos decidido nosotros
+
+- La idea de cruzar cuánto se gasta con el uso real, y avisar cuando no cuadran o cuando
+  España se aleja de otros países.
+- La arquitectura. Datos, backend y frontend van separados y se unen por un único
+  `dataset.json` y un contrato de API que fijamos antes de programar. No hay base de
+  datos porque son pocas filas y solo se leen.
+- El stack, y la regla de no añadir dependencias ni capas sin hablarlo entre los tres.
+- El estilo gráfico: el nombre, los colores, la tipografía, el modo oscuro y el aspecto
+  de cada pantalla.
+- Las fuentes. Eurostat (COFOG, sector S13) da las cifras comparables entre países y
+  Hacienda los PGE partida a partida. El BOE es el ancla legal, y la OCDE solo una
+  referencia orientativa para países de fuera de la UE.
+- Las reglas de los avisos: qué se compara con qué, el umbral de cada cruce y el uso de
+  la mediana en lugar de la media. Descartamos los cruces de sanidad y transporte porque
+  no encontramos un indicador de uso que pudiéramos defender.
+- Lo que no hacemos. No sumamos importes por partido político ni mezclamos el presupuesto
+  del Estado con el gasto ejecutado de todas las administraciones. 2020 se queda sin
+  rellenar porque no tuvo documento presupuestario propio, y no hemos tocado los umbrales
+  para que salten más avisos.
+- La interfaz: qué va en la portada, qué se quita y cómo se ven los avisos, los iconos y
+  los diagramas. Varias pantallas las rehicimos enteras porque no nos convencían.
+
+## Para qué la ha usado cada uno
+
+Cada uno tiene su carpeta, pero el proyecto lo hemos hecho entre los tres. Las decisiones
+se han tomado en común y todos hemos tocado y revisado el trabajo de los demás.
+
+### Mario (datos, `data/`)
+
+- Localizar las APIs de Eurostat y del BOE y los CSV de los PGE, comprobándolas con
+  llamadas reales (`docs/DATA_SOURCES.md`).
+- Escribir `fetch.py` y `build.py`, que descargan los datos, aplanan el JSON-stat y leen
+  los CSV. La salida se ejecutó y se revisó en cada paso.
+- Proponer comprobaciones de calidad (sumas, duplicados, negativos) y analizar los casos
+  que fallaban. Así aparecieron los huecos de la serie: la Seguridad Social en las
+  prórrogas y el año 2020.
+- Calcular las cuotas de los cruces de gasto y uso, y verificar en el BOE los
+  nombramientos de los Gobiernos. El criterio y el umbral de cada cruce los decidió Mario.
+- Tests (`data/test_build.py`) y documentación de los datos.
+
+### Pedro (backend, contrato y entrega: `backend/`, `docs/`, `README.md`)
+
+- Pasar a limpio la arquitectura y el contrato que habíamos acordado.
+- Escribir la API con FastAPI, las dos reglas de aviso y sus tests. Después vinieron las
+  rutas de los PGE, el buscador de partidas y los fondos europeos (contrato v1.1 a v1.3).
+- Tests de los casos límite de las reglas, uno por endpoint, y comprobaciones de sumas
+  contra el dataset real.
+- Revisión final: probar todas las rutas con entradas válidas y hostiles, buscar secretos
+  en el historial y repasar las páginas en el navegador. Cada fallo encontrado se
+  corrigió con su test.
+- Cambios en la interfaz, coordinados con Dersu: el mapa de comparación (generado desde
+  Natural Earth, sin librería), los diagramas de flujo interactivos, la página de avisos,
+  el buscador de la cabecera y la portada.
+- El `README.md` y el material de estudio para la defensa, que no forma parte del código.
+
+### Dersu (frontend, `frontend/`)
+
+- Escribir las páginas y componentes de React contra el contrato de la API: ámbitos,
+  comparación, presupuestos, calculadora de impuestos y gasto frente a inflación.
+- Estilos en CSS normal, modo oscuro y adaptación a móvil, comprobados en el navegador.
+- Anotar cada cambio de interfaz y su motivo en `frontend/CAMBIOS.md`.
+
+## Cómo hemos comprobado lo que generaba
+
+- Hay 49 tests del backend y 6 del pipeline de datos. Comprueban, entre otras cosas, que
+  las políticas suman el total del año y que los tipos de gasto suman el importe de cada
+  ámbito.
+- Las cifras de los PGE se guardan en miles de euros, sin convertir, para poder cotejarlas
+  tal cual con el documento de Hacienda.
+- Hemos abierto cada pantalla en el navegador contra el backend real, a ancho de
+  escritorio y de móvil.
+- Al revisar descartamos o corregimos varias cosas que había escrito la IA. Por ejemplo,
+  una búsqueda vacía devolvía todos los programas, y un presupuesto de 2015 aparecía como
+  vigente en 2020.
+
+## Límites
+
+Las fuentes y los umbrales los hemos elegido nosotros. La IA tampoco ha producido datos
+ni interviene cuando la aplicación está en marcha.
